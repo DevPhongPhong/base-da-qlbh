@@ -1,0 +1,113 @@
+﻿@model Entities.Models.Users
+
+@{
+    ViewData["Title"] = "Thêm mới tài khoản";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-success">
+            <div class="card-header">
+                <h3 class="card-title">Thêm mới tài khoản</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form action="@Url.Action("Create")" method="post">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="RoleId" class="control-label">Quyền tài khoản <span class="text-red">*</span></label>
+                                <select asp-for="RoleId" asp-items="(List<SelectListItem>)ViewBag.ListRole" class="select2 form-control" style="width: 100%;">
+                                    <option value="-1">---Chọn quyền tài khoản---</option>
+                                </select>
+                                <span asp-validation-for="RoleId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Username" class="control-label">Tên tài khoản <span class="text-red">*</span></label>
+                                <input asp-for="Username" class="form-control" />
+                                <span asp-validation-for="Username" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Password" class="control-label">Mật khẩu (Mặc định: 123456) <span class="text-red">*</span></label>
+                                <input asp-for="Password" class="form-control" value="123456" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="FullName" class="control-label">Họ và tên</label>
+                                <input asp-for="FullName" class="form-control" />
+                                <span asp-validation-for="FullName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Gender" class="control-label">Giới tính</label>
+                                <select asp-for="Gender" class="form-control">
+                                    <option value="">- Chọn giới tính -</option>
+                                    <option value="1">Nam</option>
+                                    <option value="2">Nữ</option>
+                                    <option value="3">Khác</option>
+                                </select>
+                                <span asp-validation-for="Gender" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Birthday" class="control-label">Ngày sinh</label>
+                                <input asp-for="Birthday" type="date" class="form-control" />
+                                <span asp-validation-for="Birthday" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Address" class="control-label">Địa chỉ</label>
+                                <input asp-for="Address" class="form-control" />
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Phone" class="control-label">Số điện thoại</label>
+                                <input asp-for="Phone" class="form-control" />
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Email" class="control-label">Email</label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-right">
+                        <div class="col-md-12">
+                            <p>Trường <span class="text-red">*</span> là trường dữ liệu bắt buộc</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer float-right">
+                    <a href="@Url.Action("Index")">Quay lại</a>
+                    <input type="submit" value="Lưu lại" class="btn btn-success" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2();
+        });
+    </script>
+}

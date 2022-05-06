@@ -1,0 +1,7 @@
+Cách build source code:____
+
+- Mở file CreateDB.sql, copy all nội dung
+- Mở SQL Server, chuột phải localhost, chọn New Query, Dán tất cả nội dung đã copy vào rồi ấn F5 (1 loạt "1 row affected" là ok)
+- Mở project lên, chọn file appsetting.json để sửa connection theo máy mình
+- Chuột phải vào Web, chọn Set as Startup Project, rồi ấn F5 để Run
+- Deploy thì chuột phải lên Web, chọn Publish, ...

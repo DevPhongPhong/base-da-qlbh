@@ -1,0 +1,196 @@
+﻿@{
+    var listProducts = (Entities.Common.PaginationModel<List<Entities.DTOs.ProductViewModel>>)ViewBag.ListProductBySearchKeyWord;
+    var countPage = (listProducts.Pagination.Total % listProducts.Pagination.Size > 1) ? listProducts.Pagination.Total / listProducts.Pagination.Size + 1 :
+        listProducts.Pagination.Total / listProducts.Pagination.Size;
+    var currentCategoryId = listProducts.Data.FirstOrDefault() != null ? listProducts.Data.FirstOrDefault().currentCategoryId : 1;
+    var currentPage = listProducts.Pagination.Offset + 1;
+    bool isNext = (currentPage < countPage);
+    bool isPrev = (currentPage > 1);
+    string currentCategoryName = ViewBag.CurrentCategoryName?.ToString();
+    string currentOrder = ViewBag.CurrentOrder?.ToString();
+}
+@{
+    string currentOrderDisplay = "";
+    if (currentOrder == "date")
+    {
+        currentOrderDisplay = "Mới nhất";
+    }
+    else if (currentOrder == "date_desc")
+    {
+        currentOrderDisplay = "Cũ nhất";
+    }
+    else if (currentOrder == "price")
+    {
+        currentOrderDisplay = "Giá: Tăng dần";
+    }
+    else if (currentOrder == "price_desc")
+    {
+        currentOrderDisplay = "Giá: Giảm dần";
+    }
+    else if (currentOrder == "abc")
+    {
+        currentOrderDisplay = "A->Z";
+    }
+    else if (currentOrder == "abc_desc")
+    {
+        currentOrderDisplay = "Z->A";
+    }
+    else if (currentOrder == "best_sell")
+    {
+        currentOrderDisplay = "Bán chạy nhất";
+    }
+}
+
+@{
+    var listRandomProductCategory = (List<Entities.DTOs.ProductCategoryViewModel>)ViewBag.RandomProductCategory;
+    string currentKeyword = ViewBag.CurrentKeyword?.ToString();
+}
+@{
+    ViewData["Title"] = "Kết quả tìm kiếm cho: " + currentKeyword;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Start Breadcrumbs Section -->
+<section class="breadcrumbs-section background_bg" data-img-src="assets/images/shop-breadcrumbs-img.jpg" style="background: url(&quot;assets/images/shop-breadcrumbs-img.jpg&quot;) center center / cover;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page_title text-center">
+                    <h1>Tìm kiếm sản phẩm</h1>
+                    <ul class="breadcrumb justify-content-center">
+                        <li><a href="/">Trang chủ</a></li>
+                        <li><a href="/tim-kiem?keyword=@currentKeyword">Tìm kiếm từ khoá: @currentKeyword</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Header Section -->
+<!-- Start Shop Section -->
+<section class="shop-inner-section pt_large pb_large">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 col-lg-8 col-md-12">
+                <div class="shop-options d-sm-flex justify-content-between align-items-center">
+                    <!--Short area start-->
+
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            --Sắp xếp theo: @currentOrderDisplay--
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" selected="true" href="@Url.Action("Search","Home",new {page = 1, keyword = currentKeyword, order = "abc" })">A->Z</a>
+                            <a class="dropdown-item" href="@Url.Action("Search","Home",new {page = 1, keyword = currentKeyword, order = "abc_desc" })">Z->A</a>
+                            <a class="dropdown-item" href="@Url.Action("Search","Home",new {page = 1, keyword = currentKeyword, order = "date" })">Mới nhất</a>
+                            <a class="dropdown-item" href="@Url.Action("Search","Home",new {page = 1, keyword = currentKeyword, order = "date_desc" })">Cũ nhất</a>
+                            <a class="dropdown-item" href="@Url.Action("Search","Home",new {page = 1, keyword = currentKeyword, order = "price" })">Giá: Tăng dần</a>
+                            <a class="dropdown-item" href="@Url.Action("Search","Home",new {page = 1, keyword = currentKeyword, order = "price_desc" })">Giá: Giảm dần</a>
+                        </div>
+                    </div>
+
+                    <!--Change style display start-->
+                    <div class="shop-list_grid">
+                        <div class="list_grid-btns">
+                            <a href="javascript:void(0)" class="list-view"><i class="ion-navicon-round"></i></a>
+                            <a href="javascript:void(0)" class="grid-view on"><i class="ion-grid"></i></a>
+                        </div>
+                    </div>
+                    <!--Change style display end-->
+                </div>
+                <!--List Products start-->
+                <div class="row list_grid_container grid justify-content-center">
+                    @if (listProducts.Data?.Count <= 0)
+                    {
+                        <p>Hiện chưa có sản phẩm</p>
+                    }
+                    else
+                    {
+                        @foreach (var item in listProducts.Data)
+                        {
+                            <div class="col-md-4 col-6">
+                                <div class="product-box common-cart-box box-1">
+                                    <div class="product-img common-cart-img">
+                                        <img src="@item.MainImageThumb" alt="product-img">
+                                        <div class="hover-option">
+                                            <div class="add-cart-btn">
+                                                <button type="button" onclick="addToCart(@item.Id)" data-id="@item.Id" class="btn btn-primary">Thêm vào giỏ hàng</button>
+                                            </div>
+                                            <ul class="hover-icon">
+                                                @*<li><a href="#"><i class="fa fa-heart"></i></a></li>*@
+                                                @*<li><a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a></li>*@
+                                                
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="product-info common-cart-info text-center">
+                                        <a href="@Url.Action("ProductDetails","Home", new { id = item.Id,color = 1, length =1, quantity=1})" class="cart-name">@item.Name</a>
+                                        <p class="cart-price">
+                                            @if (item.PromotionPrice.HasValue)
+                                            {
+                                                <del>@item.Price?.ToString("N0") đ</del>
+                                                @item.PromotionPrice?.ToString("N0")
+                                            }
+                                            else
+                                            {
+                                                @item.Price?.ToString("N0")  
+                                            }
+                                            đ
+                                        </p>
+                                        <p class="product-list-text" style="">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                                        <div class="hover-option">
+                                            <div class="add-cart-btn">
+                                                <a href="#" class="btn btn-primary">Add To Cart</a>
+                                            </div>
+                                            <ul class="hover-icon">
+                                                @*<li><a href="#"><i class="fa fa-heart"></i></a></li>*@
+                                                @*<li><a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a></li>*@
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+                <!--List Products end-->
+                <!--Paging area start-->
+                @if (countPage > 0)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <nav>
+                                <ul class="pagination justify-content-center">
+
+                                    @for (int i = 1; i <= countPage; i++)
+                                    {
+                                        <li @(i == currentPage ? "class=active" : "")><a href="@Url.Action("Search","Home",new { page = i, order = currentOrder, keyword = currentKeyword})">@i</a></li>
+                                    }
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                }
+                <!--Paging area end-->
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-12 order-lg-first">
+                <div class="shop-sidebar">
+                    <partial name="~/Views/Shared/_LeftCategory.cshtml" />
+                    
+                    <!--Recent Products area end-->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Shop Section -->
+
+<script>
+    $('#sltOrder').on('change', function () {
+                                var orderType = $(this).val()
+            if ($(this).val() != null) {
+                                    window.location = "@Url.Action("Search", "Home", new { id = currentCategoryId, page = currentPage, keyword = currentKeyword})" + '&order=' + orderType;
+                                }
+                            });
+        $("#sltOrder").val("@currentOrder");
+</script>

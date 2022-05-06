@@ -1,0 +1,33 @@
+﻿@model Entities.Models.Roles
+@{
+    ViewData["Title"] = "Cập nhật quyền hệ thống";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-warning">
+            <div class="card-header">
+                <h3 class="card-title">Cập nhật quyền hệ thống</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form class="form-horizontal" method="post" action="@Url.ActionLink("Edit")" asp-antiforgery="true">
+                @Html.HiddenFor(x => x.Id)
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="RoleName" class="control-label">Tên chuyên mục</label>
+                        <input asp-for="RoleName" class="form-control" />
+                        <span asp-validation-for="RoleName" class="text-danger"></span>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer float-right">
+                    <a href="@Url.Action("Index")">Quay lại</a>
+                    <input type="submit" value="Lưu lại" class="btn btn-warning" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

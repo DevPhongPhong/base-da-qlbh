@@ -1,0 +1,85 @@
+﻿@model Entities.DTOs.AccountChangePassDTO
+@{
+    ViewData["Title"] = "Đổi mật khẩu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<span></span>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <div class="panel-body">
+            <!--CartInfo start-->
+            <div class="card" style="width: 100%;">
+                <div class="card-header">
+                    <h4>Tài khoản</h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <a class="btn btn-primary" href="@Url.Action("Index","Account")">Cập nhật thông tin chi tiết tài khoản</a>
+                            </div>
+                            <div class="billing-btn">
+                                <div class="col-sm-2">
+                                    <button class="btn btn-primary" href="@Url.Action("ChangePass","Account")" style="background:#ffffff;color:red" type="button">Đổi mật khẩu</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="billing-back-btn" style="float:right">
+                                    <div class="billing-btn">
+                                        <a class="btn btn-primary" id="listorderreceived" href="@Url.Action("ListOrderReceived", "Cart")">Danh sách đơn hàng</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <form method="post" action="@Url.ActionLink("ChangePass")" asp-antiforgery="true" class="subscribe-popup-form">
+                            <div class="myaccount-info-wrapper billing-info-wrap">
+                                @Html.HiddenFor(x => x.id)
+                                @Html.HiddenFor(x => x.username)
+                                @if (ViewData["Error"] != null)
+                                {
+                                    <div class="alert-danger p-2 mb-2">@ViewData["Error"].ToString()</div>
+                                }
+                                @if (ViewData["Success"] != null)
+                                {
+                                    <div class="alert-success p-2 mb-2">@ViewData["Success"].ToString()</div>
+                                }
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="billing-info">
+                                        <label>Mật khẩu mới <span class="text-red">*</span></label>
+                                        <input type="password" asp-for="oldpass" placeholder="Mật khẩu cũ" required="true">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="billing-info">
+                                        <label>Mật khẩu mới <span class="text-red">*</span></label>
+                                        <input type="password" asp-for="newpassword" placeholder="Mật khẩu mới" required="true">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="billing-info">
+                                        <label>Nhập lại mật khẩu mới <span class="text-red">*</span></label>
+                                        <input type="password" asp-for="renewpassword" placeholder="Nhập lại mật khẩu mới" required="true">
+                                    </div>
+                                </div>
+                            </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-10"></div>
+                                    <div class="col-md-2">
+                                        <button class="btn btn-primary" type="submit">Cập nhật</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <!--CartInfo end-->
+        </div>
+    </div>
+</div>
+<div class="col-2"></div>

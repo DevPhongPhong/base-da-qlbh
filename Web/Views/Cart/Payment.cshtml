@@ -1,0 +1,217 @@
+﻿@model Entities.DTOs.OrderRequestViewModel
+@{
+    ViewData["Title"] = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var listItem = (List<CartItem>)ViewBag.ListProductsInCart;
+    var totalAll = (decimal)0;
+}
+<style>
+    .your-order-area .Place-order > button {
+        background-color: #2e9ed5;
+        color: #fff;
+        display: block;
+        font-weight: 700;
+        letter-spacing: 1px;
+        line-height: 1;
+        padding: 18px 20px;
+        text-align: center;
+        text-transform: uppercase;
+        border-radius: 50px;
+        z-index: 9;
+        width: 100%;
+        border: #fff;
+    }
+
+    .text-red {
+        color: red;
+    }
+</style>
+<hr />
+<!-- Start Breadcrumbs Section -->
+<section class="breadcrumbs-section background_bg" data-img-src="/assets/images/aboutus-breadcrumbs-img.jpg" style="        background: url(&quot;/assets/images/aboutus-breadcrumbs-img.jpg&quot;) center center / cover;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="page_title text-center">
+                    <h1>Checkout</h1>
+                    <ul class="breadcrumb justify-content-center">
+                        <li><a href="/">Trang chủ </a></li>
+                        <li><span>Thanh toán</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Header Section -->
+<!-- Start Checkout Section -->
+<section class="checkout-inner-page pt_large pb_large">
+    <div class="container">
+        @{ var erMes = (string)TempData["StrErr"];
+            if (erMes != null && erMes != "")
+            {
+                <div class="alert alert-danger">@erMes</div>
+            }
+        }
+        <div class="row">
+            <div class="col-lg-12 ">
+                <div class="checkout-process">
+                    <div id="accordion" class="checkout-parts accordion">
+                        <form role="form" action="" method="post">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>
+                                        <a class="btn btn-link" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><span>01</span>Danh sách sản phẩm</a>
+                                    </h5>
+                                </div>
+                                <div class="collapse show" aria-labelledby="headingOne">
+                                    <div class="card-body">
+                                        <div class="check-tab">
+                                            <div class="order-table">
+                                                <div class="order-review-table table-responsive">
+                                                    <table class="table table-bordered text-center">
+                                                        <thead>
+                                                            <tr class="row-1">
+                                                                <th class="row-title text-left">Tên sản phẩm</th>
+                                                                <th class="row-title">Đơn giá</th>
+                                                                <th class="row-title">Số lượng</th>
+                                                                <th class="row-title">Thành tiền</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var item in listItem)
+                                                            {
+                                                                var price = (decimal?)0;
+                                                                var total = (decimal)0;
+                                                                {
+                                                                    if (item.Product.IsPromote)
+                                                                    {
+                                                                        price = item.Product.PromotionPrice;
+                                                                        total = (decimal)(item.Product.PromotionPrice * item.Quantity);
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        price = item.Product.Price;
+                                                                        total = (decimal)(item.Product.Price * item.Quantity);
+                                                                    }
+                                                                }
+                                                                <tr class="row-2">
+                                                                    <td class="product-name">@item.Product.Name</td>
+                                                                    <td class="product-price">@price.GetValueOrDefault(0).ToString("N0") đ</td>
+                                                                    <td class="product-quantity">@item.Quantity</td>
+                                                                    <td class="product-subtotal">@total.ToString("N0") đ</td>
+                                                                </tr>
+                                                                totalAll += total;
+                                                            }
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr class="row-6">
+                                                                <td class="text-left" colspan="3">Tổng:</td>
+                                                                <td class="product-subtotal">@totalAll.ToString("N0") đ</td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header form-wizard-step">
+                                    <h5>
+                                        <a class="btn btn-link collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"><span>02</span>Phương thức thanh toán</a>
+                                    </h5>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="check-tab">
+                                            <h5>
+                                                -- Chuyển khoản ngân hàng:
+                                            </h5>
+                                            <p>
+                                                ◾ Vui lòng chuyển khoản thanh toán trước khi đặt hàng về tài khoản sau: <br />
+                                                ◾◾<b> 03995093101 - Ngân hàng Tiên Phong TPBank - Nguyễn Hải Phong.<br /></b>
+                                            </p>
+                                            <hr />
+                                            <h5>
+                                                -- COD:
+                                            </h5>
+                                            <p>◾ Quý khách sẽ thanh toán bằng tiền mặt khi nhận hàng. Sau khi hoàn thành form "<b>THÔNG TIN GIAO HÀNG</b>" bên dưới, vui lòng bấm "<b>Đặt hàng</b>" để hoàn tất.</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header form-wizard-step">
+                                    <h5>
+                                        <a class="btn btn-link collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"><span>03</span>Thông tin giao hàng</a>
+                                    </h5>
+                                </div>
+                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="check-tab">
+                                            <div class="checkout-form">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <label>Họ và tên <span class="text-red">*</span></label>
+                                                        <input class="form-control required" asp-for="CustomerFullName" required type="text" placeholder="Nhập vào họ và tên của bạn">
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="billing-info mb-20px">
+                                                            <hr />
+                                                            <label>Email</label>
+                                                            <input asp-for="CustomerEmail" class="form-control required" type="email" placeholder="Nhập vào email của bạn">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="billing-info mb-20px">
+                                                            <hr />
+                                                            <label>Số điện thoại <span class="text-red">*</span></label>
+                                                            <input class="form-control required" asp-for="CustomerPhone" required type="number" placeholder="Nhập vào số điện thoại của bạn">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="billing-info mb-20px">
+                                                            <hr />
+                                                            <label>Địa chỉ <span class="text-red">*</span></label>
+                                                            <input class="form-control required" asp-for="CustomerAddress" required type="text" placeholder="Nhập vào địa chỉ chi tiết của bạn (số nhà, tên đường, huyện, tỉnh)">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="billing-info mb-20px">
+                                                            <hr />
+                                                            <label>Ghi chú đặt hàng</label>
+                                                            <textarea asp-for="CustomerNote" placeholder="Nhập vào ghi chú đặt hàng" class="form-control required"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <hr />
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>Các trường có dấu <span class="text-red">*</span> không được bỏ trống</label>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-wizard-buttons text-md-right">
+                                                                    <button class="btn btn-primary btn-submit btn-next" type="submit">Đặt hàng</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Checkout Section -->

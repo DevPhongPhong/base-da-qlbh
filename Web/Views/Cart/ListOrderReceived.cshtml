@@ -1,0 +1,133 @@
+﻿@using System;
+@{
+    ViewData["Title"] = "Giỏ hàng của bạn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<Entities.DTOs.OrderReceivedViewModel>
+@{
+
+    var emailAccount = TempData["email"];
+}
+<hr />
+@if (Model == null)
+{
+    <div class="container">
+        <div style="padding: 100px,0px;margin-top:20px">
+            <div class=" alert alert-danger">@TempData["error"]</div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="panel-body">
+                <!--Table Style-->
+                <style>
+                    .table .thead-light th {
+                        color: #000000;
+                        background-color: #cce5ff;
+                        border-color: #b8daff;
+                    }
+
+                    .table-bordered td, .table-bordered th {
+                        border: 1px solid #b8daff;
+                    }
+                </style>
+                <div class="card" style="width: 100%;">
+                    <div class="card-header">
+                        <h4>Tài khoản</h4>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <a class="btn btn-primary" href="@Url.Action("Index","Account")">Cập nhật thông tin chi tiết tài khoản</a>
+                                </div>
+                                <div class="billing-btn">
+                                    <div class="col-sm-2">
+                                        <a class="btn btn-primary" href="@Url.Action("ChangePass","Account")" type="button">Đổi mật khẩu</a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="billing-back-btn" style="float:right">
+                                        <div class="billing-btn">
+                                            <button class="btn btn-primary" id="listorderreceived" href="@Url.Action("ListOrderReceived", "Cart")" type="button" style="background:#ffffff;color:red">Danh sách đơn hàng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <table class="table table-bordered" style="margin-top:20px">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Mã đơn hàng</th>
+                                        <th scope="col">Tên người mua</th>
+                                        <th scope="col">Trạng thái</th>
+                                        <th scope="col">Ngày đặt hàng</th>
+                                        <th scope="col">Tổng số tiền</th>
+                                        <th scope="col">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var i in Model)
+                                    {
+                                        <tr>
+                                            <th scope="row" id="@i.OrderCode">@i.OrderCode</th>
+                                            <td>@i.CustomerFullName</td>
+                                            <td>
+                                                @{
+                                                    var message = "";
+                                                    if (i.OrderStatusId == 1)
+                                                    {
+
+                                                        message = "Chờ xác nhận!";
+                                                    }
+                                                    else if (i.OrderStatusId == 2)
+                                                    {
+
+                                                        message = "Đơn hàng đã được xác nhận - Đang chờ giao!";
+                                                    }
+                                                    else if (i.OrderStatusId == 3)
+                                                    {
+
+                                                        message = "Đơn hàng đang được giao - Chờ xác nhận đã giao!";
+                                                    }
+                                                    else if (i.OrderStatusId == 4)
+                                                    {
+
+                                                        message = "Giao hàng thành công!";
+                                                    }
+                                                    else if (i.OrderStatusId == -2)
+                                                    {
+
+                                                        message = "Giao hàng thất bại!";
+                                                    }
+                                                    else if (i.OrderStatusId == -1)
+                                                    {
+
+                                                        message = "Đơn hàng đã bị huỷ!";
+                                                    }
+                                                }
+                                                @message
+                                            </td>
+                                            <td>@i.CreatedDate.ToString()</td>
+                                            <td>@i.TotalPrice.GetValueOrDefault(0).ToString("N0")</td>
+                                            <td>@Html.ActionLink("Xem đơn hàng", "TrackingOrderReceived", "Cart", new { orderCode = i.OrderCode, email = emailAccount })
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+
+}

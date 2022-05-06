@@ -1,0 +1,137 @@
+﻿@using Microsoft.AspNetCore.Http
+@model Entities.DTOs.SendContactModel
+@{
+    ViewData["Title"] = "Giới thiệu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{var message = (string)TempData["sentContact"]; }
+<!-- Start Breadcrumbs Section -->
+<section class="breadcrumbs-section background_bg" data-img-src="/assets/images/contact-breadcrumbs-img.jpg" style="background: url(&quot;/assets/images/contact-breadcrumbs-img.jpg&quot;) center center / cover;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="page_title text-center">
+                    <h1>Liên hệ</h1>
+                    <ul class="breadcrumb justify-content-center">
+                        <li><a href="/">Trang chủ</a></li>
+                        <li><span>Liên hệ</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Header Section -->
+<!-- Start Contact Detail Section -->
+<section class="contact-inner-page pt_large">
+    <div class="container">
+        <div id="alertSent">
+            @if (message == "success")
+            {
+                <div class="alert alert-success">Đã gửi</div>
+            }
+            else if (message == "error")
+            {
+                <div class="alert alert-danger">Lời nhắn chưa được gửi, vui lòng gửi lại sau!</div>
+            }
+        </div>
+        <script>
+            $("#alertSent").fadeOut();
+        </script>
+        <div class="row">
+            <div class="col-lg-7 col-md-12">
+                <div class="contact-inputs">
+                    <div class="title text-left">
+                        <h4>Để lại lời nhắn cho chúng tôi</h4>
+                    </div>
+                    <form method="post" class="contact-form form-with-label" action="@Url.Action("Contact","Home")" asp-antiforgery="true">
+                        <div class="input-1">
+                            <label>Họ tên<span>*</span></label>
+                            <input required="true" class="form-control" name="name" placeholder="Họ tên" value="" type="text">
+                        </div>
+                        <div class="input-2">
+                            <label>Email<span>*</span></label>
+                            <input required="true" class="form-control" name="email" placeholder="Email" value="" type="email">
+                        </div>
+                        <div class="input-3">
+                            <label>Số điện thoại<span>*</span></label>
+                            <input required="true" class="form-control" name="phone" placeholder="Số điện thoại" value="" type="text">
+                        </div>
+                        <div class="input-4">
+                            <label>Chủ đề<span>*</span></label>
+                            <input required="true" class="form-control" name="subject" placeholder="Chủ đề" value="" type="text">
+                        </div>
+                        <div class="input-5">
+                            <label>Tin nhắn<span>*</span></label>
+                            <textarea required="true" rows="3" class="form-control" name="description" placeholder="Nội dung"></textarea>
+                        </div>
+                        <div class="submit-btn">
+                            <button type="submit" class="btn btn-primary">Gửi</button>
+                        </div>
+                        <input type="hidden" name="url" id="sendUrl">
+
+                        <input type="hidden" name="type" value="1">
+                        <div class="col-md-12">
+                            <div id="alert-msg" class="alert-msg text-center"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-12">
+                <div class="contact-details">
+                    <div class="title text-left">
+                        <h4>Hãy giữ liên lạc với chúng tôi</h4>
+                    </div>
+                    <div class="contact-inner">
+                        <p>Chúng tôi luôn nhận các phản hồi từ khách hàng</p>
+                        <ul class="contact-locations">
+                            <li><span class="fa fa-map-marker"></span><p>  ◾ 63 Hồ Tùng Mậu - Hà Nội</p></li>
+                            <li><span class="fa fa-map-marker"></span><p> ◾ 216M Nguyễn Trãi - Hà Đông</p></li>
+                            <li><span class="fa fa-map-marker"></span><p>◾ 350 Cầu Giấy</p></li>
+                            <li><span class="fa fa-map-marker"></span><p>◾ 972 Láng</p></li>
+                            <li><span class="fa fa-map-marker"></span><p>◾ 68 Chùa Bộc</p></li>
+                            <li><span class="fa fa-map-marker"></span><p>◾ 62 Lương Ngọc Quyến - Tp Thái Nguyên</p></li>
+                            <li><span class="fa fa-phone"></span><p>◾ 0867 881 345</p></li>
+                            <li><span class="fa fa-envelope-o"></span><a href="https://www.facebook.com/ThuyLinh.20112000">LinhThuy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Contact Detail Section -->
+<!-- Start Map Section -->
+<section class="pb-0">
+    <div class="container-fluid p-0">
+        <div class="row no-gutters">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <style>
+                    .iframe-rwd {
+                        position: relative;
+                        padding-bottom: 56.25%;
+                        height: 100px;
+                        overflow: hidden;
+                    }
+
+                        .iframe-rwd iframe {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                        }
+                </style>
+                <div class="iframe-rwd">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d739.0542932405208!2d105.82568562493994!3d21.008654606486346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac803438c2ab%3A0xfa71929ce084c678!2zNjggUC4gQ2jDuWEgQuG7mWMsIFF1YW5nIFRydW5nLCDEkOG7kW5nIMSQYSwgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1647090385825!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.924298821181!2d105.79028791528802!3d21.035714785994646!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab4818e2d1c5%3A0x98f7ee012655e46e!2zMzUwIMSQLiBD4bqndSBHaeG6pXksIEThu4tjaCBW4buNbmcsIEPhuqd1IEdp4bqleSwgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1647090294545!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    var obj = document.getElementById("sendUrl");
+    obj.value = window.location.pathname + window.location.search;
+</script>
+<!-- End Map Section -->

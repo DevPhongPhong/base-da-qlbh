@@ -1,0 +1,70 @@
+﻿@model Entities.DTOs.ProductCategoryViewModel
+
+@{
+    ViewData["Title"] = "Thêm mới danh mục sản phẩm";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="card card-success">
+            <div class="card-header">
+                <h3 class="card-title">Thêm mới danh mục</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form action="@Url.Action("Create")" method="post">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="CategoryName" class="control-label">Tên danh mục</label>
+                        <input asp-for="CategoryName" class="form-control" />
+                        <span asp-validation-for="CategoryName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ParentId" class="control-label">Danh mục cha</label>
+                        <select asp-for="ParentId" asp-items="(List<SelectListItem>)ViewBag.ProductCategories" class="select2 form-control" style="width: 100%;">
+                            <option value='-1'>---Chọn danh mục cha---</option>
+                        </select>
+                        <span asp-validation-for="Tags" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CategoryDecription" class="control-label">Chi tiết danh mục</label>
+                        <input asp-for="CategoryDecription" class="form-control" />
+                        <span asp-validation-for="CategoryDecription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CategoryOrder" class="control-label">Sắp xếp</label>
+                        <input asp-for="CategoryOrder" class="form-control" value="1" />
+                        <span asp-validation-for="CategoryOrder" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IsHot" class="control-label">Danh mục hot</label>
+                        &nbsp;
+                        <input asp-for="IsHot" />
+                        <span asp-validation-for="IsHot" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IsHome" class="control-label">Hiển thị trang chủ</label>
+                        &nbsp;
+                        <input asp-for="IsHome" />
+                        <span asp-validation-for="IsHome" class="text-danger"></span>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer float-right">
+                    <a href="@Url.Action("Index")">Quay lại</a>
+                    <input type="submit" value="Lưu lại" class="btn btn-success" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2();
+        });
+    </script>
+}

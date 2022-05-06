@@ -1,0 +1,214 @@
+﻿@{
+    ViewData["Title"] = "Giỏ hàng của bạn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listItem = (List<Entities.DTOs.ProductOrder>)Model.ListProductOrder;
+    var totalAll = (decimal)0;
+}
+@model Entities.DTOs.TrackingOrderReceivedModel
+
+@if (Model == null)
+{
+    <div class="container">
+        <div style="padding: 100px,0px;margin-top:20px">
+            <div class=" alert alert-danger">@TempData["error"]</div>
+        </div>
+    </div>
+}
+else
+{
+    <!-- Start Breadcrumbs Section -->
+    <section class="breadcrumbs-section background_bg" data-img-src="/assets/images/aboutus-breadcrumbs-img.jpg" style="        background: url(&quot;/assets/images/aboutus-breadcrumbs-img.jpg&quot;) center center / cover;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page_title text-center">
+                        <h1>Thông tin đơn hàng</h1>
+                        <ul class="breadcrumb justify-content-center">
+                            <li><a href="/">Trang chủ</a></li>
+                            <li><a href="@Url.Action("SearchOrderReceived", "Cart")">Tra cứu đơn hàng</a></li>
+                            <li><span>Mã đơn hàng: @Model.OrderCode</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Header Section -->
+    <div class="container">
+        <div style="padding: 100px,0px">
+            <style>
+                .alert {
+                    font-weight: bold;
+                }
+
+                .alert-warning {
+                    color: #856404;
+                    background-color: #fff3cd;
+                    border-color: #eb3e32;
+                }
+            </style>
+            @{
+                var type = "";
+                var message = "";
+                if (Model.OrderStatusId == 1)
+                {
+                    type = "warning";
+                    message = "Chờ xác nhận";
+                }
+                else if (Model.OrderStatusId == 2)
+                {
+                    type = "warning";
+                    message = "Đơn hàng đã được xác nhận - Đang chờ giao!";
+                }
+                else if (Model.OrderStatusId == 3)
+                {
+                    type = "warning";
+                    message = "Đơn hàng đang được giao - Chờ xác nhận đã giao!";
+                }
+                else if (Model.OrderStatusId == 4)
+                {
+                    type = "success";
+                    message = "Giao hàng thành công!";
+                }
+                else if (Model.OrderStatusId == -2)
+                {
+                    type = "danger";
+                    message = "Giao hàng thất bại!";
+                }
+                else if (Model.OrderStatusId == -1)
+                {
+                    type = "danger";
+                    message = "Đơn hàng đã bị huỷ!";
+                }
+            }
+            <span></span>
+            @{
+                if (TempData["onSession"]?.ToString() == "true")
+                {
+                    <div class="row">
+                        <div class="col-9"></div>
+                        <div class="col-3">
+                            <a class="btn btn-primary" id="listorderreceived" href="@Url.Action("ListOrderReceived", "Cart")">Quay lại danh sách đơn hàng</a>
+                        </div>
+                    </div>
+                }
+            }
+            <div class="alert alert-@type" role="alert" style="margin-top:20px">
+                <p class="info">Trạng thái: @message</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 ">
+                    <div class="checkout-process">
+                        <div id="accordion" class="checkout-parts accordion">
+                            <div class="card">
+                                <div class="card-header form-wizard-step">
+                                    <h5>
+                                        <a class="btn btn-link collapsed" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><span>01</span>Thông tin giao hàng</a>
+                                    </h5>
+                                </div>
+                                <div id="collapseOne " class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="check-tab">
+                                            <div class="checkout-form">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <label>Mã đơn hàng  </label>
+                                                        <input class="form-control required" required type="text" placeholder="Mã đơn hàng" value="@Model.OrderCode" disabled>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <hr />
+                                                        <label>Ngày mua  </label>
+                                                        <input class="form-control required" required type="text" placeholder="Mã đơn hàng" value="@Model.CreatedDate" disabled>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <hr />
+                                                        <label>Họ và tên  </label>
+                                                        <input class="form-control required" required type="text" placeholder="Nhập vào họ và tên của bạn" value="@Model.CustomerFullName" disabled>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="billing-info mb-20px">
+                                                            <hr />
+                                                            <label>Email</label>
+                                                            <input class="form-control required" type="email" placeholder="Nhập vào email của bạn" value="@Model.CustomerEmail" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="billing-info mb-20px">
+                                                            <hr />
+                                                            <label>Số điện thoại  </label>
+                                                            <input class="form-control required" required type="number" placeholder="Nhập vào số điện thoại của bạn" value="@Model.CustomerPhone" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="billing-info mb-20px">
+                                                            <hr />
+                                                            <label>Địa chỉ  </label>
+                                                            <input class="form-control required" required type="text" placeholder="Nhập vào địa chỉ chi tiết của bạn (số nhà, tên đường, huyện, tỉnh)" value="@Model.CustomerAddress" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>
+                                        <a class="btn btn-link" data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"><span>02</span>Danh sách sản phẩm</a>
+                                    </h5>
+                                </div>
+                                <div class="collapse show" aria-labelledby="headingTwo">
+                                    <div class="card-body">
+                                        <div class="check-tab">
+                                            <div class="order-table">
+                                                <div class="order-review-table table-responsive">
+                                                    <table class="table table-bordered text-center">
+                                                        <thead>
+                                                            <tr class="row-1">
+                                                                <th class="row-title text-left">Tên sản phẩm</th>
+                                                                <th class="row-title">Đơn giá</th>
+                                                                <th class="row-title">Số lượng</th>
+                                                                <th class="row-title">Thành tiền</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var item in listItem)
+                                                            {
+                                                                var price = (decimal?)0;
+                                                                var total = (decimal)0;
+
+
+                                                                price = item.ProductPrice;
+                                                                total = (decimal)(price * item.Quantity);
+
+
+                                                                <tr class="row-2">
+                                                                    <td class="product-name">@item.ProductName</td>
+                                                                    <td class="product-price">@price.GetValueOrDefault(0).ToString("N0") đ</td>
+                                                                    <td class="product-quantity">@item.Quantity</td>
+                                                                    <td class="product-subtotal">@total.ToString("N0") đ</td>
+                                                                </tr>
+                                                                totalAll += total;
+                                                            }
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr class="row-6">
+                                                                <td class="text-left" colspan="3">Tổng:</td>
+                                                                <td class="product-subtotal">@totalAll.ToString("N0") đ</td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

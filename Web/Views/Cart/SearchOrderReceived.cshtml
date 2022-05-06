@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "Tra cứu đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="cart-main-area">
+    <div class="container" style="margin-top:20px">
+        <div class="tab-content">
+            <div id="lg1" class="tab-pane active" style="margin-bottom:20px">
+                @if (TempData["error"] != null)
+                {
+                    <div style="padding: 100px,0px;margin-top:20px">
+                        <div class=" alert alert-danger">@TempData["error"]</div>
+                    </div>
+                }
+                @using (Html.BeginForm("TrackingOrderReceived", "Cart", FormMethod.Get))
+                {
+                    <div class="form-group">
+                        <label for="orderCode">Nhập mã đơn hàng</label>
+                        <input class="form-control a" id="orderCode" name="orderCode" placeholder="Mã đơn hàng" required="true" style="text-transform: none;">
+                        <label for="email">Nhập Email</label>
+                        <input class="form-control " id="email" name="email" placeholder="Email" required="true" style="text-transform: none;">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Tra Cứu</button>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

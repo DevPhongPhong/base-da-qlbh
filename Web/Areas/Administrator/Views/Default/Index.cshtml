@@ -1,0 +1,210 @@
+﻿@{
+    var roleid = TempData["RoleId"].ToString();
+}
+@{
+    string filter = DateTime.Now.Date.ToString("yyyy-MM-dd");
+    string filterTitle = DateTime.Now.Date.ToString("dd-MM-yyyy");
+    ViewData["Title"] = "Hệ thống quản trị";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+@if (roleid == "1" || roleid == "3")
+{
+<div class="row">
+    <div class="col-lg-12">
+        <h5>Quản lý nội dung</h5>
+        <hr />
+    </div>
+    <div class="col-lg-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <a href="@Url.Action("Create", "Product")"><h5 class="card-title"><i class="fas fa-pen-square" aria-hidden="true"></i> Thêm mới sản phẩm</h5></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <a href="@Url.Action("Create", "CategoryNews")"><h5 class="card-title"><i class="fas fa-pen-square" aria-hidden="true"></i> Thêm mới Chuyên mục</h5></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <a href="@Url.Action("Create", "News")"><h5 class="card-title"><i class="fas fa-pen-square" aria-hidden="true"></i> Thêm mới tin bài</h5></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <h5>Quản lý đơn hàng</h5>
+        <hr />
+    </div>
+    <div class="col-lg-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <a href="@Url.Action("Index", "Order")?status=1"><h5 class="card-title"><i class="fas fa-pen-square" aria-hidden="true"></i> Đơn hàng chờ xác nhận</h5></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <a href="@Url.Action("Index", "Order")?status=2"><h5 class="card-title"><i class="fas fa-pen-square" aria-hidden="true"></i> Đơn hàng chờ giao</h5></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <a href="@Url.Action("Index", "Order")?status=3"><h5 class="card-title"><i class="fas fa-pen-square" aria-hidden="true"></i> Đơn hàng đang giao</h5></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <a href="@Url.Action("Index", "Order")?status=4"><h5 class="card-title"><i class="fas fa-pen-square" aria-hidden="true"></i> Đơn hàng đã giao</h5></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <a href="@Url.Action("Index", "Order")?status=5"><h5 class="card-title"><i class="fas fa-pen-square" aria-hidden="true"></i> Đơn hàng giao thất bại</h5></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <a href="@Url.Action("Index", "Order")?status=6"><h5 class="card-title"><i class="fas fa-pen-square" aria-hidden="true"></i> Đơn hàng bị hủy</h5></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <h5>Báo cáo, thống kê</h5>
+        <hr />
+    </div>
+    <div class="col-lg-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <a href="@Url.Action("BaoCaoNgay", "Report")"><h5 class="card-title"><i class="fas fa-pen-square" aria-hidden="true"></i> Thống kê đơn hàng theo ngày</h5></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <a href="@Url.Action("BaoCaoThang", "Report")"><h5 class="card-title"><i class="fas fa-pen-square" aria-hidden="true"></i> Thống kê theo tháng</h5></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <a href="@Url.Action("BaoCaoNam", "Report")"><h5 class="card-title"><i class="fas fa-pen-square" aria-hidden="true"></i> Thống kê tổng hợp năm</h5></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <h5>Quản trị hệ thống</h5>
+        <hr />
+    </div>
+    <div class="col-lg-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <a href="@Url.Action("Index", "Users")"><h5 class="card-title"><i class="fas fa-pen-square" aria-hidden="true"></i> Quản lý nhân viên</h5></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <a href="@Url.Action("Index", "Accounts")"><h5 class="card-title"><i class="fas fa-pen-square" aria-hidden="true"></i> Quản lý người dùng</h5></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <a href="@Url.Action("Logout", "Login")"><h5 class="card-title"><i class="fas fa-pen-square" aria-hidden="true"></i> Đăng xuất</h5></a>
+            </div>
+        </div>
+    </div>
+</div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header border-0">
+                    <div class="d-flex justify-content-between">
+                        <h3>THỐNG KÊ ĐƠN HÀNG NGÀY <b>@filterTitle</b></h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="d-flex flex-column">
+                        <span class="text-bold text-lg" id="totalDoanhThu">0 đ</span>
+                        <span>Doanh thu ngày</span>
+                    </p>
+                    <div>
+                        <canvas id="chartNgay"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    function OnchangeData() {
+        var valYear = $('#ddlFilterData').val();
+        window.location.href = "@Url.Action("BaoCaoNgay", "Report")?ngay=" + valYear;
+    }
+</script>
+<script>
+    function SetChartNgay() {
+        var DonHangMoi = 0;
+        var DonHangThanhCong = 0;
+        var DonHangThatBai = 0;
+        var DonHangHuy = 0;
+        var ctx = document.getElementById('chartNgay').getContext('2d');
+        //get data chart
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetDataBaoCaoNgay", "Report")?ngay=@filter',
+            dataType: 'json',
+            success: function (res) {
+                $("#totalDoanhThu").text(res.DoanhThu + " đ")
+                DonHangMoi = res.DonHangMoi;
+                DonHangThanhCong = res.DonHangThanhCong;
+                DonHangThatBai = res.DonHangThatBai;
+                DonHangHuy = res.DonHangHuy;
+                console.log(res);
+            }
+        }).done(function () {
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Đ.Hàng Mới', 'Đ.Hàng Thành Công', 'Đ.Hàng Thất Bại', 'Đ.Hàng Hủy'],
+                    datasets: [{
+                        label: 'Đ.Hàng Mới',
+                        data: [DonHangMoi, DonHangThanhCong, DonHangThatBai, DonHangHuy],
+                        backgroundColor: [
+                            'rgba(0, 104, 184, 1)',
+                            '#28a745',
+                            '#ffc107',
+                            'rgba(66, 66, 66, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+            });
+        });
+    }
+    SetChartNgay();
+</script>

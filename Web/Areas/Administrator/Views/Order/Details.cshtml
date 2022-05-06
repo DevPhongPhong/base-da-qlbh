@@ -1,0 +1,149 @@
+﻿@model Entities.DTOs.OrderAdminViewModel
+
+@{
+    ViewData["Title"] = "Chi tiết đơn hàng: " + Model.OrderCode;
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="card card-success">
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form action="@Url.Action("Create")" method="post">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="OrderStatusName" class="control-label">Trạng thái đặt hàng</label>
+                        <input asp-for="OrderStatusName" class="form-control" />
+                        <span asp-validation-for="OrderStatusName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CustomerFullName" class="control-label">Họ và tên khách hàng</label>
+                        <input asp-for="CustomerFullName" class="form-control" />
+                        <span asp-validation-for="CustomerFullName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CustomerPhone" class="control-label">Số điện thoại khách hàng</label>
+                        <input asp-for="CustomerPhone" class="form-control" />
+                        <span asp-validation-for="CustomerPhone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CustomerEmail" class="control-label">Email khách hàng</label>
+                        <input asp-for="CustomerEmail" class="form-control" />
+                        <span asp-validation-for="CustomerEmail" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CustomerAddress" class="control-label">Địa chỉ khách hàng</label>
+                        <input asp-for="CustomerAddress" class="form-control" />
+                        <span asp-validation-for="CustomerAddress" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CustomerNote" class="control-label">Ghi chú đặt hàng</label>
+                        <textarea asp-for="CustomerNote" class="form-control"></textarea>
+                        <span asp-validation-for="CustomerNote" class="text-danger"></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-8 col-sm-6 col-xs-12">
+        <div class="card card-success">
+            <!-- /.card-header -->
+            <!-- form start -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="control-label">Danh sách sản phẩm</label>
+                    </div>
+                    <div class="col-md-12">
+                        <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">STT</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Mã sản phẩm</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Tên sản phẩm</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Giá tiền</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Số lượng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.ListOrderDetails != null)
+                                {
+                                    if (Model.ListOrderDetails.Count() > 0)
+                                    {
+                                        var id = 1;
+                                        foreach (var item in Model.ListOrderDetails)
+                                        {
+                                            <tr role="row">
+                                                <td>@id</td>
+                                                <td>@item.ProductId</td>
+                                                <td>@item.ProductName</td>
+                                                <td>@item.ProductPrice</td>
+                                                <td>@item.Quantity</td>
+                                            </tr>
+                                            id++;
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer float-right">
+                <a href="@Url.Action("Index", "Order", new { status = ViewBag.CurrentStatus })" class="btn btn-outline-danger">Quay lại</a>&nbsp;
+                @if (Model.OrderStatusId == 1)
+                {
+                    <span>
+                        <a class="btn btn-success" href="@Url.Action("ChangeStatus", new {order = Model.Id, status = 2, current = ViewBag.CurrentStatus})">
+                            Xác nhận
+                        </a>
+                        &nbsp;
+                        <a class="btn btn-danger" href="@Url.Action("ChangeStatus", new { order = Model.Id, status = -1, current = ViewBag.CurrentStatus})">
+                            Hủy đơn
+                        </a>
+                    </span>
+                }
+                else if (Model.OrderStatusId == 2)
+                {
+                    <span>
+                        <a class="btn btn-success" href="@Url.Action("ChangeStatus", new { order = Model.Id, status = 3, current = ViewBag.CurrentStatus})">
+                            Xuất kho đi giao
+                        </a>
+                    </span>
+                }
+                else if (Model.OrderStatusId == 3)
+                {
+                    <span>
+                        <a class="btn btn-success" href="@Url.Action("ChangeStatus", new { order = Model.Id, status = 4, current = ViewBag.CurrentStatus})">
+                            Giao thành công
+                        </a>
+                        <a class="btn btn-warning" href="@Url.Action("ChangeStatus", new { order = Model.Id, status = -2, current = ViewBag.CurrentStatus})">
+                            Giao thất bại
+                        </a>
+                    </span>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2();
+            $('select').attr('disabled', true);
+            $('textarea').attr('disabled', true);
+            $('input').attr('disabled', true);
+            $('button').attr('disabled', false);
+        });
+    </script>
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2();
+        });
+    </script>
+}

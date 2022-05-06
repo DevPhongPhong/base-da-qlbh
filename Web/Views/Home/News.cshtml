@@ -1,0 +1,144 @@
+﻿
+@{
+    ViewData["Title"] = "Tin tức";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var newses = (Entities.Common.PaginationModel<List<Entities.DTOs.NewsViewModel>>)ViewBag.ListMainNews;
+    
+    var countPage = (newses.Pagination.Total % newses.Pagination.Size > 0) ? (newses.Pagination.Total / newses.Pagination.Size +1) : (newses.Pagination.Total / newses.Pagination.Size);
+    var currentCategoryId = newses.Data.FirstOrDefault() != null ? newses.Data.FirstOrDefault().currentCategoryId : 1;
+    var currentPage = newses.Pagination.Offset + 1;
+    bool isNext = (currentPage < countPage);
+    bool isPrev = (currentPage > 1);
+    string currentOrder = ViewBag.CurrentOrder?.ToString();
+    var currentCategory = ViewBag.CurrentCategory.ToString();
+}
+@{
+    var listRandomCategoryNews = (List<Entities.DTOs.CategoryNewsViewModel>)ViewBag.ListRandomCategoryNews;
+    var listHotNewses = (List<Entities.DTOs.NewsViewModel>)ViewBag.ListHotNewses;
+    var listRecentNews = (List<Entities.DTOs.NewsViewModel>)ViewBag.ListRecentNews;
+    var listNewsCate = (List<Entities.DTOs.CategoryNewsViewModel>)TempData["newsmenu"];
+}
+<!-- Start Breadcrumbs Section -->
+<section class="breadcrumbs-section background_bg" data-img-src="/assets/images/shop-breadcrumbs-img.jpg" style="        background: url(&quot;/assets/images/shop-breadcrumbs-img.jpg&quot;) center center / cover;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page_title text-center">
+                    <h1>Tin tức</h1>
+                    <ul class="breadcrumb justify-content-center">
+                        <li><a href="/">Trang chủ</a></li>
+                        <li><span>Tin Tức</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Header Section -->
+<!-- Start Blog Section -->
+<section class="blog-inner-section pt_large pb_large news-style-2">
+    <div class="container">
+        <div class="row">
+            @if (newses.Data?.Count > 0)
+            {
+                <div class="col-xl-9 col-lg-8 col-md-12">
+                    <div class="row blog_info">
+                        @foreach (var item in newses.Data)
+                        {<div class="col-12">
+                                <div class="news-box box-1">
+                                    <div class="news-img">
+                                        <img src="@item.ThumbImage" alt="blog_img1">
+                                        <div class="news-date-box text-center text-uppercase">
+                                            <h6>@item.PostedDate.Value.Day <br>@item.PostedDate.Value.ToString("MMM")</h6>
+                                        </div>
+                                    </div>
+                                    <div class="news-info">
+                                        <h5><a href="@Url.Action("NewsDetail","Home",new {id = item.Id })">@item.Title</a></h5>
+                                        <p class="comments">Đăng bởi: <a href="@Url.Action("NewsDetail","Home",new {id = item.Id })"><i>@item.CreatedBy</i></a></p>
+                                        <p class="news-text">@item.SubTitle</p>
+                                        <a href="@Url.Action("NewsDetail","Home",new {id = item.Id })" class="read-more">Đọc thêm</a>
+                                    </div>
+                                </div>
+                            </div>}
+
+                       
+                    </div>
+                    <!--Paging area start-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <nav>
+                                <ul class="pagination justify-content-center">
+                                    @if (countPage > 0)
+                                    {
+                                        @for (int i = 1; i <= countPage; i++)
+                                        {
+                                            <li @(i == currentPage ? "class=active" : "")><a href="@Url.Action("News","Home",new { id = currentCategoryId, page = i})">@i</a></li>
+                                        }
+                                    }
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!--Paging area end-->
+                </div>
+            }
+            <div class="col-xl-3 col-lg-4 col-md-12 order-lg-first mt-4 mt-lg-0">
+                <div class="blog-sidebar">
+                    <div class="side-quantity-box side-box">
+                        @if (listNewsCate?.Count > 0)
+                        {
+                            <div class="side-box-title">
+                                <h6>Danh mục tin tức</h6>
+                            </div>
+                            <div class="quantity-box-detail">
+                                <ul>
+                                    @foreach (var item in listNewsCate)
+                                    {
+                                        <li><a href="@Url.Action("News", "Home", new { id = item.Id, page = 1 })">@item.CategoryName</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+
+                    </div>
+                    <div class="side-newslatter-box side-box">
+                        <div class="newslatter-inner-box">
+                            <div class="side-box-title">
+                                <h6>Đăng ký nhận tin</h6>
+                            </div>
+                            <form class="side-newslatter-form">
+                                <input required="" class="form-control" placeholder="Email của bạn ... " value="" type="email" id="newsLetter">
+                                <button type="button" class="newslatter-bnt" onclick="subs(newsLetter)"><i class="fa fa-envelope"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    @if (listRecentNews?.Count > 0)
+                    {
+                        <div class="side-quantity-box side-box">
+                            <div class="side-box-title">
+                                <h6>Tin xem gần đây</h6>
+                            </div>
+                            <div class="side-recent-product">
+                                @foreach (var item in listRecentNews)
+                                {
+                                    <div class="cart-prodect d-flex">
+                                        <div class="cart-img">
+                                            <img src="@item.ThumbImage" alt="recent-product">
+                                        </div>
+                                        <div class="cart-product">
+                                            <a href="@Url.Action("NewsDetail","Home",new { id = item.Id})">@item.Title</a>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Blog Section -->

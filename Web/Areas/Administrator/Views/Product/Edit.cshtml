@@ -1,0 +1,174 @@
+﻿@model Entities.DTOs.ProductViewModel
+
+@{
+    ViewData["Title"] = "Cập nhật sản phẩm";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+
+<form action="@Url.Action("Edit")" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.Remain)
+    @Html.HiddenFor(x => x.MainImageLarge)
+    @Html.HiddenFor(x => x.MainImageThumb)
+    @Html.HiddenFor(x => x.CreatedBy)
+    @Html.HiddenFor(x => x.CreatedDate)
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card card-warning">
+                <div class="card-header">
+                    <h3 class="card-title">Cập nhật sản phẩm</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="CategoryId" class="control-label">Danh mục</label>
+                                <select asp-for="CategoryId" asp-items="(List<SelectListItem>)ViewBag.ProductCategory" class="select2 form-control" style="width: 100%;">
+                                    <option>---Chọn danh mục sản phẩm---</option>
+                                </select>
+                                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Code" class="control-label">Mã sản phẩm</label>
+                                <input asp-for="Code" class="form-control" placeholder="Nhập vào mã sản phẩm" />
+                                <span asp-validation-for="Code" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Name" class="control-label">Tên sản phẩm</label>
+                                <input asp-for="Name" class="form-control" placeholder="Nhập vào tên sản phẩm" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="ImageFile" class="control-label">Ảnh đại diện sản phẩm</label>
+                                <div style="margin-bottom: 10px;">
+                                    <img src="@Model.MainImageThumb"
+                                         height="300" max-width="100%"
+                                         asp-append-version="true" />
+                                </div>
+                                <input asp-for="ImageFile" type="file" class="dropify" data-allowed-file-extensions='["png", "jpg"]' />
+                                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Price" class="control-label">Giá gốc</label>
+                                <input asp-for="Price" class="form-control" placeholder="Nhập vào giá gốc" />
+                                <span asp-validation-for="Warranty" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="PromotionPrice" class="control-label">Giá khuyến mại</label>
+                                <input asp-for="PromotionPrice" class="form-control" placeholder="Nhập vào giá khuyến mại" />
+                                <span asp-validation-for="PromotionPrice" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-warning">
+                <div class="card-header">
+                    <h3 class="card-title">Cài đặt thông số bài viết</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input asp-for="IsPromote" />
+                                &nbsp;
+                                <label asp-for="IsPromote" class="control-label">Đang khuyến mại</label>
+                                <span asp-validation-for="IsPromote" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input asp-for="IsHot" />
+                                &nbsp;
+                                <label asp-for="IsHot" class="control-label">Sản phẩm hot</label>
+                                <span asp-validation-for="IsHot" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input asp-for="IsHome" />
+                                &nbsp;
+                                <label asp-for="IsHome" class="control-label">Hiển thị trang chủ</label>
+                                <span asp-validation-for="IsHome" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-success">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Description" class="control-label">Mô tả sản phẩm</label>
+                                <textarea asp-for="Description" id="NewsContent" name="Description" placeholder="Nhập vào mô tả sản phẩm" class="form-control" onkeyup="ChangeToSlug()"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                                <script type="text/javascript" charset="utf-8">
+                            CKEDITOR.config.pasteFromWordPromtCleanup = true;
+                            CKEDITOR.config.pasteFromWordRemoveFontStyles = false;
+                            CKEDITOR.config.pasteFromWordRemoveStyles = false;
+                            CKEDITOR.config.language = 'vi';
+                            CKEDITOR.config.htmlEncodeOutput = false;
+                            CKEDITOR.config.ProcessHTMLEntities = false;
+                            CKEDITOR.config.entities = false;
+                            CKEDITOR.config.entities_latin = false;
+                            CKEDITOR.config.ForceSimpleAmpersand = true;
+                            CKEDITOR.replace("NewsContent", {
+                                filebrowserUploadUrl: '@Url.Action("UploadImage")'
+                            });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="text-right">
+                            <a href="@Url.Action("Index")" class="pull-right">Quay lại</a>
+                            &nbsp;
+                            <input type="submit" value="Lưu lại" class="btn btn-warning pull-right" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts
+{
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2();
+        });
+    </script>
+}

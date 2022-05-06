@@ -1,0 +1,112 @@
+﻿@model Entities.DTOs.LoginViewModel
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>QLBH | Đăng nhập hệ thống</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition login-page">
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Liên hệ với quản trị viên</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Vui lòng liên hệ với quản trị viên để tiến hành lấy lại mật khẩu. Xin cảm ơn!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="login-box">
+        <!-- /.login-logo -->
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a href="#" class="h1"><b>QLBH</b></a>
+            </div>
+            <div class="card-body">
+                <p class="login-box-msg">Hệ thống quản lý bán hàng</p>
+
+                <form action="@Url.ActionLink("Index")" method="post">
+                    <div class="input-group mb-3">
+                        <input asp-for="Username" class="form-control" placeholder="Username" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input asp-for="Password" type="password" class="form-control" placeholder="Password" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-7">
+                            <div class="icheck-primary">
+                                <input asp-for="RememberMe" type="checkbox" id="remember">
+                                <label for="remember">
+                                    Ghi nhớ đăng nhập
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-5">
+                            <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+                <!-- /.social-auth-links -->
+
+                <p class="mb-1">
+                    <a href="#" data-toggle="modal" data-target="#exampleModalCenter">Quên mật khẩu</a>
+                </p>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer text-muted text-right">
+                <p>Copyright &copy; @DateTime.Now.Year by <a href="https://www.facebook.com/ThuyLinh.20112000" style="color: #6c89bd"> Linh Thuỳ</a>.</p>
+            </div>
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.login-box -->
+    <!-- jQuery -->
+    <script src="../../plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../../dist/js/adminlte.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+﻿@model Entities.DTOs.NewsViewModel
+@{
+    ViewData["Title"] = "Chi tiết tin bài";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+<form action="@Url.Action("Edit")" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Chi tiết tin bài</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="CategoryId" class="control-label">Chuyên mục</label>
+                                <select asp-for="CategoryId" asp-items="(List<SelectListItem>)ViewBag.CategoryNews" class="select2 form-control" style="width: 100%;">
+                                    <option>---Chọn chuyên mục---</option>
+                                </select>
+                                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Tags" class="control-label">Tag chuyên mục</label>
+                                <select asp-for="Tags" asp-items="(List<SelectListItem>)ViewBag.Tags" class="select2 form-control" style="width: 100%;">
+                                    <option value='-1'>---Chọn tag chuyên mục---</option>
+                                </select>
+                                <span asp-validation-for="Tags" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Title" class="control-label">Tiêu đề</label>
+                                <input readonly asp-for="Title" class="form-control" onkeyup="ChangeToSlug()" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Author" class="control-label">Tác giả</label>
+                                <input readonly asp-for="Author" class="form-control" />
+                                <span asp-validation-for="Author" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="MetaUrl" class="control-label">Meta Url</label>
+                                <input readonly asp-for="MetaUrl" class="form-control" />
+                                <span asp-validation-for="MetaUrl" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="NewsOrder" class="control-label">Thứ tự</label>
+                                <input readonly asp-for="NewsOrder" class="form-control" value="1" />
+                                <span asp-validation-for="NewsOrder" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="NewsImageUpload" class="control-label">Ảnh tin bài</label>
+                                <div class="">
+                                    <img src="@Model.ThumbImage"
+                                         height="300"
+                                         asp-append-version="true" />
+                                </div>
+
+                                <span asp-validation-for="NewsImageUpload" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="SubTitle" class="control-label">Mô tả tin bài</label>
+                                <textarea asp-for="SubTitle" class="form-control" rows="3"></textarea>
+                                <span asp-validation-for="SubTitle" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="NewsContent" class="control-label">Nội dung tin bài</label>
+                                <textarea asp-for="NewsContent" id="NewsContent" name="NewsContent" class="form-control" onkeyup="ChangeToSlug()"></textarea>
+                                <span asp-validation-for="NewsContent" class="text-danger"></span>
+                                <script type="text/javascript" charset="utf-8">
+                            CKEDITOR.config.pasteFromWordPromtCleanup = true;
+                            CKEDITOR.config.pasteFromWordRemoveFontStyles = false;
+                            CKEDITOR.config.pasteFromWordRemoveStyles = false;
+                            CKEDITOR.config.language = 'vi';
+                            CKEDITOR.config.htmlEncodeOutput = false;
+                            CKEDITOR.config.ProcessHTMLEntities = false;
+                            CKEDITOR.config.entities = false;
+                            CKEDITOR.config.entities_latin = false;
+                            CKEDITOR.config.ForceSimpleAmpersand = true;
+                            CKEDITOR.replace("NewsContent", {
+                                filebrowserUploadUrl: '@Url.Action("UploadImage")'
+                            });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label asp-for="IsHot" class="control-label">Tin hot</label>
+                                &nbsp;
+                                <input readonly asp-for="IsHot" />
+                                <span asp-validation-for="IsHot" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label asp-for="IsHome" class="control-label">Hiển thị trang chủ</label>
+                                &nbsp;
+                                <input readonly asp-for="IsHome" />
+                                <span asp-validation-for="IsHome" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <div class="text-right">
+                        <a href="@Url.Action("Index")" class="pull-right btn btn-secondary">Quay lại</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts
+{
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2();
+            $('select').attr('disabled', true);
+            $('textarea').attr('disabled', true);
+            $('input').attr('disabled', true);
+        });
+    </script>
+    <script>
+        var ranNum, title, slug;
+        function ChangeToSlug() {
+            if (ranNum == null) {
+                ranNum = Math.floor(Math.random() * 100000000) + 1;
+            }
+            title = document.getElementById("Title").value;
+            if (title != null && title != "") {
+                slug = title.toLowerCase();
+
+                slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
+                slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
+                slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
+                slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
+                slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
+                slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
+                slug = slug.replace(/đ/gi, 'd');
+                slug = slug.replace(/\`|\~|\!|\@@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
+                slug = slug.replace(/ /gi, "-");
+                slug = slug.replace(/\-\-\-\-\-/gi, '-');
+                slug = slug.replace(/\-\-\-\-/gi, '-');
+                slug = slug.replace(/\-\-\-/gi, '-');
+                slug = slug.replace(/\-\-/gi, '-');
+                slug = '@@' + slug + '@@';
+                slug = slug.replace(/\@@\-|\-\@@|\@@/gi, '');
+
+                document.getElementById('MetaUrl').value = slug.trim() + '-' + ranNum;
+            }
+            else {
+                document.getElementById('MetaUrl').value = "";
+            }
+        }
+    </script>
+}

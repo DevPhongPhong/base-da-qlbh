@@ -1,0 +1,73 @@
+﻿@model Entities.DTOs.AccountLoginDTO
+@{
+    ViewData["Title"] = "Đăng nhập";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<span></span>
+<div class="login-register-area mb-60px mt-53px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-12 mx-auto">
+                <div class="login-register-wrapper">
+                    <div class="login-register-tab-list nav">
+                        <button class="btn btn-primary" data-bs-toggle="tab" href="#" style="background:#ffffff;color:red">
+                            <h6>Đăng nhập</h6>
+                        </button>
+                        <a class="btn btn-primary" data-bs-toggle="tab" href="@Url.Action("Register", "Account")">
+                            <h6>Đăng ký</h6>
+                        </a>
+                    </div>
+                    @if (ViewData["Error"] != null)
+                    {
+                        <hr />
+                        <div class="alert alert-danger p-2 mb-2">@ViewData["Error"].ToString()</div>
+                    }
+                    <div class="tab-content">
+                        <div id="lg1" class="tab-pane active">
+                            <div class="login-form-container">
+                                <div class="login-register-form">
+                                    <form class="subscribe-popup-form" method="post" action="@Url.ActionLink("Login")" asp-antiforgery="true">
+                                        <input id="usernameLogin" name="username" required="" type="text" placeholder="Email hoặc sô điện thoại">
+                                        <input id="passwordLogin" name="password" required="" type="password" placeholder="Mật khẩu">
+                                        <div class="form-check text-left">
+                                            <label>
+                                                Nhớ mật khẩu
+                                                <input id="savePassLogin" class="defult-check" type="checkbox" checked="">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <!--<a href="@Url.Action("Forget","Account")" class="forgot-password float-right">Quên mật khẩu ?</a>-->
+                                        </div>
+                                        <div class="text-center">
+                                            <button class="btn btn-primary" type="submit" onclick="saveLogin()"><span>Đăng nhập</span></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    if (localStorage["username"] != null && localStorage["username"] != undefined && localStorage["password"] != null && localStorage["password"] != undefined) {
+        var u = document.getElementById("usernameLogin");
+        var p = document.getElementById("passwordLogin");
+        u.value = localStorage["username"];
+        p.value = localStorage["password"];
+        localStorage.removeItem("username");
+        localStorage.removeItem("password");
+    }
+    function saveLogin() {
+        var check = document.getElementById("savePassLogin")
+        var checkvalue = check.checked;
+        if (checkvalue === true) {
+            var u = document.getElementById("usernameLogin");
+            var p = document.getElementById("passwordLogin");
+            localStorage["username"] = u.value;
+            localStorage["password"] = p.value;
+        }
+    }
+</script>
+

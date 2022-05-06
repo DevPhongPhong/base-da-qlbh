@@ -1,0 +1,236 @@
+﻿@{
+    ViewData["Title"] = "Giỏ hàng của bạn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var listItem = (List<CartItem>)ViewBag.ListProductsInCart;
+    var totalAll = (decimal)0;
+}
+<!-- Start Breadcrumbs Section -->
+<section class="breadcrumbs-section background_bg" data-img-src="/assets/images/aboutus-breadcrumbs-img.jpg" style="        background: url(&quot;/assets/images/aboutus-breadcrumbs-img.jpg&quot;) center center / cover;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page_title text-center">
+                    <h1>Giỏ hàng của bạn</h1>
+                    <ul class="breadcrumb justify-content-center">
+                        <li><a href="/">Trang chủ</a></li>
+                        <li><span>Giỏ hàng</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Header Section -->
+@if (listItem?.Count > 0)
+{
+    <!-- Start Cart Section -->
+    <section class="cart-section pt_large">
+        <div class="container">
+            <div class="row">
+                @{ var erMes = (string)TempData["StrErr"];
+                    if (erMes != null && erMes != "")
+                    {
+                        <div class="alert alert-danger">@erMes</div>
+                    }
+                }
+                <div class="col-md-12">
+                    <div class="cart-table table-responsive">
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <tr class="row-1">
+                                    <th class="row-title"><p>Hình ảnh</p></th>
+                                    <th class="row-title" style="width:400px"><p>Tên sản phẩm</p></th>
+                                    <th class="row-title" style="width:170px"><p>Giá</p></th>
+                                    <th class="row-title" style="width:100px"><p>Số lượng</p></th>
+                                    <th class="row-title"><p>Tổng</p></th>
+                                    <th class="row-title"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in listItem)
+                                {
+                                    var total = (decimal)0;
+                                    {
+                                        if (item.Product.IsPromote)
+                                        {
+                                            total = (decimal)(item.Product.PromotionPrice * item.Quantity);
+                                        }
+                                        else
+                                        {
+                                            total = (decimal)(item.Product.Price * item.Quantity);
+                                        }
+                                    }
+
+                                    <tr class="row-2">
+                                        <td class="row-close close-1" data-title="product-remove"><a href="#"><i class="ion-close-circled"></i></a></td>
+                                        <td class="row-img"><img src="@item.Product.MainImageThumb" alt="cart-img" style="width:100px"></td>
+                                        <td class="product-name" data-title="Product"><a href="#">@item.Product.Name</a></td>
+                                        <td class="product-price" data-title="Price">
+                                            @if (item.Product.IsPromote)
+                                            {
+                                                <p id="@item.Product.Id-product-price">@item.Product.PromotionPrice.GetValueOrDefault(0).ToString("N0") đ</p>
+
+                                            }
+                                            else
+                                            {
+                                                <p id="@item.Product.Id-product-price">@item.Product.Price.GetValueOrDefault(0).ToString("N0") đ</p>
+
+                                            }
+                                        </td>
+                                        <td class="product-quantity" data-title="Quantity">
+                                            <div class="quantity_filter">
+                                                <input id="@item.Product.Id-quantity" class="quantity-number qty" type="number" value="@item.Quantity" min="1" max="200" onchange="updateQuantity(@item.Product.Id, value)">
+                                            </div>
+                                        </td>
+                                        <td class="product-total" data-title="Subprice"><p id="@item.Product.Id-total">@total.ToString("N0") đ</p></td>
+                                        <td class="row-close close-2" data-title="product-remove"><button type="button" class="btn btn-primary" onclick="deleteItem(@item.Product.Id)">Xoá</button></td>
+                                    </tr>
+                                    totalAll += total;
+                                }
+                                <tr class="row-2">
+                                    <td class="product-total" data-title="Subprice"><p>Tổng</p></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="product-total" data-title="Subprice">
+                                        <p id="totalPriceAll">@totalAll.ToString("N0") đ</p>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="12">
+                                        <ul class="table-btn">
+                                            <li><a href="/" class="btn btn-secondary"><i class="fa fa-chevron-left"></i>Mua thêm</a></li>
+                                            <li>
+                                                <a href="@Url.Action("Payment","Cart")" class="btn btn-primary"><i class="fa fa-chevron-right"></i>Thanh toán</a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Cart Section -->
+}
+else
+{
+    <section class="cart-section pt_large" style="margin-bottom:50px">
+        <div class="container">
+            <div class="row">
+                <div class=" col-md-4">
+                    <img src="~/assets/images/shopping-cart-isolated-white-backgroundï¼œthere-no-data-shopping-cartï¼œsmall-bee-shopping-cart-empty-vector-122894182.png" />
+                </div>
+                <div class=" col-md-8">
+                    <div class="slider-caption text-left" style="margin-top:50px">
+                        <h1 class="animation animated fadeInDown" data-animation="fadeInDown" data-animation-delay="0.2s" style="animation-delay: 0.2s; visibility: visible;">Giỏ hàng của bạn đang trống!</h1>
+                        <a href="/" class="btn btn-primary animation animated fadeInUp" data-animation="fadeInUp" data-animation-delay="1s" style="animation-delay: 1s;visibility: visible;margin-top: 10px">Mua ngay</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+}
+
+<!--Jquery Script-->
+<script>
+    $("#inc").click(function () {
+        var crdt = $("#quantity").val();
+        crdt++;
+        $("#quantity").val(crdt);
+    });
+</script>
+
+<script>
+    $('#btnPayment').off('click').on('click', function () {
+        window.location.href = "/payment";
+    });
+    $('#btnUpdate').off('click').on('click', function () {
+        var listProduct = $('.txtQuantity');
+        var cartList = [];
+        $.each(listProduct, function (i, item) {
+            cartList.push({
+                Quantity: $(item).val(),
+                Product: {
+                    ID: $(item).data('id')
+                },
+                Length: {
+                    ID: $(item).data('length')
+                },
+                Color: {
+                    ID: $(item).data('color')
+                },
+            });
+        });
+
+        $.ajax({
+            url: '/Cart/Update',
+            data: { cartModel: JSON.stringify(cartList) },
+            dataType: 'json',
+            type: 'POST',
+            success: function (res) {
+                if (res.status == true) {
+                    window.location.href = "/cart";
+                }
+            }
+        })
+    });
+
+    $('#btnDeleteAll').off('click').on('click', function () {
+        $.ajax({
+            url: '/Cart/DeleteAll',
+            dataType: 'json',
+            type: 'POST',
+            success: function (res) {
+                if (res.status == true) {
+                    window.location.href = "/cart";
+                }
+            }
+        })
+    });
+
+    function updateQuantity(productId, quantity) {
+        var i = parseInt(productId);
+        var q = parseInt(quantity);
+        var sum = document.getElementById(productId + "-total");
+        var all = document.getElementById("totalPriceAll");
+        var s = sum.innerHTML.replace(' đ', '');
+        var a = all.innerHTML.replace(' đ', '');
+        $.ajax({
+            data: { id: i, quantity: q, sumPrice: s, allPrice: a },
+            url: '/Cart/UpdateItem',
+            dataType: 'json',
+            type: 'POST',
+            success: function (res) {
+                if (res.status == true) {
+                    sum.innerHTML = res.sumPrice + ' đ';
+                    all.innerHTML = res.allPrice + ' đ';
+                }
+            }
+        })
+    }
+
+    function deleteItem(productId) {
+        var i = parseInt(productId);
+        $.ajax({
+            data: { id: i },
+            url: '/Cart/Delete',
+            dataType: 'json',
+            type: 'POST',
+            success: function (res) {
+                if (res.status == true) {
+                    window.location.href = "/cart";
+                }
+            }
+        })
+    }
+</script>

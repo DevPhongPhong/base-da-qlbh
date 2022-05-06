@@ -1,0 +1,26 @@
+﻿.header-band {
+    color: #fff;
+}
+
+.home-6 .header-navigation {
+    padding: 20px 0px;
+}
+
+.home-5.home-6 .logo {
+    margin: 0;
+}
+
+.text-red {
+    color: red !important;
+}
+
+.single-my-account h3.panel-title{
+    padding: 10px 20px;
+}
+
+.blog-post{
+    min-height: 300px;
+}
+.list-product{
+    height: 450px;
+}

@@ -1,0 +1,9 @@
+C:\Users\Admin\source\repos\base-da-qlbh\Ultilities\bin\Debug\netcoreapp3.1\Ultilities.deps.json
+C:\Users\Admin\source\repos\base-da-qlbh\Ultilities\bin\Debug\netcoreapp3.1\Ultilities.dll
+C:\Users\Admin\source\repos\base-da-qlbh\Ultilities\bin\Debug\netcoreapp3.1\Ultilities.pdb
+C:\Users\Admin\source\repos\base-da-qlbh\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.csprojAssemblyReference.cache
+C:\Users\Admin\source\repos\base-da-qlbh\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.AssemblyInfoInputs.cache
+C:\Users\Admin\source\repos\base-da-qlbh\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.AssemblyInfo.cs
+C:\Users\Admin\source\repos\base-da-qlbh\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\base-da-qlbh\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.dll
+C:\Users\Admin\source\repos\base-da-qlbh\Ultilities\obj\Debug\netcoreapp3.1\Ultilities.pdb

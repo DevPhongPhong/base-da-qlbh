@@ -1,0 +1,61 @@
+﻿@model Entities.DTOs.CategoryNewsViewModel
+@{
+    ViewData["Title"] = "Cập nhật chuyên mục";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-warning">
+            <div class="card-header">
+                <h3 class="card-title">Cập nhật chuyên mục</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form action="@Url.Action("Edit")" method="post">
+                @Html.HiddenFor(x => x.Id)
+                @Html.HiddenFor(x => x.MetaDescription)
+                @Html.HiddenFor(x => x.MetaKeywords)
+                @Html.HiddenFor(x => x.MetaTitle)
+                @Html.HiddenFor(x => x.CreatedBy)
+                @Html.HiddenFor(x => x.CreatedDate)
+                @Html.HiddenFor(x => x.IsView)
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="CategoryName" class="control-label">Tên chuyên mục</label>
+                        <input asp-for="CategoryName" class="form-control" />
+                        <span asp-validation-for="CategoryName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CategoryDecription" class="control-label">Chi tiết chuyên mục</label>
+                        <input asp-for="CategoryDecription" class="form-control" />
+                        <span asp-validation-for="CategoryDecription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CategoryOrder" class="control-label">Sắp xếp</label>
+                        <input asp-for="CategoryOrder" class="form-control" />
+                        <span asp-validation-for="CategoryOrder" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IsHot" class="control-label">Tin hot</label>
+                        &nbsp;
+                        <input asp-for="IsHot" />
+                        <span asp-validation-for="IsHot" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IsHome" class="control-label">Hiển thị trang chủ</label>
+                        &nbsp;
+                        <input asp-for="IsHome" />
+                        <span asp-validation-for="IsHome" class="text-danger"></span>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer float-right">
+                    <a href="@Url.Action("Index")">Quay lại</a>
+                    <input type="submit" value="Lưu lại" class="btn btn-warning" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

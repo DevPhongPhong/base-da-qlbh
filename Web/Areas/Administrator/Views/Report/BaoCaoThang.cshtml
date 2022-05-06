@@ -1,0 +1,126 @@
+﻿@{
+    string filter = ViewBag.Filter != DateTime.MinValue ? ViewBag.Filter.ToString("MM-yyyy") : DateTime.Now.Date.ToString("MM-yyyy");
+    string strFilter = ViewBag.Filter != DateTime.MinValue ? ViewBag.Filter.ToString("yyyy-MM") : DateTime.Now.Date.ToString("yyyy-MM");
+    ViewData["Title"] = "Báo cáo tháng " + filter;
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-md-2">
+            <input class="form-control" id="ddlFilterData" onchange="OnchangeData()" type="month" value='@strFilter' onkeypress="return false" />
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header border-0">
+                    <div class="d-flex justify-content-between">
+                        <h3 class="card-title">THỐNG KÊ THEO THÁNG: <b>@filter</b></h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div style="height: 500px;">
+                        <canvas id="chartNgay"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card" style="padding: 15px">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Tăng trưởng: <b><span id="TT">0</span> %</b></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Doanh thu tháng này: <b><span id="crDT">0</span></b></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Doanh thu tháng trước: <b><span id="prDT">0</span></b></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+</div>
+
+<script>
+    function OnchangeData() {
+        var val = new Date($('#ddlFilterData').val()).toISOString().substring(0, 10);
+        window.location.href = "@Url.Action("BaoCaoThang", "Report")?ngay=" + val;
+    }
+</script>
+<script>
+        function moneyFormat(price, sign = ' đ') {
+            const pieces = parseFloat(price).toFixed(1).split('')
+            let ii = pieces.length - 3
+            while ((ii -= 3) > 0) {
+                pieces.splice(ii, 0, ',')
+            }
+            return pieces.join('') + sign
+        }
+        function SetChartNgay() {
+            var DonHangMoi = 0;
+            var DonHangThanhCong = 0;
+            var DonHangThatBai = 0;
+            var DonHangHuy = 0;
+            var ctx = document.getElementById('chartNgay').getContext('2d');
+            //get data chart
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetDataBaoCaoThang", "Report")?ngay=@filter',
+                dataType: 'json',
+                success: function (res) {
+                    $("#totalDoanhThu").text(moneyFormat(res.DoanhThu))
+                    DonHangMoi = res.DonHangMoi;
+                    DonHangThanhCong = res.DonHangThanhCong;
+                    DonHangThatBai = res.DonHangThatBai;
+                    DonHangHuy = res.DonHangHuy;
+                    if(res.TangTruong > 0) {
+                        $("#TT").css({color: "green"});
+                    }
+                    else{
+                        $("#TT").css({color: "red"});
+                    }
+                    $("#TT").text(res.TangTruong || 0)
+                    $("#crDT").text(moneyFormat(res.DoanhThu) || 0)
+                    $("#prDT").text(moneyFormat(res.DoanhThuPrev) || 0)
+                    console.log(res);
+                }
+            }).done(function () {
+
+                var myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Đ.Hàng Mới', 'Đ.Hàng Thành Công', 'Đ.Hàng Thất Bại', 'Đ.Hàng Hủy'],
+                        datasets: [{
+                            label: 'Đ.Hàng Mới',
+                            data: [DonHangMoi, DonHangThanhCong, DonHangThatBai, DonHangHuy],
+                            backgroundColor: [
+                                'rgba(0, 104, 184, 1)',
+                                '#28a745',
+                                '#ffc107',
+                                'rgba(66, 66, 66, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                });
+            });
+        }
+        SetChartNgay();
+</script>

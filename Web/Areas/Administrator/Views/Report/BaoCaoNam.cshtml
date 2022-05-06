@@ -1,0 +1,378 @@
+﻿
+@{
+    string filter = ViewBag.Filter != null ? ViewBag.Filter.ToString() : DateTime.Now.Date.ToString("dd/MM/yyyy");
+    ViewData["Title"] = "Báo cáo năm " + filter;
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-md-4">
+            <select class="form-control" id="ddlFilterData" onchange="OnchangeData()">
+                @for (int i = 2010; i < 2023; i++)
+                {
+                    if (i.ToString() == filter)
+                    {
+                        <option value="@i" selected>Năm @i</option>
+                    }
+                    else
+                    {
+                        <option value="@i">Năm @i</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header border-0">
+                    <div class="d-flex justify-content-between">
+                        <h1 class="card-title">Biểu đồ thống kê đơn hàng năm @filter</h1>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div style="height: 500px;">
+                        <canvas id="chartDoc"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header border-0">
+                    <div class="d-flex justify-content-between">
+                        <h3 class="card-title">Biểu đồ doanh thu năm @filter</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex">
+                        <p class="d-flex flex-column">
+                            <span class="text-bold text-lg" id="totalDoanhThu">0 đ</span>
+                            <span>Tổng doanh thu </span>
+                        </p>
+                    </div>
+                    <!-- /.d-flex -->
+                    <div style="height: 430px;">
+                        <canvas id="chartDoanhThu"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+</div>
+
+<script>
+    function OnchangeData() {
+        var val = $('#ddlFilterData').val();
+        window.location.href = "@Url.Action("BaoCaoNam", "Report")?nam=" + val;
+    }
+</script>
+<script>
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    function SetChartBieuDoDoc() {
+        var ctxDoc = document.getElementById('chartDoc').getContext('2d');
+        var arrDataMoi = [];
+        var arrDataThanhCong = [];
+        var arrDataThatBai = [];
+        var arrDataHuy = [];
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetDataBaoCaoNam", "Report")?nam=@filter',
+            dataType: 'json',
+            success: function (res) {
+                arrDataMoi.push(res.Thang1.DonHangMoi);
+                arrDataMoi.push(res.Thang2.DonHangMoi);
+                arrDataMoi.push(res.Thang3.DonHangMoi);
+                arrDataMoi.push(res.Thang4.DonHangMoi);
+                arrDataMoi.push(res.Thang5.DonHangMoi);
+                arrDataMoi.push(res.Thang6.DonHangMoi);
+                arrDataMoi.push(res.Thang7.DonHangMoi);
+                arrDataMoi.push(res.Thang8.DonHangMoi);
+                arrDataMoi.push(res.Thang9.DonHangMoi);
+                arrDataMoi.push(res.Thang10.DonHangMoi);
+                arrDataMoi.push(res.Thang11.DonHangMoi);
+                arrDataMoi.push(res.Thang12.DonHangMoi);
+
+                arrDataThanhCong.push(res.Thang1.DonHangThanhCong);
+                arrDataThanhCong.push(res.Thang2.DonHangThanhCong);
+                arrDataThanhCong.push(res.Thang3.DonHangThanhCong);
+                arrDataThanhCong.push(res.Thang4.DonHangThanhCong);
+                arrDataThanhCong.push(res.Thang5.DonHangThanhCong);
+                arrDataThanhCong.push(res.Thang6.DonHangThanhCong);
+                arrDataThanhCong.push(res.Thang7.DonHangThanhCong);
+                arrDataThanhCong.push(res.Thang8.DonHangThanhCong);
+                arrDataThanhCong.push(res.Thang9.DonHangThanhCong);
+                arrDataThanhCong.push(res.Thang10.DonHangThanhCong);
+                arrDataThanhCong.push(res.Thang11.DonHangThanhCong);
+                arrDataThanhCong.push(res.Thang12.DonHangThanhCong);
+
+                arrDataThatBai.push(res.Thang1.DonHangThatBai);
+                arrDataThatBai.push(res.Thang2.DonHangThatBai);
+                arrDataThatBai.push(res.Thang3.DonHangThatBai);
+                arrDataThatBai.push(res.Thang4.DonHangThatBai);
+                arrDataThatBai.push(res.Thang5.DonHangThatBai);
+                arrDataThatBai.push(res.Thang6.DonHangThatBai);
+                arrDataThatBai.push(res.Thang7.DonHangThatBai);
+                arrDataThatBai.push(res.Thang8.DonHangThatBai);
+                arrDataThatBai.push(res.Thang9.DonHangThatBai);
+                arrDataThatBai.push(res.Thang10.DonHangThatBai);
+                arrDataThatBai.push(res.Thang11.DonHangThatBai);
+                arrDataThatBai.push(res.Thang12.DonHangThatBai);
+
+                arrDataHuy.push(res.Thang1.DonHangHuy);
+                arrDataHuy.push(res.Thang2.DonHangHuy);
+                arrDataHuy.push(res.Thang3.DonHangHuy);
+                arrDataHuy.push(res.Thang4.DonHangHuy);
+                arrDataHuy.push(res.Thang5.DonHangHuy);
+                arrDataHuy.push(res.Thang6.DonHangHuy);
+                arrDataHuy.push(res.Thang7.DonHangHuy);
+                arrDataHuy.push(res.Thang8.DonHangHuy);
+                arrDataHuy.push(res.Thang9.DonHangHuy);
+                arrDataHuy.push(res.Thang10.DonHangHuy);
+                arrDataHuy.push(res.Thang11.DonHangHuy);
+                arrDataHuy.push(res.Thang12.DonHangHuy);
+                console.log(res);
+            }
+        }).done(function () {
+            var myChart = new Chart(ctxDoc, {
+                type: 'bar',
+                data: {
+                    labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+                    datasets: [
+                        {
+                            label: 'Đơn hàng mới',
+                            data: arrDataMoi,
+                            backgroundColor: [
+                                '#007bff',
+                                '#007bff',
+                                '#007bff',
+                                '#007bff',
+                                '#007bff',
+                                '#007bff',
+                                '#007bff',
+                                '#007bff',
+                                '#007bff',
+                                '#007bff',
+                                '#007bff',
+                                '#007bff'
+                            ],
+                            borderColor: [
+                                '#007bff',
+                                '#007bff',
+                                '#007bff',
+                                '#007bff',
+                                '#007bff',
+                                '#007bff',
+                                '#007bff',
+                                '#007bff',
+                                '#007bff',
+                                '#007bff',
+                                '#007bff',
+                                '#007bff'
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Đơn hàng thành công',
+                            data: arrDataThanhCong,
+                            backgroundColor: [
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745'
+                            ],
+                            borderColor: [
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745'
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Đơn hàng thất bại',
+                            data: arrDataThatBai,
+                            backgroundColor: [
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107'
+                            ],
+                            borderColor: [
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107'
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Đơn hàng hủy',
+                            data: arrDataHuy,
+                            backgroundColor: [
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d'
+                            ],
+                            borderColor: [
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d'
+                            ],
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+    }
+    function SetChartDoanhThu() {
+        var ctxDoc = document.getElementById('chartDoanhThu').getContext('2d');
+        var arrDataDoanhThu = [];
+        var totalDoanhThu = 0;
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetDataBaoCaoNam", "Report")?nam=@filter',
+            dataType: 'json',
+            success: function (res) {
+                arrDataDoanhThu.push(res.Thang1.DoanhThu);
+                arrDataDoanhThu.push(res.Thang2.DoanhThu);
+                arrDataDoanhThu.push(res.Thang3.DoanhThu);
+                arrDataDoanhThu.push(res.Thang4.DoanhThu);
+                arrDataDoanhThu.push(res.Thang5.DoanhThu);
+                arrDataDoanhThu.push(res.Thang6.DoanhThu);
+                arrDataDoanhThu.push(res.Thang7.DoanhThu);
+                arrDataDoanhThu.push(res.Thang8.DoanhThu);
+                arrDataDoanhThu.push(res.Thang9.DoanhThu);
+                arrDataDoanhThu.push(res.Thang10.DoanhThu);
+                arrDataDoanhThu.push(res.Thang11.DoanhThu);
+                arrDataDoanhThu.push(res.Thang12.DoanhThu);
+
+                arrDataDoanhThu.forEach(function (item, index) {
+                    totalDoanhThu += item;
+                });
+                $("#totalDoanhThu").text(numberWithCommas(totalDoanhThu) + " đ");
+                console.log(arrDataDoanhThu);
+            }
+        }).done(function () {
+            var myChart = new Chart(ctxDoc, {
+                type: 'line',
+                data: {
+                    labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+                    datasets: [
+                        {
+                            label: 'Doanh thu',
+                            data: arrDataDoanhThu,
+                            backgroundColor: [
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d'
+                            ],
+                            borderColor: [
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d',
+                                '#6c757d'
+                            ],
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+    }
+</script>
+<script>
+    SetChartBieuDoDoc();
+    SetChartDoanhThu();
+</script>

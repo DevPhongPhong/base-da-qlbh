@@ -1,0 +1,211 @@
+﻿@model IEnumerable<Entities.DTOs.ImportViewModel>
+@{
+    ViewData["Title"] = "Quản lý nhập hàng";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+    var currentPage = ViewBag.CurrentPage;
+    var currentSize = ViewBag.CurrentSize;
+    var countRecord = ViewBag.CountRecord;
+    var countPage = countRecord / currentSize + 1;
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <button class="btn btn-success float-left" onclick="exportExcel()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-spreadsheet" viewBox="0 0 16 16">
+                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V9H3V2a1 1 0 0 1 1-1h5.5v2zM3 12v-2h2v2H3zm0 1h2v2H4a1 1 0 0 1-1-1v-1zm3 2v-2h3v2H6zm4 0v-2h3v1a1 1 0 0 1-1 1h-2zm3-3h-3v-2h3v2zm-7 0v-2h3v2H6z" />
+                    </svg>
+                    &nbsp;
+                    Xuất Excel
+                </button>
+                <a href="@Url.Action("ImportProduct","Import")" class="btn btn-success float-right">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                    </svg>
+                    &nbsp;
+                    Nhập hàng
+                </a>
+
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" width="5%">STT</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" width="5%">Mã đơn</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" width="10%">Người đặt</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" width="10%">Ngày đặt</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" width="10%">Số loại SP</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" width="5%">Tổng số lượng</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" width="10%">Tổng tiền</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" width="35%">Ghi chú</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" width="10%">Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.Count() > 0)
+                                        {
+                                            var id = 1;
+                                            foreach (var item in Model)
+                                            {
+                                                <tr data-toggle="collapse" data-target="#demo-@id" class="accordion-toggle" role="row">
+                                                    <td>@id</td>
+                                                    <td>@item.ID</td>
+                                                    <td>@item.Name</td>
+                                                    <td>@item.CreatedDate?.ToString("hh:mm:ss, dd/MM/yyyy")</td>
+                                                    <td>@item.CountProduct</td>
+                                                    <td>@item.TotalQuantity</td>
+                                                    <td>@item.TotalPrice</td>
+                                                    <td>@item.Note</td>
+                                                    <td><button class="btn btn-outline-primary">Chi tiết</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="12" class="hiddenRow">
+                                                        <div class="accordian-body collapse" id="demo-@id">
+                                                            <div class="card card-success">
+                                                                <!-- /.card-header -->
+                                                                <!-- form start -->
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <label class="control-label">Danh sách sản phẩm</label>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <table id="example2" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example2_info">
+                                                                                <thead>
+                                                                                    <tr role="row">
+                                                                                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">STT</th>
+                                                                                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">Mã sản phẩm</th>
+                                                                                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">Tên sản phẩm</th>
+                                                                                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">Giá tiền</th>
+                                                                                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">Số lượng</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    @if (item.ListImportProductViewModel != null && item.ListImportProductViewModel.Count > 0)
+                                                                                    {
+                                                                                        var idIP = 1;
+                                                                                        foreach (var itemIP in item.ListImportProductViewModel)
+                                                                                        {
+                                                                                            <tr role="row">
+                                                                                                <td>@idIP</td>
+                                                                                                <td>@itemIP.Code</td>
+                                                                                                <td>@itemIP.Name</td>
+                                                                                                <td>@itemIP.Price</td>
+                                                                                                <td>@itemIP.Quantity</td>
+                                                                                            </tr>
+                                                                                            idIP++;
+                                                                                        }
+                                                                                    }
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- /.card-body -->
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                id++;
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-md 6">Trang @currentPage - Hiển thị @((currentPage-1)*currentSize+1) trong @countRecord bản ghi</div>
+                                <div class="col-md 6">
+                                    <ul class="pagination justify-content-end">
+                                        <li class="page-item @(currentPage==1 ? "disabled" :"")">
+                                            <a class="page-link" href="@Url.Action("Index","Import",new { page = currentPage-1,size = currentSize})" tabindex="-1">Previous</a>
+                                        </li>
+                                        @if (countPage <= 7)
+                                        {
+                                            @for (int i = 1; i <= countPage; i++)
+                                            {
+                                                <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Import", new { page = i, size = currentSize })">@i</a></li>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (currentPage > 2)
+                                            {
+                                                <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Import", new { page = 1, size = currentSize })">1</a></li>
+                                            }
+                                            if (currentPage - 2 > 1)
+                                            {
+                                                <li class="page-item"><div class="page-link">...</div></li>
+                                            }
+                                            if (currentPage != 1)
+                                            {
+                                                <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Import", new { page = currentPage - 1, size = currentSize })">@(currentPage - 1)</a></li>
+                                            }
+                                            <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Import", new { page = currentPage, size = currentSize })">@currentPage</a></li>
+                                            if (currentPage != countPage)
+                                            {
+                                                <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Import", new { page = currentPage + 1, size = currentSize })">@(currentPage + 1)</a></li>
+                                            }
+
+                                            if (currentPage + 1 < countPage - 1)
+                                            {
+                                                <li class="page-item"><div class="page-link">...</div></li>
+                                            }
+                                            if (currentPage < countPage - 1)
+                                            {
+                                                <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Import", new { page = countPage, size = currentSize })">@countPage</a></li>
+                                            }
+                                        }
+                                        <li class="page-item @(currentPage==countPage ? "disabled" :"")">
+                                            <a class="page-link" href="@Url.Action("Index","Import",new { page = currentPage+1,size = currentSize})">Next</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <script>
+                                function exportExcel() {
+                                    $.ajax({
+                                        url: '@Url.Action("ExportExcel")',
+                                        dataType: 'json',
+                                        type: 'POST',
+                                        success: function (res) { window.location.href = res.filePath},
+                                    });
+                                    }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+</div>
+
+<!-- Page specific script -->
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1 .col-md-6:eq(0)');
+    });
+</script>
+
