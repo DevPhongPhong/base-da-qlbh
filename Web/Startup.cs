@@ -39,7 +39,19 @@ namespace Web
                 });
 
             services.AddDbContext<CMS_DBContext>(options =>
-                options.UseMySql(ServerVersion.AutoDetect(Configuration.GetConnectionString("DefaultConnection"))));
+                options.UseMySql(
+                    Configuration.GetConnectionString("DefaultConnection"),
+                    ServerVersion.AutoDetect(
+                        Configuration.GetConnectionString("DefaultConnection")
+                    ), 
+                    optionsBuilder => 
+                        optionsBuilder.EnableRetryOnFailure(
+                            maxRetryCount: 5,
+                            maxRetryDelay: System.TimeSpan.FromSeconds(30),
+                            errorNumbersToAdd: null)
+                    )
+            );
+
 
             services.AddSingleton(Configuration);
 
