@@ -1,8 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+    <UserSecretsId>41a1bb3b-38e6-437e-89c1-aeed6752db61</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -13,13 +14,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\Upload\data\**" />
+    <Compile Remove="wwwroot\Upload\temp\**" />
+    <Content Remove="wwwroot\Upload\data\**" />
+    <Content Remove="wwwroot\Upload\temp\**" />
+    <EmbeddedResource Remove="wwwroot\Upload\data\**" />
+    <EmbeddedResource Remove="wwwroot\Upload\temp\**" />
+    <None Remove="wwwroot\Upload\data\**" />
+    <None Remove="wwwroot\Upload\temp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EPPlus" Version="5.8.7" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.12" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,8 +42,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\excel\" />
-    <Folder Include="wwwroot\Upload\data\" />
-    <Folder Include="wwwroot\Upload\temp\" />
+    <Folder Include="wwwroot\Upload\" />
   </ItemGroup>
 
 </Project>

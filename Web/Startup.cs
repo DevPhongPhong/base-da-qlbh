@@ -33,12 +33,13 @@ namespace Web
             });
 
             services.AddControllersWithViews()
-                .AddJsonOptions(options => {
+                .AddJsonOptions(options =>
+                {
                     options.JsonSerializerOptions.PropertyNamingPolicy = null;
                 });
 
             services.AddDbContext<CMS_DBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseMySql(ServerVersion.AutoDetect(Configuration.GetConnectionString("DefaultConnection"))));
 
             services.AddSingleton(Configuration);
 

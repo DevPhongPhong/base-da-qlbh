@@ -2,4 +2,9 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/Entities/bin/Debug
+/Entities/bin
+/Entities/obj
+/Services/bin
+/Services/obj
+/Ultilities/bin
+/Ultilities/obj
