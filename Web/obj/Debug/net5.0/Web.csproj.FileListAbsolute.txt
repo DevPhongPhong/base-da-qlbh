@@ -111,7 +111,6 @@ F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Ide
 F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Identity.Stores.dll
 F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Localization.Abstractions.dll
 F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Localization.dll
-F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Abstractions.dll
 F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Configuration.dll
 F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Console.dll
 F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Debug.dll
@@ -123,7 +122,6 @@ F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Obj
 F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.DataAnnotations.dll
 F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.dll
-F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Primitives.dll
 F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\refs\Microsoft.Extensions.WebEncoders.dll
 F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\refs\Microsoft.JSInterop.dll
 F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\refs\Microsoft.Net.Http.Headers.dll
@@ -515,3 +513,11 @@ F:\ProgramingPJ\dotnetPJ\qlbh\Web\obj\Debug\net5.0\Web.genruntimeconfig.cache
 F:\ProgramingPJ\dotnetPJ\qlbh\Web\obj\Debug\net5.0\ref\Web.dll
 F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\ref\Web.dll
 F:\ProgramingPJ\dotnetPJ\qlbh\Web\obj\Debug\net5.0\staticwebassets\Web.StaticWebAssets.xml
+F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\MySqlConnector.dll
+F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\Pomelo.EntityFrameworkCore.MySql.dll
+F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\Microsoft.Extensions.Logging.Abstractions.dll
+F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\Pipelines.Sockets.Unofficial.dll
+F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\StackExchange.Redis.dll
+F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\RedisModule.dll
+F:\ProgramingPJ\dotnetPJ\qlbh\Web\bin\Debug\net5.0\RedisModule.pdb

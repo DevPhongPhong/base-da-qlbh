@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ultilities;
 
 namespace Web.Areas.Administrator.Controllers
 {
@@ -36,6 +37,7 @@ namespace Web.Areas.Administrator.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    model.Password = EncryptExtensions.Hash(model.Password, null);
                     var check = _commonService.CheckExistAccountUserName(model.Username);
                     if (check)
                     {
@@ -85,6 +87,7 @@ namespace Web.Areas.Administrator.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    EncryptExtensions.Hash(model.Password, null);
                     model.ModifiedBy = this.HttpContext.Session.GetString("user");
                     model.ModifiedDate = DateTime.Now;
                     var res = _commonService.InsertOrUpdateAccount(model);

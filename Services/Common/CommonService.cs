@@ -305,7 +305,7 @@ namespace Services.Common
                     return context.SaveChanges() > 0;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw new Exception();
             }

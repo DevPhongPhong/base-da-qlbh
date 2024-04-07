@@ -8,6 +8,7 @@ using Services.Login;
 using Services.News;
 using Services.Order;
 using Services.Product;
+using Services.StaticData;
 
 namespace Web
 {
@@ -24,6 +25,8 @@ namespace Web
             services.AddScoped<IImportService, ImportService>();
             services.AddScoped<IExportService, ExportService>();
             services.AddScoped<IFromCustomerService, FromCustomerService>();
+            services.AddScoped<IStaticDataService, StaticDataService>();
+
             return services;
         }
     }

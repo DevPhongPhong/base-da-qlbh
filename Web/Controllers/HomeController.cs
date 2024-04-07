@@ -8,6 +8,7 @@ using Services.FromCustomer;
 using Services.Kaafly;
 using Services.News;
 using Services.Product;
+using Services.StaticData;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,8 +25,9 @@ namespace Web.Controllers
         private INewsService newsService;
         private ICommonService commonService;
         private IFromCustomerService fromCustomerService;
+        private IStaticDataService _staticDataService;
 
-        public HomeController(ILogger<HomeController> logger, IKaaflyService kaaflyService, IProductService productService, INewsService newsService, ICommonService commonService, IFromCustomerService _fromCustomerService)
+        public HomeController(ILogger<HomeController> logger, IKaaflyService kaaflyService, IProductService productService, INewsService newsService, ICommonService commonService, IFromCustomerService _fromCustomerService, IStaticDataService staticDataService)
         {
             _logger = logger;
             this.kaaflyService = kaaflyService;
@@ -33,6 +35,7 @@ namespace Web.Controllers
             this.newsService = newsService;
             this.commonService = commonService;
             this.fromCustomerService = _fromCustomerService;
+            _staticDataService = staticDataService;
         }
 
         public IActionResult Index()
@@ -286,6 +289,7 @@ namespace Web.Controllers
         {
             TempData["productmenu"] = commonService.GetListProductCategory().OrderBy(x => x.CategoryOrder).ToList();
             TempData["newsmenu"] = commonService.GetListCategoryNews().OrderBy(x => x.CategoryOrder).ToList();
+            TempData["EmailAndPhone"] = _staticDataService.GetEmailAndPhoneNum();
         }
     }
 }
