@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "F:\\ProgramingPJ\\dotnetPJ\\qlbh\\Ultilities\\Ultilities.csproj": {}
+    "D:\\PJs\\base-da-qlbh\\Ultilities\\Ultilities.csproj": {}
   },
   "projects": {
-    "F:\\ProgramingPJ\\dotnetPJ\\qlbh\\Ultilities\\Ultilities.csproj": {
+    "D:\\PJs\\base-da-qlbh\\Ultilities\\Ultilities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\ProgramingPJ\\dotnetPJ\\qlbh\\Ultilities\\Ultilities.csproj",
+        "projectUniqueName": "D:\\PJs\\base-da-qlbh\\Ultilities\\Ultilities.csproj",
         "projectName": "Ultilities",
-        "projectPath": "F:\\ProgramingPJ\\dotnetPJ\\qlbh\\Ultilities\\Ultilities.csproj",
-        "packagesPath": "C:\\Users\\phong\\.nuget\\packages\\",
-        "outputPath": "F:\\ProgramingPJ\\dotnetPJ\\qlbh\\Ultilities\\obj\\",
+        "projectPath": "D:\\PJs\\base-da-qlbh\\Ultilities\\Ultilities.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "D:\\PJs\\base-da-qlbh\\Ultilities\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\phong\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,6 +34,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -80,7 +80,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -89,7 +90,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -10,3 +10,16 @@ F:\ProgramingPJ\dotnetPJ\qlbh\RedisModule\obj\Debug\net5.0\RedisModule.csproj.Co
 F:\ProgramingPJ\dotnetPJ\qlbh\RedisModule\obj\Debug\net5.0\RedisModule.dll
 F:\ProgramingPJ\dotnetPJ\qlbh\RedisModule\obj\Debug\net5.0\ref\RedisModule.dll
 F:\ProgramingPJ\dotnetPJ\qlbh\RedisModule\obj\Debug\net5.0\RedisModule.pdb
+D:\PJs\base-da-qlbh\RedisModule\bin\Debug\net5.0\RedisModule.deps.json
+D:\PJs\base-da-qlbh\RedisModule\bin\Debug\net5.0\RedisModule.dll
+D:\PJs\base-da-qlbh\RedisModule\bin\Debug\net5.0\RedisModule.pdb
+D:\PJs\base-da-qlbh\RedisModule\obj\Debug\net5.0\RedisModule.csproj.AssemblyReference.cache
+D:\PJs\base-da-qlbh\RedisModule\obj\Debug\net5.0\RedisModule.GeneratedMSBuildEditorConfig.editorconfig
+D:\PJs\base-da-qlbh\RedisModule\obj\Debug\net5.0\RedisModule.AssemblyInfoInputs.cache
+D:\PJs\base-da-qlbh\RedisModule\obj\Debug\net5.0\RedisModule.AssemblyInfo.cs
+D:\PJs\base-da-qlbh\RedisModule\obj\Debug\net5.0\RedisModule.csproj.CoreCompileInputs.cache
+D:\PJs\base-da-qlbh\RedisModule\obj\Debug\net5.0\RedisModule.sourcelink.json
+D:\PJs\base-da-qlbh\RedisModule\obj\Debug\net5.0\RedisModule.dll
+D:\PJs\base-da-qlbh\RedisModule\obj\Debug\net5.0\refint\RedisModule.dll
+D:\PJs\base-da-qlbh\RedisModule\obj\Debug\net5.0\RedisModule.pdb
+D:\PJs\base-da-qlbh\RedisModule\obj\Debug\net5.0\ref\RedisModule.dll
