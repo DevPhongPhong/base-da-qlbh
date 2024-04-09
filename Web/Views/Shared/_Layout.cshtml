@@ -1,4 +1,30 @@
-﻿
+﻿@*Theme: https://themeforest.net/search/ecolife*@
+@{
+    var strErr = (string)TempData["StrErr"];
+}
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@using Ultilities;
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var memberSession = HttpContextAccessor.HttpContext.Session.GetString("member");
+    var userData = memberSession != null ? JsonConvert.DeserializeObject<Entities.Models.Accounts>(memberSession) : null;
+}
+@{
+    var cartSession = HttpContextAccessor.HttpContext.Session.GetString("cart");
+    var listItem = cartSession != null ? JsonConvert.DeserializeObject<List<CartItem>>(cartSession) : new List<CartItem>();
+    decimal? totalHomePrice = 0;
+    //decimal? totalHomePriceMobile = 0;
+    foreach (var item in listItem)
+    {
+        totalHomePrice += (item.Product.PromotionPrice.HasValue ? item.Product.PromotionPrice : item.Product.Price) * item.Quantity;
+    }
+}
+@{
+    var listNewsCate = (List<Entities.DTOs.CategoryNewsViewModel>)TempData["newsmenu"];
+    var listProductCate = (List<Entities.DTOs.ProductCategoryViewModel>)TempData["productmenu"];
+}
+
 <!DOCTYPE html>
 <html lang="vi">
 
