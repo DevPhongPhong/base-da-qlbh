@@ -42,7 +42,8 @@ namespace Web.Controllers
             //ViewBag.NewsHomeHot = newsService.GetRandomHotNewses(3);
             //ViewBag.HotCategoryProduct = productService.GetListProductCategoryByHomeHot(true, true, 10);
             //ViewBag.ProductCategoryShowOnHome = productService.GetAllProductCategoryShowOnHome(true, true, 5);
-            return View();
+            GetDataMenu();
+			return View();
         }
 
         public IActionResult Privacy()
@@ -104,6 +105,7 @@ namespace Web.Controllers
             ViewBag.CurrentOrder = order;
             ViewBag.CurrentCategoryName = (id != 0) ? kaaflyService.GetCategoryById(id)?.CategoryName : "Tất cả sản phẩm";
             ViewBag.RandomProductCategory = commonService.GetRandomProductCategory(5);
+            ViewBag.RelatedCategory = null;
             return View();
         }
         [Route("product/details")]
@@ -121,7 +123,7 @@ namespace Web.Controllers
             ViewBag.ChooseLength = length;
             ViewBag.ChooseProduct = id;
             ViewBag.ChooseQuantity = quantity;
-            ViewBag.ListFeedback = fromCustomerService.GetProductComments().Where(x => x.ProductID == id && x.Status == true && x.ShowOnHome == true).OrderByDescending(x => x.CreateDate).Take(3).ToList();
+            //ViewBag.ListFeedback = fromCustomerService.GetProductComments().Where(x => x.ProductID == id && x.Status == true && x.ShowOnHome == true).OrderByDescending(x => x.CreateDate).Take(3).ToList();
             return View(data);
         }
 

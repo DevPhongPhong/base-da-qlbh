@@ -1,8 +1,10 @@
 ﻿@{
     var listProducts = (Entities.Common.PaginationModel<List<Entities.DTOs.ProductViewModel>>)ViewBag.ListProductByCategory;
-    var countPage = (listProducts.Pagination.Total % listProducts.Pagination.Size > 1) ? listProducts.Pagination.Total / listProducts.Pagination.Size + 1 :
+    var countPage = (listProducts.Pagination.Total % listProducts.Pagination.Size > 1) ? listProducts.Pagination.Total /
+    listProducts.Pagination.Size + 1 :
         listProducts.Pagination.Total / listProducts.Pagination.Size;
-    var currentCategoryId = listProducts.Data.FirstOrDefault() != null ? listProducts.Data.FirstOrDefault().currentCategoryId : 1;
+    var currentCategoryId = listProducts.Data.FirstOrDefault() != null ?
+    listProducts.Data.FirstOrDefault().currentCategoryId : 1;
     var currentPage = listProducts.Pagination.Offset + 1;
     bool isNext = (currentPage < countPage);
     bool isPrev = (currentPage > 1);
@@ -47,140 +49,159 @@
 
 @{
     var listRandomProductCategory = (List<Entities.DTOs.ProductCategoryViewModel>)ViewBag.RandomProductCategory;
+    var relateCategories = (List<Entities.DTOs.ProductCategoryViewModel>)TempData["relateCategories"];
 }
-<!-- Start Breadcrumbs Section -->
-<section class="breadcrumbs-section background_bg" data-img-src="assets/images/shop-breadcrumbs-img.jpg" style="background: url(&quot;assets/images/shop-breadcrumbs-img.jpg&quot;) center center / cover;">
+<section class="bread-crumb">
+    <span class="crumb-border"></span>
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <div class="page_title text-center">
-                    <h1>Danh sách sản phẩm</h1>
-                    <ul class="breadcrumb justify-content-center">
-                        <li><a href="/">Trang chủ</a></li>
-                        <li><a href="#">Sản phẩm</a></li>
-                        <li><span>@currentCategoryName</span></li>
-                    </ul>
-                </div>
+            <div class="col-xs-12 a-left">
+                <ul class="breadcrumb">
+                    <li class="home">
+                        <a href="/"><span>Trang chủ</span></a><span>
+                            <i class="fa fa-angle-double-right"
+                               aria-hidden="true"></i>
+                        </span>
+                    </li>
+                    <li>
+                        <strong><span>@currentCategoryName</span></strong>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
 </section>
-<!-- End Header Section -->
-<!-- Start Shop Section -->
-<section class="shop-inner-section pt_large pb_large">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-9 col-lg-8 col-md-12">
-                <div class="shop-options d-sm-flex justify-content-between align-items-center">
-                    <!--Short area start-->
-
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            --Sắp xếp theo: @currentOrderDisplay
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="@Url.Action("Product","Home",new {id = currentCategoryId, page = 1, order = "abc" })">A->Z</a>
-                            <a class="dropdown-item" href="@Url.Action("Product","Home",new {id = currentCategoryId, page = 1, order = "abc_desc" })">Z->A</a>
-                            <a class="dropdown-item" href="@Url.Action("Product","Home",new {id = currentCategoryId, page = 1, order = "date" })">Mới nhất</a>
-                            <a class="dropdown-item" href="@Url.Action("Product","Home",new {id = currentCategoryId, page = 1, order = "date_desc" })">Cũ nhất</a>
-                            <a class="dropdown-item" href="@Url.Action("Product","Home",new {id = currentCategoryId, page = 1, order = "price" })">Giá: Tăng dần</a>
-                            <a class="dropdown-item" href="@Url.Action("Product","Home",new {id = currentCategoryId, page = 1, order = "price_desc" })">Giá: Giảm dần</a>
-                        </div>
-                    </div>
-
-                    <!--Change style display start-->
-                    <div class="shop-list_grid">
-                        <div class="list_grid-btns">
-                            <a href="javascript:void(0)" class="list-view"><i class="ion-navicon-round"></i></a>
-                            <a href="javascript:void(0)" class="grid-view on"><i class="ion-grid"></i></a>
-                        </div>
-                    </div>
-                    <!--Change style display end-->
-                </div>
-                <!--List Products start-->
-                <div class="row list_grid_container grid justify-content-center">
-                    @if (listProducts.Data?.Count <= 0)
-                    {
-                        <p>Hiện chưa có sản phẩm</p>
-                    }
-                    else
-                    {
-                        @foreach (var item in listProducts.Data)
+<div class="container">
+    <div class="row">
+        <section class="col-md-9 col-md-push-3 main_container collection margin-bottom-30">
+            <div class="text-sm-left">
+                <h1 class="title-head margin-top-0">@currentCategoryName</h1>
+            </div>
+            <div class="category-products products">
+                <section class="products-view products-view-grid collection_reponsive">
+                    <div class="row row-noGutter-2 content_col">
+                        @if (listProducts.Data?.Count <= 0)
                         {
-                            <div class="col-md-4 col-6">
-                                <div class="product-box common-cart-box box-1">
-                                    <div class="product-img common-cart-img">
-                                        <img src="@item.MainImageThumb" alt="product-img" style="width:300px">
-                                        <div class="hover-option">
-                                            <div class="add-cart-btn">
-                                                <button type="button" onclick="addToCart(@item.Id)" data-id="@item.Id" class="btn btn-primary">Thêm vào giỏ hàng</button>
+                            <p>Hiện chưa có sản phẩm</p>
+                        }
+                        else
+                        {
+                            @foreach (var item in listProducts.Data)
+                            {
+                                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+                                    <div class="product-col">
+                                        <div class="product-box-h">
+                                            <div class="row">
+
+                                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                                    <div class="product-thumbnail">
+                                                        <a class="image_link display_flex"
+                                                           href="@Url.Action("ProductDetails","Home", new { id = item.Id,color = 1, length =1, quantity=1})"
+                                                           title="@item.Name">
+                                                            <img class="lazyload" src="@item.MainImageThumb" alt="@item.Name" />
+                                                        </a>
+                                                        <a title="Xem nhanh" href="/may-hut-chan-khong-dzq-600"
+                                                           data-handle="may-hut-chan-khong-dzq-600"
+                                                           class="xem_nhanh button_wh_40 btn_view right-to quick-view hidden-xs hidden-sm hidden-md">
+                                                            Xem nhanh
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                                    <div class="product-info a-left">
+                                                        <h3 class="product-name">
+                                                            <a class="height_name"
+                                                               href="@Url.Action("ProductDetails","Home", new { id = item.Id,color = 1, length =1, quantity=1})"
+                                                               title="@item.Name">@item.Name</a>
+                                                        </h3>
+                                                        <div class="product-hides">
+                                                            <div class="bizweb-product-reviews-badge" data-id="29474760"></div>
+                                                            <div class="product-hide">
+                                                                <div class="price-box clearfix">
+                                                                    @if (item.PromotionPrice.HasValue)
+                                                                    {
+                                                                        <div class="special-price">
+                                                                            <span class="price product-price">@item.PromotionPrice?.ToString("N0")</span>
+                                                                        </div>
+                                                                        <div class="old-price">
+                                                                            <span class="price product-price-old">
+                                                                                @item.Price?.ToString("N0")₫
+                                                                            </span>
+                                                                        </div>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="special-price">
+                                                                            <span class="price product-price">@item.Price?.ToString("N0")₫</span>
+                                                                        </div>
+                                                                    }
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-action clearfix hidden-xs">
+                                                            <form action="/cart/add" method="post"
+                                                                  class="variants form-nut-grid"
+                                                                  data-id="product-actions-29474760"
+                                                                  enctype="multipart/form-data">
+                                                                <div>
+
+                                                                    <input type="hidden" name="variantId" value="81033893">
+                                                                    <button class="btn-buy btn-cart btn btn-circle left-to add_to_cart "
+                                                                            title="Thêm vào giỏ hàng">
+                                                                        Đặt mua ngay
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
-                                            <ul class="hover-icon">
-                                                @*<li><a href="#"><i class="fa fa-heart"></i></a></li>*@
-                                                @*<li><a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a></li>*@
-                                                
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-info common-cart-info text-center">
-                                        <a href="@Url.Action("ProductDetails","Home", new { id = item.Id,color = 1, length =1, quantity=1})" class="cart-name">@item.Name</a>
-                                        <p class="cart-price">
-                                            @if (item.PromotionPrice.HasValue)
-                                            {
-                                                <del>@item.Price?.ToString("N0") đ</del>
-                                                @item.PromotionPrice?.ToString("N0")
-                                            }
-                                            else
-                                            {
-                                                @item.Price?.ToString("N0")
-                                            }
-                                            đ
-                                        </p>
-                                        <span></span>
-                                        @*<p class="product-list-text" style="">@(item.Description.Length > 100 ? item.Description.Substring(0,100) +"..." : item.Description)</p>*@
-                                        <div class="hover-option">
-                                            <div class="add-cart-btn">
-                                                <button type="button" onclick="addToCart(@item.Id)" data-id="@item.Id" class="btn btn-primary">Thêm vào giỏ hàng</button>
-                                            </div>
-                                            <span></span>
-                                            <ul class="hover-icon">
-                                                @*<li><a href="#"><i class="fa fa-heart"></i></a></li>*@
-                                                @*<li><a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a></li>*@
-                                            </ul>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
                         }
-                    }
-                </div>
-                <!--List Products end-->
-                <!--Paging area start-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <nav>
-                            <ul class="pagination justify-content-center">
-                                @if (countPage > 0)
-                                {
-                                    @for (int i = 1; i <= countPage; i++)
-                                    {
-                                        <li @(i == currentPage ? "class=active" : "")><a href="@Url.Action("Product","Home",new { id = currentCategoryId, page = i})">@i</a></li>
-                                    }
-                                }
+                    </div>
+                    <div class="text-center">
+                        <nav class="clearfix">
+                            <ul class="pagination clearfix">
+                                <li class="page-item hidden-xs">
+                                    <a class="page-link page-db" onclick="doSearch(1)"
+                                       href="javascript:;">Đầu tiên</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" onclick="doSearch(1)"
+                                       href="javascript:;">1</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" onclick="doSearch(2)"
+                                       href="javascript:;">2</a>
+                                </li>
+                                <li class="page-item hidden-xs">
+                                    <a class="page-link page-db" onclick="doSearch(2)"
+                                       href="javascript:;">Trang cuối</a>
+                                </li>
                             </ul>
                         </nav>
                     </div>
-                </div>
-                <!--Paging area end-->
+                </section>
             </div>
-            <div class="col-xl-3 col-lg-4 col-md-12 order-lg-first">
-                <div class="shop-sidebar">
-                    <partial name="~/Views/Shared/_LeftCategory.cshtml" />
-                    
+        </section>
+        @if (relateCategories != null)
+        {
+            <div class="col-md-3 col-md-pull-9">
+                <div class="coll-cate">
+                    <div class="title">Danh mục</div>
+                    <ul>
+                        @foreach (var item in relateCategories)
+                        {
+                            <li><a href="/product?id=@(item.Id)">@item.CategoryName</a></li>
+                        }
+                    </ul>
                 </div>
             </div>
-        </div>
-        
+        }
     </div>
-</section>
-<!-- End Shop Section -->
+</div>
