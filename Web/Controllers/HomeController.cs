@@ -71,7 +71,7 @@ namespace Web.Controllers
             RequestHomeViewModel request = new RequestHomeViewModel();
             request.Offset = page;
             request.categoryId = id;
-            request.Size = 9;
+            request.Size = 12;
             var data = kaaflyService.GetListProductByCategoryId(request);
             if (order == "date")
             {
@@ -105,11 +105,11 @@ namespace Web.Controllers
             ViewBag.CurrentOrder = order;
             ViewBag.CurrentCategoryName = (id != 0) ? kaaflyService.GetCategoryById(id)?.CategoryName : "Tất cả sản phẩm";
             ViewBag.RandomProductCategory = commonService.GetRandomProductCategory(5);
-            ViewBag.RelatedCategory = null;
+            ViewBag.RelateCategories = productService.GetRelatedCate(id);
             return View();
         }
         [Route("product/details")]
-        public IActionResult ProductDetails(int id, int color, int length, int quantity)
+        public IActionResult ProductDetails(int id)
         {
             GetDataMenu();
 
@@ -119,11 +119,6 @@ namespace Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
             ViewBag.ProductDetail = kaaflyService.GetProductById(id);
-            ViewBag.ChooseColor = color;
-            ViewBag.ChooseLength = length;
-            ViewBag.ChooseProduct = id;
-            ViewBag.ChooseQuantity = quantity;
-            //ViewBag.ListFeedback = fromCustomerService.GetProductComments().Where(x => x.ProductID == id && x.Status == true && x.ShowOnHome == true).OrderByDescending(x => x.CreateDate).Take(3).ToList();
             return View(data);
         }
 

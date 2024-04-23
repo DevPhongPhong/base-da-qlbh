@@ -25,5 +25,6 @@ namespace Services.Product
         //ImportProductViewModel GetImportProductById(long id);
         List<ImportProductViewModel> GetAllImportProduct();
         bool ImportProduct(int id, int quantity);
+        List<ProductCategory> GetRelatedCate(int id);
     }
 }

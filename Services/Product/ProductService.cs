@@ -339,12 +339,19 @@ namespace Services.Product
 
                 throw ex;
             }
-            
+
         }
         public bool CheckQuantityProductOrder(int id, int order)
         {
             var product = context.Products.Find(id);
             return product.Quantity >= order;
+        }
+
+        public List<ProductCategory> GetRelatedCate(int id)
+        {
+            var cate = context.ProductCategories.FirstOrDefault(c => c.Id == id);
+            var res = context.ProductCategories.Where(c => (c.ParentId == id || (c.ParentId == cate.ParentId && cate.ParentId != 0)) && c.Id != id).ToList();
+            return res;
         }
     }
 

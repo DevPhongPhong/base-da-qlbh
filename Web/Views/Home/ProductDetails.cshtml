@@ -4,13 +4,877 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @{
-    var chooseColor = (int)ViewBag.ChooseColor;
-    var chooseLength = (int)ViewBag.ChooseLength;
-    var chooseProduct = (int)ViewBag.ChooseProduct;
-    var chooseQuantity = (int)ViewBag.ChooseQuantity;
     var message = (string)TempData["sentContact"];
     var listFeedback = (List<Entities.Models.Feedback>)ViewBag.ListFeedback;
 }
+<section class="bread-crumb">
+	<span class="crumb-border"></span>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 a-left">
+				<ul class="breadcrumb">
+					<li class="home">
+						<a href="/"><span>Trang chủ</span></a>
+						<span><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
+					</li>
+
+
+					<li>
+						<a class="changeurl" href="/noi-nau-tran-chau"><span>Nồi nấu trân châu</span></a>
+						<span><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
+					</li>
+
+					<li><strong><span>Nồi nấu trân châu tự  động Unibar 8l</span></strong></li>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
+<style>
+	.bk-btn {
+		width: 100%;
+	}
+
+	.bk-btn-box {
+		width: 100%;
+		margin-top: 10px;
+	}
+
+	.bk-btn .bk-btn-paynow {
+		width: 100%;
+		line-height: 2.2rem;
+	}
+
+	.bk-btn .bk-btn-installment {
+		width: 100%;
+		line-height: 2.2rem;
+		margin-right: 0px;
+	}
+
+	.bk-btn .bk-btn-installment-amigo {
+		width: 100%;
+		line-height: 2.2rem;
+		margin-right: 0px;
+	}
+
+	.bk-promotion {
+		max-width: 100%;
+	}
+</style>
+<section class="product margin-top-20" itemscope="" itemtype="http://schema.org/Product">
+	<meta itemprop="url" content="//dienmaytiendat.vn/noi-nau-tran-chau-tu-dong-unibar-8l">
+	<meta itemprop="name" content="Nồi nấu trân châu tự  động Unibar 8l">
+	<meta itemprop="image" content="//bizweb.dktcdn.net/thumb/grande/100/415/549/products/noi-nau-tran-chau-tu-dong-unibar-ubn-8l-s1.jpg?v=1713002869747">
+	<div class="container">
+		<div class="row">
+			<div class="details-product">
+				<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+					<div class="rows">
+						<div class="product-detail-left product-images col-xs-12 col-sm-6 col-md-5 col-lg-5">
+							<div class="row">
+								<div class="col_large_full large-image">
+									<a href="//bizweb.dktcdn.net/thumb/1024x1024/100/415/549/products/noi-nau-tran-chau-tu-dong-unibar-ubn-8l-s1.jpg?v=1713002869747" class="large_image_url checkurl" data-rel="prettyPhoto[product-gallery]">
+
+										<div style="height:234px;width:351px;" class="zoomWrapper"><div style="height:234px;width:351px;" class="zoomWrapper"><img id="img_01" class="img-responsive bk-product-image" alt="Nồi nấu trân châu tự  động Unibar 8l" src="//bizweb.dktcdn.net/thumb/large/100/415/549/products/noi-nau-tran-chau-tu-dong-unibar-ubn-8l-s1.jpg?v=1713002869747" data-zoom-image="https://bizweb.dktcdn.net/100/415/549/products/noi-nau-tran-chau-tu-dong-unibar-ubn-8l-s1.jpg?v=1713002869747" style="position: absolute;"></div></div>
+									</a>
+									<div class="hidden">
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 details-pro">
+							<h1 class="title-product bk-product-name">Nồi nấu trân châu tự  động Unibar 8l</h1>
+							<div class="group-status">
+								<span class="first_status">Thương hiệu: <span class="status_name">Uni</span></span>
+								<span class="first_status">
+									&nbsp;|&nbsp; Tình trạng: <span class="status_name availabel">
+
+
+
+										Còn hàng
+
+
+
+									</span>
+								</span>
+							</div>
+							<div class="reviews_details_product">
+								<div class="sapo-product-reviews-badge sapo-product-reviews-badge-detail" data-id="35405591"><div class="sapo-product-reviews-star" data-score="0" data-number="5" style="color: #ffbe00" title="Not rated yet!"><i data-alt="1" class="star-off-png" title="Not rated yet!"></i>&nbsp;<i data-alt="2" class="star-off-png" title="Not rated yet!"></i>&nbsp;<i data-alt="3" class="star-off-png" title="Not rated yet!"></i>&nbsp;<i data-alt="4" class="star-off-png" title="Not rated yet!"></i>&nbsp;<i data-alt="5" class="star-off-png" title="Not rated yet!"></i><input name="score" type="hidden" readonly=""></div><a href="javascript:;" class="sapo-product-review-scroll" style="color: #0088ff">Viết đánh giá của bạn</a></div>
+							</div>
+
+							<div class="price-box" itemscope="" itemtype="http://schema.org/Offer">
+
+								<span class="special-price">
+									<span class="price product-price bk-product-price" itemprop="price">2.090.000₫</span>
+									<meta itemprop="priceCurrency" content="VND">
+								</span> <!-- Giá Khuyến mại -->
+								<span class="old-price">
+									<del class="price product-price-old sale" itemprop="priceSpecification">2.450.000₫</del>
+									<meta itemprop="priceCurrency" content="VND">
+								</span> <!-- Giá gốc -->
+								<p>
+									Tiết kiệm: <span class="percent-saved">14.69 %</span>
+								</p> <!--Tiết kiệm -->
+
+							</div>
+
+							<div class="product-summary product_description margin-bottom-0">
+								<div class="rte description  rte-summary">
+
+									<p>hương hiệu: Unibar Đài loan</p>
+									<p>Nơi sản xuất: Trung quốc</p>
+									<p>Công suất: 1350 W,&nbsp; Điện áp: 220 V / 50 Hz</p>
+									<p>Dung tích: 8L, Bảng điều khiển tiếng Việt, Có chế độ nấu và ủ trân châu</p>
+									<p>Tăng giảm nhiệt độ dễ dàng</p>
+									<p>Trọng lượng máy: 3.7 Kg,&nbsp; Trọng lượng đóng gói: 4.8 Kg</p>
+									<p>Kích thước sản phẩm: 35 x 30 x 24cm</p>
+									<p>Kích thước đóng gói: 41 x 31 x 32 cm</p>
+									<p>Bảo hành 12 tháng</p>
+
+								</div>
+
+							</div>
+
+							<div class="form-product col-sm-12">
+								<form enctype="multipart/form-data" id="add-to-cart-form" action="/cart/add" method="post" class="form-inline margin-bottom-0">
+
+									<div class="box-variant clearfix ">
+
+										<input type="hidden" name="variantId" value="114401829">
+
+									</div>
+									<div class="form-group form_button_details margin-top-10">
+										<div class="form_product_content ">
+											<div class="custom input_number_product custom-btn-number form-control">
+												<button class="btn_num num_1 button button_qty" onclick="var result = document.getElementById('qtym'); var qtypro = result.value; if( !isNaN( qtypro ) &amp;&amp; qtypro > 1 ) result.value--;return false;" type="button">-</button>
+												<input type="text" id="qtym" name="quantity" value="1" onkeyup="valid(this,'numbers')" onkeypress="validate(event)" class="bk-product-qty form-control prd_quantity">
+												<button class="btn_num num_2 button button_qty" onclick="var result = document.getElementById('qtym'); var qtypro = result.value; if( !isNaN( qtypro )) result.value++;return false;" type="button">+</button>
+											</div>
+											<div class="button_actions">
+												<input class="hidden" type="hidden" name="variantId" value="114401829">
+
+
+
+												<button type="submit" class="btn btn-lg  btn-cart button_cart_buy_enable add_to_cart btn_buy" title="Cho vào giỏ hàng">
+													<span class="btn-image">
+														<img src="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/shopping_cart.png?1713154115973" alt="shopping-cart">
+													</span>
+													<span class="btn-content">Cho vào giỏ hàng</span>
+												</button>
+
+
+
+											</div>
+										</div>
+
+
+									</div>
+
+									<!-- BK BUTTON -->
+									<div class="bk-btn"><div class="bk-btn-box"><button class="bk-btn-paynow" style="display: inline-block;background-color: #e90707 !important;color: #ffffff !important" type="button"><strong>Mua Ngay</strong><span>Liên hệ trước khi thanh toán</span></button><button class="bk-btn-installment-amigo" style="display: flex;background-color: #f1eb1f !important;color: #235d97 !important" type="button"><div class="bk-insta-content"><strong style="color: #235d97 !important">Mua ngay - trả sau</strong><span><img src="https://pc.baokim.vn/platform/img/icon-kredivo.svg" alt=""></span></div></button></div></div>
+									<!-- END BK BUTTON -->
+
+								</form>
+							</div>
+
+
+							<div class="contacts">
+								<span class="block_phone">
+									<span>
+										<span class="text">Hotline:</span><a href="tel:0987983948">0987983948</a>
+
+										<span class="random1">-</span><a href="tel:0949089879">0949089879</a>
+
+									</span>
+								</span>
+							</div>
+
+
+							<div class="social-sharing ">
+
+
+
+
+
+
+								<div class="social-media" data-permalink="https://dienmaytiendat.vn/noi-nau-tran-chau-tu-dong-unibar-8l">
+									<label>Chia sẻ: </label>
+
+									<a target="_blank" href="//www.facebook.com/sharer.php?u=https://dienmaytiendat.vn/noi-nau-tran-chau-tu-dong-unibar-8l" class="share-facebook" title="Chia sẻ lên Facebook">
+										<i class="fa fa-facebook"></i>
+									</a>
+
+
+
+									<a target="_blank" href="//twitter.com/share?text=NồinấutrânchâutựđộngUnibar8l&amp;url=https://dienmaytiendat.vn/noi-nau-tran-chau-tu-dong-unibar-8l" class="share-twitter" title="Chia sẻ lên Twitter">
+										<i class="fa fa-twitter"></i>
+									</a>
+
+
+
+									<a target="_blank" href="//pinterest.com/pin/create/button/?url=https://dienmaytiendat.vn/noi-nau-tran-chau-tu-dong-unibar-8l&amp;media=http://bizweb.dktcdn.net/thumb/1024x1024/100/415/549/products/noi-nau-tran-chau-tu-dong-unibar-ubn-8l-s1.jpg?v=1713002869747&amp;description=NồinấutrânchâutựđộngUnibar8l" class="share-pinterest" title="Chia sẻ lên pinterest">
+										<i class="fa fa-pinterest"></i>
+									</a>
+
+
+
+
+
+									<a target="_blank" href="//plus.google.com/share?url=https://dienmaytiendat.vn/noi-nau-tran-chau-tu-dong-unibar-8l" class="share-google" title="+1">
+										<i class="fa fa-google-plus"></i>
+									</a>
+
+								</div>
+							</div>
+
+
+
+
+
+
+
+
+
+
+						</div>
+					</div>
+					<div class="tab_h">
+
+						<div class="col-xs-12 col-lg-12 col-sm-12 col-md-12 no-padding">
+							<!-- Nav tabs -->
+							<div class="product-tab e-tabs">
+								<ul class="tabs tabs-title clearfix">
+
+									<li class="tab-link current" data-tab="tab-1">
+										<h3><span>Mô tả</span></h3>
+									</li>
+
+
+									<li class="tab-link" data-tab="tab-2">
+										<h3><span>Tab tùy chỉnh</span></h3>
+									</li>
+
+
+									<li class="tab-link" data-tab="tab-3">
+										<h3><span>Đánh giá</span></h3>
+									</li>
+
+								</ul>
+
+
+								<div id="tab-1" class="tab-content current">
+									<div class="rte">
+
+
+										<h2>Nồi nấu trân châu tự động Unibar UBN-8L Dung tích 8L</h2>
+										<p>Nồi nấu trân châu tự động Unibar UBN-8L Dung tích 8L&nbsp;là giải pháp thiết thực dành cho các quán trà sữa, đồ uống&nbsp;có nhu cầu nấu trân châu nhanh chóng, tự động và ngon đúng vị. Sản phẩm có 4 chức năng nấu tự động cùng&nbsp;cùng chế độ Ủ Ôn giúp trân châu luôn được bảo quản trong ngày bằng nhiệt độ thích hợp.</p>
+										<p><img alt="Nồi nấu trân châu tự động Unibar UBN-8L Dung tích 8L" height="533" src="https://thietbiphache86.com/image/san-pham/Noi-nau-tran-chau-tu-dong-Unibar-UBN-8L-s2.jpg" width="800"></p>
+										<p>Nồi nấu trân châu tự động Unibar UBN-8L Dung tích 8L</p>
+										<p>Nồi nấu trân châu có thiết kế nhỏ gọn, kiểu dáng hiện đại, sang trọng, tiện dụng như chiếc nồi cơm điện, bạn có thể di chuyển nồi đến bất kì vị trí nào mong muốn. Thân nồi được làm bằng nhựa, lòng nồi được làm bằng thép không gỉ, dày dặn và được&nbsp;phủ lớp chống dính cao cấp giúp cho trân châu khi nấu và ủ không bị dính đáy nồi.</p>
+										<p>Nồi có dung tích lớn 8L, có thể nấu được&nbsp;từ 1.3 đến tối đa 1.5kg trân châu khô, đáp ứng nhu cầu của những quán trà sữa, cà phê,… có lượng khách trung bình trong ngày. Mâm nhiệt của nồi có diệc tích tiếp xúc lớn nên trân châu được nấu chín đều, thơm ngon.</p>
+										<p><img alt="Lòng nồi được làm bằng chất liệu cao cấp, chống dính tốt" height="533" src="https://thietbiphache86.com/image/san-pham/Noi-nau-tran-chau-tu-dong-Unibar-UBN-8L-s5.jpg" width="800"></p>
+										<p>Lòng nồi được làm bằng chất liệu cao cấp, chống dính tốt</p>
+										<p>Nồi có 4 chức năng tự động đó là đun sôi nước, thêm nguyên liệu (thả trân châu), nấu trân châu và ủ trân châu. Nhờ chia nhỏ thành 4 bước mà bạn có thể tối ưu hóa thời gian nấu trân châu và có nhiều thời gian rảnh hơn để làm các bước pha chế khác. Ngoài ra, bạn cũng có thể sử dụng nồi để nấu các nguyên liệu khác bằng cách tự điều chỉnh thời gian nấu.</p>
+										<p>Bạn có thể cài đặt thời gian nấu hoặc ủ trân châu, nhờ đó công thức nấu trân châu được thực hiện đúng theo ý muốn người dùng, trân châu vì thế cũng sẽ đạt được độ mềm và thơm ngon chính xác hơn so với hình thức tự nấu.</p>
+										<p><img alt="Nồi nấu trân châu tự động Unibar UBN-8L" height="533" src="https://thietbiphache86.com/image/san-pham/Noi-nau-tran-chau-tu-dong-Unibar-UBN-8L-s1.jpg" width="800"></p>
+										<p>Nồi nấu trân châu tự động Unibar UBN-8L</p>
+										<p>Nồi được tích hợp chế độ ủ ôn&nbsp;giúp cho người dùng dễ dàng bảo quản trân châu ở nhiệt độ phù hợp, đảm bảo trân châu vẫn mềm, ngon trong suốt cả ngày. Ngoài ra, bạn cũng có thể điều chỉnh nhiệt độ saocho phù hợp bằng cách nhấn vào nút nhiệt độ ở bảng điều khiển.</p>
+										<p>Bảng điều khiển của nồi được thiết kế hoàn toàn bằng tiếng Việt giúp người dùng dễ dàng sử dụng, màn hình LED hiển thị thời gian, chức năng cài đặt thời gian để bạn có thể theo dõi quá trình hoạt động của nồi.</p>
+										<h2>Nồi nấu trân châu tự động Unibar UBN-8L Dung tích 8L</h2>
+										<p>Thương hiệu: Unibar Đài loan</p>
+										<p>Nơi sản xuất: Trung quốc</p>
+										<p>Công suất: 1350 W</p>
+										<p>Điện áp: 220 V / 50 Hz</p>
+										<p>Dung tích: 8L</p>
+										<p>Bảng điều khiển tiếng Việt</p>
+										<p>Có chế độ nấu và ủ trân châu</p>
+										<p>Tăng giảm nhiệt độ dễ dàng</p>
+										<p>Trọng lượng máy: 3.7 Kg</p>
+										<p>Trọng lượng đóng gói: 4.8 Kg</p>
+										<p>Kích thước sản phẩm: 35 x 30 x 24cm</p>
+										<p>Kích thước đóng gói: 41 x 31 x 32 cm</p>
+										<p>Bảo hành 12 tháng</p>
+
+									</div>
+								</div>
+
+
+								<div id="tab-2" class="tab-content">
+									<div class="rte">
+										Các nội dung Hướng dẫn mua hàng viết ở đây
+									</div>
+								</div>
+
+
+								<div id="tab-3" class="tab-content">
+									<div class="rte">
+										<div id="sapo-product-reviews" class="sapo-product-reviews" data-id="35405591">
+											<div>
+												<div id="sapo-product-reviews-noitem">
+													<div>
+														<div class="content">
+															<p>Hiện tại sản phẩm chưa có đánh giá nào, bạn hãy trở thành người đầu tiên đánh giá cho sản phẩm này</p>
+															<div class="product-reviews-summary-actions">
+																<button type="button" class="btn-new-review" onclick="BPR.newReview(this); return false;">Gửi đánh giá của bạn</button>
+															</div>
+
+														</div>
+													</div>
+												</div>
+
+												<div id="popup-bpr-form_35405591" class="popup-bpr-form jquerymodal">
+													<div class="jquerymodal-content">
+														<div class="jquerymodal-body">
+															<a href="javascript:;" rel="jquerymodal:close" class="close-modal ">
+																<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px">
+																	<path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z"></path>
+																</svg>
+															</a>
+															<div class="sapo-product-reviews-form">
+																<div>
+																	<form method="post" action="https://newproductreviews.sapoapps.vn/reviews/create" id="sapo-product-reviews-frm" name="sapo-product-reviews-frm">
+																		<input type="hidden" name="productId" id="review_product_id" value="35405591">
+																		<div class="title-form">Đánh giá sản phẩm</div>
+																		<div class="review-product-name">Nồi nấu trân châu tự  động Unibar 8l</div>
+																		<div class="bpr-form-rating">
+																			<div class="form-group">
+																				<label>Đánh giá của bạn về sản phẩm:</label>
+																				<div id="dvRating" class="sapo-product-reviews-star"></div>
+																			</div>
+																			<input type="hidden" name="rating" id="review_rate" value="5">
+																			<span class="bpr-form-message-error"></span>
+																		</div>
+																		<div class="bpr-form-contact no-attachment">
+																			<div class="form-group form-group__multiple">
+																				<div class="bpr-form-contact-name require">
+																					<input type="text" maxlength="100" id="review_author" name="author" value="" placeholder="Nhập họ tên của bạn">
+																					<span class="bpr-form-message-error"></span>
+																				</div>
+																				<div class="bpr-form-contact-email require" style="width: 100%;">
+																					<input type="text" maxlength="50" id="review_email" name="email" value="" placeholder="Nhập email của bạn">
+																					<span class="bpr-form-message-error"></span>
+																				</div>
+																				<div class="bpr-form-contact-phone hide">
+																					<input type="tel" maxlength="15" id="review_phone" name="phone" value="" placeholder="Nhập số điện thoại của bạn">
+																					<span class="bpr-form-message-error"></span>
+																				</div>
+																			</div>
+																			<div class="form-group__textarea">
+																				<div class="form-group">
+																					<div class="bpr-form-review-body">
+																						<textarea maxlength="1000" id="review_body" name="body" rows="5" placeholder="Nhập nội dung đánh giá của bạn về sản phẩm này"></textarea>
+																					</div>
+																				</div>
+																				<div id="fileAttach" class="bpr-file-attach hide">
+																					<label class="next-label" for="inputFileAttach">
+																						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M 4 5 C 2.895 5 2 5.895 2 7 L 2 23 C 2 24.105 2.895 25 4 25 L 14.230469 25 C 14.083469 24.356 14 23.688 14 23 C 14 22.662 14.021594 22.329 14.058594 22 L 5 22 L 5 15 L 7.2890625 12.710938 C 8.2340625 11.765937 9.7659375 11.765937 10.710938 12.710938 L 15.720703 17.720703 C 17.356703 15.469703 20.004 14 23 14 C 24.851 14 26.57 14.559578 28 15.517578 L 28 7 C 28 5.895 27.105 5 26 5 L 4 5 z M 23 8 C 24.105 8 25 8.895 25 10 C 25 11.105 24.105 12 23 12 C 21.895 12 21 11.105 21 10 C 21 8.895 21.895 8 23 8 z M 23 16 C 19.134 16 16 19.134 16 23 C 16 26.866 19.134 30 23 30 C 26.866 30 30 26.866 30 23 C 30 19.134 26.866 16 23 16 z M 23 19 C 23.552 19 24 19.447 24 20 L 24 22 L 26 22 C 26.552 22 27 22.447 27 23 C 27 23.553 26.552 24 26 24 L 24 24 L 24 26 C 24 26.553 23.552 27 23 27 C 22.448 27 22 26.553 22 26 L 22 24 L 20 24 C 19.448 24 19 23.553 19 23 C 19 22.447 19.448 22 20 22 L 22 22 L 22 20 C 22 19.447 22.448 19 23 19 z"></path></svg>
+																						<span>Đính kèm hình ảnh (chọn tối đa 3 hình)</span>
+																					</label>
+																					<input style="color:#fff;opacity:0;cursor:pointer;" type="file" id="inputFileAttach" name="file" class="with-preview">
+																				</div>
+																				<div class="bpr-form-actions">
+																					<button type="button" onclick="BPR.submitForm(); return false;" class="bpr-button-submit"><i class="fa fa-spinner fa-pulse" aria-hidden="true"></i><span>Gửi đánh giá</span></button>
+																				</div>
+																			</div>
+																			<span class="bpr-form-message-error bpr-form-message-error-body"></span>
+																			<span class="bpr-form-message-error bpr-form-message-error-file"></span>
+																		</div>
+																		<div class="bpr-form-review-error">
+																			<p class="error"></p>
+																		</div>
+																		<div class="bpr-form-actions">
+																			<button type="button" onclick="BPR.submitForm(); return false;" class="bpr-button-submit"><i class="fa fa-spinner fa-pulse" aria-hidden="true"></i><span>Gửi đánh giá</span></button>
+																		</div>
+																	</form>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div id="bpr-review-thanks" class="bpr-success-popup jquerymodal">
+													<div class="jquerymodal-content">
+														<div class="jquerymodal-body">
+															<a href="javascript:;" rel="jquerymodal:close" class="close-modal">
+																<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px">
+																	<path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z"></path>
+																</svg>
+															</a>
+															<div class="icon-checked">
+																<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M12,0A12,12,0,1,1,0,12,12,12,0,0,1,12,0Zm0,1A11,11,0,1,1,1,12,11,11,0,0,1,12,1Zm7,7.46L10,18,5,12.16l.76-.65,4.27,5,8.24-8.75Z" fill-rule="evenodd"></path></g></svg>
+															</div>
+															<b>Cảm ơn bạn đã đánh giá sản phẩm!</b>
+														</div>
+													</div>
+												</div>
+												<div id="bpr-reply-thanks" class="bpr-success-popup jquerymodal">
+													<div class="jquerymodal-content">
+														<div class="jquerymodal-body">
+															<a href="javascript:;" rel="jquerymodal:close" class="close-modal">
+																<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px">
+																	<path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z"></path>
+																</svg>
+															</a>
+															<div class="icon-checked">
+																<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M12,0A12,12,0,1,1,0,12,12,12,0,0,1,12,0Zm0,1A11,11,0,1,1,1,12,11,11,0,0,1,12,1Zm7,7.46L10,18,5,12.16l.76-.65,4.27,5,8.24-8.75Z" fill-rule="evenodd"></path></g></svg>
+															</div>
+															<b>Cảm ơn bạn đã trả lời đánh giá!</b>
+														</div>
+													</div>
+												</div>
+												<style>													.sapo-product-reviews-summary, #sapo-product-reviews-noitem {
+														background-color: rgba(0,136,255,0.1)
+													}
+
+													.bpr-summary-average {
+														color: #0088ff
+													}
+
+													.sapo-product-reviews-star {
+														color: #ffbe00
+													}
+
+													.btn-new-review {
+														background-color: #0088ff;
+														border-color: #0088ff
+													}
+
+													#sapo-product-reviews .sapo-product-reviews-summary .sapo-product-reviews-filter input:checked ~ .checkmark {
+														color: #0088ff;
+														border-color: #0088ff
+													}
+
+													#sapo-product-reviews-frm #fileAttach svg path {
+														fill: #0088ff
+													}
+
+													#sapo-product-reviews-frm .bpr-button-submit {
+														background-color: #0088ff;
+														border-color: #0088ff
+													}
+
+													.sapo-review-verified, .sapo-review-actions {
+														color: #0088ff
+													}
+
+													.icon-verified path {
+														fill: #0088ff
+													}
+
+													#sapo-product-reviews .sapo-product-reviews-list .sapo-review-reply-list .sapo-review-reply-item .sapo-review-reply-author .is-admin {
+														background-color: #0088ff;
+														border-color: #0088ff
+													}
+
+													.simple-pagination li span.current, .simple-pagination li a.current {
+														color: #0088ff;
+														border-color: #0088ff;
+													}
+
+													#sapo-product-reviews .sapo-product-reviews-summary .sapo-product-reviews-filter h4, #sapo-product-reviews .sapo-product-reviews-summary .sapo-product-reviews-filter p {
+														background-color: #0088ff;
+														border-color: #0088ff;
+													}
+
+														#sapo-product-reviews .sapo-product-reviews-summary .sapo-product-reviews-filter h4.active, #sapo-product-reviews .sapo-product-reviews-summary .sapo-product-reviews-filter p.active {
+															color: #0088ff
+														}
+
+													#sapo-product-reviews .sapo-product-reviews-list .sapo-review-reply-list .btn-show-prev {
+														background-color: rgba(0,136,255,0.1);
+														color: #0088ff
+													}
+
+													.bpr-success-popup .icon-checked svg path {
+														fill: #0088ff
+													}
+
+													.sapo-review-reply-form .bpr-form-actions .bpr-reply-button-submit {
+														border-color: #0088ff;
+														background: #0088ff;
+													}</style>
+												<style></style>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 hidden-xs hidden-sm hidden-md">
+					<div class="right_module margin-bottom-50">
+						<div class="module_service_details">
+							<div class="wrap_module_service">
+
+								<div class="item_service">
+									<div class="wrap_item_">
+										<div class="content_service">
+											<p>Giao hàng tận nơi</p>
+											<span>Cam kết giao hàng tận nhà</span>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="item_service">
+									<div class="wrap_item_">
+										<div class="content_service">
+											<p>Đổi trả nhanh chóng</p>
+											<span>Đổi trả trong 7 ngày đầu tiên</span>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="item_service">
+									<div class="wrap_item_">
+										<div class="content_service">
+											<p>Bảo hành chính hãng</p>
+											<span>Cam kết 100% chính hãng</span>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="item_service">
+									<div class="wrap_item_">
+										<div class="content_service">
+											<p>Đặt hàng online</p>
+											<span class="phone_red">Gọi ngay <a class="hai01" href="tel:0987983948">0987983948</a></span>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="item_service">
+									<div class="wrap_item_">
+										<div class="content_service">
+											<p>Mua hàng tiết kiệm</p>
+											<span>Giảm giá ưu đãi tới hơn 50%</span>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="module_best_sale_product">
+							<div class="title_module_">
+								<h2 class="title"><a href="san-pham-noi-bat" title="Hàng mới về">Hàng mới về</a></h2>
+							</div>
+							<div class="sale_off_today">
+
+								<div class="not-dqowl wrp_list_product">
+
+
+
+
+
+
+
+
+
+
+
+									<div class="item_small">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+										<div class="product-mini-item clearfix  ">
+											<a href="/may-loc-khong-khi-philips-ac3033-10-104m2-chinh-hang" class="product-img">
+
+
+
+
+												<img class="lazyload loaded" src="//bizweb.dktcdn.net/thumb/small/100/415/549/products/loc-khong-khi-philips-ac303310-5t89wg.png?v=1613794466217" data-src="//bizweb.dktcdn.net/thumb/small/100/415/549/products/loc-khong-khi-philips-ac303310-5t89wg.png?v=1613794466217" alt="Máy Lọc Không Khí Philips AC3033/10 - 104m2 - Chính Hãng" data-was-processed="true">
+											</a>
+
+											<div class="product-info">
+												<h3><a href="/may-loc-khong-khi-philips-ac3033-10-104m2-chinh-hang" title="Máy Lọc Không Khí Philips AC3033/10 - 104m2 - Chính Hãng" class="product-name text3line">Máy Lọc Không Khí Philips AC3033/10 - 104m2 - C...</a></h3>
+												<div class="bizweb-product-reviews-badge" data-id="20666730"></div>
+												<div class="price-box">
+
+
+
+													<div class="special-price"><span class="price product-price">12.480.000₫</span> </div> <!-- Giá -->
+
+
+
+
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+									<div class="item_small">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+										<div class="product-mini-item clearfix   on-sale">
+											<a href="/may-loc-khong-khi-lg-puricare-2-tang-as95gdwv0-chinh-hang" class="product-img">
+
+
+
+
+												<img class="lazyload loaded" src="//bizweb.dktcdn.net/thumb/small/100/415/549/products/10045748-may-loc-khong-khi-lg-as95gdwv0-3-rbhk-08.jpg?v=1613734659437" data-src="//bizweb.dktcdn.net/thumb/small/100/415/549/products/10045748-may-loc-khong-khi-lg-as95gdwv0-3-rbhk-08.jpg?v=1613734659437" alt="Máy lọc không khí LG Puricare 2 tầng AS95GDWV0 -100m2 Chính hãng" data-was-processed="true">
+											</a>
+
+											<div class="product-info">
+												<h3><a href="/may-loc-khong-khi-lg-puricare-2-tang-as95gdwv0-chinh-hang" title="Máy lọc không khí LG Puricare 2 tầng AS95GDWV0 -100m2 Chính hãng" class="product-name text3line">Máy lọc không khí LG Puricare 2 tầng AS95GDWV0 ...</a></h3>
+												<div class="bizweb-product-reviews-badge" data-id="20664500"></div>
+												<div class="price-box">
+
+
+
+													<span class="price"><span class="price product-price">21.820.000₫</span> </span> <!-- Giá Khuyến mại -->
+
+													<span class="old-price"><del class="sale-price">23.300.000₫</del> </span> <!-- Giá gốc -->
+
+
+
+
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+
+
+
+
+
+
+
+
+
+
+									<div class="item_small">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+										<div class="product-mini-item clearfix  ">
+											<a href="/may-loc-khong-khi-va-tao-am-hitachi-ep-l110e-x-mat-guong-chinh-hang" class="product-img">
+
+
+
+
+												<img class="lazyload loaded" src="//bizweb.dktcdn.net/thumb/small/100/415/549/products/may-loc-khong-khi-va-tao-am-hitachi-ep-l110ex.jpg?v=1612406394417" data-src="//bizweb.dktcdn.net/thumb/small/100/415/549/products/may-loc-khong-khi-va-tao-am-hitachi-ep-l110ex.jpg?v=1612406394417" alt="Máy lọc không khí và tạo ẩm Hitachi EP-L110E(X) mặt gương_ Chính hãng" data-was-processed="true">
+											</a>
+
+											<div class="product-info">
+												<h3><a href="/may-loc-khong-khi-va-tao-am-hitachi-ep-l110e-x-mat-guong-chinh-hang" title="Máy lọc không khí và tạo ẩm Hitachi EP-L110E(X) mặt gương_ Chính hãng" class="product-name text3line">Máy lọc không khí và tạo ẩm Hitachi EP-L110E(X)...</a></h3>
+												<div class="bizweb-product-reviews-badge" data-id="20602048"></div>
+												<div class="price-box">
+
+
+
+													<div class="special-price"><span class="price product-price">18.560.000₫</span> </div> <!-- Giá -->
+
+
+
+
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+
+
+
+
+
+
+
+
+
+
+									<div class="item_small">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+										<div class="product-mini-item clearfix  ">
+											<a href="/may-loc-khong-khi-va-tao-am-hitachi-ep-a9000-chinh-hang" class="product-img">
+
+
+
+
+												<img class="lazyload loaded" src="//bizweb.dktcdn.net/thumb/small/100/415/549/products/ep-a9000-04-c8b3a242-41f0-461f-85fa-e1a4e3340ca8-coi1.jpg?v=1612405588693" data-src="//bizweb.dktcdn.net/thumb/small/100/415/549/products/ep-a9000-04-c8b3a242-41f0-461f-85fa-e1a4e3340ca8-coi1.jpg?v=1612405588693" alt="Máy lọc không khí và tạo ẩm Hitachi EP-A9000_ Chính hãng" data-was-processed="true">
+											</a>
+
+											<div class="product-info">
+												<h3><a href="/may-loc-khong-khi-va-tao-am-hitachi-ep-a9000-chinh-hang" title="Máy lọc không khí và tạo ẩm Hitachi EP-A9000_ Chính hãng" class="product-name text3line">Máy lọc không khí và tạo ẩm Hitachi EP-A9000_ C...</a></h3>
+												<div class="bizweb-product-reviews-badge" data-id="20601900"></div>
+												<div class="price-box">
+
+
+
+													<div class="special-price"><span class="price product-price">15.650.000₫</span> </div> <!-- Giá -->
+
+
+
+
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+
+
+
+
+
+
+
+
+
+
+									<div class="item_small">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+										<div class="product-mini-item clearfix  ">
+											<a href="/may-loc-khong-khi-va-tao-am-hitachi-ep-a7000-chinh-hang" class="product-img">
+
+
+
+
+												<img class="lazyload loaded" src="//bizweb.dktcdn.net/thumb/small/100/415/549/products/may-loc-khong-khi-hitachi-ep-a7000.jpg?v=1612401702187" data-src="//bizweb.dktcdn.net/thumb/small/100/415/549/products/may-loc-khong-khi-hitachi-ep-a7000.jpg?v=1612401702187" alt="Máy lọc không khí và tạo ẩm Hitachi EP-A7000 _ Chính hãng" data-was-processed="true">
+											</a>
+
+											<div class="product-info">
+												<h3><a href="/may-loc-khong-khi-va-tao-am-hitachi-ep-a7000-chinh-hang" title="Máy lọc không khí và tạo ẩm Hitachi EP-A7000 _ Chính hãng" class="product-name text3line">Máy lọc không khí và tạo ẩm Hitachi EP-A7000 _ ...</a></h3>
+												<div class="bizweb-product-reviews-badge" data-id="20601709"></div>
+												<div class="price-box">
+
+
+
+													<div class="special-price"><span class="price product-price">12.580.000₫</span> </div> <!-- Giá -->
+
+
+
+
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+
+
+
+
+			</div>
+
+		</div>
+	</div>
+
+</section>
 <section class="products-detail-section pt_large">
     <div class="container">
         <div class="title text-left">
@@ -77,7 +941,7 @@
                             <p>Số lượng:</p>
                             <div class="input-group">
                                 <input type="button" value="-" class="minus">
-                                <input id="quantity" class="quantity-number qty" type="text" value="@chooseQuantity" min="1" max="10">
+                                <input id="quantity" class="quantity-number qty" type="text" value="0" min="1" max="10">
                                 <input type="button" value="+" class="plus">
                             </div>
                             <div class="quickview-cart-btn">
@@ -190,7 +1054,7 @@
         </div>
     </div>
 </section>
-<!-- End Product Detail Section -->
+@* <!-- End Product Detail Section -->
 <!-- Product Review Start-->
 <!-- Product Review End-->
 <!-- Relative Product Start-->
@@ -216,4 +1080,4 @@
         debugger
         window.location = fullUrl;
     }
-</script>
+</script> *@
