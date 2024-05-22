@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ultilities;
 
 namespace Web.Areas.Administrator.Controllers
 {
@@ -29,6 +30,7 @@ namespace Web.Areas.Administrator.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.Password = EncryptExtensions.Hash(model.Password, null);
                 var check = loginService.Login(model.Username, model.Password);
                 if (check != null)
                 {

@@ -123,7 +123,7 @@
                                         </div>
                                     </div>
                                     <div class="product-info common-cart-info text-center">
-                                        <a href="@Url.Action("ProductDetails","Home", new { id = item.Id,color = 1, length =1, quantity=1})" class="cart-name">@item.Name</a>
+                                        <a href="@Url.Action("ProductDetails","Home", new { id = item.Id})" class="cart-name">@item.Name</a>
                                         <p class="cart-price">
                                             @if (item.PromotionPrice.HasValue)
                                             {

@@ -1,0 +1,3268 @@
+﻿@{
+    var strErr = (string)TempData["StrErr"];
+}
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@using Ultilities;
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var memberSession = HttpContextAccessor.HttpContext.Session.GetString("member");
+    var userData = memberSession != null ? JsonConvert.DeserializeObject<Entities.Models.Accounts>(memberSession) : null;
+}
+@{
+    var cartSession = HttpContextAccessor.HttpContext.Session.GetString("cart");
+    var listItem = cartSession != null ? JsonConvert.DeserializeObject<List<CartItem>>(cartSession) : new List<CartItem>();
+    decimal? totalHomePrice = 0;
+    //decimal? totalHomePriceMobile = 0;
+    foreach (var item in listItem)
+    {
+        totalHomePrice += (item.Product.PromotionPrice.HasValue ? item.Product.PromotionPrice : item.Product.Price) * item.Quantity;
+    }
+}
+@{
+    var listNewsCate = (List<Entities.DTOs.CategoryNewsViewModel>)TempData["newsmenu"];
+    var listProductCate = (List<Entities.DTOs.ProductCategoryViewModel>)TempData["productmenu"];
+}
+
+@{
+    var staticDatas = (Entities.Models.StaticData[])TempData["EmailAndPhone"];
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>
+        Điện Máy Tiến Đạt
+
+
+        Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.
+    </title>
+
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+
+
+    <script>
+        (function () {
+            function asyncLoad() {
+                var urls = ["//newproductreviews.sapoapps.vn/assets/js/productreviews.min.js?store=dienmaytoanquoc-net.mysapo.net", "https://google-shopping.sapoapps.vn/conversion-tracker/global-tag/6668.js?store=dienmaytoanquoc-net.mysapo.net", "https://google-shopping.sapoapps.vn/conversion-tracker/event-tag/6668.js?store=dienmaytoanquoc-net.mysapo.net"];
+                for (var i = 0; i < urls.length; i++) {
+                    var s = document.createElement('script');
+                    s.type = 'text/javascript';
+                    s.async = true;
+                    s.src = urls[i];
+                    var x = document.getElementsByTagName('script')[0];
+                    x.parentNode.insertBefore(s, x);
+                }
+            };
+            window.attachEvent ? window.attachEvent('onload', asyncLoad) : window.addEventListener('load', asyncLoad, false);
+        })();
+    </script>
+
+
+    <script src="js/stats.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Facebook Open Graph meta tags -->
+
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Điện Máy Tiến Đạt">
+    <meta property="og:image" content="images/logo.png">
+    <meta property="og:image:secure_url" content="images/logo.png">
+
+    <meta property="og:description"
+        content="Điện Máy Tiến Đạt chuyên cung cấp sỉ và lẻ máy làm thực phẩm chính hãng, máy làm kem lớn nhất tại Việt Nam">
+    <meta property="og:url" content="https://dienmaytiendat.vn/">
+    <meta property="og:site_name" content="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.">
+
+
+    <link rel="preload" as="style" type="text/css"
+        href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/base.scss.css?1709110859833">
+    <link rel="preload" as="style" type="text/css"
+        href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/style.scss.css?1709110859833">
+    <link rel="preload" as="style" type="text/css"
+        href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/module.scss.css?1709110859833">
+    <link rel="preload" as="style" type="text/css"
+        href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/responsive.scss.css?1709110859833">
+    <link rel="preload" as="style" type="text/css"
+        href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/owl.carousel.min.css?1709110859833">
+
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/owl.carousel.min.css" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Build Main CSS -->
+    <link href="css/base.scss.css" rel="stylesheet" type="text/css" media="all">
+    <link href="css/style.scss.css" rel="stylesheet" type="text/css" media="all">
+    <link href="css/module.scss.css" rel="stylesheet" type="text/css" media="all">
+    <link href="css/responsive.scss.css" rel="stylesheet" type="text/css" media="all">
+
+    <script>var ProductReviewsAppUtil = ProductReviewsAppUtil || {}; ProductReviewsAppUtil.store = { name: 'Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.' };</script>
+    <meta name="google-site-verification" content="YvoTKALcdCsGq3lPFSg5wK22EJ0wfcBRcFMrh9iYDdQ">
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PB4XW34" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="hidden-md hidden-lg opacity_menu"></div>
+    <!-- Main content -->
+    <!-- Banner khuyến mãi fixed top -->
+
+    <!-- Menu mobile -->
+    <div id="mySidenav" class="sidenav menu_mobile hidden-md hidden-lg">
+        <div class="top_menu_mobile">
+            <span class="close_menu">
+            </span>
+        </div>
+        <div class="content_memu_mb">
+            <div class="link_list_mobile">
+                <ul class="ct-mobile hidden">
+                </ul>
+                <ul class="ct-mobile">
+
+                    <li class="level0 level-top parent level_ico">
+                        <a href="/">Trang chủ</a>
+
+                    </li>
+
+                    <li class="level0 level-top parent level_ico">
+                        <a href="/collections/all">Sản phẩm</a>
+
+                        <i class="ti-plus hide_close"></i>
+                        <ul class="level0 sub-menu" style="display:none;">
+
+                            <li class="level1">
+                                <a href="/may-loc-khong-khi"><span>Máy lọc không khí</span></a>
+
+                                <i class="ti-plus hide_close"></i>
+                                <ul class="level1 sub-menu" style="display:none;">
+
+                                    <li class="level2">
+                                        <a href="/may-loc-khong-khi-coway"><span>Máy lọc không khí coway</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-loc-khong-khi-sharp"><span>Máy lọc không khí sharp</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-loc-khong-khi-hitachi"><span>Máy lọc không khí Hitachi</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-loc-khong-khi-daikin"><span>Máy lọc không khí Daikin</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-loc-khong-khi-panasonic"><span>Máy lọc không khí
+                                                Panasonic</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-loc-khong-khi-lg"><span>Máy lọc không khí LG</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-loc-khong-khi-philips"><span>Máy lọc không khí Philips</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-hut-am"><span>Máy hút ẩm</span></a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+
+                            <li class="level1">
+                                <a href="/may-thuc-pham"><span>Máy Thực Phẩm</span></a>
+
+                                <i class="ti-plus hide_close"></i>
+                                <ul class="level1 sub-menu" style="display:none;">
+
+                                    <li class="level2">
+                                        <a href="/may-thai-thit"><span>Máy thái thịt</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-xay-gio-cha"><span>Máy xay giò chả</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-xay-bot"><span>Máy xay bột</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-tron-bot-da-nang"><span>Máy trộn bột đa năng</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-lam-bap-rang-bo"><span>Máy làm bắp rang bơ</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-cua-xuong"><span>Máy cưa xương</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-xay-thit"><span>Máy xay thịt</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-say-nong-san"><span>Máy sấy nông sản</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-xay-dau-nanh"><span>Máy xay đậu nành</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/bep-chien-nhung"><span>Bếp chiên nhúng</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-xay-sinh-to-da-nang"><span>Máy xay đa năng</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/bep-nuong-gas"><span>Bếp nướng</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/my-cay"><span>Bếp mỳ cay</span></a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+
+                            <li class="level1">
+                                <a href="/do-gia-dung-1"><span>Đồ gia dụng</span></a>
+
+                                <i class="ti-plus hide_close"></i>
+                                <ul class="level1 sub-menu" style="display:none;">
+
+                                    <li class="level2">
+                                        <a href="/noi-chien-khong-dau"><span>Nồi chiên không dầu</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/ban-la"><span>Bàn là</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/lo-vi-song"><span>Lò vi sóng</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-loc-nuoc-1"><span>Máy lọc nước</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-hut-bui"><span>Máy hút bụi</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/robot-hut-bui"><span>Robot hút bụi</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/no-i-a-p-sua-t-die-n"><span>Nồi áp suất điện</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-suoi-dau"><span>Máy sưởi dầu</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-ep-cham"><span>Máy ép chậm</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-xay-sinh-to-da-nang"><span>Máy xay</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/noi-nau-cham"><span>Nồi nấu chậm</span></a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+
+                            <li class="level1">
+                                <a href="/may-giai-khat"><span>Máy giải khát</span></a>
+
+                                <i class="ti-plus hide_close"></i>
+                                <ul class="level1 sub-menu" style="display:none;">
+
+                                    <li class="level2">
+                                        <a href="/may-lam-mat-trai-cay"><span>Máy làm mát trái cây</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-lam-kem-tuoi"><span>Máy làm kem tươi</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-bao-da"><span>Máy bào đá</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-lam-kem-cung"><span>Máy làm kem cứng</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-ep-cam"><span>Máy ép cam</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-lam-kem-cuon"><span>Máy làm kem cuộn</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/bot-lam-kem"><span>Bột làm kem</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-ep-nuoc-mia"><span>Máy ép nước mía</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-lam-da-vien"><span>Máy làm đá viên</span></a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+
+                            <li class="level1">
+                                <a href="/may-dong-goi"><span>Máy đóng gói</span></a>
+
+                                <i class="ti-plus hide_close"></i>
+                                <ul class="level1 sub-menu" style="display:none;">
+
+                                    <li class="level2">
+                                        <a href="/may-hut-chan-khong-1"><span>Máy hút chân không</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-dan-mieng-ly"><span>Máy dán miệng ly</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-in-date"><span>Máy in date</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-han-mieng-tui"><span>Máy hàn miệng túi</span></a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+
+                            <li class="level1">
+                                <a href="/phu-kien"><span>Phụ kiện</span></a>
+
+                                <i class="ti-plus hide_close"></i>
+                                <ul class="level1 sub-menu" style="display:none;">
+
+                                    <li class="level2">
+                                        <a href="/phu-kien-may-tron"><span>Phụ kiện máy trộn</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/phu-kien-may-thai-thit"><span>Phụ kiện máy thái thịt</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/phu-kien-may-bap"><span>Phụ kiện máy bắp</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/phu-kien-xe-dap"><span>Phụ kiện xe đạp</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/phu-kien-bep-chien-may-say"><span>Phụ kiện bếp chiên, Máy
+                                                sấy</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/phu-kien-may-hut-chan-khong"><span>Phụ kiện máy hút chân
+                                                không</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/phu-kien-may-xay-bot"><span>Phụ kiện máy xay bột</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/phu-kien-may-lam-mat-trai-cay"><span>Phụ kiện máy làm mát trái
+                                                cây</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/phu-kien-may-lam-kem"><span>Phụ kiện máy làm kem</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/phu-kien-may-xay-sinh-to"><span>Phụ kiện máy xay sinh tố</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/phu-kien-may-xay-thit"><span>Phụ kiện máy xay thịt</span></a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+
+                            <li class="level1">
+                                <a href="/may-massage-1"><span>Máy massage</span></a>
+
+                                <i class="ti-plus hide_close"></i>
+                                <ul class="level1 sub-menu" style="display:none;">
+
+                                    <li class="level2">
+                                        <a href="/ghe-massage"><span>Ghế massage</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/giuong-massage"><span>Giường Massage</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-rung-toan-than-1"><span>MÁY RUNG TOÀN THÂN</span></a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+
+                            <li class="level1">
+                                <a href="/may-tap-the-duc-1"><span>Máy tập thể dục</span></a>
+
+                                <i class="ti-plus hide_close"></i>
+                                <ul class="level1 sub-menu" style="display:none;">
+
+                                    <li class="level2">
+                                        <a href="/may-tang-chieu-cao"><span>Máy tăng chiều cao</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/xe-dap-tap-the-duc"><span>Xe đạp tập thể dục</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/may-chay-bo"><span>Máy chạy bộ</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/ghe-tap-ta-da-nang"><span>Ghế tập tạ đa năng</span></a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+
+                            <li class="level1">
+                                <a href="/xe-dap-the-thao"><span>Xe đạp thể thao</span></a>
+
+                                <i class="ti-plus hide_close"></i>
+                                <ul class="level1 sub-menu" style="display:none;">
+
+                                    <li class="level2">
+                                        <a href="/xe-dap-dia-hinh"><span>XE ĐẠP ĐỊA HÌNH</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/xe-dap-dua"><span>XE ĐẠP ĐUA</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/xe-dap-banh-beo"><span>XE ĐẠP BÁNH BÉO</span></a>
+                                    </li>
+
+                                    <li class="level2">
+                                        <a href="/xe-dap-gap"><span>XE ĐẠP GẤP</span></a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+
+                            <li class="level1">
+                                <a href="/my-cay"><span>bếp Mỳ cay</span></a>
+
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+                    <li class="level0 level-top parent level_ico">
+                        <a href="/tin-tuc">Tin tức</a>
+
+                    </li>
+
+                    <li class="level0 level-top parent level_ico">
+                        <a href="/contact.html">Liên hệ</a>
+
+                    </li>
+
+                    <li class="level0 level-top parent level_ico">
+                        <a href="/gioi-thieu">Thông tin công ty</a>
+
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- End -->
+    <header class="header">
+        <div class="topbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-2">
+                        <ul class="list-inline topbar_left hidden-sm hidden-xs">
+
+
+                            <li>
+                                Hotline: <a class="hai01" href="tel:0987983948">0987983948</a>
+
+                                <span>-</span> <a href="tel:0949089879">0949089879</a>
+
+
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 d-list col-xs-10 a-right topbar_right">
+                        <div class="list-inline a-center f-right">
+                            <ul>
+
+                                <li class="hidden-md hidden-lg"><a href="/register.html" title="Đăng ký">Đăng ký</a>
+                                </li>
+                                <li class="hidden-md hidden-lg"><a href="/login.html" title="Đăng nhập">Đăng nhập</a>
+                                </li>
+                                <li class="hidden-xs hidden-sm">
+                                    <a href="/register.html" class="account_a register_btn" title="Đăng ký">Đăng ký</a>
+                                </li>
+                                <li class="hidden-xs hidden-sm">
+                                    <a href="/login.html" class="account_a login_btn" title="Đăng nhập">Đăng nhập</a>
+                                </li>
+
+                                <li class="hidden-sm hidden-xs">
+
+                                    <a href="/contact.html" title="Hệ thống cửa hàng" class="account_a">
+                                        Hệ thống cửa hàng
+                                    </a>
+
+                                </li>
+                                <li class="hidden-sm hidden-xs">
+
+                                    <a href="/promotion.html" title="Khuyến mãi hot" class="account_a">
+                                        Tin khuyến mãi
+                                    </a>
+
+                                </li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mid-header">
+            <div class="container">
+                <div class="row">
+                    <div class="content_header">
+                        <div class="header-main">
+                            <div class="menu-bar-h nav-mobile-button hidden-md hidden-lg">
+                                <a href="#nav-mobile"><img src="images/i_menubar.png" alt="menu bar"></a>
+                            </div>
+                            <div class="col-lg-3 col-md-3">
+                                <div class="logo">
+
+
+                                    <a href="/" class="logo-wrapper ">
+                                        <img src="images/logo.png" alt="logo ">
+                                    </a>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="header-left">
+                                    <div class="header_search hidden-xs hidden-sm">
+                                        <form action="/search" method="get" class="input-group search-bar"
+                                            role="search">
+                                            <input type="hidden" name="type" value="product">
+
+                                            <input type="search" name="query" value=""
+                                                placeholder="Bạn đang tìm sản phẩm gì..." class="input-group-field">
+                                            <span class="input-group-btn">
+                                                <button type="submit" class="btn icon-fallback-text">
+                                                    Tìm kiếm
+                                                </button>
+                                            </span>
+                                        </form>
+                                    </div>
+                                    <div class="header_search hidden-lg hidden-md">
+                                        <form action="/search" method="get" class="input-group search-bar"
+                                            role="search">
+                                            <input type="hidden" name="type" value="product">
+
+                                            <input type="search" name="query" value="" placeholder="Tìm kiếm..."
+                                                class="input-group-field">
+                                            <span class="input-group-btn">
+                                                <button type="submit" class="btn icon-fallback-text">
+                                                    Tìm kiếm
+                                                </button>
+                                            </span>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3">
+                                <div class="header-right">
+                                    <div class="header-acount hidden-lg-down hidden-xs hidden-sm">
+                                        <div class="wishlist_header">
+
+                                        </div>
+                                    </div>
+                                    <div class="top-cart-contain f-right hidden-xs hidden-sm visible-md visible-lg">
+                                        <div class="mini-cart text-xs-center">
+                                            <div class="heading-cart">
+                                                <a class="bg_cart" href="/cart" title="Giỏ hàng">
+                                                    <i class="ion-android-cart"></i>
+                                                    <span class="count_item count_item_pr"></span>
+                                                    <span class="text-giohang hidden-xs">Giỏ hàng</span>
+                                                </a>
+                                            </div>
+                                            <div class="top-cart-content">
+                                                <ul id="cart-sidebar" class="mini-products-list count_li">
+                                                    <li class="list-item">
+                                                        <ul></ul>
+                                                    </li>
+                                                    <li class="action">
+                                                        <ul>
+                                                            <li class="li-fix-1">
+                                                                <div class="top-subtotal">
+                                                                    Tổng tiền thanh toán:
+                                                                    <span class="price"></span>
+                                                                </div>
+                                                            </li>
+                                                            <li class="li-fix-2">
+                                                                <div class="actions">
+                                                                    <a href="/cart" class="btn btn-primary"
+                                                                        title="Giỏ hàng">
+                                                                        <span>Giỏ hàng</span>
+                                                                    </a>
+                                                                    <a href="/checkout"
+                                                                        class="btn btn-checkout btn-gray"
+                                                                        title="Thanh toán">
+                                                                        <span>Thanh toán</span>
+                                                                    </a>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="top-cart-contain f-right hidden-lg hidden-md visible-xs visible-sm">
+                                        <div class="mini-cart text-xs-center">
+                                            <div class="heading-cart">
+                                                <a class="bg_cart" href="/cart" title="Giỏ hàng">
+                                                    <i class="ion-android-cart"></i>
+                                                    <span class="count_item count_item_pr"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrap_main hidden-xs hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-mega hidden-sm hidden-xs">
+                        <div class="menu_mega lineheight40">
+                            <div class="title_menu">
+                                <span class="title_">Danh mục sản phẩm</span>
+                                <span class="nav_button"><span class="ion-android-menu"></span></span>
+                            </div>
+                            <div class="list_menu_header col-lg-3 col-md-3">
+                                <ul class="ul_menu">
+
+
+
+                                    <li class="nav_item lv1">
+                                        <a href="/maylockhongkhi.html" title="Máy lọc không khí">Máy lọc không khí
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+
+                                        <ul class="ul_content_right_1 row">
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a
+                                                    href="/may-loc-khong-khi-coway" title="Máy lọc không khí coway">Máy
+                                                    lọc không khí coway</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a
+                                                    href="/may-loc-khong-khi-sharp" title="Máy lọc không khí sharp">Máy
+                                                    lọc không khí sharp</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a
+                                                    href="/may-loc-khong-khi-hitachi"
+                                                    title="Máy lọc không khí Hitachi">Máy lọc không khí Hitachi</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a
+                                                    href="/may-loc-khong-khi-daikin"
+                                                    title="Máy lọc không khí Daikin">Máy lọc không khí Daikin</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a
+                                                    href="/may-loc-khong-khi-panasonic"
+                                                    title="Máy lọc không khí Panasonic">Máy lọc không khí Panasonic</a>
+                                            </li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-loc-khong-khi-lg"
+                                                    title="Máy lọc không khí LG">Máy lọc không khí LG</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a
+                                                    href="/may-loc-khong-khi-philips"
+                                                    title="Máy lọc không khí Philips">Máy lọc không khí Philips</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-hut-am"
+                                                    title="Máy hút ẩm">Máy hút ẩm</a></li>
+
+
+                                        </ul>
+                                    </li>
+
+
+
+
+                                    <li class="nav_item lv1">
+                                        <a href="/maythucpham.html" title="Máy Thực Phẩm">Máy Thực Phẩm
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+
+                                        <ul class="ul_content_right_1 row">
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-thai-thit"
+                                                    title="Máy thái thịt">Máy thái thịt</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-xay-gio-cha"
+                                                    title="Máy xay giò chả">Máy xay giò chả</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-xay-bot"
+                                                    title="Máy xay bột">Máy xay bột</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-tron-bot-da-nang"
+                                                    title="Máy trộn bột đa năng">Máy trộn bột đa năng</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-lam-bap-rang-bo"
+                                                    title="Máy làm bắp rang bơ">Máy làm bắp rang bơ</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-cua-xuong"
+                                                    title="Máy cưa xương">Máy cưa xương</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-xay-thit"
+                                                    title="Máy xay thịt">Máy xay thịt</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-say-nong-san"
+                                                    title="Máy sấy nông sản">Máy sấy nông sản</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-xay-dau-nanh"
+                                                    title="Máy xay đậu nành">Máy xay đậu nành</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/bep-chien-nhung"
+                                                    title="Bếp chiên nhúng">Bếp chiên nhúng</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a
+                                                    href="/may-xay-sinh-to-da-nang" title="Máy xay đa năng">Máy xay đa
+                                                    năng</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/bep-nuong-gas"
+                                                    title="Bếp nướng">Bếp nướng</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/my-cay"
+                                                    title="Bếp mỳ cay">Bếp mỳ cay</a></li>
+
+
+                                        </ul>
+                                    </li>
+
+
+
+
+                                    <li class="nav_item lv1">
+                                        <a href="/dogiadung.html" title="Đồ gia dụng">Đồ gia dụng
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+
+                                        <ul class="ul_content_right_1 row">
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/noi-chien-khong-dau"
+                                                    title="Nồi chiên không dầu">Nồi chiên không dầu</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/ban-la"
+                                                    title="Bàn là">Bàn là</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/lo-vi-song"
+                                                    title="Lò vi sóng">Lò vi sóng</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-loc-nuoc-1"
+                                                    title="Máy lọc nước">Máy lọc nước</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-hut-bui"
+                                                    title="Máy hút bụi">Máy hút bụi</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/robot-hut-bui"
+                                                    title="Robot hút bụi">Robot hút bụi</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/no-i-a-p-sua-t-die-n"
+                                                    title="Nồi áp suất điện">Nồi áp suất điện</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-suoi-dau"
+                                                    title="Máy sưởi dầu">Máy sưởi dầu</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-ep-cham"
+                                                    title="Máy ép chậm">Máy ép chậm</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a
+                                                    href="/may-xay-sinh-to-da-nang" title="Máy xay">Máy xay</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/noi-nau-cham"
+                                                    title="Nồi nấu chậm">Nồi nấu chậm</a></li>
+
+
+                                        </ul>
+                                    </li>
+
+
+
+
+                                    <li class="nav_item lv1">
+                                        <a href="/maygiaikhat.html" title="Máy giải khát">Máy giải khát
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+
+                                        <ul class="ul_content_right_1 row">
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-lam-mat-trai-cay"
+                                                    title="Máy làm mát trái cây">Máy làm mát trái cây</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-lam-kem-tuoi"
+                                                    title="Máy làm kem tươi">Máy làm kem tươi</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-bao-da"
+                                                    title="Máy bào đá">Máy bào đá</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-lam-kem-cung"
+                                                    title="Máy làm kem cứng">Máy làm kem cứng</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-ep-cam"
+                                                    title="Máy ép cam">Máy ép cam</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-lam-kem-cuon"
+                                                    title="Máy làm kem cuộn">Máy làm kem cuộn</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/bot-lam-kem"
+                                                    title="Bột làm kem">Bột làm kem</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-ep-nuoc-mia"
+                                                    title="Máy ép nước mía">Máy ép nước mía</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-lam-da-vien"
+                                                    title="Máy làm đá viên">Máy làm đá viên</a></li>
+
+
+                                        </ul>
+                                    </li>
+
+
+
+
+                                    <li class="nav_item lv1">
+                                        <a href="/maydonggoi.html" title="Máy đóng gói">Máy đóng gói
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+
+                                        <ul class="ul_content_right_1 row">
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-hut-chan-khong-1"
+                                                    title="Máy hút chân không">Máy hút chân không</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-dan-mieng-ly"
+                                                    title="Máy dán miệng ly">Máy dán miệng ly</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-in-date"
+                                                    title="Máy in date">Máy in date</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-han-mieng-tui"
+                                                    title="Máy hàn miệng túi">Máy hàn miệng túi</a></li>
+
+
+                                        </ul>
+                                    </li>
+
+
+
+
+                                    <li class="nav_item lv1">
+                                        <a href="/phukien.html" title="Phụ kiện">Phụ kiện
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+
+                                        <ul class="ul_content_right_1 row">
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/phu-kien-may-tron"
+                                                    title="Phụ kiện máy trộn">Phụ kiện máy trộn</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/phu-kien-may-thai-thit"
+                                                    title="Phụ kiện máy thái thịt">Phụ kiện máy thái thịt</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/phu-kien-may-bap"
+                                                    title="Phụ kiện máy bắp">Phụ kiện máy bắp</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/phu-kien-xe-dap"
+                                                    title="Phụ kiện xe đạp">Phụ kiện xe đạp</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a
+                                                    href="/phu-kien-bep-chien-may-say"
+                                                    title="Phụ kiện bếp chiên, Máy sấy">Phụ kiện bếp chiên, Máy sấy</a>
+                                            </li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a
+                                                    href="/phu-kien-may-hut-chan-khong"
+                                                    title="Phụ kiện máy hút chân không">Phụ kiện máy hút chân không</a>
+                                            </li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/phu-kien-may-xay-bot"
+                                                    title="Phụ kiện máy xay bột">Phụ kiện máy xay bột</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a
+                                                    href="/phu-kien-may-lam-mat-trai-cay"
+                                                    title="Phụ kiện máy làm mát trái cây">Phụ kiện máy làm mát trái
+                                                    cây</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/phu-kien-may-lam-kem"
+                                                    title="Phụ kiện máy làm kem">Phụ kiện máy làm kem</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a
+                                                    href="/phu-kien-may-xay-sinh-to"
+                                                    title="Phụ kiện máy xay sinh tố">Phụ kiện máy xay sinh tố</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/phu-kien-may-xay-thit"
+                                                    title="Phụ kiện máy xay thịt">Phụ kiện máy xay thịt</a></li>
+
+
+                                        </ul>
+                                    </li>
+
+
+
+
+                                    <li class="nav_item lv1">
+                                        <a href="/maymassage.html" title="Máy massage">Máy massage
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+
+                                        <ul class="ul_content_right_1 row">
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/ghe-massage"
+                                                    title="Ghế massage">Ghế massage</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/giuong-massage"
+                                                    title="Giường Massage">Giường Massage</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-rung-toan-than-1"
+                                                    title="MÁY RUNG TOÀN THÂN">MÁY RUNG TOÀN THÂN</a></li>
+
+
+                                        </ul>
+                                    </li>
+
+
+
+
+                                    <li class="nav_item lv1">
+                                        <a href="/may-tap-the-duc.html" title="Máy tập thể dục">Máy tập thể dục
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+
+                                        <ul class="ul_content_right_1 row">
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-tang-chieu-cao"
+                                                    title="Máy tăng chiều cao">Máy tăng chiều cao</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/xe-dap-tap-the-duc"
+                                                    title="Xe đạp tập thể dục">Xe đạp tập thể dục</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/may-chay-bo"
+                                                    title="Máy chạy bộ">Máy chạy bộ</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/ghe-tap-ta-da-nang"
+                                                    title="Ghế tập tạ đa năng">Ghế tập tạ đa năng</a></li>
+
+
+                                        </ul>
+                                    </li>
+
+
+
+
+                                    <li class="nav_item lv1">
+                                        <a href="/xe-dap-the-thao.html" title="Xe đạp thể thao">Xe đạp thể thao
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+
+                                        <ul class="ul_content_right_1 row">
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/xe-dap-dia-hinh"
+                                                    title="XE ĐẠP ĐỊA HÌNH">XE ĐẠP ĐỊA HÌNH</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/xe-dap-dua"
+                                                    title="XE ĐẠP ĐUA">XE ĐẠP ĐUA</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/xe-dap-banh-beo"
+                                                    title="XE ĐẠP BÁNH BÉO">XE ĐẠP BÁNH BÉO</a></li>
+
+
+
+                                            <li class="nav_item lv2 col-lg-3 col-md-3"><a href="/xe-dap-gap"
+                                                    title="XE ĐẠP GẤP">XE ĐẠP GẤP</a></li>
+
+
+                                        </ul>
+                                    </li>
+
+
+                                    <li class="nav_item lv1">
+                                        <a href="/collections.html" title="Xem thêm">Xem thêm</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                        <div class="bg-header-nav hidden-xs hidden-sm">
+                            <div class="relative">
+                                <div class="row row-noGutter-2">
+                                    <nav class="header-nav">
+                                        <ul class="item_big">
+
+
+
+                                            <li class="nav-item active ">
+                                                <a class="a-img" href="/"><span>Trang chủ</span></a>
+                                            </li>
+
+
+
+
+
+                                            <li class="nav-item ">
+                                                <a class="a-img" href="/collections/all"><span>Sản phẩm</span><i
+                                                        class="fa fa-caret-down"></i></a>
+                                                <ul class="item_small">
+
+                                                    <li>
+                                                        <a href="/may-loc-khong-khi" title="">Máy lọc không khí <i
+                                                                class="fa fa-angle-right"></i></a>
+
+                                                        <ul>
+
+                                                            <li>
+                                                                <a href="/may-loc-khong-khi-coway" title="">Máy lọc
+                                                                    không khí coway</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-loc-khong-khi-sharp" title="">Máy lọc
+                                                                    không khí sharp</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-loc-khong-khi-hitachi" title="">Máy lọc
+                                                                    không khí Hitachi</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-loc-khong-khi-daikin" title="">Máy lọc
+                                                                    không khí Daikin</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-loc-khong-khi-panasonic" title="">Máy lọc
+                                                                    không khí Panasonic</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-loc-khong-khi-lg" title="">Máy lọc không
+                                                                    khí LG</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-loc-khong-khi-philips" title="">Máy lọc
+                                                                    không khí Philips</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-hut-am" title="">Máy hút ẩm</a>
+                                                            </li>
+
+                                                        </ul>
+
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="/may-thuc-pham" title="">Máy Thực Phẩm <i
+                                                                class="fa fa-angle-right"></i></a>
+
+                                                        <ul>
+
+                                                            <li>
+                                                                <a href="/may-thai-thit" title="">Máy thái thịt</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-xay-gio-cha" title="">Máy xay giò chả</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-xay-bot" title="">Máy xay bột</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-tron-bot-da-nang" title="">Máy trộn bột đa
+                                                                    năng</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-lam-bap-rang-bo" title="">Máy làm bắp rang
+                                                                    bơ</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-cua-xuong" title="">Máy cưa xương</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-xay-thit" title="">Máy xay thịt</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-say-nong-san" title="">Máy sấy nông
+                                                                    sản</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-xay-dau-nanh" title="">Máy xay đậu
+                                                                    nành</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/bep-chien-nhung" title="">Bếp chiên nhúng</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-xay-sinh-to-da-nang" title="">Máy xay đa
+                                                                    năng</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/bep-nuong-gas" title="">Bếp nướng</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/my-cay" title="">Bếp mỳ cay</a>
+                                                            </li>
+
+                                                        </ul>
+
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="/do-gia-dung-1" title="">Đồ gia dụng <i
+                                                                class="fa fa-angle-right"></i></a>
+
+                                                        <ul>
+
+                                                            <li>
+                                                                <a href="/noi-chien-khong-dau" title="">Nồi chiên không
+                                                                    dầu</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/ban-la" title="">Bàn là</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/lo-vi-song" title="">Lò vi sóng</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-loc-nuoc-1" title="">Máy lọc nước</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-hut-bui" title="">Máy hút bụi</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/robot-hut-bui" title="">Robot hút bụi</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/no-i-a-p-sua-t-die-n" title="">Nồi áp suất
+                                                                    điện</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-suoi-dau" title="">Máy sưởi dầu</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-ep-cham" title="">Máy ép chậm</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-xay-sinh-to-da-nang" title="">Máy xay</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/noi-nau-cham" title="">Nồi nấu chậm</a>
+                                                            </li>
+
+                                                        </ul>
+
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="/may-giai-khat" title="">Máy giải khát <i
+                                                                class="fa fa-angle-right"></i></a>
+
+                                                        <ul>
+
+                                                            <li>
+                                                                <a href="/may-lam-mat-trai-cay" title="">Máy làm mát
+                                                                    trái cây</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-lam-kem-tuoi" title="">Máy làm kem
+                                                                    tươi</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-bao-da" title="">Máy bào đá</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-lam-kem-cung" title="">Máy làm kem
+                                                                    cứng</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-ep-cam" title="">Máy ép cam</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-lam-kem-cuon" title="">Máy làm kem
+                                                                    cuộn</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/bot-lam-kem" title="">Bột làm kem</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-ep-nuoc-mia" title="">Máy ép nước mía</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-lam-da-vien" title="">Máy làm đá viên</a>
+                                                            </li>
+
+                                                        </ul>
+
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="/may-dong-goi" title="">Máy đóng gói <i
+                                                                class="fa fa-angle-right"></i></a>
+
+                                                        <ul>
+
+                                                            <li>
+                                                                <a href="/may-hut-chan-khong-1" title="">Máy hút chân
+                                                                    không</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-dan-mieng-ly" title="">Máy dán miệng
+                                                                    ly</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-in-date" title="">Máy in date</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-han-mieng-tui" title="">Máy hàn miệng
+                                                                    túi</a>
+                                                            </li>
+
+                                                        </ul>
+
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="/phu-kien" title="">Phụ kiện <i
+                                                                class="fa fa-angle-right"></i></a>
+
+                                                        <ul>
+
+                                                            <li>
+                                                                <a href="/phu-kien-may-tron" title="">Phụ kiện máy
+                                                                    trộn</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/phu-kien-may-thai-thit" title="">Phụ kiện máy
+                                                                    thái thịt</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/phu-kien-may-bap" title="">Phụ kiện máy
+                                                                    bắp</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/phu-kien-xe-dap" title="">Phụ kiện xe đạp</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/phu-kien-bep-chien-may-say" title="">Phụ kiện
+                                                                    bếp chiên, Máy sấy</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/phu-kien-may-hut-chan-khong" title="">Phụ kiện
+                                                                    máy hút chân không</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/phu-kien-may-xay-bot" title="">Phụ kiện máy
+                                                                    xay bột</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/phu-kien-may-lam-mat-trai-cay" title="">Phụ
+                                                                    kiện máy làm mát trái cây</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/phu-kien-may-lam-kem" title="">Phụ kiện máy
+                                                                    làm kem</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/phu-kien-may-xay-sinh-to" title="">Phụ kiện
+                                                                    máy xay sinh tố</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/phu-kien-may-xay-thit" title="">Phụ kiện máy
+                                                                    xay thịt</a>
+                                                            </li>
+
+                                                        </ul>
+
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="/may-massage-1" title="">Máy massage <i
+                                                                class="fa fa-angle-right"></i></a>
+
+                                                        <ul>
+
+                                                            <li>
+                                                                <a href="/ghe-massage" title="">Ghế massage</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/giuong-massage" title="">Giường Massage</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-rung-toan-than-1" title="">MÁY RUNG TOÀN
+                                                                    THÂN</a>
+                                                            </li>
+
+                                                        </ul>
+
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="/may-tap-the-duc-1" title="">Máy tập thể dục <i
+                                                                class="fa fa-angle-right"></i></a>
+
+                                                        <ul>
+
+                                                            <li>
+                                                                <a href="/may-tang-chieu-cao" title="">Máy tăng chiều
+                                                                    cao</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/xe-dap-tap-the-duc" title="">Xe đạp tập thể
+                                                                    dục</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/may-chay-bo" title="">Máy chạy bộ</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/ghe-tap-ta-da-nang" title="">Ghế tập tạ đa
+                                                                    năng</a>
+                                                            </li>
+
+                                                        </ul>
+
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="/xe-dap-the-thao" title="">Xe đạp thể thao <i
+                                                                class="fa fa-angle-right"></i></a>
+
+                                                        <ul>
+
+                                                            <li>
+                                                                <a href="/xe-dap-dia-hinh" title="">XE ĐẠP ĐỊA HÌNH</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/xe-dap-dua" title="">XE ĐẠP ĐUA</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/xe-dap-banh-beo" title="">XE ĐẠP BÁNH BÉO</a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="/xe-dap-gap" title="">XE ĐẠP GẤP</a>
+                                                            </li>
+
+                                                        </ul>
+
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="/my-cay" title="">bếp Mỳ cay </a>
+
+                                                    </li>
+
+                                                </ul>
+                                            </li>
+
+
+
+
+
+                                            <li class="nav-item ">
+                                                <a class="a-img" href="/tin-tuc"><span>Tin tức</span></a>
+                                            </li>
+
+
+
+
+                                            <li class="nav-item ">
+                                                <a class="a-img" href="/contact.html"><span>Liên hệ</span></a>
+                                            </li>
+
+
+
+
+                                            <li class="nav-item ">
+                                                <a class="a-img" href="/gioi-thieu"><span>Thông tin công ty</span></a>
+                                            </li>
+
+
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <h1 class="hidden">Điện Máy Tiến Đạt : Tổng kho điện máy uy tín. - Điện Máy Tiến Đạt chuyên cung cấp sỉ và lẻ máy
+        làm thực phẩm chính hãng, máy làm kem lớn nhất tại Việt Nam</h1>
+
+
+
+    <footer class="footer">
+        <div class="site-footer">
+            <div class="top-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                            <div class="widget-ft">
+                                <h4 class="title-menu">
+                                    <a role="button" class="collapsed" data-toggle="collapse" aria-expanded="false"
+                                        data-target="#collapseListMenu01" aria-controls="collapseListMenu01">
+                                        Hệ thống cửa hàng <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                                <div class="collapse" id="collapseListMenu01">
+                                    <div class="list-menu">
+                                        <div class="widget-ft wg-logo">
+
+
+
+
+
+
+                                            <div class="item">
+                                                <h4 class="title-menu4 icon_none_first">
+                                                    <a>Showroom Miền bắc</a>
+                                                </h4>
+                                                <ul class="contact contact_x">
+
+                                                    <li>
+                                                        <span class="txt_content_child">
+                                                            <span>Địa chỉ:</span>
+                                                            Lô 03, Tầng 1, tòa B Chung cư hateco- Phường yên sở - Hoàng
+                                                            Mai- TP Hà nội
+                                                        </span>
+                                                    </li>
+
+
+                                                    <li class="sdt">
+                                                        <span> Hotline:</span>
+                                                        <a href="tel:0987983948">0987983948</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+
+
+
+
+
+
+
+                                            <div class="item">
+                                                <h4 class="title-menu4 icon_none_first">
+                                                    <a>Showroom Miền nam</a>
+                                                </h4>
+                                                <ul class="contact contact_x">
+
+                                                    <li>
+                                                        <span class="txt_content_child">
+                                                            <span>Địa chỉ:</span>
+                                                            579-581 Tạ Quang Bửu, Phường 4, Quận 8, TP.HCM
+                                                        </span>
+                                                    </li>
+
+
+                                                    <li class="sdt">
+                                                        <span> Hotline:</span>
+                                                        <a href="tel:0949089879">0949089879</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+
+
+
+
+
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-25 col-lg-25">
+                            <div class="widget-ft">
+                                <h4 class="title-menu">
+                                    <a role="button" class="collapsed" data-toggle="collapse" aria-expanded="false"
+                                        data-target="#collapseListMenu02" aria-controls="collapseListMenu02">
+                                        Chào hàng &amp; mua sỉ <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                                <div class="collapse" id="collapseListMenu02">
+                                    <ul class="list-menu">
+
+                                        <li class="li_menu"><a href="/dieu-khoan">Đt : 0949089879</a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-25 col-lg-25">
+                            <div class="widget-ft">
+                                <h4 class="title-menu">
+                                    <a role="button" class="collapsed" data-toggle="collapse" aria-expanded="false"
+                                        data-target="#collapseListMenu03" aria-controls="collapseListMenu03">
+                                        Hỗ trợ khách hàng <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                                <div class="collapse time_work" id="collapseListMenu03">
+                                    <ul class="list-menu">
+
+                                        <li class="li_menu"><a href="/chinh-sach-van-chuyen">Chính sách vận chuyển và
+                                                giao nhận</a></li>
+
+                                        <li class="li_menu"><a href="/chinh-sach-bao-mat-thong-tin">Chính sách bảo mật
+                                                thông tin</a></li>
+
+                                        <li class="li_menu"><a href="/chinh-sach-doi-tra">Chính sách đổi trả</a></li>
+
+                                        <li class="li_menu"><a href="/chinh-sach-bao-hanh">Chính sách bảo hành - bảo
+                                                trì</a></li>
+
+                                        <li class="li_menu"><a href="/qui-dinh-thanh-toan-1">Qui định thanh toán</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                            <div class="widget-ft last-child">
+                                <h4 class="title-menu title-db">
+                                    <a role="button" class="collapsed" data-toggle="collapse" aria-expanded="false"
+                                        data-target="#collapseListMenu04" aria-controls="collapseListMenu04">
+                                        Kết nối trên Facebook <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                                <div class="collapse" id="collapseListMenu04">
+
+                                    <div class="facebook">
+                                        <div id="fb-root"></div>
+                                        <script>
+                                            var timer = undefined;
+                                            timer = setTimeout(() => {
+                                                (function (d, s, id) {
+                                                    var js, fjs = d.getElementsByTagName(s)[0];
+                                                    if (d.getElementById(id)) return;
+                                                    js = d.createElement(s); js.id = id;
+                                                    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=631942543575730";
+                                                    fjs.parentNode.insertBefore(js, fjs);
+                                                }(document, 'script', 'facebook-jssdk'));
+
+                                                timer = undefined;
+                                            }, 5000)
+                                        </script>
+                                        <div class="fb-page" data-href="https://www.facebook.com/sapo/"
+                                            data-tabs="timeline" data-height="150" data-small-header="true"
+                                            data-adapt-container-width="true" data-hide-cover="false"
+                                            data-show-facepile="true">
+                                            <div class="fb-xfbml-parse-ignore">
+                                                <blockquote cite="https://www.facebook.com/sapo/">
+                                                    <a href="https://www.facebook.com/sapo/">Facebook</a>
+                                                </blockquote>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-bottom-1px"></div>
+                </div>
+            </div>
+            <div class="mid-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-5">
+                            <div class="widget-ft wg-logo">
+                                <h4 class="title-menu2 icon_none_first">
+                                    <a>CÔNG TY TNHH DV VÀ TM MÁY THỰC PHẨM TIẾN ĐẠT</a>
+                                </h4>
+                                <ul class="contact">
+                                    <li>
+                                        <span class="txt_content_child">
+                                            <span> Địa chỉ:</span>
+
+                                            Lô 03, Tầng 1, tòa B Chung cư hateco- Phường yên sở - Hoàng Mai- TP Hà nội.
+                                            MST 0110120028 do Sở kế hoạch đầu tư TP Hà Nội cấp ngày 16/09/2022
+
+                                        </span>
+                                    </li>
+                                    <li class="sdt">
+                                        <span> Hotline:</span>
+
+                                        <a href="tel:0987983948">0987983948</a>
+
+                                        <span class="email_style"><span> Email:</span>
+
+
+
+                                            <a href="mailto:dienmaytiendatvn@gmail.com"> dienmaytiendatvn@gmail.com</a>
+
+
+                                        </span>
+                                    </li>
+                                </ul>
+
+                                <a href="http://online.gov.vn/Home/WebDetails/102241" target="_blank"><img
+                                        src="images/logo_bct.png" style="max-width:180px;margin-bottom: 10px;"></a>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 pay_footer">
+                            <h4 class="title-menu2 icon_none_first">
+                                <a>Chấp nhận thanh toán</a>
+                            </h4>
+                            <ul class="follow_option">
+
+
+                                <li>
+                                    <a href="#"><img class="lazyload"
+                                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                            data-src="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/pay_1.png?1709110859833"
+                                            alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín."></a>
+                                </li>
+
+
+                                <li>
+                                    <a href="#"><img class="lazyload"
+                                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                            data-src="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/pay_2.png?1709110859833"
+                                            alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín."></a>
+                                </li>
+
+
+                                <li>
+                                    <a href="#"><img class="lazyload"
+                                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                            data-src="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/pay_3.png?1709110859833"
+                                            alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín."></a>
+                                </li>
+
+
+                                <li>
+                                    <a href="#"><img class="lazyload"
+                                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                            data-src="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/pay_4.png?1709110859833"
+                                            alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín."></a>
+                                </li>
+
+
+                                <li>
+                                    <a href="#"><img class="lazyload"
+                                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                            data-src="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/pay_5.png?1709110859833"
+                                            alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín."></a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 social_footer">
+                            <h4 class="title-menu2 icon_none_first icon_title_last">
+                                <a>Khiếu nại &amp; CSKH</a>
+                            </h4>
+                            <div class="time_work">
+                                <ul class="list-menu list-menu-time">
+                                    <li class="li_menu li_menu_xxx">
+                                        <a class="rc yeloww" href="tel:0987983948">0987983948</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-bottom-1px"></div>
+                </div>
+            </div>
+            <div class="bg-footer-bottom copyright clearfix">
+                <div class="container">
+                    <div class="inner clearfix">
+                        <div class="row tablet">
+                            <div id="copyright" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 a-center fot_copyright">
+                                <span class="wsp"><span class="mobile">© Bản quyền thuộc về <b>Điện máy tiến
+                                            đạt.vn</b><span class="hidden-xs"> | </span></span><span class="opacity1"
+                                        style="opacity: 0.7;">Cung cấp bởi</span>
+                                    <a href="https://www.sapo.vn/?utm_campaign=cpn:site_khach_hang-plm:footer&amp;utm_source=site_khach_hang&amp;utm_medium=referral&amp;utm_content=fm:text_link-km:-sz:&amp;utm_term=&amp;campaign=site_khach_hang"
+                                        rel="nofollow" title="Sapo" target="_blank">Sapo</a>
+                                </span>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <a href="#" id="back-to-top" class="backtop" title="Lên đầu trang"><i class="fa fa-angle-up"
+                            aria-hidden="true"></i></a>
+
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="social-fix">
+
+
+        <a href="https://zalo.me/0987983948" target="_blank">
+            <img src="images/zaloicon.png" alt="Zalo Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.">
+        </a>
+
+
+        <a href="https://www.facebook.com/messages/t/100009049422542/" target="_blank">
+            <img src="images/messicon.png" alt="Messenger Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.">
+        </a>
+
+
+        <a class="btn-call-now visible-xs" href="tel:0987983948">
+            <i class="fa fa-phone"></i>
+        </a>
+
+    </div>
+
+    <style>
+        .social-fix {
+            position: fixed;
+            top: initial !important;
+            right: 20px;
+            bottom: 80px;
+            z-index: 999;
+            text-align: right;
+        }
+
+        .social-fix a {
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* hotline */
+        .btn-call-now {
+            display: flex;
+            align-items: center;
+            background: rgba(183, 1, 0, 0.74);
+            -webkit-box-shadow: 0 0 5px #ddd;
+            -moz-box-shadow: 0 0 5px #ddd;
+            box-shadow: 0 0 5px #ddd;
+            z-index: 99;
+            top: initial !important;
+            color: #FFF;
+            font-weight: 700;
+            border-radius: 25px;
+            padding: 5px;
+            -moz-animation-duration: 500ms;
+            -moz-animation-name: calllink;
+            -moz-animation-iteration-count: infinite;
+            -moz-animation-direction: alternate;
+            -webkit-animation-duration: 500ms;
+            -webkit-animation-name: calllink;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: alternate;
+            animation-duration: 500ms;
+            animation-name: calllink;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+
+        .btn-call-now span {
+            font-size: 18px;
+            vertical-align: top;
+        }
+
+        .btn-call-now .fa {
+            color: #b70100;
+            font-size: 23px;
+            background: #fff;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        @("@")keyframes calllink {
+            0% {
+                color: #eba11e;
+            }
+
+            50% {
+                color: #fff;
+            }
+
+            100% {
+                color: #ebfa48;
+            }
+        }
+
+        @("@")media (max-width:767px) {
+
+            .btn-call-now .fa {
+                margin: 0;
+            }
+
+            .btn-call-now {
+                width: initial;
+                min-width: initial
+            }
+        }
+    </style>
+
+    <!-- Bizweb javascript -->
+    <script src="js/option-selectors.js" type="text/javascript"></script>
+    <script src="js/api.jquery.js" type="text/javascript"></script>
+    <!-- Plugin JS -->
+    <script src="js/owl.carousel.min.js" type="text/javascript"></script>
+    <link rel="preload" as="script" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    <script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <!-- Add to cart -->
+    <div class="ajax-load">
+        <span class="loading-icon">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                y="0px" width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;"
+                xml:space="preserve">
+                <rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                    <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s"
+                        repeatCount="indefinite"></animate>
+                    <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s"
+                        repeatCount="indefinite"></animate>
+                    <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s"
+                        repeatCount="indefinite"></animate>
+                </rect>
+                <rect x="8" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                    <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s"
+                        repeatCount="indefinite"></animate>
+                    <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s"
+                        repeatCount="indefinite"></animate>
+                    <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s"
+                        repeatCount="indefinite"></animate>
+                </rect>
+                <rect x="16" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                    <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s"
+                        repeatCount="indefinite"></animate>
+                    <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s"
+                        repeatCount="indefinite"></animate>
+                    <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s"
+                        repeatCount="indefinite"></animate>
+                </rect>
+            </svg>
+        </span>
+    </div>
+
+    <div class="loading awe-popup">
+        <div class="overlay"></div>
+        <div class="loader" title="2">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                y="0px" width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;"
+                xml:space="preserve">
+                <rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                    <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s"
+                        repeatCount="indefinite"></animate>
+                    <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s"
+                        repeatCount="indefinite"></animate>
+                    <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s"
+                        repeatCount="indefinite"></animate>
+                </rect>
+                <rect x="8" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                    <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s"
+                        repeatCount="indefinite"></animate>
+                    <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s"
+                        repeatCount="indefinite"></animate>
+                    <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s"
+                        repeatCount="indefinite"></animate>
+                </rect>
+                <rect x="16" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                    <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s"
+                        repeatCount="indefinite"></animate>
+                    <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s"
+                        repeatCount="indefinite"></animate>
+                    <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s"
+                        repeatCount="indefinite"></animate>
+                </rect>
+            </svg>
+        </div>
+
+    </div>
+
+    <div class="addcart-popup product-popup awe-popup">
+        <div class="overlay no-background"></div>
+        <div class="content">
+            <div class="row row-noGutter">
+                <div class="col-xl-6 col-xs-12">
+                    <div class="btn btn-full btn-primary a-left popup-title"><i class="fa fa-check"></i>Thêm vào giỏ
+                        hàng thành công
+                    </div>
+                    <a href="javascript:void(0)" class="close-window close-popup"><i class="fa fa-close"></i></a>
+                    <div class="info clearfix">
+                        <div class="product-image margin-top-5">
+                            <img alt="popup" src="images/logo.png" style="max-width:150px; height:auto">
+                        </div>
+                        <div class="product-info">
+                            <p class="product-name"></p>
+                            <p class="quantity color-main"><span>Số lượng: </span></p>
+                            <p class="total-money color-main"><span>Tổng tiền: </span></p>
+
+                        </div>
+                        <div class="actions">
+                            <button class="btn  btn-primary  margin-top-5 btn-continue">Tiếp tục mua hàng</button>
+                            <button class="btn btn-gray margin-top-5" onclick="window.location='/cart'">Kiểm tra giỏ
+                                hàng</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="error-popup awe-popup">
+        <div class="overlay no-background"></div>
+        <div class="popup-inner content">
+            <div class="error-message"></div>
+        </div>
+    </div>
+    <script>
+         
+            (function (b) { function c() { } for (var d = "assert,count,debug,dir,dirxml,error,exception,group,groupCollapsed,groupEnd,info,log,timeStamp,profile,profileEnd,time,timeEnd,trace,warn".split(","), a; a = d.pop();) { b[a] = b[a] || c } })((function () {
+                try { console.log(); return window.console; } catch (err) { return window.console = {}; }
+            })());
+
+        var GLOBAL = {
+            common: {
+                init: function () {
+                    $('.add_to_cart').bind('click', addToCart);
+                }
+            },
+
+            templateIndex: {
+                init: function () {
+
+                }
+            },
+
+            templateProduct: {
+                init: function () {
+
+                }
+            },
+
+            templateCart: {
+                init: function () {
+
+                }
+            }
+
+        }
+        var UTIL = {
+            fire: function (func, funcname, args) {
+                var namespace = GLOBAL;
+                funcname = (funcname === undefined) ? 'init' : funcname;
+                if (func !== '' && namespace[func] && typeof namespace[func][funcname] == 'function') {
+                    namespace[func][funcname](args);
+                }
+            },
+
+            loadEvents: function () {
+                var bodyId = document.body.id;
+
+                // hit up common first.
+                UTIL.fire('common');
+
+                // do all the classes too.
+                $.each(document.body.className.split(/\s+/), function (i, classnm) {
+                    UTIL.fire(classnm);
+                    UTIL.fire(classnm, bodyId);
+                });
+            }
+
+        };
+        $(document).ready(UTIL.loadEvents);
+        /**
+     * Ajaxy add-to-cart
+     */
+        Number.prototype.formatMoney = function (c, d, t) {
+            var n = this,
+                c = isNaN(c = Math.abs(c)) ? 2 : c,
+                d = d == undefined ? "." : d,
+                t = t == undefined ? "." : t,
+                s = n < 0 ? "-" : "",
+                i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+                j = (j = i.length) > 3 ? j % 3 : 0;
+            return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+        };
+        function addToCart(e) {
+            if (typeof e !== 'undefined') e.preventDefault();
+            var $this = $(this);
+            var form = $this.parents('form');
+            $.ajax({
+                type: 'POST',
+                url: '/cart/add.js',
+                async: false,
+                data: form.serialize(),
+                dataType: 'json',
+                error: addToCartFail,
+                beforeSend: function () {
+                },
+                success: addToCartSuccess,
+                cache: false
+            });
+        }
+        function addToCartSuccess(jqXHR, textStatus, errorThrown) {
+
+            $.ajax({
+                type: 'GET',
+                url: '/cart.js',
+                async: false,
+                cache: false,
+                dataType: 'json',
+                success: function (cart) {
+                    awe.hidePopup('.loading');
+                    Bizweb.updateCartFromForm(cart, '.top-cart-content .mini-products-list');
+                    Bizweb.updateCartPopupForm(cart, '#popup-cart-desktop .tbody-popup');
+                }
+            });
+
+
+
+            var url_product = jqXHR['url'];
+            var class_id = jqXHR['product_id'];
+            var name = jqXHR['name'];
+            var textDisplay = ('<i style="margin-right:5px; color:#43b743; font-size:13px;" class="fa fa-check" aria-hidden="true"></i>Sản phẩm vừa thêm vào giỏ hàng');
+            var id = jqXHR['variant_id'];
+            var dataList = $(".item-name a").map(function () {
+                var plus = $(this).text();
+                return plus;
+            }).get();
+            $('.title-popup-cart .cart-popup-name').html('<a href="' + url_product + ' title="' + name + '">' + name + '</a> ');
+            var nameid = dataList,
+                found = $.inArray(name, nameid);
+            var textfind = found;
+            var src = '';
+            if (Bizweb.resizeImage(jqXHR['image'], 'small') == null || Bizweb.resizeImage(jqXHR['image'], 'small') == "null" || Bizweb.resizeImage(jqXHR['image'], 'small') == '') {
+                src = 'http://bizweb.dktcdn.net/thumb/large/assets/themes_support/noimage.gif'
+            }
+            else {
+                src = Bizweb.resizeImage(jqXHR['image'], 'small')
+            }
+
+
+            $(".item-info > p:contains(" + id + ")").html('<span class="add_sus" style="color:#898989;"><i style="margin-right:5px; color:#43b743; font-size:13px;" class="fa fa-check" aria-hidden="true"></i>Sản phẩm vừa thêm!</span>');
+
+
+            var windowW = $(window).width();
+            if (windowW > 768) {
+                $('#popup-cart').modal();
+            } else {
+                $('#myModal').html('');
+                var $popupMobile = '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">'
+                    + '<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative; z-index: 9;"><span aria-hidden="true">×</span></button>'
+                    + '<h4 class="modal-title"><span><i class="fa fa-check" aria-hidden="true"></i></span>Thêm vào giỏ hàng thành công</h4></div>'
+                    + '<div class="modal-body"><div class="media"><div class="media-left"><div class="thumb-1x1">'
+                    + '<img width="70px" src="' + src + '" alt="' + jqXHR['title'] + '"></div></div>'
+                    + '<div class="media-body"><div class="product-title">' + jqXHR['name'] + '</div>'
+                    + '<div class="product-new-price"><span>' + (jqXHR['price']).formatMoney(0) + ' đ</span></div></div></div>'
+                    + '<button class="btn btn-block btn-outline-red" data-dismiss="modal">Tiếp tục mua hàng</button>'
+                    + '<a href="/checkout" class="btn btn-block btn-red">Tiến hành thanh toán »</a></div></div></div>';
+                $('#myModal').html($popupMobile);
+                $('#myModal').modal();
+                clearTimeout($('#myModal').data('hideInterval'));
+                $('#myModal').data('hideInterval', setTimeout(function () {
+                    $('#myModal').modal('hide');
+                }, 5000));
+
+            }
+        }
+        function addToCartFail(jqXHR, textStatus, errorThrown) {
+            var response = $.parseJSON(jqXHR.responseText);
+            var $info = '<div class="error">' + response.description + '</div>';
+        }
+        $(document).on('click', ".remove-item-cart", function () {
+            var variantId = $(this).attr('data-id');
+            removeItemCart(variantId);
+        });
+        $(document).on('click', ".items-count", function () {
+            $(this).parent().children('.items-count').prop('disabled', true);
+            var thisBtn = $(this);
+            var variantId = $(this).parent().find('.variantID').val();
+            var qty = $(this).parent().children('.number-sidebar').val();
+            updateQuantity(qty, variantId);
+        });
+        $(document).on('change', ".number-sidebar", function () {
+            var variantId = $(this).parent().children('.variantID').val();
+            var qty = $(this).val();
+            updateQuantity(qty, variantId);
+        });
+        function updateQuantity(qty, variantId) {
+            var variantIdUpdate = variantId;
+            $.ajax({
+                type: "POST",
+                url: "/cart/change.js",
+                data: { "quantity": qty, "variantId": variantId },
+                dataType: "json",
+                success: function (cart, variantId) {
+                    Bizweb.onCartUpdateClick(cart, variantIdUpdate);
+                },
+                error: function (qty, variantId) {
+                    Bizweb.onError(qty, variantId)
+                }
+            })
+        }
+        function removeItemCart(variantId) {
+            var variantIdRemove = variantId;
+            $.ajax({
+                type: "POST",
+                url: "/cart/change.js",
+                data: { "quantity": 0, "variantId": variantId },
+                dataType: "json",
+                success: function (cart, variantId) {
+                    Bizweb.onCartRemoveClick(cart, variantIdRemove);
+                    $('.productid-' + variantIdRemove).remove();
+                    if ($('.tbody-popup>div').length == '0') {
+                        $('#popup-cart').modal('hide');
+                    }
+                    if ($('.list-item-cart>li').length == '0') {
+                        $('.mini-products-list').html('<div class="no-item"><p>Không có sản phẩm nào trong giỏ hàng.</p></div>');
+                    }
+                    if ($('.cart-tbody>div').length == '0') {
+                        $('.bg-cart-page').remove();
+                        $('.bg-cart-page-mobile').remove();
+                        jQuery('<div class="bg-cart-page" style="min-height: auto"><p>Không có sản phẩm nào trong giỏ hàng. Quay lại <a href="/">cửa hàng</a> để tiếp tục mua sắm.</p></div>').appendTo('.cart');
+                    }
+                },
+                error: function (variantId, r) {
+                    Bizweb.onError(variantId, r)
+                }
+            })
+        }
+        Bizweb.updateCartFromForm = function (cart, cart_summary_id, cart_count_id) {
+            if ((typeof cart_summary_id) === 'string') {
+                var cart_summary = jQuery(cart_summary_id);
+                if (cart_summary.length) {
+                    // Start from scratch.
+                    cart_summary.empty();
+                    // Pull it all out.        
+                    jQuery.each(cart, function (key, value) {
+                        if (key === 'items') {
+
+                            var table = jQuery(cart_summary_id);
+                            if (value.length) {
+                                jQuery('<ul class="list-item-cart"></ul>').appendTo(table);
+                                jQuery.each(value, function (i, item) {
+                                    var buttonQty = "";
+                                    if (item.quantity == '1') {
+                                        buttonQty = 'disabled';
+                                    } else {
+                                        buttonQty = '';
+                                    }
+                                    var link_img0 = Bizweb.resizeImage(item.image, 'compact');
+                                    if (link_img0 == "null" || link_img0 == '' || link_img0 == null) {
+                                        link_img0 = 'https://bizweb.dktcdn.net/thumb/large/assets/themes_support/noimage.gif';
+                                    }
+                                    jQuery('<li class="item productid-' + item.variant_id + '"><div class="border_list"><a class="product-image" href="' + item.url + '" title="' + item.name + '">'
+                                        + '<img alt="' + item.name + '" src="' + link_img0 + '"width="' + '100' + '"\></a>'
+                                        + '<div class="detail-item"><div class="product-details">'
+                                        + '<p class="product-name"> <a class="text2line" href="' + item.url + '" title="' + item.name + '">' + item.name + '</a></p></div>'
+                                        + '<div class="product-details-bottom"><span class="price pricechange">' + Bizweb.formatMoney(item.price, "{{amount_no_decimals_with_comma_separator}}₫") + '</span><a href="javascript:;" data-id="' + item.variant_id + '" title="Xóa" class="remove-item-cart fa fa-times">&nbsp;</a>'
+                                        + '<div class="quantity-select qty_drop_cart"><input class="variantID" type="hidden" name="variantId" value="' + item.variant_id + '"><button onClick="var result = document.getElementById(\'qty' + item.variant_id + '\'); var qty' + item.variant_id + ' = result.value; if( !isNaN( qty' + item.variant_id + ' ) &amp;&amp; qty' + item.variant_id + ' &gt; 1 ) result.value--;return false;" class="btn_reduced reduced items-count btn-minus" ' + buttonQty + ' type="button">–</button><input type="text" maxlength="12" min="1" class="input-text number-sidebar qty' + item.variant_id + '" id="qty' + item.variant_id + '" name="Lines" id="updates_' + item.variant_id + '" size="4" value="' + item.quantity + '"><button onClick="var result = document.getElementById(\'qty' + item.variant_id + '\'); var qty' + item.variant_id + ' = result.value; if( !isNaN( qty' + item.variant_id + ' )) result.value++;return false;" class="btn_increase increase items-count btn-plus" type="button">+</button></div></div></div></li>').appendTo(table.children('.list-item-cart'));
+                                });
+                                jQuery('<div class="pd"><div class="top-subtotal">Tổng tiền: <span class="price">' + Bizweb.formatMoney(cart.total_price, "{{amount_no_decimals_with_comma_separator}}₫") + '</span></div></div>').appendTo(table);
+                                jQuery('<div class="pd right_ct"><a href="/checkout" class="btn btn-primary"><span>Tiến hành thanh toán</span></a><a href="/cart" class="btn btn-white"><span>Đi đến giỏ hàng</span></a></div>').appendTo(table);
+                            }
+                            else {
+                                jQuery('<div class="no-item"><p>Không có sản phẩm nào trong giỏ hàng.</p></div>').appendTo(table);
+
+                            }
+                        }
+                    });
+                }
+            }
+            updateCartDesc(cart);
+            var numInput = document.querySelector('#cart-sidebar input.input-text');
+            if (numInput != null) {
+                // Listen for input event on numInput.
+                numInput.addEventListener('input', function () {
+                    // Let's match only digits.
+                    var num = this.value.match(/^\d+$/);
+                    if (num == 0) {
+                        // If we have no match, value will be empty.
+                        this.value = 1;
+                    }
+                    if (num === null) {
+                        // If we have no match, value will be empty.
+                        this.value = "";
+                    }
+                }, false)
+            }
+        }
+
+        Bizweb.updateCartPageForm = function (cart, cart_summary_id, cart_count_id) {
+            if ((typeof cart_summary_id) === 'string') {
+                var cart_summary = jQuery(cart_summary_id);
+                if (cart_summary.length) {
+                    // Start from scratch.
+                    cart_summary.empty();
+                    // Pull it all out.        
+                    jQuery.each(cart, function (key, value) {
+                        if (key === 'items') {
+                            var table = jQuery(cart_summary_id);
+                            if (value.length) {
+
+                                var pageCart = '<div class="cart page_cart hidden-xs">'
+                                    + '<form action="/cart" method="post" novalidate class="margin-bottom-0"><div class="bg-scroll"><div class="cart-thead">'
+                                    + '<div style="width: 17%">Ảnh sản phẩm</div><div style="width: 33%"><span class="nobr">Tên sản phẩm</span></div><div style="width: 15%" class="a-center"><span class="nobr">Đơn giá</span></div><div style="width: 14%" class="a-center">Số lượng</div><div style="width: 15%" class="a-center">Thành tiền</div><div style="width: 6%">Xoá</div></div>'
+                                    + '<div class="cart-tbody"></div></div></form></div>';
+                                var pageCartCheckout = '<div class="cart-collaterals cart_submit row"><div class="totals col-sm-12 col-md-12 col-xs-12"><div class="totals"><div class="inner">'
+                                    + '<table class="table shopping-cart-table-total margin-bottom-0" id="shopping-cart-totals-table"><colgroup><col><col></colgroup>'
+                                    + '<tfoot><tr><td colspan="20" class="a-right"><span>Tổng tiền:</span></td><td class="a-right"><strong><span class="totals_price price">' + Bizweb.formatMoney(cart.total_price, "{{amount_no_decimals_with_comma_separator}}₫") + '</span></strong></td></tr></tfoot></table>'
+                                    + '<ul class="checkout"><li class="clearfix f-right"><button class="btn btn-white f-left" title="Tiếp tục mua hàng" type="button" onclick="window.location.href=\'/collections/all\'"><span>Tiếp tục mua hàng</span></button><button class="btn btn-primary button btn-proceed-checkout f-right" title="Thực hiện thanh toán" type="button" onclick="window.location.href=\'/checkout\'"><span>Thực hiện thanh toán</span></button></li>'
+                                    + '</ul><div class="bk-btn"></div></div></div></div></div>';
+                                jQuery(pageCart).appendTo(table);
+                                jQuery.each(value, function (i, item) {
+                                    var buttonQty = "";
+                                    if (item.quantity == '1') {
+                                        buttonQty = 'disabled';
+                                    } else {
+                                        buttonQty = '';
+                                    }
+                                    var link_img1 = Bizweb.resizeImage(item.image, 'small');
+                                    if (link_img1 == "null" || link_img1 == '' || link_img1 == null) {
+                                        link_img1 = 'https://bizweb.dktcdn.net/thumb/large/assets/themes_support/noimage.gif';
+                                    }
+                                    var pageCartItem = '<div class="item-cart productid-' + item.variant_id + '"><div style="width: 17%" class="image"><a class="product-image" title="' + item.name + '" href="' + item.url + '"><img class="bk-product-image" width="75" height="auto" alt="' + item.name + '" src="' + link_img1 + '"></a></div>'
+                                        + '<div style="width: 33%" class="a-center prd_name"><h2 class="product-name"> <a class="text2line bk-product-name" href="' + item.url + '">' + item.title + '</a> </h2><span class="variant-title">' + item.variant_title + '</span></div><div style="width: 15%" class="a-center"><span class="item-price"> <span class="price bk-product-price">' + Bizweb.formatMoney(item.price, "{{amount_no_decimals_with_comma_separator}}₫") + '</span></span></div>'
+                                        + '<div style="width: 14%" class="a-center"><div class="input_qty_pr"><input class="variantID" type="hidden" name="variantId" value="' + item.variant_id + '"><button onClick="var result = document.getElementById(\'qtyItem' + item.variant_id + '\'); var qtyItem' + item.variant_id + ' = result.value; if( !isNaN( qtyItem' + item.variant_id + ' ) &amp;&amp; qtyItem' + item.variant_id + ' &gt; 1 ) result.value--;return false;" ' + buttonQty + ' class="reduced_pop items-count btn-minus" type="button">–</button><input type="text" maxlength="12" min="1" class="bk-product-qty input-text number-sidebar input_pop input_pop qtyItem' + item.variant_id + '" id="qtyItem' + item.variant_id + '" name="Lines" id="updates_' + item.variant_id + '" size="4" value="' + item.quantity + '"><button onClick="var result = document.getElementById(\'qtyItem' + item.variant_id + '\'); var qtyItem' + item.variant_id + ' = result.value; if( !isNaN( qtyItem' + item.variant_id + ' )) result.value++;return false;" class="increase_pop items-count btn-plus" type="button">+</button></div></div>'
+                                        + '<div style="width: 15%" class="a-center"><span class="cart-price"> <span class="price pricechange">' + Bizweb.formatMoney(item.price * item.quantity, "{{amount_no_decimals_with_comma_separator}}₫") + '</span> </span></div>'
+                                        + '<div style="width: 6%"><a class="button remove-item remove-item-cart" title="Xóa" href="javascript:;" data-id="' + item.variant_id + '"><span><i class="fa fa-times" aria-hidden="true"></i></span></a></div></div>';
+                                    jQuery(pageCartItem).appendTo(table.find('.cart-tbody'));
+                                    if (item.variant_title == 'Default Title') {
+                                        $('.variant-title').hide();
+                                    }
+                                });
+                                jQuery(pageCartCheckout).appendTo(table.children('.cart'));
+                            } else {
+                                jQuery('<p class="hidden-xs-down">Không có sản phẩm nào trong giỏ hàng. Quay lại <a href="/" style="color:;">cửa hàng</a> để tiếp tục mua sắm.</p>').appendTo(table);
+                                jQuery('.cart_desktop_page').css('min-height', 'auto');
+                            }
+                        }
+                    });
+                }
+            }
+            updateCartDesc(cart);
+            jQuery('#wait').hide();
+        }
+        Bizweb.updateCartPopupForm = function (cart, cart_summary_id, cart_count_id) {
+
+            if ((typeof cart_summary_id) === 'string') {
+                var cart_summary = jQuery(cart_summary_id);
+                if (cart_summary.length) {
+                    // Start from scratch.
+                    cart_summary.empty();
+                    // Pull it all out.        
+                    jQuery.each(cart, function (key, value) {
+                        if (key === 'items') {
+                            var table = jQuery(cart_summary_id);
+                            if (value.length) {
+                                jQuery.each(value, function (i, item) {
+                                    var src = item.image;
+                                    if (src == null) {
+                                        src = "http://bizweb.dktcdn.net/thumb/large/assets/themes_support/noimage.gif";
+                                    }
+                                    var buttonQty = "";
+                                    if (item.quantity == '1') {
+                                        buttonQty = 'disabled';
+                                    } else {
+                                        buttonQty = '';
+                                    }
+                                    var pageCartItem = '<div class="item-popup productid-' + item.variant_id + '">'
+                                        + '<div style="width: 13%;" class="border height image_ text-left"><div class="item-image">'
+                                        + '<a class="product-image" href="' + item.url + '" title="' + item.name + '"><img alt="' + item.name + '" src="' + src + '"width="' + '90' + '"\></a>'
+                                        + '</div></div>'
+                                        + '<div style="width:39.8%;" class="height text-left"><div class="item-info"><p class="item-name"><a class="text2line" href="' + item.url + '" title="' + item.name + '">' + item.title + '</a></p>'
+                                        + '<span class="variant-title-popup">' + item.variant_title + '</span>'
+                                        + '<a href="javascript:;" class="remove-item-cart" title="Xóa" data-id="' + item.variant_id + '"><i class="fa fa-close"></i>&nbsp;&nbsp;Xoá</a>'
+                                        + '<p class="addpass" style="color:#fff;margin:0px;">' + item.variant_id + '</p>'
+                                        + '</div></div>'
+                                        + '<div style="width: 14.9%;" class="border height text-center"><div class="item-price"><span class="price pricechange">' + Bizweb.formatMoney(item.price, "{{amount_no_decimals_with_comma_separator}}₫") + '</span>'
+                                        + '</div></div><div style="width: 15.1%;" class="border height text-center"><div class="qty_h check_"><input class="variantID" type="hidden" name="variantId" value="' + item.variant_id + '">'
+                                        + '<button onClick="var result = document.getElementById(\'qtyItemP' + item.variant_id + '\'); var qtyItemP' + item.variant_id + ' = result.value; if( !isNaN( qtyItemP' + item.variant_id + ' ) &amp;&amp; qtyItemP' + item.variant_id + ' &gt; 1 ) result.value--;return false;" ' + buttonQty + ' class="num1 reduced items-count btn-minus" type="button">-</button>'
+                                        + '<input type="text" maxlength="12" min="0" readonly class="input-text number-sidebar qtyItemP' + item.variant_id + '" id="qtyItemP' + item.variant_id + '" name="Lines" id="updates_' + item.variant_id + '" size="4" value="' + item.quantity + '">'
+                                        + '<button onClick="var result = document.getElementById(\'qtyItemP' + item.variant_id + '\'); var qtyItemP' + item.variant_id + ' = result.value; if( !isNaN( qtyItemP' + item.variant_id + ' )) result.value++;return false;" class="num2 increase items-count btn-plus" type="button">+</button></div></div>'
+                                        + '<div style="width: 17.2%;" class="border height text-center"><span class="cart-price"> <span class="price">' + Bizweb.formatMoney(item.price * item.quantity, "{{amount_no_decimals_with_comma_separator}}₫") + '</span> </span></div>'
+                                        + '</div>';
+                                    jQuery(pageCartItem).appendTo(table);
+                                    if (item.variant_title == 'Default Title') {
+                                        $('.variant-title-popup').hide();
+                                    }
+                                    $('.link_product').text();
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+            jQuery('.total-price').html(Bizweb.formatMoney(cart.total_price, "{{amount_no_decimals_with_comma_separator}}₫"));
+
+            updateCartDesc(cart);
+
+        }
+        Bizweb.updateCartPageFormMobile = function (cart, cart_summary_id, cart_count_id) {
+            if ((typeof cart_summary_id) === 'string') {
+                var cart_summary = jQuery(cart_summary_id);
+                if (cart_summary.length) {
+                    // Start from scratch.
+                    cart_summary.empty();
+                    // Pull it all out.        
+                    jQuery.each(cart, function (key, value) {
+                        if (key === 'items') {
+
+                            var table = jQuery(cart_summary_id);
+                            if (value.length) {
+                                jQuery('<div class="cart_page_mobile content-product-list"></div>').appendTo(table);
+                                jQuery.each(value, function (i, item) {
+                                    if (item.image != null) {
+                                        var src = Bizweb.resizeImage(item.image, 'small');
+                                    } else {
+                                        var src = "https://bizweb.dktcdn.net/thumb/large/assets/themes_support/noimage.gif";
+                                    }
+                                    jQuery('<div class="item-product item productid-' + item.variant_id + ' "><div class="item-product-cart-mobile"><a href="' + item.url + '">	<a class="product-images1" href=""  title="' + item.name + '"><img width="80" height="150" alt="" src="' + src + '" alt="' + item.name + '"></a></a></div>'
+                                        + '<div class="title-product-cart-mobile"><h3><a href="' + item.url + '" title="' + item.name + '">' + item.name + '</a></h3><p>Giá: <span class="pricechange">' + Bizweb.formatMoney(item.price, "{{amount_no_decimals_with_comma_separator}}₫") + '</span></p></div>'
+                                        + '<div class="select-item-qty-mobile"><div class="txt_center">'
+                                        + '<input class="variantID" type="hidden" name="variantId" value="' + item.variant_id + '"><button onClick="var result = document.getElementById(\'qtyMobile' + item.variant_id + '\'); var qtyMobile' + item.variant_id + ' = result.value; if( !isNaN( qtyMobile' + item.variant_id + ' ) &amp;&amp; qtyMobile' + item.variant_id + ' &gt; 1 ) result.value--;return false;" class="reduced items-count btn-minus" type="button">–</button><input type="text" maxlength="12" min="1" class="input-text number-sidebar qtyMobile' + item.variant_id + '" id="qtyMobile' + item.variant_id + '" name="Lines" id="updates_' + item.variant_id + '" size="4" value="' + item.quantity + '"><button onClick="var result = document.getElementById(\'qtyMobile' + item.variant_id + '\'); var qtyMobile' + item.variant_id + ' = result.value; if( !isNaN( qtyMobile' + item.variant_id + ' )) result.value++;return false;" class="increase items-count btn-plus" type="button">+</button></div>'
+                                        + '<a class="button remove-item remove-item-cart" href="javascript:;" data-id="' + item.variant_id + '">Xoá</a></div>').appendTo(table.children('.content-product-list'));
+
+                                });
+
+                                jQuery('<div class="header-cart-price" style=""><div class="title-cart "><h3 class="text-xs-left">Tổng tiền</h3><a class="text-xs-right pull-right totals_price_mobile">' + Bizweb.formatMoney(cart.total_price, "{{amount_no_decimals_with_comma_separator}}₫") + '</a></div>'
+                                    + '<div class="checkout"><button class="btn-proceed-checkout-mobile" title="Tiến hành thanh toán" type="button" onclick="window.location.href=\'/checkout\'">'
+                                    + '<span>Tiến hành thanh toán</span></button>'
+                                    + '<button class="btn btn-white f-left" title="Tiếp tục mua hàng" type="button" onclick="window.location.href=\'/collections/all\'"><span>Tiếp tục mua hàng</span></button>'
+                                    + '</div></div>').appendTo(table);
+                            }
+
+                        }
+                    });
+                }
+            }
+            updateCartDesc(cart);
+        }
+
+
+        function updateCartDesc(data) {
+            var $cartPrice = Bizweb.formatMoney(data.total_price, "{{amount_no_decimals_with_comma_separator}}₫"),
+                $cartMobile = $('#header .cart-mobile .quantity-product'),
+                $cartDesktop = $('.count_item_pr'),
+                $cartDesktopList = $('.cart-counter-list'),
+                $cartPopup = $('.cart-popup-count');
+
+            switch (data.item_count) {
+                case 0:
+                    $cartMobile.text('0');
+                    $cartDesktop.text('0');
+                    $cartDesktopList.text('0');
+                    $cartPopup.text('0');
+
+                    break;
+                case 1:
+                    $cartMobile.text('1');
+                    $cartDesktop.text('1');
+                    $cartDesktopList.text('1');
+                    $cartPopup.text('1');
+
+                    break;
+                default:
+                    $cartMobile.text(data.item_count);
+                    $cartDesktop.text(data.item_count);
+                    $cartDesktopList.text(data.item_count);
+                    $cartPopup.text(data.item_count);
+
+                    break;
+            }
+            $('.top-cart-content .top-subtotal .price, aside.sidebar .block-cart .subtotal .price, .popup-total .total-price').html($cartPrice);
+            $('.popup-total .total-price').html($cartPrice);
+            $('.shopping-cart-table-total .totals_price').html($cartPrice);
+            $('.header-cart-price .totals_price_mobile').html($cartPrice);
+            $('.cartCount').html(data.item_count);
+        }
+
+        Bizweb.onCartUpdate = function (cart) {
+            Bizweb.updateCartFromForm(cart, '.mini-products-list');
+            Bizweb.updateCartPopupForm(cart, '#popup-cart-desktop .tbody-popup');
+
+        };
+        Bizweb.onCartUpdateClick = function (cart, variantId) {
+            jQuery.each(cart, function (key, value) {
+                if (key === 'items') {
+                    jQuery.each(value, function (i, item) {
+                        if (item.variant_id == variantId) {
+                            $('.productid-' + variantId).find('.pricechange').html(Bizweb.formatMoney(item.price, "{{amount_no_decimals_with_comma_separator}}₫"));
+                            $('.productid-' + variantId).find('.cart-price span.price').html(Bizweb.formatMoney(item.price * item.quantity, "{{amount_no_decimals_with_comma_separator}}₫"));
+                            $('.productid-' + variantId).find('.items-count').prop("disabled", false);
+                            $('.productid-' + variantId).find('.number-sidebar').prop("disabled", false);
+                            $('.productid-' + variantId + ' .number-sidebar').val(item.quantity);
+                            if (item.quantity == '1') {
+                                $('.productid-' + variantId).find('.items-count.btn-minus').prop("disabled", true);
+                            }
+                        }
+                    });
+                }
+            });
+            updateCartDesc(cart);
+        }
+        Bizweb.onCartRemoveClick = function (cart, variantId) {
+            jQuery.each(cart, function (key, value) {
+                if (key === 'items') {
+                    jQuery.each(value, function (i, item) {
+                        if (item.variant_id == variantId) {
+                            $('.productid-' + variantId).remove();
+                        }
+                    });
+                }
+            });
+            updateCartDesc(cart);
+        }
+        $(window).ready(function () {
+
+            $.ajax({
+                type: 'GET',
+                url: '/cart.js',
+                async: false,
+                cache: false,
+                dataType: 'json',
+                success: function (cart) {
+                    Bizweb.updateCartFromForm(cart, '.mini-products-list');
+                    Bizweb.updateCartPopupForm(cart, '#popup-cart-desktop .tbody-popup');
+
+                }
+            });
+        });
+
+    </script>
+    <div id="popup-cart" class="modal fade" role="dialog">
+        <div id="popup-cart-desktop" class="clearfix">
+            <div class="title-popup-cart">
+                <img src="images/icon-check.png" alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín."> <span
+                    class="your_product">Bạn đã thêm <span class="cart_name_style">[ <span
+                            class="cart-popup-name"></span>]</span> vào giỏ hàng thành công ! </span>
+            </div>
+            <div class="wrap_popup">
+                <div class="title-quantity-popup">
+                    <span class="cart_status" onclick="window.location.href='/cart';">Giỏ hàng của bạn có <span
+                            class="cart-popup-count"></span> sản phẩm </span> <i class="fa fa-caret-right"
+                        aria-hidden="true"></i>
+                </div>
+                <div class="content-popup-cart">
+                    <div class="thead-popup">
+                        <div style="width: 53%;" class="text-left">Sản phẩm</div>
+                        <div style="width: 15%;" class="text-center">Đơn giá</div>
+                        <div style="width: 15%;" class="text-center">Số lượng</div>
+                        <div style="width: 17%;" class="text-center">Thành tiền</div>
+                    </div>
+                    <div class="tbody-popup scrollbar-dynamic">
+                    </div>
+                    <div class="tfoot-popup">
+                        <div class="tfoot-popup-1 a-right clearfix">
+                            <span class="total-p popup-total">Tổng tiền thanh toán: <span
+                                    class="total-price"></span></span>
+                        </div>
+                        <div class="tfoot-popup-2 clearfix">
+                            <a class="button buy_ btn-proceed-checkout" title="Tiếp tục mua hàng"
+                                onclick="$('#popup-cart').modal('hide');"><span><span>Tiếp tục mua
+                                        hàng</span></span></a>
+                            <a class="button checkout_ btn-proceed-checkout" title="Thực hiện thanh toán"
+                                href="/checkout"><span>Thực hiện thanh toán</span></a>
+
+                        </div>
+                    </div>
+                </div>
+                <a title="Close" class="quickview-close close-window" href="javascript:;"
+                    onclick="$('#popup-cart').modal('hide');"><i class="fa  fa-close"></i></a>
+            </div>
+        </div>
+
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+    </div>
+    <!-- Quick view -->
+
+
+
+    <div id="quick-view-product" class="quickview-product" style="display:none;">
+        <div class="quickview-overlay fancybox-overlay fancybox-overlay-fixed"></div>
+        <div class="quick-view-product"></div>
+        <div id="quickview-modal" style="display:none;">
+            <div class="block-quickview primary_block row">
+
+                <div class="product-left-column col-xs-12 col-sm-5 col-md-5 col-lg-5">
+                    <div class="clearfix image-block">
+                        <span class="view_full_size">
+                            <a class="img-product" title="" href="#">
+                                <img id="product-featured-image-quickview"
+                                    class="img-responsive product-featured-image-quickview" src="images/logo.png"
+                                    alt="quickview">
+                            </a>
+                        </span>
+                        <div class="loading-imgquickview" style="display:none;"></div>
+                    </div>
+                    <div class="more-view-wrapper clearfix">
+                        <div class="thumbs_quickview" id="thumbs_list_quickview">
+                            <ul class="product-photo-thumbs quickview-more-views-owlslider" id="thumblist_quickview">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-center-column product-info product-item col-xs-5 col-sm-7 col-md-7 col-lg-7">
+                    <div class="head-qv">
+                        <h3 class="qwp-name">abc</h3>
+                        <div class="vend-qv">
+                            <div class="left_vend">
+                                <span class="vendor_"></span>
+                                <span class="line">|</span>
+                                Tình trạng: <span class="soluong"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="quickview-info">
+
+                        <div class="reviews_qv">
+                            <div class="bizweb-product-reviews-badge" data-id=""></div>
+                        </div>
+
+                        <span class="prices">
+                            <span class="price"></span>
+                            <del class="old-price"></del>
+                        </span>
+                    </div>
+                    <div class="product-description">
+                        <div class="rte text2line">
+
+                        </div>
+
+                    </div>
+
+                    <form action="/cart/add" method="post" enctype="multipart/form-data"
+                        class="quick_option variants form-ajaxtocart">
+                        <span class="price-product-detail hidden" style="opacity: 0;">
+                            <span class=""></span>
+                        </span>
+                        <select name="variantId" class="hidden" style="display:none"></select>
+                        <div class="clearfix"></div>
+                        <div class="quantity_wanted_p">
+                            <div class="input_qty_qv">
+                                <a class="btn_num num_1 button button_qty" onclick="decreaseQuantity()">-</a>
+                                <input type="text" id="quantity-detail" name="quantity" value="1"
+                                    onkeypress="return validate(event)" onkeyup="return valid(this,'numbers')"
+                                    onblur="return valid(this,'numbers')" class="form-control prd_quantity">
+                                <a class="btn_num num_2 button button_qty" onclick="increaseQuantity()">+</a>
+                            </div>
+
+                            <script>
+                                function decreaseQuantity() {
+                                    var result = document.getElementById('quantity-detail');
+                                    var qtyqv = parseInt(result.value);
+                                    if (!isNaN(qtyqv) && qtyqv > 1) {
+                                        result.value = qtyqv - 1;
+                                    }
+                                    return false;
+                                }
+
+                                function increaseQuantity() {
+                                    var result = document.getElementById('quantity-detail');
+                                    var qtyqv = parseInt(result.value);
+                                    if (!isNaN(qtyqv)) {
+                                        result.value = qtyqv + 1;
+                                    }
+                                    return false;
+                                }
+
+                                function validate(evt) {
+                                    var theEvent = evt || window.event;
+                                    var key = theEvent.keyCode || theEvent.which;
+                                    key = String.fromCharCode(key);
+                                    var regex = /[0-9]|\./;
+                                    if (!regex.test(key)) {
+                                        theEvent.returnValue = false;
+                                        if (theEvent.preventDefault) theEvent.preventDefault();
+                                    }
+                                }
+
+                                function valid(element, type) {
+                                    var regex = type === 'numbers' ? /[0-9]/g : /[a-zA-Z]/g;
+                                    element.value = element.value.replace(regex, '');
+                                }
+                            </script>
+
+
+                            <div class="button_actions">
+                                <button type="submit"
+                                    class="btn btn-lg fix_add_to_cart  btn-cart button_cart_buy_enable add_to_cart btn_buy add_to_cart_detail ajax_addtocart"
+                                    title="Cho vào giỏ hàng">
+                                    <span class="btn-image">
+                                        <img src="images/shopping_cart.png" alt="shopping-cart">
+                                    </span>
+                                    <span class="btn-content">Cho vào giỏ hàng</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="total-price" style="display:none">
+                            <label>Tổng cộng: </label>
+                            <span></span>
+                        </div>
+
+                    </form>
+
+
+                </div>
+
+            </div>
+            <a title="Close" class="quickview-close close-window" href="javascript:;"><i class="fa   fa-times"></i></a>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var quickViewButton = document.getElementById('xem_nhanh button_wh_40 btn_view right-to quick-view hidden-xs hidden-sm hidden-md');
+
+            if (quickViewButton) {
+                quickViewButton.addEventListener('click', function (event) {
+                    event.preventDefault();
+
+                    // Hiển thị modal xem nhanh
+                    var quickViewModal = document.getElementById('quick-view-product');
+                    if (quickViewModal) {
+                        quickViewModal.style.display = 'block';
+                    }
+                });
+            }
+        });
+    </script>
+    <script type="text/javascript">
+
+        Bizweb.doNotTriggerClickOnThumb = false;
+        function changeImageQuickView(img, selector) {
+            var src = $(img).attr("src");
+            src = src.replace("_compact", "");
+            $(selector).attr("src", src);
+        }
+        function validate(evt) {
+            var theEvent = evt || window.event;
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+            var regex = /[0-9]|\./;
+            if (!regex.test(key)) {
+                theEvent.returnValue = false;
+                if (theEvent.preventDefault) theEvent.preventDefault();
+            }
+        }
+        var selectCallbackQuickView = function (variant, selector) {
+            $('#quick-view-product form').show();
+            var productItem = jQuery('.quick-view-product .product-item'),
+                addToCart = productItem.find('.add_to_cart_detail'),
+                productPrice = productItem.find('.price'),
+                comparePrice = productItem.find('.old-price'),
+                status = productItem.find('.soluong'),
+                totalPrice = productItem.find('.total-price span');
+            if (variant && variant.available) {
+
+                var form = jQuery('#' + selector.domIdPrefix).closest('form');
+                for (var i = 0, length = variant.options.length; i < length; i++) {
+                    var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] + '"]');
+                    if (radioButton.size()) {
+                        radioButton.get(0).checked = true;
+                    }
+                }
+
+                addToCart.removeClass('disabled').removeAttr('disabled');
+                addToCart.text('Cho vào giỏ hàng').removeAttr('disabled');
+                addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Cho vào giỏ hàng').html('<span class="btn-image"><img src=\"//bizweb.dktcdn.net/100/415/549/themes/804146/assets/shopping_cart.png?1709110859833\" alt="shopping-cart"/></span><span class="btn-content">Cho vào giỏ hàng</span>').show();
+                status.text('Còn hàng');
+                if (variant.price < 1) {
+                    $("#quick-view-product .price").html('Liên hệ');
+                    $("#quick-view-product del, #quick-view-product .quantity_wanted_p").hide();
+                    $("#quick-view-product .prices .old-price").hide();
+
+                } else {
+                    productPrice.html(Bizweb.formatMoney(variant.price, "{{amount_no_decimals_with_comma_separator}}₫"));
+                    if (variant.compare_at_price > variant.price) {
+                        comparePrice.html(Bizweb.formatMoney(variant.compare_at_price, "{{amount_no_decimals_with_comma_separator}}₫")).show();
+                        productPrice.addClass('on-sale');
+                    } else {
+                        comparePrice.hide();
+                        productPrice.removeClass('on-sale');
+                    }
+
+                    $(".quantity_wanted_p").show();
+
+
+                }
+
+
+
+                updatePricingQuickView();
+
+                /*begin variant image*/
+                if (variant && variant.featured_image) {
+
+                    var originalImage = $("#product-featured-image-quickview");
+                    var newImage = variant.featured_image;
+                    var element = originalImage[0];
+                    Bizweb.Image.switchImage(newImage, element, function (newImageSizedSrc, newImage, element) {
+                        $('#thumblist_quickview img').each(function () {
+                            var parentThumbImg = $(this).parent();
+                            var productImage = $(this).parent().data("image");
+                            if (newImageSizedSrc.includes(productImage)) {
+                                $(this).parent().trigger('click');
+                                return false;
+                            }
+                        });
+
+                    });
+                    $('#product-featured-image-quickview').attr('src', variant.featured_image.src);
+                }
+            } else {
+                addToCart.addClass('disabled').attr('disabled', 'disabled');
+                addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show();
+                status.text('Hết hàng');
+                $(".quantity_wanted_p").show();
+                if (variant) {
+                    if (variant.price < 1) {
+
+                        $("#quick-view-product .price").html('Liên hệ');
+                        $("#quick-view-product del").hide();
+                        $("#quick-view-product .quantity_wanted_p").hide();
+                        $("#quick-view-product .prices .old-price").hide();
+
+                        comparePrice.hide();
+                        productPrice.removeClass('on-sale');
+                        addToCart.addClass('disabled').attr('disabled', 'disabled');
+                        addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show();
+                    } else {
+                        if (variant.compare_at_price > variant.price) {
+                            comparePrice.html(Bizweb.formatMoney(variant.compare_at_price, "{{amount_no_decimals_with_comma_separator}}₫")).show();
+                            productPrice.addClass('on-sale');
+                        } else {
+                            comparePrice.hide();
+                            productPrice.removeClass('on-sale');
+                            $("#quick-view-product .prices .old-price").html('');
+                        }
+                        $("#quick-view-product .price").html(Bizweb.formatMoney(variant.price, "{{amount_no_decimals_with_comma_separator}}₫"));
+                        $("#quick-view-product del ").hide();
+                        $("#quick-view-product .prices .old-price").show();
+
+                        addToCart.addClass('disabled').attr('disabled', 'disabled');
+                        addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show();
+                    }
+                } else {
+                    $("#quick-view-product .price").html('Liên hệ');
+                    $("#quick-view-product del").hide();
+                    $("#quick-view-product .quantity_wanted_p").hide();
+                    $("#quick-view-product .prices .old-price").hide();
+                    comparePrice.hide();
+                    productPrice.removeClass('on-sale');
+                    addToCart.addClass('disabled').attr('disabled', 'disabled');
+                    addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show();
+                }
+            }
+            /*begin variant image*/
+            if (variant && variant.featured_image) {
+
+                var originalImage = $("#product-featured-image-quickview");
+                var newImage = variant.featured_image;
+                var element = originalImage[0];
+                Bizweb.Image.switchImage(newImage, element, function (newImageSizedSrc, newImage, element) {
+                    $('#thumblist_quickview img').each(function () {
+                        var parentThumbImg = $(this).parent();
+                        var productImage = $(this).parent().data("image");
+                        if (newImageSizedSrc.includes(productImage)) {
+                            $(this).parent().trigger('click');
+                            return false;
+                        }
+                    });
+
+                });
+                $('#product-featured-image-quickview').attr('src', variant.featured_image.src);
+            }
+
+        };
+    </script>
+    <script type="text/javascript" defer="" src="js/quickview.js"></script>
+
+
+    <!-- Main JS -->
+    <link rel="preload" as="script" href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/main.js?1709110859833">
+    <script src="js/main.js" type="text/javascript"></script>
+
+
+    <!-- Product detail JS,CSS -->
+
+
+    <script>
+        var timer = undefined;
+        timer = setTimeout(() => {
+            //<![CDATA[ 
+            function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("footer")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) } loadCSS("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+            function loadCSSFont(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("footer")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) } loadCSSFont("https://cdn.jsdelivr.net/themify-icons/0.1.2/css/themify-icons.css");
+            function loadCSSFonts(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("footer")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) } loadCSSFonts("https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css");
+            //]]> 
+            timer = undefined;
+        }, 5000)
+    </script>
+    <a class="btn-call-now">
+        <i class="fa fa-phone"></i>
+        <span>Hotline: 0987983948</span>
+    </a>
+    <style>
+        .btn-call-now {
+            display: flex;
+            align-items: center;
+            position: fixed;
+            width: 260px;
+            bottom: 20px;
+            background: #f00;
+            -webkit-box-shadow: 0 0 5px #ddd;
+            -moz-box-shadow: 0 0 5px #ddd;
+            box-shadow: 0 0 5px #ddd;
+            z-index: 999999999;
+            left: 20px;
+            top: initial !important;
+            color: #FFF;
+            font-weight: 700;
+            font-size: 125%;
+            border-radius: 25px;
+            padding: 5px;
+            -moz-animation-duration: 500ms;
+            -moz-animation-name: calllink;
+            -moz-animation-iteration-count: infinite;
+            -moz-animation-direction: alternate;
+            -webkit-animation-duration: 500ms;
+            -webkit-animation-name: calllink;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: alternate;
+            animation-duration: 500ms;
+            animation-name: calllink;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+
+        .btn-call-now .fa {
+            color: #b70100;
+            font-size: 26px;
+            background: #fff;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 20px;
+            margin-right: 5px;
+            text-align: center;
+        }
+    </style>
+<!--Search js-->
+<script type="text/javascript">
+    var txtSearch = document.getElementById("txtSeach");
+    if (localStorage["searchKeyword"] != null && localStorage["searchKeyword"] != undefined && localStorage["searchKeyword"] != '') txtSearch.value = localStorage["searchKeyword"];
+    localStorage["searchKeyword"] = '';
+</script>
+<script type="text/javascript">
+                                function onSearch() {
+                                    var kw = $("#txtSeach").val();
+                                    localStorage["searchKeyword"] = kw;
+                                    window.location.href = "@Url.Action("Search", "Home")?keyword=" + kw;
+                                }
+                                $("#txtSeach").keyup(function (e) {
+                                    var code = e.key;
+                                    if (code === "Enter") {
+                                        onSearch();
+                                    }
+                                });
+</script>
+<!--Start Ajax-->
+<script type="text/javascript">
+    function addToCart(id) {
+    $.ajax({
+        url: "@Url.Action("AddToCart","Cart")",
+        data: { productId : id },
+        dataType: "json",
+        type: "POST",
+        success: function (res) {
+            if (res.response == 'added') {
+                document.getElementById("contentModal").innerHTML = 'Thêm sản phẩm thành công';
+                if (res.type == "edit") {
+                    $('#exampleModalCenter').modal('show');
+                    var quatityDOM = document.getElementById("quantityProduct-" + res.productId);
+                    quatityDOM.innerHTML = 'Số lượng: ' + res.quantity;
+                    var totalPriceDOM = document.getElementById("totalPrice");
+                    totalPriceDOM.innerHTML = res.totalPrice;
+                }
+                else if (res.type == "newItem") {
+                    $('#exampleModalCenter').modal('show');
+                    var cart = document.getElementById('cartInfo');
+
+                    var ele = $.parseHTML('<div><div class="cart-prodect d-flex"><div class="cart-img"><a href="/product/details?id=' + res.productId + '"><img alt="" src="' + res.productImage + '"></a></div><div class="cart-product"><a href="/product/details?id=' + res.productId + '">' + res.productName + '</a><p>' + res.price + ' </p><p id="quantityProduct-' + res.productId + '">Số lượng: 1</p></div><button class="close" onclick="deleteItemInCartPreview(' + res.productId+')"><i class="ion-close"></i></button></div></div>')
+                    cart.innerHTML = ele[0].innerHTML + cart.innerHTML;
+                    var countCI = document.getElementById('countCartItem');
+                    countCI.innerHTML = res.countCI;
+                    var totalPriceDOM = document.getElementById("totalPrice");
+                    totalPriceDOM.innerHTML = res.totalPrice;
+                }
+                else if (res.type == "newCart") {
+                    $('#exampleModalCenter').modal('show');
+                    var cart = document.getElementById('cartInfo');
+                    debugger
+                    cart.innerHTML = '';
+                    var ele = $.parseHTML('<div><div class="cart-prodect d-flex"><div class="cart-img"><a href="/product/details?id=' + res.productId + '"><img alt="" src="' + res.productImage + '"></a></div><div class="cart-product"><a href="/product/details?id=' + res.productId + '">' + res.productName + '</a><p>' + res.price + ' </p><p id="quantityProduct-' + res.productId + '">Số lượng: 1</p></div><button class="close" onclick="deleteItemInCartPreview(' + res.productId + ')"><i class="ion-close"></i></button></div><div class="price-prodect d-flex align-items-center justify-content-between"><p class= "total"> Tổng cộng:</p><p class="total-price" id="totalPrice">' + res.totalPrice + '</p></div ><div class="cart-btn"><a href="/cart" class="btn btn-primary">Xem giỏ hàng</a></div></div>');
+                    cart.innerHTML = ele[0].innerHTML + cart.innerHTML;
+                    var countCI = document.getElementById('countCartItem');
+                    countCI.innerHTML = res.countCI;
+                    var totalPriceDOM = document.getElementById("totalPrice");
+                    totalPriceDOM.innerHTML = res.totalPrice;
+                }
+                else { alert("Có lỗi xảy ra, nhấn F5 để tải lại"); }
+            }
+            else {
+                document.getElementById("contentModal").innerHTML = res.message;
+                $('#exampleModalCenter').modal('show');
+            }
+        },
+        error: function (res) {
+            alert("Có lỗi xảy ra, nhấn F5 để tải lại");
+        }
+        });
+}
+
+    function deleteItemInCartPreview(productId) {
+        var i = parseInt(productId);
+        $.ajax({
+            data: { id: i },
+            url: '/Cart/Delete',
+            dataType: 'json',
+            type: 'POST',
+            success: function (res) {
+                if (res.status == true) {
+                    window.location.href = "/";
+                }
+            }
+        })
+    }
+</script>
+<!--End Ajax-->
+<!--Subscribe js start-->
+<script type="text/javascript">
+    function validateEmail(email) {
+        var re = /\S+@@\S+\.\S+/;
+        return re.test(email);
+    }
+
+    function subs(ip) {
+        var strng = ip.value;
+
+        var check = validateEmail(strng);
+        if (check) {
+            $.ajax({
+                data: { email: strng },
+                url: '@Url.Action("Subscribe","Home")',
+                dataType: 'json',
+                type: 'POST',
+                success: function (res) {
+                    if (res.status == true) {
+                        alert("Đăng ký nhận tin thành công!");
+                        ip.value = "";
+                    }
+                    else {
+                        alert("Có lỗi xảy ra, vui lòng đăng ký lại");
+                        ip.value = "";
+                    }
+                }
+            });
+        }
+        else {
+            alert("Hãy nhập đúng form Email!");
+        }
+    }
+    function sendFeedback(name, email, phone, subject, message, type, objID) {
+        var dname = name.value;
+        var demail = name.value;
+        var dphone = name.value;
+        var dsubject = name.value;
+        var dmessage = name.value;
+        var dtype = parseInt(type);
+        var dobjID = parseInt(objID);
+    }
+</script>
+<!--Subscribe js end-->
+<!--PopUp js custom start-->
+<script type="text/javascript">
+    function onclosefn() {
+        var checkedValue = document.querySelector('#checkdontshow:checked').value;
+        localStorage['DontShowPopUp'] = checkedValue;
+    }
+</script>
+<!--PopUp js custom end-->
+<!-- Button trigger modal -->
+
+</body>
+
+</html>

@@ -87,7 +87,7 @@ namespace Web.Controllers
                     if (!productService.CheckQuantityProductOrder(item.Product.Id, item.Quantity))
                     {
                         TempData["StrErr"] = "Có lỗi xảy ra: " + "Sản phẩm " + item.Product.Name + " không có đủ hàng trong kho" + "!";
-                        return RedirectToAction("Index","Cart");
+                        return RedirectToAction("Index", "Cart");
                     };
                     var productOrder = new ProductOrder();
                     productOrder.ProductId = item.Product.Id;
@@ -104,7 +104,7 @@ namespace Web.Controllers
                     ClearCart();
                     SendEmailToCustomer(order);
                     SendEmailToShop(order);
-                    return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode = order.OrderCode ,email = order.CustomerEmail});
+                    return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode = order.OrderCode, email = order.CustomerEmail });
                 }
                 else
                 {
@@ -124,12 +124,12 @@ namespace Web.Controllers
             if (quantity <= 0)
             {
                 TempData["StrErr"] = "Quantity is not valid!";
-                return RedirectToAction("ProductDetails", "Home", new { id = productId, quantity = quantity });
+                return RedirectToAction("ProductDetails", "Home", new { id = productId });
             }
             if (productId <= 0)
             {
                 TempData["StrErr"] = "Product is not valid!";
-                return RedirectToAction("ProductDetails", "Home", new { id = productId, quantity = quantity });
+                return RedirectToAction("ProductDetails", "Home", new { id = productId });
             }
             var product = productService.GetProduct(productId);
             if (product == null) return RedirectToAction("Index", "Home");
@@ -185,7 +185,7 @@ namespace Web.Controllers
                 if (product.Quantity <= 0 || product.Quantity == null) return Json(new { response = "error", message = "Sản phẩm đã hết hàng!" });
                 var cart = HttpContext.Session.GetString("cart");
                 // Giỏ hàng rỗng
-                if (cart != null && cart!="[]")
+                if (cart != null && cart != "[]")
                 {
                     var list = JsonConvert.DeserializeObject<List<CartItem>>(cart);
                     // Đã có hàng

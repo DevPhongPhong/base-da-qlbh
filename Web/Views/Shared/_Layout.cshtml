@@ -24,714 +24,1029 @@
     var listNewsCate = (List<Entities.DTOs.CategoryNewsViewModel>)TempData["newsmenu"];
     var listProductCate = (List<Entities.DTOs.ProductCategoryViewModel>)TempData["productmenu"];
 }
+
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Favicon Icon Css -->
-    <link rel="icon" type="/assets/images/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
-    <!-- Animation CSS -->
-    <link rel="stylesheet" href="/assets/css/animate.css">
-    <!-- Animation CSS -->
-    <link rel="stylesheet" href="/assets/css/animate.css" type="text/css">
-    <!-- Font Css -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    @*<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/assets/css/font-awesome.min.css" type="text/css" rel="stylesheet">*@
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="/assets/css/ionicons.min.css" type="text/css" rel="stylesheet">
-    <!-- Owl Css -->
-    <link href="/assets/css/owl.carousel.min.css" type="text/css" rel="stylesheet">
-    <link href="/assets/css/owl.theme.default.min.css" type="text/css" rel="stylesheet">
-    <!-- Magnific Popup Css -->
-    <link href="/assets/css/magnific-popup.css" type="text/css" rel="stylesheet">
-    <!-- Bootstrap Css -->
-    <link href="/assets/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-    <!-- Price Filter Css -->
-    <link href="/assets/css/jquery-ui.css" type="text/css" rel="stylesheet">
-    <!-- Scrollbar Css -->
-    <link href="/assets/css/mCustomScrollbar.min.css" type="text/css" rel="stylesheet">
-    <!-- Select2 Css -->
-    <link href="/assets/css/select2.min.css" type="text/css" rel="stylesheet">
-    <!-- main css -->
-    <link href="/assets/css/style.css" type="text/css" rel="stylesheet">
-    <link href="/assets/css/responsive.css" type="text/css" rel="stylesheet">
-    <title>MinaShop - @ViewData["Title"]</title>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-106310707-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'UA-106310707-1', { 'anonymize_ip': true });
-    </script>
-
-    <!-- Start of StatCounter Code -->
-    <script>
-	<!--
-        var sc_project = 11921154;
-        var sc_security = "6c07f98b";
-        var scJsHost = (("https:" == document.location.protocol) ?
-            "https://secure." : "http://www.");
-        //-->
-
-        document.write("<sc" + "ript src='" + scJsHost + "statcounter.com/counter/counter.js'></" + "script>");
-    </script>
-    <script src="https://secure.statcounter.com/counter/counter.js"></script>
-    <!-- End of StatCounter Code -->
-
-    <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/48/3/intl/vi_ALL/common.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/48/3/intl/vi_ALL/util.js"></script>
-    <style>
-        ::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-            background-color: #F5F5F5;
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-            background-color: #F5F5F5;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: #000000;
-        }
-    </style>
+    <link rel="preload" as="style" type="text/css" href="/assets/css/base.scss.css">
+    <link rel="preload" as="style" type="text/css" href="/assets/css/style.scss.css">
+    <link rel="preload" as="style" type="text/css" href="/assets/css/module.scss.css">
+    <link rel="preload" as="style" type="text/css" href="/assets/css/responsive.scss.css">
+    <link rel="preload" as="style" type="text/css" href="/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link href="/assets/css/owl.carousel.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/css/base.scss.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/css/style.scss.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/css/module.scss.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/css/responsive.scss.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/assets/css/ionicons.min.css" rel="stylesheet" />
+    <link href="~/assets/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="/assets/js/headerjs.js"></script>
 </head>
-<body class="" style="font-family: sans-serif">
-    <div id="demo_content" class="demo_switcher"></div>
-    <!-- Start Header Section -->
-    <header>
-        <div class="header-top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <ul class="header_list text-md-left text-center">
-                            <li><a href="tel:0867881345"><i class="fa fa-phone"></i>0867 881 345</a></li>
-                            <li><a href="mailto:minashoptest@gmail.com"><i class="fa fa-envelope-o"></i>minashoptest@gmail.com</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <ul class="header_list text-md-right text-center">
-                            <li>
-                                <span>
-                                    <a style="color: #fff;" href="@Url.Action("SearchOrderReceived", "Cart")">Tra cứu đơn hàng | </a>
-                                </span>
-                                @if (memberSession == null)
+
+<body>
+    <div id="mySidenav" class="sidenav menu_mobile hidden-md hidden-lg">
+        <div class="top_menu_mobile">
+            <span class="close_menu">
+            </span>
+        </div>
+        <div class="content_memu_mb">
+            <div class="link_list_mobile">
+
+                <ul class="ct-mobile hidden">
+                </ul>
+                <ul class="ct-mobile">
+
+                    <li class="level0 level-top parent level_ico">
+                        <a href="/">Trang chủ</a>
+
+                    </li>
+
+                    <li class="level0 level-top parent level_ico">
+                        <a href="#">Sản phẩm</a>
+
+                        <i class="ti-plus hide_close"></i>
+                        <ul class="level0 sub-menu" style="display:none;">
+                            @foreach (var item in listProductCate)
+                            {
+                                if (item.ParentId == 0)
                                 {
-                                    <span>
-                                        <a style="color: #fff;" href="@Url.Action("Login", "Account")">Đăng nhập | </a>
-                                        <a style="color: #fff;" href="@Url.Action("Register", "Account")">Đăng ký</a>
-                                    </span>
+                                    var childrenItem = listProductCate.Where(childItem => childItem.ParentId == item.Id).ToList();
+
+                                    <li class="level1">
+                                        <a href="/product?id=@(item.Id)"><span>@(item.CategoryName)</span></a>
+
+                                        <i class="ti-plus hide_close"></i>
+                                        <ul class="level1 sub-menu" style="display:none;">
+                                            @foreach (var childItem in childrenItem)
+                                            {
+                                                <li class="level2">
+                                                    <a href="/product?id=@(childItem.Id)"><span>@(childItem.CategoryName)</span></a>
+                                                </li>
+                                            }
+                                        </ul>
+
+                                    </li>
                                 }
-                                else
-                                {
-                                    <span>
-                                        <a style="color: #fff;" href="@Url.Action("Index", "Account")">Xin chào: <b>@userData.Username | </b></a>
-                                        <a style="color: #fff;" href="@Url.Action("Logout", "Account")">Đăng xuất</a>
-                                    </span>
-                                }
-                            </li>
+                            }
+
                         </ul>
-                    </div>
-                </div>
+
+                    </li>
+
+                    <li class="level0 level-top parent level_ico">
+                        <a href="/tin-tuc">Tin tức</a>
+
+                    </li>
+
+                    <li class="level0 level-top parent level_ico">
+                        <a href="/contact.html">Liên hệ</a>
+
+                    </li>
+
+                    <li class="level0 level-top parent level_ico">
+                        <a href="/gioi-thieu">Thông tin công ty</a>
+
+                    </li>
+
+                </ul>
             </div>
         </div>
-        <div class="header-mdl" style="padding-bottom:0px">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="hm-inner d-sm-flex align-items-center justify-content-between">
-                            <div class="header-logo">
-                                <a href="/"><img src="/assets/images/logo.png" alt="logo"></a>
-                            </div>
-                            <!--Seach Area Start -->
-                            <div class="header-form">
-                                <form action="#" onsubmit="return;" class="header-form">
-                                    <input id="txtSeach" class="search-box" placeholder="Tìm kiếm sản phẩm ..." required="" value="@(TempData["CurrentKeyword"]!=null ? TempData["CurrentKeyword"] : null)" type="text" />
-                                    <button type="button" onclick="onSearch()">Tìm kiếm</button>
-                                </form>
-                            </div>
-                            <!--Seach Area End -->
-                            <!--Start Infor Cart-->
-                            <div class="header-right">
-                                <div class="header-cart">
-                                    <a href="@Url.Action("Index","Cart")">
-                                        <div class="cart-icon">
-                                            <img src="/assets/images/cart-icon.png" alt="cart-icon">
-                                            <span id="countCartItem">@listItem.Count.ToString()</span>
-                                        </div>
-                                        Giỏ Hàng<i class="fa fa-angle-down"></i>
-                                    </a>
-                                    @if (listItem?.Count > 0)
-                                    {
-                                        <div class="cart-box" style="overflow-y:scroll; height:400px;">
-                                            <div class="cart-info" id="cartInfo">
 
-                                                @foreach (var item in listItem)
-                                                {
-                                                    <div class="cart-prodect d-flex">
-                                                        <div class="cart-img">
-                                                            <a href="@Url.Action("ProductDetails", "Home", new { id = item.Product.Id })"><img alt="" src="@item.Product.MainImageThumb"></a>
-                                                        </div>
-                                                        <div class="cart-product">
-                                                            <a href="@Url.Action("ProductDetails", "Home", new { id = item.Product.Id })">@item.Product.Name</a>
-                                                            @if (item.Product.IsPromote)
-                                                            {
-                                                                <p>@item.Product.PromotionPrice.GetValueOrDefault(0).ToString("N0") đ</p>
-                                                            }
-                                                            else
-                                                            {
-                                                                <p>@item.Product.Price.GetValueOrDefault(0).ToString("N0") đ</p>
-                                                            }
-                                                            <p id="quantityProduct-@item.Product.Id">Số lượng: @item.Quantity</p>
-                                                        </div>
 
-                                                        <button class="close" onclick="deleteItemInCartPreview(@item.Product.Id)"><i class="ion-close"></i></button>
-                                                    </div>
-                                                }
-                                                <div class="price-prodect d-flex align-items-center justify-content-between">
-                                                    <p class="total">Tổng cộng:</p>
-                                                    <p class="total-price" id="totalPrice">@totalHomePrice</p>
-                                                </div>
-                                                <div class="cart-btn">
-                                                    <a href="@Url.Action("Index", "Cart")" class="btn btn-primary">Xem giỏ hàng</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="cart-box">
-                                            <div class="cart-info" id="cartInfo">
-                                                <div class="cart-prodect d-flex">
-                                                    <div style="padding-top: 0;">
-                                                        <div class="cart-product">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
-                                                                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                                                            </svg>
-                                                            <b style="margin-left:20px; padding-top:10px">Giỏ hàng trống !!!</b>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                    <div class="d-lg-none mm_icon">
-                                        <div class="form-captions" id="search">
-                                            <button type="submit" class="submit-btn-2"><i class="fa fa-search"></i></button>
-                                        </div>
-                                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-                                    </div>
-                                </div>
-                                <!--End Infor Cart-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <partial name="~/Views/Shared/_MainMenu.cshtml" />
-    </header>
-    <!-- End Header Section -->
-    <!-- LOADER -->
-    <div id="preloader" class="loaded" style="display: none;">
-        <div class="loading_wrap">
-            <img src="/assets/images/loader_logo.png" alt="logo">
-        </div>
     </div>
-    <!-- LOADER -->
-    <!--Start Renderbody-->
-    @RenderBody()
-    <!--End Renderbody-->
-    <!-- Start Subscribe Section -->
-    <hr />
-    <section class="subscribe-section pt_large pb_large">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="title white-title text-center">
-                        <h4>Nhận thông tin ưu đãi!</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-md-10 col-sm-12">
-                    <div class="subscribe-inner text-center">
-                        <p>Nếu bạn muốn nhận email từ chúng tôi mỗi khi chúng tôi có ưu đãi đặc biệt mới, hãy đăng ký tại đây!</p>
-                        <form class="subscribe-form">
-                            <div class="subscribe-input">
-                                <input id="emailsubs" name="your-email" required="required" placeholder="Nhập email của bạn" type="email">
-                            </div>
-                            <div class="send-btn">
-                                <button type="button" class="btn btn-primary" onclick="subs(emailsubs)">Đăng ký</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Subscribe Section -->
-    <!-- Start Facility Section-->
-    <section class="facility-section pb_large pt_large">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-6 facility-box box-1">
-                    <div class="facility-inner">
-                        <div class="fb-icon">
-                            <i class="fa fa-truck"></i>
-                        </div>
-                        <div class="fb-text">
-                            <h5>Vận chuyển</h5>
-                            <span>Giao hàng toàn quốc</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6 facility-box box-2">
-                    <div class="facility-inner">
-                        <div class="fb-icon">
-                            <i class="fa fa-headphones"></i>
-                        </div>
-                        <div class="fb-text">
-                            <h5>Tận tâm</h5>
-                            <span>Hỗ trợ khách hàng 24/7</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6 facility-box box-3">
-                    <div class="facility-inner">
-                        <div class="fb-icon">
-                            <i class="fa fa-cc-mastercard"></i>
-                        </div>
-                        <div class="fb-text">
-                            <h5>Thanh toán</h5>
-                            <span>Thanh toán dễ dàng, tiện lợi</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6 facility-box box-4">
-                    <div class="facility-inner">
-                        <div class="fb-icon">
-                            <i class="fa fa-trophy"></i>
-                        </div>
-                        <div class="fb-text">
-                            <h5>Tin cậy</h5>
-                            <span>Chất lượng luôn được đảm bảo</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Facility Section-->
-    <!-- Start Footer Section -->
-    <footer>
-        <div class="footer-top">
+    <!-- End -->
+    <header class="header">
+        <div class="topbar">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-2 col-md-12 col-sm-12">
-                        <a href="/" style="padding-left:50px"><img src="/assets/images/logo.png" alt="logo"></a>
-                    </div>
-                    <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="footer-box box-1">
-                            <div class="row" style="margin-left:0px">
-                                <h6 class="fb-title" style="font-weight:200;">Về MinaShop</h6>
-                            </div>
-                            <div class="fb-iner">
-                                <p>◾ MINA - Thời trang nữ dành cho giới trẻ!</p>
-                                <p>◾ “Đặt sự hài lòng của khách hàng là ưu tiên số 1 trong mọi suy nghĩ hành động của mình” là sứ mệnh, là triết lý, chiến lược.. luôn cùng MINA tiến bước</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-6">
-                        <div class="footer-box box-2">
-                            <h6 class="fb-title">Sản phẩm</h6>
-                            <div class="fb-iner">
-                                <ul class="footer-links">
-                                    @if (listProductCate != null && listProductCate.Count > 0)
-                                    {
-                                        @foreach (var item in listProductCate.Where(x => x.CountProduct > 0).ToList())
-                                        {
+                    <div class="col-md-6 col-sm-6 col-xs-2">
+                        <ul class="list-inline topbar_left hidden-sm hidden-xs">
 
-                                            <li><a href="@Url.Action("Product", "Home", new { id = item.Id, page = 1 })">@item.CategoryName</a></li>
 
-                                        }
-                                    }
-                                </ul>
-                            </div>
-                        </div>
+                            <li>
+                                Hotline: <a class="hai01" href="tel:0987983948">0987983948</a>
+
+                                <span>-</span> <a href="tel:0949089879">0949089879</a>
+
+
+                            </li>
+
+                        </ul>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 order-md-last">
-                        <div class="footer-box box-4">
-                            <h6 class="fb-title">Thông tin liên hệ</h6>
-                            <div class="fb-iner">
-                                <ul>
-                                    <li><i class="ion-ios-location-outline"></i><p>◾ 63 Hồ Tùng Mậu - Hà Nội</p></li>
-                                    <li><i class="ion-ios-location-outline"></i><p>◾ 204 Nguyễn Trãi - Hà Đông - Hà Nội</p></li>
-                                    <li><i class="ion-ios-location-outline"></i><p>◾ 216M Nguyễn Trãi - Hà Đông</p></li>
-                                    <li><i class="ion-ios-location-outline"></i><p>◾ 350 Cầu Giấy</p></li>
-                                    <li><i class="ion-ios-location-outline"></i><p>◾ 972 Láng</p></li>
-                                    <li><i class="ion-ios-location-outline"></i><p>◾ 68 Chùa Bộc</p></li>
-                                    <li><i class="ion-ios-location-outline"></i><p>◾ 62 Lương Ngọc Quyến - Tp Thái Nguyên</p></li>
-                                    <li><i class="ion-ios-telephone-outline"></i><p>◾ 0867 881 345</p></li>
-                                    <li><i class="ion-ios-email-outline"></i><a href="#">minashoptest@gmail.com</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-btm">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="copyright">
-                            <p>Copyright &copy; @DateTime.Now.Year by <a href="https://www.facebook.com/ThuyLinh.20112000" style="color:azure"> Linh Thuỳ</a>.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="footer-social text-md-right">
+
+                    <div class="col-md-6 col-sm-6 d-list col-xs-10 a-right topbar_right">
+                        <div class="list-inline a-center f-right">
                             <ul>
-                                <!--FB link-->
-                                <li><a href="https://www.facebook.com/ThuyLinh.20112000"><i class="fa fa-facebook"></i></a></li>
-                                <!--Twiter link-->
-                                <li><a href="https://www.facebook.com/ThuyLinh.20112000"><i class="fa fa-twitter"></i></a></li>
-                                <!--Linkedin link-->
-                                <li><a href="https://www.facebook.com/ThuyLinh.20112000"><i class="fa fa-linkedin"></i></a></li>
-                                <!--Pinterest link-->
-                                <li><a href="https://www.facebook.com/ThuyLinh.20112000"><i class="fa fa-pinterest-p"></i></a></li>
-                                <!--Gg Plus link-->
-                                <li><a href="https://www.facebook.com/ThuyLinh.20112000"><i class="fa fa-google-plus"></i></a></li>
-                                <!--Instagram link-->
-                                <li><a href="https://www.facebook.com/ThuyLinh.20112000"><i class="fa fa-instagram"></i></a></li>
-                                <!--TikTok link-->
-                                <!--<li><a href="#"><i class="fa-brands fa-tiktok"></i></a></li>-->
+
+                                <li class="hidden-md hidden-lg">
+                                    <a href="/register.html" title="Đăng ký">Đăng ký</a>
+                                </li>
+                                <li class="hidden-md hidden-lg">
+                                    <a href="/login.html" title="Đăng nhập">Đăng nhập</a>
+                                </li>
+                                <li class="hidden-xs hidden-sm">
+                                    <a href="/register.html" class="account_a register_btn" title="Đăng ký">Đăng ký</a>
+                                </li>
+                                <li class="hidden-xs hidden-sm">
+                                    <a href="/login.html" class="account_a login_btn" title="Đăng nhập">Đăng nhập</a>
+                                </li>
+
+                                <li class="hidden-sm hidden-xs">
+
+                                    <a href="/contact.html" title="Hệ thống cửa hàng" class="account_a">
+                                        Hệ thống cửa hàng
+                                    </a>
+
+                                </li>
+                                <li class="hidden-sm hidden-xs">
+
+                                    <a href="/promotion.html" title="Khuyến mãi hot" class="account_a">
+                                        Tin khuyến mãi
+                                    </a>
+
+                                </li>
                             </ul>
                         </div>
+
+
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="mid-header">
+            <div class="container">
+                <div class="row">
+                    <div class="content_header">
+                        <div class="header-main">
+                            <div class="menu-bar-h nav-mobile-button hidden-md hidden-lg">
+                                <a href="#nav-mobile"><img src="/assets/images/i_menubar.png" alt="menu bar"></a>
+                            </div>
+                            <div class="col-lg-3 col-md-3">
+                                <div class="logo">
+
+
+                                    <a href="/" class="logo-wrapper ">
+                                        <img src="/assets/images/logo.png" alt="logo ">
+                                    </a>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="header-left">
+                                    <div class="header_search hidden-xs hidden-sm">
+                                        <form action="/search" method="get" class="input-group search-bar"
+                                              role="search">
+                                            <input type="hidden" name="type" value="product">
+
+                                            <input type="search" name="query" value=""
+                                                   placeholder="Bạn đang tìm sản phẩm gì..." class="input-group-field">
+                                            <span class="input-group-btn">
+                                                <button type="submit" class="btn icon-fallback-text">
+                                                    Tìm kiếm
+                                                </button>
+                                            </span>
+                                        </form>
+                                    </div>
+                                    <div class="header_search hidden-lg hidden-md">
+                                        <form action="/search" method="get" class="input-group search-bar"
+                                              role="search">
+                                            <input type="hidden" name="type" value="product">
+
+                                            <input type="search" name="query" value="" placeholder="Tìm kiếm..."
+                                                   class="input-group-field">
+                                            <span class="input-group-btn">
+                                                <button type="submit" class="btn icon-fallback-text">
+                                                    Tìm kiếm
+                                                </button>
+                                            </span>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3">
+                                <div class="header-right">
+                                    <div class="header-acount hidden-lg-down hidden-xs hidden-sm">
+                                        <div class="wishlist_header">
+
+                                        </div>
+                                    </div>
+                                    <div class="top-cart-contain f-right hidden-xs hidden-sm visible-md visible-lg">
+                                        <div class="mini-cart text-xs-center">
+                                            <div class="heading-cart">
+                                                <a class="bg_cart" href="/cart" title="Giỏ hàng">
+                                                    <i class="ion-android-cart"></i>
+                                                    <span class="count_item count_item_pr"></span>
+                                                    <span class="text-giohang hidden-xs">Giỏ hàng</span>
+                                                </a>
+                                            </div>
+                                            <div class="top-cart-content">
+                                                <ul id="cart-sidebar" class="mini-products-list count_li">
+                                                    <li class="list-item">
+                                                        <ul></ul>
+                                                    </li>
+                                                    <li class="action">
+                                                        <ul>
+                                                            <li class="li-fix-1">
+                                                                <div class="top-subtotal">
+                                                                    Tổng tiền thanh toán:
+                                                                    <span class="price"></span>
+                                                                </div>
+                                                            </li>
+                                                            <li class="li-fix-2">
+                                                                <div class="actions">
+                                                                    <a href="/cart" class="btn btn-primary"
+                                                                       title="Giỏ hàng">
+                                                                        <span>Giỏ hàng</span>
+                                                                    </a>
+                                                                    <a href="/checkout"
+                                                                       class="btn btn-checkout btn-gray"
+                                                                       title="Thanh toán">
+                                                                        <span>Thanh toán</span>
+                                                                    </a>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="top-cart-contain f-right hidden-lg hidden-md visible-xs visible-sm">
+                                        <div class="mini-cart text-xs-center">
+                                            <div class="heading-cart">
+                                                <a class="bg_cart" href="/cart" title="Giỏ hàng">
+                                                    <i class="ion-android-cart"></i>
+                                                    <span class="count_item count_item_pr"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrap_main hidden-xs hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-mega hidden-sm hidden-xs">
+                        <div class="menu_mega lineheight40">
+                            <div class="title_menu">
+                                <span class="title_">Danh mục sản phẩm</span>
+                                <span class="nav_button"><span class="ion-android-menu"></span></span>
+                            </div>
+                            <div class="list_menu_header col-lg-3 col-md-3">
+                                <ul class="ul_menu">
+                                    @foreach (var item in listProductCate)
+                                    {
+                                        if (item.ParentId == 0)
+                                        {
+                                            var childrenItem = listProductCate.Where(childItem => childItem.ParentId == item.Id).ToList();
+
+                                            <li class="nav_item lv1">
+                                                <a href="/product?id=@(item.Id)"><span>@(item.CategoryName)<i class="fa fa-angle-right"></i></span></a>
+
+                                                <ul class="ul_content_right_1 row">
+                                                    @foreach (var childItem in childrenItem)
+                                                    {
+                                                        <li class="nav_item lv2 col-lg-3 col-md-3">
+                                                            <a href="/product?id=@(childItem.Id)">@(childItem.CategoryName)</a>
+                                                        </li>
+                                                    }
+
+                                                </ul>
+                                            </li>
+                                        }
+
+                                    }
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                        <div class="bg-header-nav hidden-xs hidden-sm">
+                            <div class="relative">
+                                <div class="row row-noGutter-2">
+                                    <nav class="header-nav">
+                                        <ul class="item_big">
+                                            <li class="nav-item active ">
+                                                <a class="a-img" href="/"><span>Trang chủ</span></a>
+                                            </li>
+                                            <li class="nav-item ">
+                                                <a class="a-img" href="#">
+                                                    <span>Sản phẩm</span><i class="fa fa-caret-down"></i>
+                                                </a>
+                                                <ul class="item_small">
+                                                    @foreach (var item in listProductCate)
+                                                    {
+                                                        if (item.ParentId == 0)
+                                                        {
+                                                            var childrenItem = listProductCate.Where(childItem => childItem.ParentId == item.Id).ToList();
+                                                            <li>
+                                                                <a href="/product?id=@(item.Id)"><span>@(item.CategoryName)<i class="fa fa-angle-right"></i></span></a>
+
+                                                                <ul>
+                                                                    @foreach (var childItem in childrenItem)
+                                                                    {
+                                                                        <li>
+                                                                            <a href="/product?id=@(childItem.Id)">@(childItem.CategoryName)</a>
+                                                                        </li>
+                                                                    }
+                                                                </ul>
+
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </li>
+
+
+
+
+
+                                            <li class="nav-item ">
+                                                <a class="a-img" href="/tin-tuc"><span>Tin tức</span></a>
+                                            </li>
+
+
+
+
+                                            <li class="nav-item ">
+                                                <a class="a-img" href="/lien-he"><span>Liên hệ</span></a>
+                                            </li>
+
+
+
+
+                                            <li class="nav-item ">
+                                                <a class="a-img" href="/gioi-thieu"><span>Thông tin công ty</span></a>
+                                            </li>
+
+
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    @RenderBody()
+
+    <footer class="footer">
+        <div class="site-footer">
+            <div class="top-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                            <div class="widget-ft">
+                                <h4 class="title-menu">
+                                    <a role="button" class="collapsed" data-toggle="collapse"
+                                       aria-expanded="false" data-target="#collapseListMenu01"
+                                       aria-controls="collapseListMenu01">
+                                        Hệ thống cửa hàng <i class="fa fa-plus"
+                                                             aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                                <div class="collapse" id="collapseListMenu01">
+                                    <div class="list-menu">
+                                        <div class="widget-ft wg-logo">
+                                            <div class="item">
+                                                <h4 class="title-menu4 icon_none_first"> <a>Showroom Miền bắc</a> </h4>
+                                                <ul class="contact contact_x">
+                                                    <li>
+                                                        <span class="txt_content_child">
+                                                            <span>Địa chỉ:</span> Lô 03,
+                                                            Tầng 1, tòa B Chung cư hateco- Phường yên sở - Hoàng Mai- TP
+                                                            Hà nội
+                                                        </span>
+                                                    </li>
+                                                    <li class="sdt">
+                                                        <span> Hotline:</span> <a href="tel:0987983948">0987983948</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="item">
+                                                <h4 class="title-menu4 icon_none_first"> <a>Showroom Miền nam</a> </h4>
+                                                <ul class="contact contact_x">
+                                                    <li>
+                                                        <span class="txt_content_child">
+                                                            <span>Địa chỉ:</span> 579-581
+                                                            Tạ Quang Bửu, Phường 4, Quận 8, TP.HCM
+                                                        </span>
+                                                    </li>
+                                                    <li class="sdt">
+                                                        <span> Hotline:</span> <a href="tel:0949089879">0949089879</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-25 col-lg-25">
+                            <div class="widget-ft">
+                                <h4 class="title-menu">
+                                    <a role="button" class="collapsed" data-toggle="collapse"
+                                       aria-expanded="false" data-target="#collapseListMenu02"
+                                       aria-controls="collapseListMenu02">
+                                        Chào hàng &amp; mua sỉ <i class="fa fa-plus"
+                                                                  aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                                <div class="collapse" id="collapseListMenu02">
+                                    <ul class="list-menu">
+                                        <li class="li_menu"><a href="/dieu-khoan">Đt : 0949089879</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-25 col-lg-25">
+                            <div class="widget-ft">
+                                <h4 class="title-menu">
+                                    <a role="button" class="collapsed" data-toggle="collapse"
+                                       aria-expanded="false" data-target="#collapseListMenu03"
+                                       aria-controls="collapseListMenu03">
+                                        Hỗ trợ khách hàng <i class="fa fa-plus"
+                                                             aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                                <div class="collapse time_work" id="collapseListMenu03">
+                                    <ul class="list-menu">
+                                        <li class="li_menu">
+                                            <a href="/chinh-sach-van-chuyen">
+                                                Chính sách vận chuyển và
+                                                giao nhận
+                                            </a>
+                                        </li>
+                                        <li class="li_menu">
+                                            <a href="/chinh-sach-bao-mat-thong-tin">
+                                                Chính sách bảo mật
+                                                thông tin
+                                            </a>
+                                        </li>
+                                        <li class="li_menu"><a href="/chinh-sach-doi-tra">Chính sách đổi trả</a></li>
+                                        <li class="li_menu">
+                                            <a href="/chinh-sach-bao-hanh">
+                                                Chính sách bảo hành - bảo
+                                                trì
+                                            </a>
+                                        </li>
+                                        <li class="li_menu">
+                                            <a href="/qui-dinh-thanh-toan-1">Qui định thanh toán</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                            <div class="widget-ft last-child">
+                                <h4 class="title-menu title-db">
+                                    <a role="button" class="collapsed"
+                                       data-toggle="collapse" aria-expanded="false" data-target="#collapseListMenu04"
+                                       aria-controls="collapseListMenu04">
+                                        Kết nối trên Facebook <i class="fa fa-plus"
+                                                                 aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                                <div class="collapse" id="collapseListMenu04">
+                                    <div class="facebook">
+                                        <div id="fb-root"></div>
+                                        <script>var timer = undefined; timer = setTimeout(() => { (function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=631942543575730"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk')); timer = undefined; }, 5000)</script>
+                                        <div class="fb-page" data-href="https://www.facebook.com/sapo/"
+                                             data-tabs="timeline" data-height="150" data-small-header="true"
+                                             data-adapt-container-width="true" data-hide-cover="false"
+                                             data-show-facepile="true">
+                                            <div class="fb-xfbml-parse-ignore">
+                                                <blockquote cite="https://www.facebook.com/sapo/">
+                                                    <a href="https://www.facebook.com/sapo/">Facebook</a>
+                                                </blockquote>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-bottom-1px"></div>
+                </div>
+            </div>
+            <div class="mid-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-5">
+                            <div class="widget-ft wg-logo">
+                                <h4 class="title-menu2 icon_none_first">
+                                    <a>
+                                        CÔNG TY TNHH DV VÀ TM MÁY THỰC PHẨM TIẾN
+                                        ĐẠT
+                                    </a>
+                                </h4>
+                                <ul class="contact">
+                                    <li>
+                                        <span class="txt_content_child">
+                                            <span> Địa chỉ:</span> Lô 03, Tầng 1, tòa B
+                                            Chung cư hateco- Phường yên sở - Hoàng Mai- TP Hà nội. MST 0110120028 do Sở
+                                            kế hoạch đầu tư TP Hà Nội cấp ngày 16/09/2022
+                                        </span>
+                                    </li>
+                                    <li class="sdt">
+                                        <span> Hotline:</span> <a href="tel:0987983948">0987983948</a>
+                                        <span class="email_style">
+                                            <span> Email:</span> <a href="mailto:dienmaytiendatvn@gmail.com"> dienmaytiendatvn@gmail.com</a>
+                                        </span>
+                                    </li>
+                                </ul> <a href="http://online.gov.vn/Home/WebDetails/102241" target="_blank">
+                                    <img src="/assets/images/logo_bct.png" style="max-width:180px;margin-bottom: 10px;">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 pay_footer">
+                            <h4 class="title-menu2 icon_none_first"> <a>Chấp nhận thanh toán</a> </h4>
+                            <ul class="follow_option">
+                                <li>
+                                    <a href="#">
+                                        <img class="lazyload"
+                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                             data-src="css/pay_1.png"
+                                             alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img class="lazyload"
+                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                             data-src="css/pay_2.png"
+                                             alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img class="lazyload"
+                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                             data-src="css/pay_3.png"
+                                             alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img class="lazyload"
+                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                             data-src="css/pay_4.png"
+                                             alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img class="lazyload"
+                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                             data-src="css/pay_5.png"
+                                             alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 social_footer">
+                            <h4 class="title-menu2 icon_none_first icon_title_last"> <a>Khiếu nại &amp; CSKH</a> </h4>
+                            <div class="time_work">
+                                <ul class="list-menu list-menu-time">
+                                    <li class="li_menu li_menu_xxx">
+                                        <a class="rc yeloww"
+                                           href="tel:0987983948">0987983948</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-bottom-1px"></div>
+                </div>
+            </div>
+            <div class="bg-footer-bottom copyright clearfix">
+                <div class="container">
+                    <div class="inner clearfix">
+                        <div class="row tablet">
+                            <div id="copyright" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 a-center fot_copyright">
+                                <span class="wsp">
+                                    <span class="mobile">
+                                        © Bản quyền thuộc về <b>
+                                            Điện máy tiến
+                                            đạt.vn
+                                        </b><span class="hidden-xs"> | </span>
+                                    </span><span class="opacity1"
+                                                 style="opacity: 0.7;">Cung cấp bởi</span> <a href="https://www.sapo.vn/?utm_campaign=cpn:site_khach_hang-plm:footer&amp;utm_source=site_khach_hang&amp;utm_medium=referral&amp;utm_content=fm:text_link-km:-sz:&amp;utm_term=&amp;campaign=site_khach_hang"
+                                                                                              rel="nofollow" title="Sapo" target="_blank">Sapo</a>
+                                </span>
+                            </div>
+                        </div>
+                    </div> <a href="#" id="back-to-top" class="backtop" title="Lên đầu trang">
+                        <i class="fa fa-angle-up"
+                           aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </footer>
-    <!-- End Footer Section -->
-    <!-- Home Popup Section -->
-    <div class="modal fade bd-example-modal-lg main-popup" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body p-0">
-                    <div class="newsletter-pop-up d-flex">
-                        <div class="popup-img">
-                            <img src="/assets/images/1_popup-img.jpg" alt="popup-img">
-                        </div>
-                        <div class="popup-form text-center">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onclosefn()">
-                                <span aria-hidden="true"><i class="ion-close-round"></i></span>
-                            </button>
-                            <div class="popup-logo">
-                                <img src="/assets/images/logo.png" alt="logo">
-                            </div>
-                            <div class="popup-text">
-                                <p>Đăng ký nhận tin ngay</p>
-                                <h6>Để nhận những ưu đãi hấp dẫn</h6>
-                            </div>
-                            <form class="subscribe-popup-form" method="post" action="#">
-                                <input name="email" required="" type="email" placeholder="Email của bạn">
-                                <button class="btn btn-primary" title="Subscribe" type="submit">Đăng ký</button>
-                            </form>
-                            <div class="form-check">
-                                <label>
-                                    Không hiển thị lại!
-                                    <input id="checkdontshow" class="defult-check" type="checkbox" checked="checked">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="social-fix">
+        <a href="https://zalo.me/0987983948" target="_blank">
+            <img src="/assets/images/zaloicon.png"
+                 alt="Zalo Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.">
+        </a> <a href="https://www.facebook.com/messages/t/100009049422542/" target="_blank">
+            <img src="/assets/images/messicon.png"
+                 alt="Messenger Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.">
+        </a> <a class="btn-call-now visible-xs"
+                href="tel:0987983948"> <i class="fa fa-phone"></i> </a>
     </div>
+    <style>
+		.social-fix {
+			position: fixed;
+			top: initial !important;
+			right: 20px;
+			bottom: 80px;
+			z-index: 999;
+			text-align: right;
+		}
 
-    <!-- End Screen Load Popup Section -->
-    <!-- Start Quickview Popup Section -->
-    <div id="test-popup3" class="white-popup quickview-popup mfp-hide">
-        <div class="row">
-            <div class="col-md-5">
-                <div class="product-image">
-                    <img class="product_img" src="/assets/images/product1.png" data-zoom-image="/assets/images/product1.png">
-                </div>
-                <div id="product_gallery" class="product_gallery_item owl-thumbs-slider owl-carousel owl-theme owl-loaded owl-drag">
-                    <div class="owl-stage-outer">
-                        <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s;">
-                            <div class="owl-item">
-                                <div class="item">
-                                    <a href="#" class="active" data-image="/assets/images/product1.png" data-zoom-image="/assets/images/product1.png">
-                                        <img src="/assets/images/product_small1.png">
-                                    </a>
-                                </div>
-                            </div><div class="owl-item">
-                                <div class="item">
-                                    <a href="#" data-image="/assets/images/product2.png" data-zoom-image="/assets/images/product2.png">
-                                        <img src="/assets/images/product_small2.png">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div><div class="owl-nav disabled"><button type="button" role="presentation" class="owl-prev disabled"><i class="ion-ios-arrow-back"></i></button><button type="button" role="presentation" class="owl-next disabled"><i class="ion-ios-arrow-forward"></i></button></div><div class="owl-dots disabled"></div>
-                </div>
-            </div>
-            <div class="col-md-7">
-                <div class="quickview-product-detail">
-                    <h2 class="box-title">Ornare sed consequat</h2>
-                    <h3 class="box-price"><del>$ 95.00</del>$ 81.00</h3>
-                    <p class="box-text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
-                    <p class="stock">Availability: <span>In Stock</span></p>
-                    <div class="quantity-box">
-                        <p>Quantity:</p>
-                        <div class="input-group">
-                            <input type="button" value="-" class="minus">
-                            <input class="quantity-number qty" type="text" value="1" min="1" max="10">
-                            <input type="button" value="+" class="plus">
-                        </div>
-                        <div class="quickview-cart-btn">
-                            <a href="#" class="btn btn-primary"><img src="/assets/images/cart-icon-1.png" alt="cart-icon-1"> Add To Cart</a>
-                        </div>
-                    </div>
-                    <div class="box-social-like d-sm-flex justify-content-between">
-                        <ul class="hover-icon box-like">
-                            @*<li><a href="#"><i class="fa fa-heart"></i></a></li>*@
-                        </ul>
-                        <ul class="hover-icon box-social">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            <li><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Quickview Popup Section -->
-    <a href="#" class="scrollup" style=""><i class="ion-ios-arrow-up"></i></a>
-    <div class="zoomContainer" style="-webkit-transform: translateZ(0);position:absolute;left:0px;top:0px;height:0px;width:0px;"><div class="zoomLens" style="background-position: 0px 0px;width: 0px;height: 0px;float: right;display: none;overflow: hidden;z-index: 999;-webkit-transform: translateZ(0);opacity:0.4;filter: alpha(opacity = 40); zoom:1;width:0px;height:0px;background-color:white;cursor:crosshair;border: 1px solid #000;background-repeat: no-repeat;position: absolute;">&nbsp;</div><div class="zoomWindowContainer" style="width: 100px;"><div style="overflow: hidden; background-position: 0px 0px; text-align: center; background-color: rgb(255, 255, 255); width: 100px; height: 0px; float: left; background-size: 886px 960px; display: none; z-index: 100; border: 0px solid rgb(136, 136, 136); background-repeat: no-repeat; position: absolute; background-image: url(&quot;image/product1.png&quot;);" class="zoomWindow">&nbsp;</div></div></div>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"></path>
-                        </svg>
-                        Thông báo
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="contentModal">
+		.social-fix a {
+			display: block;
+			margin-top: 5px;
+		}
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Jquery js -->
-    <script src="/assets/js/jquery.min.js" type="text/javascript"></script>
-    <!-- popper.min js -->
-    <script src="/assets/js/popper.min.js" type="text/javascript"></script>
-    <!-- Bootstrap js -->
-    <script src="/assets/js/bootstrap.min.js" type="text/javascript"></script>
-    <!-- Magnific Popup js -->
-    <script src="/assets/js/jquery.magnific-popup.min.js" type="text/javascript"></script>
-    <!-- Map js -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7TypZFTl4Z3gVtikNOdGSfNTpnmq-ahQ" type="text/javascript"></script>
-    <!-- Owl js -->
+		/* hotline */
+		.btn-call-now {
+			display: flex;
+			align-items: center;
+			background: rgba(183, 1, 0, 0.74);
+			-webkit-box-shadow: 0 0 5px #ddd;
+			-moz-box-shadow: 0 0 5px #ddd;
+			box-shadow: 0 0 5px #ddd;
+			z-index: 99;
+			top: initial !important;
+			color: #FFF;
+			font-weight: 700;
+			border-radius: 25px;
+			padding: 5px;
+			-moz-animation-duration: 500ms;
+			-moz-animation-name: calllink;
+			-moz-animation-iteration-count: infinite;
+			-moz-animation-direction: alternate;
+			-webkit-animation-duration: 500ms;
+			-webkit-animation-name: calllink;
+			-webkit-animation-iteration-count: infinite;
+			-webkit-animation-direction: alternate;
+			animation-duration: 500ms;
+			animation-name: calllink;
+			animation-iteration-count: infinite;
+			animation-direction: alternate;
+		}
+
+		.btn-call-now span {
+			font-size: 18px;
+			vertical-align: top;
+		}
+
+		.btn-call-now .fa {
+			color: #b70100;
+			font-size: 23px;
+			background: #fff;
+			width: 30px;
+			height: 30px;
+			line-height: 30px;
+			border-radius: 20px;
+			text-align: center;
+		}
+
+		@("@")keyframes calllink {
+			0% {
+				color: #eba11e;
+			}
+
+			50% {
+				color: #fff;
+			}
+
+			100% {
+				color: #ebfa48;
+			}
+		}
+
+		@("@")media (max-width:767px) {
+			.btn-call-now .fa {
+				margin: 0;
+			}
+
+			.btn-call-now {
+				width: initial;
+				min-width: initial
+			}
+		}
+    </style>
+    <script src="/assets/js/option-selectors.js" type="text/javascript"></script>
+    <script src="/assets/js/api.jquery.js" type="text/javascript"></script> <!-- Plugin JS -->
     <script src="/assets/js/owl.carousel.min.js" type="text/javascript"></script>
-    <!-- Countdown js -->
-    <script src="/assets/js/countdown.min.js" type="text/jscript"></script>
-    <!-- Counter js -->
-    <script src="/assets/js/jquery.countup.js" type="text/javascript"></script>
-    <!-- waypoint js -->
-    <script src="/assets/js/waypoint.js" type="text/javascript"></script>
-    <!-- Select2 js -->
-    <script src="/assets/js/select2.min.js" type="text/javascript"></script>
-    <!-- Price Slider js -->
-    <script src="/assets/js/jquery-price-slider.js" type="text/javascript"></script>
-    <!-- jquery.elevatezoom js -->
-    <script src="/assets/js/jquery.elevatezoom.js" type="text/javascript"></script>
-    <!-- imagesloaded.pkgd.min js -->
-    <script src="/assets/js/imagesloaded.pkgd.min.js" type="text/javascript"></script>
-    <!-- isotope.min js -->
-    <script src="/assets/js/isotope.min.js" type="text/javascript"></script>
-    <!-- jquery.fitvids js -->
-    <script src="/assets/js/jquery.fitvids.js" type="text/javascript"></script>
-    <!-- mCustomScrollbar.concat.min js -->
-    <script src="/assets/js/mCustomScrollbar.concat.min.js" type="text/javascript"></script>
-    <!-- Custom css -->
-    <script src="/assets/js/custom.js" type="text/javascript"></script>
-    <!--PopupCustom-->
-    <script type="text/javascript">
-        $(window).on('load', function () {
-            if (localStorage['DontShowPopUp'] != 'on') {
-                setTimeout(function () {
-                    $("#exampleModal").modal('show', {}, 500)
-                }, 3000);
+    <link rel="preload" as="script" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    <script src="/assets/js/bootstrap.min.js" crossorigin="anonymous"></script> <!-- Add to cart -->
+    <div class="ajax-load">
+        <span class="loading-icon">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="30px"
+                 viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+            <rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
+            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+				</rect>
+            <rect x="8" y="10" width="4" height="10" fill="#333" opacity="0.2">
+            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+				</rect>
+            <rect x="16" y="10" width="4" height="10" fill="#333" opacity="0.2">
+            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+				</rect>
+			</svg>
+        </span>
+    </div>
+    <div class="loading awe-popup">
+        <div class="overlay"></div>
+        <div class="loader" title="2">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="30px"
+                 viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+            <rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
+            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+				</rect>
+            <rect x="8" y="10" width="4" height="10" fill="#333" opacity="0.2">
+            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+				</rect>
+            <rect x="16" y="10" width="4" height="10" fill="#333" opacity="0.2">
+            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+				</rect>
+			</svg>
+        </div>
+    </div>
+    <div class="addcart-popup product-popup awe-popup">
+        <div class="overlay no-background"></div>
+        <div class="content">
+            <div class="row row-noGutter">
+                <div class="col-xl-6 col-xs-12">
+                    <div class="btn btn-full btn-primary a-left popup-title">
+                        <i class="fa fa-check"></i>Thêm vào giỏ
+                        hàng thành công
+                    </div> <a href="javascript:void(0)" class="close-window close-popup">
+                        <i class="fa fa-close"></i>
+                    </a>
+                    <div class="info clearfix">
+                        <div class="product-image margin-top-5">
+                            <img alt="popup" src="/assets/images/logo.png"
+                                 style="max-width:150px; height:auto">
+                        </div>
+                        <div class="product-info">
+                            <p class="product-name"></p>
+                            <p class="quantity color-main"><span>Số lượng: </span></p>
+                            <p class="total-money color-main"><span>Tổng tiền: </span></p>
+                        </div>
+                        <div class="actions">
+                            <button class="btn  btn-primary  margin-top-5 btn-continue">
+                                Tiếp tục mua
+                                hàng
+                            </button> <button class="btn btn-gray margin-top-5"
+                                              onclick="window.location='/cart'">
+                                Kiểm tra giỏ hàng
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="error-popup awe-popup">
+        <div class="overlay no-background"></div>
+        <div class="popup-inner content">
+            <div class="error-message"></div>
+        </div>
+    </div>
+    <script src="/assets/js/jsfooter.js"></script>
+    <div id="popup-cart" class="modal fade" role="dialog">
+        <div id="popup-cart-desktop" class="clearfix">
+            <div class="title-popup-cart">
+                <img src="/assets/images/icon-check.png"
+                     alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín."> <span class="your_product">
+                    Bạn đã thêm <span class="cart_name_style">[ <span class="cart-popup-name"></span>]</span> vào giỏ hàng thành công
+                    !
+                </span>
+            </div>
+            <div class="wrap_popup">
+                <div class="title-quantity-popup">
+                    <span class="cart_status" onclick="window.location.href='/cart';">
+                        Giỏ
+                        hàng của bạn có <span class="cart-popup-count"></span> sản phẩm
+                    </span> <i class="fa fa-caret-right" aria-hidden="true"></i>
+                </div>
+                <div class="content-popup-cart">
+                    <div class="thead-popup">
+                        <div style="width: 53%;" class="text-left">Sản phẩm</div>
+                        <div style="width: 15%;" class="text-center">Đơn giá</div>
+                        <div style="width: 15%;" class="text-center">Số lượng</div>
+                        <div style="width: 17%;" class="text-center">Thành tiền</div>
+                    </div>
+                    <div class="tbody-popup scrollbar-dynamic"> </div>
+                    <div class="tfoot-popup">
+                        <div class="tfoot-popup-1 a-right clearfix">
+                            <span class="total-p popup-total">
+                                Tổng tiền thanh
+                                toán: <span class="total-price"></span>
+                            </span>
+                        </div>
+                        <div class="tfoot-popup-2 clearfix">
+                            <a class="button buy_ btn-proceed-checkout"
+                               title="Tiếp tục mua hàng" onclick="$('#popup-cart').modal('hide');">
+                                <span>
+                                    <span>
+                                        Tiếp tục
+                                        mua hàng
+                                    </span>
+                                </span>
+                            </a> <a class="button checkout_ btn-proceed-checkout"
+                                    title="Thực hiện thanh toán" href="/checkout"><span>Thực hiện thanh toán</span></a>
+                        </div>
+                    </div>
+                </div> <a title="Close" class="quickview-close close-window" href="javascript:;"
+                          onclick="$('#popup-cart').modal('hide');"><i class="fa  fa-close"></i></a>
+            </div>
+        </div>
+    </div>
+    <div id="myModal" class="modal fade" role="dialog"> </div> <!-- Quick view -->
+    <div id="quick-view-product" class="quickview-product" style="display:none;">
+        <div class="quickview-overlay fancybox-overlay fancybox-overlay-fixed"></div>
+        <div class="quick-view-product"></div>
+        <div id="quickview-modal" style="display:none;">
+            <div class="block-quickview primary_block row">
+                <div class="product-left-column col-xs-12 col-sm-5 col-md-5 col-lg-5">
+                    <div class="clearfix image-block">
+                        <span class="view_full_size">
+                            <a class="img-product" title=""
+                               href="#">
+                                <img id="product-featured-image-quickview"
+                                     class="img-responsive product-featured-image-quickview" src="/assets/images/logo.png"
+                                     alt="quickview">
+                            </a>
+                        </span>
+                        <div class="loading-imgquickview" style="display:none;"></div>
+                    </div>
+                    <div class="more-view-wrapper clearfix">
+                        <div class="thumbs_quickview" id="thumbs_list_quickview">
+                            <ul class="product-photo-thumbs quickview-more-views-owlslider" id="thumblist_quickview">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-center-column product-info product-item col-xs-5 col-sm-7 col-md-7 col-lg-7">
+                    <div class="head-qv">
+                        <h3 class="qwp-name">abc</h3>
+                        <div class="vend-qv">
+                            <div class="left_vend">
+                                <span class="vendor_"></span> <span class="line">|</span> Tình
+                                trạng: <span class="soluong"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quickview-info">
+                        <div class="reviews_qv">
+                            <div class="bizweb-product-reviews-badge" data-id=""></div>
+                        </div> <span class="prices"> <span class="price"></span> <del class="old-price"></del> </span>
+                    </div>
+                    <div class="product-description">
+                        <div class="rte text2line"> </div>
+                    </div>
+                    <form action="/cart/add" method="post" enctype="multipart/form-data"
+                          class="quick_option variants form-ajaxtocart">
+                        <span class="price-product-detail hidden"
+                              style="opacity: 0;"> <span class=""></span> </span> <select name="variantId" class="hidden"
+                                                                                          style="display:none"></select>
+                        <div class="clearfix"></div>
+                        <div class="quantity_wanted_p">
+                            <div class="input_qty_qv">
+                                <a class="btn_num num_1 button button_qty"
+                                   onclick="decreaseQuantity()">-</a> <input type="text" id="quantity-detail"
+                                                                             name="quantity" value="1" onkeypress="return validate(event)"
+                                                                             onkeyup="return valid(this,'numbers')" onblur="return valid(this,'numbers')"
+                                                                             class="form-control prd_quantity"> <a class="btn_num num_2 button button_qty"
+                                                                                                                   onclick="increaseQuantity()">+</a>
+                            </div>
+                            <script>function decreaseQuantity() { var result = document.getElementById('quantity-detail'); var qtyqv = parseInt(result.value); if (!isNaN(qtyqv) && qtyqv > 1) { result.value = qtyqv - 1; } return false; } function increaseQuantity() { var result = document.getElementById('quantity-detail'); var qtyqv = parseInt(result.value); if (!isNaN(qtyqv)) { result.value = qtyqv + 1; } return false; } function validate(evt) { var theEvent = evt || window.event; var key = theEvent.keyCode || theEvent.which; key = String.fromCharCode(key); var regex = /[0-9]|\./; if (!regex.test(key)) { theEvent.returnValue = false; if (theEvent.preventDefault) theEvent.preventDefault(); } } function valid(element, type) { var regex = type === 'numbers' ? /[0-9]/g : /[a-zA-Z]/g; element.value = element.value.replace(regex, ''); }</script>
+                            <div class="button_actions">
+                                <button type="submit"
+                                        class="btn btn-lg fix_add_to_cart  btn-cart button_cart_buy_enable add_to_cart btn_buy add_to_cart_detail ajax_addtocart"
+                                        title="Cho vào giỏ hàng">
+                                    <span class="btn-image">
+                                        <img src="/assets/images/shopping_cart.png" alt="shopping-cart">
+                                    </span> <span class="btn-content">Cho vào giỏ hàng</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="total-price" style="display:none"> <label>Tổng cộng: </label> <span></span> </div>
+                    </form>
+                </div>
+            </div> <a title="Close" class="quickview-close close-window" href="javascript:;">
+                <i class="fa   fa-times"></i>
+            </a>
+        </div>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+            var quickViewButton = document.getElementById('xem_nhanh button_wh_40 btn_view right-to quick-view hidden-xs hidden-sm hidden-md'); if (quickViewButton) {
+                quickViewButton.addEventListener('click', function (event) {
+                    event.preventDefault();  					// Hiển thị modal xem nhanh 					var quickViewModal = document.getElementById('quick-view-product'); 					if (quickViewModal) { 						quickViewModal.style.display = 'block'; 					} 				}); 			} 		}); 	</script>
+    <script type="text/javascript">  		Bizweb.doNotTriggerClickOnThumb = false; function changeImageQuickView(img, selector) { var src = $(img).attr("src"); src = src.replace("_compact", ""); $(selector).attr("src", src); } function validate(evt) { var theEvent = evt || window.event; var key = theEvent.keyCode || theEvent.which; key = String.fromCharCode(key); var regex = /[0-9]|\./; if (!regex.test(key)) { theEvent.returnValue = false; if (theEvent.preventDefault) theEvent.preventDefault(); } } var selectCallbackQuickView = function (variant, selector) { $('#quick-view-product form').show(); var productItem = jQuery('.quick-view-product .product-item'), addToCart = productItem.find('.add_to_cart_detail'), productPrice = productItem.find('.price'), comparePrice = productItem.find('.old-price'), status = productItem.find('.soluong'), totalPrice = productItem.find('.total-price span'); if (variant && variant.available) { var form = jQuery('#' + selector.domIdPrefix).closest('form'); for (var i = 0, length = variant.options.length; i < length; i++) { var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] + '"]'); if (radioButton.size()) { radioButton.get(0).checked = true; } } addToCart.removeClass('disabled').removeAttr('disabled'); addToCart.text('Cho vào giỏ hàng').removeAttr('disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Cho vào giỏ hàng').html('<span class="btn-image"><img src=\"css/shopping_cart.png\" alt="shopping-cart"/></span><span class="btn-content">Cho vào giỏ hàng</span>').show(); status.text('Còn hàng'); if (variant.price < 1) { $("#quick-view-product .price").html('Liên hệ'); $("#quick-view-product del, #quick-view-product .quantity_wanted_p").hide(); $("#quick-view-product .prices .old-price").hide(); } else { productPrice.html(Bizweb.formatMoney(variant.price, "{{amount_no_decimals_with_comma_separator}}₫")); if (variant.compare_at_price > variant.price) { comparePrice.html(Bizweb.formatMoney(variant.compare_at_price, "{{amount_no_decimals_with_comma_separator}}₫")).show(); productPrice.addClass('on-sale'); } else { comparePrice.hide(); productPrice.removeClass('on-sale'); } $(".quantity_wanted_p").show(); } updatePricingQuickView();  				/*begin variant image*/ 				if (variant && variant.featured_image) { var originalImage = $("#product-featured-image-quickview"); var newImage = variant.featured_image; var element = originalImage[0]; Bizweb.Image.switchImage(newImage, element, function (newImageSizedSrc, newImage, element) { $('#thumblist_quickview img').each(function () { var parentThumbImg = $(this).parent(); var productImage = $(this).parent().data("image"); if (newImageSizedSrc.includes(productImage)) { $(this).parent().trigger('click'); return false; } }); }); $('#product-featured-image-quickview').attr('src', variant.featured_image.src); } } else { addToCart.addClass('disabled').attr('disabled', 'disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show(); status.text('Hết hàng'); $(".quantity_wanted_p").show(); if (variant) { if (variant.price < 1) { $("#quick-view-product .price").html('Liên hệ'); $("#quick-view-product del").hide(); $("#quick-view-product .quantity_wanted_p").hide(); $("#quick-view-product .prices .old-price").hide(); comparePrice.hide(); productPrice.removeClass('on-sale'); addToCart.addClass('disabled').attr('disabled', 'disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show(); } else { if (variant.compare_at_price > variant.price) { comparePrice.html(Bizweb.formatMoney(variant.compare_at_price, "{{amount_no_decimals_with_comma_separator}}₫")).show(); productPrice.addClass('on-sale'); } else { comparePrice.hide(); productPrice.removeClass('on-sale'); $("#quick-view-product .prices .old-price").html(''); } $("#quick-view-product .price").html(Bizweb.formatMoney(variant.price, "{{amount_no_decimals_with_comma_separator}}₫")); $("#quick-view-product del ").hide(); $("#quick-view-product .prices .old-price").show(); addToCart.addClass('disabled').attr('disabled', 'disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show(); } } else { $("#quick-view-product .price").html('Liên hệ'); $("#quick-view-product del").hide(); $("#quick-view-product .quantity_wanted_p").hide(); $("#quick-view-product .prices .old-price").hide(); comparePrice.hide(); productPrice.removeClass('on-sale'); addToCart.addClass('disabled').attr('disabled', 'disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show(); } } 			/*begin variant image*/ 			if (variant && variant.featured_image) { var originalImage = $("#product-featured-image-quickview"); var newImage = variant.featured_image; var element = originalImage[0]; Bizweb.Image.switchImage(newImage, element, function (newImageSizedSrc, newImage, element) { $('#thumblist_quickview img').each(function () { var parentThumbImg = $(this).parent(); var productImage = $(this).parent().data("image"); if (newImageSizedSrc.includes(productImage)) { $(this).parent().trigger('click'); return false; } }); }); $('#product-featured-image-quickview').attr('src', variant.featured_image.src); } }; 	</script>
+    <script type="text/javascript" defer="" src="/assets/js/quickview.js"></script> <!-- Main JS -->
+    <link rel="preload" as="script" href="css/main.js">
+    <script src="/assets/js/main.js" type="text/javascript"></script> <!-- Product detail JS,CSS -->
+    <script>var timer = undefined; timer = setTimeout(() => { 			//<![CDATA[  			function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("footer")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) } loadCSS("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"); 			function loadCSSFont(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("footer")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) } loadCSSFont("https://cdn.jsdelivr.net/themify-icons/0.1.2/css/themify-icons.css"); 			function loadCSSFonts(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("footer")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) } loadCSSFonts("https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"); 			//]]>  			timer = undefined; 		}, 5000)</script>
+    <a class="btn-call-now"> <i class="fa fa-phone"></i> <span>Hotline: 0987983948</span> </a>
+    <style>
+        .btn-call-now {
+            display: flex;
+            align-items: center;
+            position: fixed;
+            width: 260px;
+            bottom: 20px;
+            background: #f00;
+            -webkit-box-shadow: 0 0 5px #ddd;
+            -moz-box-shadow: 0 0 5px #ddd;
+            box-shadow: 0 0 5px #ddd;
+            z-index: 999999999;
+            left: 20px;
+            top: initial !important;
+            color: #FFF;
+            font-weight: 700;
+            font-size: 125%;
+            border-radius: 25px;
+            padding: 5px;
+            -moz-animation-duration: 500ms;
+            -moz-animation-name: calllink;
+            -moz-animation-iteration-count: infinite;
+            -moz-animation-direction: alternate;
+            -webkit-animation-duration: 500ms;
+            -webkit-animation-name: calllink;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: alternate;
+            animation-duration: 500ms;
+            animation-name: calllink;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+
+            .btn-call-now .fa {
+                color: #b70100;
+                font-size: 26px;
+                background: #fff;
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+                border-radius: 20px;
+                margin-right: 5px;
+                text-align: center;
             }
-        });
-    </script>
-    <!--Search js-->
-    <script type="text/javascript">
-        var txtSearch = document.getElementById("txtSeach");
-        if (localStorage["searchKeyword"] != null && localStorage["searchKeyword"] != undefined && localStorage["searchKeyword"] != '') txtSearch.value = localStorage["searchKeyword"];
-        localStorage["searchKeyword"] = '';
-    </script>
-    <script type="text/javascript">
-                                    function onSearch() {
-                                        var kw = $("#txtSeach").val();
-                                        localStorage["searchKeyword"] = kw;
-                                        window.location.href = "@Url.Action("Search", "Home")?keyword=" + kw;
-                                    }
-                                    $("#txtSeach").keyup(function (e) {
-                                        var code = e.key;
-                                        if (code === "Enter") {
-                                            onSearch();
-                                        }
-                                    });
-    </script>
-    <!--Start Ajax-->
-    <script type="text/javascript">
-        function addToCart(id) {
-        $.ajax({
-            url: "@Url.Action("AddToCart","Cart")",
-            data: { productId : id },
-            dataType: "json",
-            type: "POST",
-            success: function (res) {
-                if (res.response == 'added') {
-                    document.getElementById("contentModal").innerHTML = 'Thêm sản phẩm thành công';
-                    if (res.type == "edit") {
-                        $('#exampleModalCenter').modal('show');
-                        var quatityDOM = document.getElementById("quantityProduct-" + res.productId);
-                        quatityDOM.innerHTML = 'Số lượng: ' + res.quantity;
-                        var totalPriceDOM = document.getElementById("totalPrice");
-                        totalPriceDOM.innerHTML = res.totalPrice;
-                    }
-                    else if (res.type == "newItem") {
-                        $('#exampleModalCenter').modal('show');
-                        var cart = document.getElementById('cartInfo');
-
-                        var ele = $.parseHTML('<div><div class="cart-prodect d-flex"><div class="cart-img"><a href="/product/details?id=' + res.productId + '"><img alt="" src="' + res.productImage + '"></a></div><div class="cart-product"><a href="/product/details?id=' + res.productId + '">' + res.productName + '</a><p>' + res.price + ' </p><p id="quantityProduct-' + res.productId + '">Số lượng: 1</p></div><button class="close" onclick="deleteItemInCartPreview(' + res.productId+')"><i class="ion-close"></i></button></div></div>')
-                        cart.innerHTML = ele[0].innerHTML + cart.innerHTML;
-                        var countCI = document.getElementById('countCartItem');
-                        countCI.innerHTML = res.countCI;
-                        var totalPriceDOM = document.getElementById("totalPrice");
-                        totalPriceDOM.innerHTML = res.totalPrice;
-                    }
-                    else if (res.type == "newCart") {
-                        $('#exampleModalCenter').modal('show');
-                        var cart = document.getElementById('cartInfo');
-                        debugger
-                        cart.innerHTML = '';
-                        var ele = $.parseHTML('<div><div class="cart-prodect d-flex"><div class="cart-img"><a href="/product/details?id=' + res.productId + '"><img alt="" src="' + res.productImage + '"></a></div><div class="cart-product"><a href="/product/details?id=' + res.productId + '">' + res.productName + '</a><p>' + res.price + ' </p><p id="quantityProduct-' + res.productId + '">Số lượng: 1</p></div><button class="close" onclick="deleteItemInCartPreview(' + res.productId + ')"><i class="ion-close"></i></button></div><div class="price-prodect d-flex align-items-center justify-content-between"><p class= "total"> Tổng cộng:</p><p class="total-price" id="totalPrice">' + res.totalPrice + '</p></div ><div class="cart-btn"><a href="/cart" class="btn btn-primary">Xem giỏ hàng</a></div></div>');
-                        cart.innerHTML = ele[0].innerHTML + cart.innerHTML;
-                        var countCI = document.getElementById('countCartItem');
-                        countCI.innerHTML = res.countCI;
-                        var totalPriceDOM = document.getElementById("totalPrice");
-                        totalPriceDOM.innerHTML = res.totalPrice;
-                    }
-                    else { alert("Có lỗi xảy ra, nhấn F5 để tải lại"); }
-                }
-                else {
-                    document.getElementById("contentModal").innerHTML = res.message;
-                    $('#exampleModalCenter').modal('show');
-                }
-            },
-            error: function (res) {
-                alert("Có lỗi xảy ra, nhấn F5 để tải lại");
-            }
-            });
-    }
-
-        function deleteItemInCartPreview(productId) {
-            var i = parseInt(productId);
-            $.ajax({
-                data: { id: i },
-                url: '/Cart/Delete',
-                dataType: 'json',
-                type: 'POST',
-                success: function (res) {
-                    if (res.status == true) {
-                        window.location.href = "/";
-                    }
-                }
-            })
-        }
-    </script>
-    <!--End Ajax-->
-    <!--Subscribe js start-->
-    <script type="text/javascript">
-        function validateEmail(email) {
-            var re = /\S+@@\S+\.\S+/;
-            return re.test(email);
-        }
-
-        function subs(ip) {
-            var strng = ip.value;
-
-            var check = validateEmail(strng);
-            if (check) {
-                $.ajax({
-                    data: { email: strng },
-                    url: '@Url.Action("Subscribe","Home")',
-                    dataType: 'json',
-                    type: 'POST',
-                    success: function (res) {
-                        if (res.status == true) {
-                            alert("Đăng ký nhận tin thành công!");
-                            ip.value = "";
-                        }
-                        else {
-                            alert("Có lỗi xảy ra, vui lòng đăng ký lại");
-                            ip.value = "";
-                        }
-                    }
-                });
-            }
-            else {
-                alert("Hãy nhập đúng form Email!");
-            }
-        }
-        function sendFeedback(name, email, phone, subject, message, type, objID) {
-            var dname = name.value;
-            var demail = name.value;
-            var dphone = name.value;
-            var dsubject = name.value;
-            var dmessage = name.value;
-            var dtype = parseInt(type);
-            var dobjID = parseInt(objID);
-        }
-    </script>
-    <!--Subscribe js end-->
-    <!--PopUp js custom start-->
-    <script type="text/javascript">
-        function onclosefn() {
-            var checkedValue = document.querySelector('#checkdontshow:checked').value;
-            localStorage['DontShowPopUp'] = checkedValue;
-        }
-    </script>
-    <!--PopUp js custom end-->
-    <!-- Button trigger modal -->
-
+    </style>
 </body>
+
 </html>

@@ -24,6 +24,7 @@ namespace Web
             services.AddScoped<IImportService, ImportService>();
             services.AddScoped<IExportService, ExportService>();
             services.AddScoped<IFromCustomerService, FromCustomerService>();
+
             return services;
         }
     }
