@@ -1,4 +1,4 @@
-﻿*.suo
+﻿.vs/
 *.user
 _ReSharper.*
 bin
