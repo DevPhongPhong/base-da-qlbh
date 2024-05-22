@@ -107,48 +107,79 @@
                     {
                         @foreach (var item in listProducts.Data)
                         {
-                            <div class="col-md-4 col-6">
-                                <div class="product-box common-cart-box box-1">
-                                    <div class="product-img common-cart-img">
-                                        <img src="@item.MainImageThumb" alt="product-img">
-                                        <div class="hover-option">
-                                            <div class="add-cart-btn">
-                                                <button type="button" onclick="addToCart(@item.Id)" data-id="@item.Id" class="btn btn-primary">Thêm vào giỏ hàng</button>
-                                            </div>
-                                            <ul class="hover-icon">
-                                                @*<li><a href="#"><i class="fa fa-heart"></i></a></li>*@
-                                                @*<li><a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a></li>*@
-                                                
-                                            </ul>
-                                        </div>
+                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+                    <div class="product-col">
+                        <div class="product-box-h">
+                            <div class="row">
+
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <div class="product-thumbnail">
+                                        <a class="image_link display_flex"
+                                           href="@Url.Action("ProductDetails","Home", new { id = item.Id})"
+                                           title="@item.Name">
+                                            <img class="lazyload" src="@item.MainImageThumb" alt="@item.Name" />
+                                        </a>
+                                        <a title="Xem nhanh" href="/may-hut-chan-khong-dzq-600"
+                                           data-handle="may-hut-chan-khong-dzq-600"
+                                           class="xem_nhanh button_wh_40 btn_view right-to quick-view hidden-xs hidden-sm hidden-md">
+                                            Xem nhanh
+                                        </a>
                                     </div>
-                                    <div class="product-info common-cart-info text-center">
-                                        <a href="@Url.Action("ProductDetails","Home", new { id = item.Id})" class="cart-name">@item.Name</a>
-                                        <p class="cart-price">
-                                            @if (item.PromotionPrice.HasValue)
-                                            {
-                                                <del>@item.Price?.ToString("N0") đ</del>
-                                                @item.PromotionPrice?.ToString("N0")
-                                            }
-                                            else
-                                            {
-                                                @item.Price?.ToString("N0")  
-                                            }
-                                            đ
-                                        </p>
-                                        <p class="product-list-text" style="">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
-                                        <div class="hover-option">
-                                            <div class="add-cart-btn">
-                                                <a href="#" class="btn btn-primary">Add To Cart</a>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <div class="product-info a-left">
+                                        <h3 class="product-name">
+                                            <a class="height_name"
+                                               href="@Url.Action("ProductDetails","Home", new { id = item.Id})"
+                                               title="@item.Name">@item.Name</a>
+                                        </h3>
+                                        <div class="product-hides">
+                                            <div class="bizweb-product-reviews-badge" data-id="29474760"></div>
+                                            <div class="product-hide">
+                                                <div class="price-box clearfix">
+                                                    @if (item.PromotionPrice.HasValue)
+                                                    {
+                                                        <div class="special-price">
+                                                            <span class="price product-price">@item.PromotionPrice?.ToString("N0")</span>
+                                                        </div>
+                                                        <div class="old-price">
+                                                            <span class="price product-price-old">
+                                                                @item.Price?.ToString("N0")₫
+                                                            </span>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="special-price">
+                                                            <span class="price product-price">@item.Price?.ToString("N0")₫</span>
+                                                        </div>
+                                                    }
+
+                                                </div>
                                             </div>
-                                            <ul class="hover-icon">
-                                                @*<li><a href="#"><i class="fa fa-heart"></i></a></li>*@
-                                                @*<li><a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a></li>*@
-                                            </ul>
+                                        </div>
+                                        <div class="product-action clearfix hidden-xs">
+                                            <form action="/cart/add" method="post"
+                                                  class="variants form-nut-grid"
+                                                  data-id="product-actions-29474760"
+                                                  enctype="multipart/form-data">
+                                                <div>
+
+                                                    <input type="hidden" name="variantId" value="81033893">
+                                                    <button class="btn-buy btn-cart btn btn-circle left-to add_to_cart "
+                                                            title="Thêm vào giỏ hàng">
+                                                        Đặt mua ngay
+                                                    </button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
+                        </div>
+                    </div>
+                </div>
                         }
                     }
                 </div>

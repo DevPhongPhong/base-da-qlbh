@@ -102,8 +102,8 @@ namespace Web.Controllers
                 if (order != null)
                 {
                     ClearCart();
-                    SendEmailToCustomer(order);
-                    SendEmailToShop(order);
+                    //SendEmailToCustomer(order);
+                    //SendEmailToShop(order);
                     return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode = order.OrderCode, email = order.CustomerEmail });
                 }
                 else

@@ -45,6 +45,29 @@
     <link href="~/assets/css/ionicons.min.css" rel="stylesheet" />
     <link href="~/assets/css/font-awesome.min.css" rel="stylesheet" />
     <script src="/assets/js/headerjs.js"></script>
+    <script type="text/javascript">
+        function addtocart(productId, quantity) {
+            $.ajax({
+                url: '/add-to-cart',
+                type: 'POST',
+                data: {
+                    productId: productId,
+                    quantity: quantity
+                },
+                success: function(response) {
+                    // Xử lý kết quả trả về từ server
+                    alert('Thêm sản phẩm thành công');
+                },
+                error: function(xhr, status, error) {
+                    // Xử lý lỗi
+                    alert('Thêm sản phẩm không thành công');
+                }
+            });
+        }
+        function showcart(){
+
+        }
+</script>
 </head>
 
 <body>
@@ -198,14 +221,14 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="header-left">
                                     <div class="header_search hidden-xs hidden-sm">
-                                        <form action="/search" method="get" class="input-group search-bar"
+                                        <form action="#" method="get" class="input-group search-bar"
                                               role="search">
                                             <input type="hidden" name="type" value="product">
 
-                                            <input type="search" name="query" value=""
+                                            <input type="search" name="query" id ="search_input" value=""
                                                    placeholder="Bạn đang tìm sản phẩm gì..." class="input-group-field">
                                             <span class="input-group-btn">
-                                                <button type="submit" class="btn icon-fallback-text">
+                                                <button type="button" class="btn icon-fallback-text" onclick="window.location.href='/tim-kiem?keyword='+document.getElementById('search_input').value">
                                                     Tìm kiếm
                                                 </button>
                                             </span>

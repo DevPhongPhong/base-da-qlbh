@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Services.Kaafly
 {
@@ -161,67 +162,71 @@ namespace Services.Kaafly
         }
         public OrderResponseViewModel OrderRequest(OrderRequestViewModel model)
         {
-            using (var dbContextTransaction = context.Database.BeginTransaction())
+            var strategy = context.Database.CreateExecutionStrategy();
+            return strategy.Execute(() =>
             {
-                try
+                using (var dbContextTransaction = context.Database.BeginTransaction())
                 {
-                    var order = new Entities.Models.Order();
-                    order.CreatedDate = DateTime.Now;
-                    order.CustomerAddress = model.CustomerAddress;
-                    order.CustomerFullName = model.CustomerFullName;
-                    order.CustomerPhone = model.CustomerPhone;
-                    order.CustomerEmail = model.CustomerEmail;
-                    order.CustomerNote = model.CustomerNote;
-                    order.OrderStatusId = 1; // Chờ xác nhận
-                    order.TotalPrice = model.TotalPrice;
-                    context.Orders.Add(order);
-                    var check = context.SaveChanges() > 0;
-                    if (!check)
+                    try
+                    {
+                        var order = new Entities.Models.Order();
+                        order.CreatedDate = DateTime.Now;
+                        order.CustomerAddress = model.CustomerAddress;
+                        order.CustomerFullName = model.CustomerFullName;
+                        order.CustomerPhone = model.CustomerPhone;
+                        order.CustomerEmail = model.CustomerEmail;
+                        order.CustomerNote = model.CustomerNote;
+                        order.OrderStatusId = 1; // Chờ xác nhận
+                        order.TotalPrice = model.TotalPrice;
+                        context.Orders.Add(order);
+                        var check = context.SaveChanges() > 0;
+                        if (!check)
+                        {
+                            dbContextTransaction.Rollback();
+                            return null;
+                        }
+                        order.OrderCode = "Order0000" + order.Id;
+                        context.Orders.Update(order);
+                        foreach (var item in model.ProductsOrder)
+                        {
+                            var detail = new OrderDetails();
+                            context.Products.Find(item.ProductId).Quantity -= item.Quantity;
+                            context.SaveChanges();
+                            detail.OrderId = order.Id;
+                            detail.ProductId = item.ProductId;
+                            detail.Quantity = item.Quantity;
+                            detail.ProductPrice = item.ProductPrice;
+                            context.OrderDetailses.Add(detail);
+                        }
+                        check = context.SaveChanges() > 0;
+                        if (!check)
+                        {
+                            dbContextTransaction.Rollback();
+                            return null;
+                        }
+                        else
+                        {
+                            var response = new OrderResponseViewModel();
+                            response.OrderCode = order.OrderCode;
+                            response.CustomerAddress = order.CustomerAddress;
+                            response.CustomerEmail = order.CustomerEmail;
+                            response.CustomerFullName = order.CustomerFullName;
+                            response.CustomerNote = order.CustomerNote;
+                            response.CustomerPhone = order.CustomerPhone;
+                            response.TotalPrice = order.TotalPrice;
+                            response.ProductsOrder = new List<ProductOrder>();
+                            response.ProductsOrder.AddRange(model.ProductsOrder);
+                            dbContextTransaction.Commit();
+                            return response;
+                        }
+                    }
+                    catch (Exception e)
                     {
                         dbContextTransaction.Rollback();
-                        return null;
-                    }
-                    order.OrderCode = "Order0000" + order.Id;
-                    context.Orders.Update(order);
-                    foreach (var item in model.ProductsOrder)
-                    {
-                        var detail = new OrderDetails();
-                        context.Products.Find(item.ProductId).Quantity -= item.Quantity;
-                        context.SaveChanges();
-                        detail.OrderId = order.Id;
-                        detail.ProductId = item.ProductId;
-                        detail.Quantity = item.Quantity;
-                        detail.ProductPrice = item.ProductPrice;
-                        context.OrderDetailses.Add(detail);
-                    }
-                    check = context.SaveChanges() > 0;
-                    if (!check)
-                    {
-                        dbContextTransaction.Rollback();
-                        return null;
-                    }
-                    else
-                    {
-                        var response = new OrderResponseViewModel();
-                        response.OrderCode = order.OrderCode;
-                        response.CustomerAddress = order.CustomerAddress;
-                        response.CustomerEmail = order.CustomerEmail;
-                        response.CustomerFullName = order.CustomerFullName;
-                        response.CustomerNote = order.CustomerNote;
-                        response.CustomerPhone = order.CustomerPhone;
-                        response.TotalPrice = order.TotalPrice;
-                        response.ProductsOrder = new List<ProductOrder>();
-                        response.ProductsOrder.AddRange(model.ProductsOrder);
-                        dbContextTransaction.Commit();
-                        return response;
+                        throw;
                     }
                 }
-                catch (Exception e)
-                {
-                    dbContextTransaction.Rollback();
-                    throw;
-                }
-            }
+            });
         }
         public TrackingOrderReceivedModel GetOrderReceivedByOrderCode(string orderCode)
         {
