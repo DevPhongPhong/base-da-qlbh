@@ -21,8 +21,8 @@
     }
 }
 @{
-	var listNewsCate = (List<Entities.DTOs.CategoryNewsViewModel>)TempData["newsmenu"];
-	var listProductCate = (List<Entities.DTOs.ProductCategoryViewModel>)TempData["productmenu"];
+    var listNewsCate = (List<Entities.DTOs.CategoryNewsViewModel>)TempData["newsmenu"];
+    var listProductCate = (List<Entities.DTOs.ProductCategoryViewModel>)TempData["productmenu"];
 }
 
 <!DOCTYPE html>
@@ -30,556 +30,646 @@
 
 <head>
 
-	<link rel="preload" as="style" type="text/css" href="/assets/css/base.scss.css">
-	<link rel="preload" as="style" type="text/css" href="/assets/css/style.scss.css">
-	<link rel="preload" as="style" type="text/css" href="/assets/css/module.scss.css">
-	<link rel="preload" as="style" type="text/css" href="/assets/css/responsive.scss.css">
-	<link rel="preload" as="style" type="text/css" href="/assets/css/owl.carousel.min.css">
-	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-	<link href="/assets/css/owl.carousel.min.css" rel="stylesheet" type="text/css" media="all">
-	<link href="/assets/css/base.scss.css" rel="stylesheet" type="text/css" media="all">
-	<link href="/assets/css/style.scss.css" rel="stylesheet" type="text/css" media="all">
-	<link href="/assets/css/module.scss.css" rel="stylesheet" type="text/css" media="all">
-	<link href="/assets/css/responsive.scss.css" rel="stylesheet" type="text/css" media="all">
-	<script  src="/assets/js/headerjs.js"></script>
+    <link rel="preload" as="style" type="text/css" href="/assets/css/base.scss.css">
+    <link rel="preload" as="style" type="text/css" href="/assets/css/style.scss.css">
+    <link rel="preload" as="style" type="text/css" href="/assets/css/module.scss.css">
+    <link rel="preload" as="style" type="text/css" href="/assets/css/responsive.scss.css">
+    <link rel="preload" as="style" type="text/css" href="/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link href="/assets/css/owl.carousel.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/css/base.scss.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/css/style.scss.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/css/module.scss.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/css/responsive.scss.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/assets/css/ionicons.min.css" rel="stylesheet" />
+    <link href="~/assets/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="/assets/js/headerjs.js"></script>
 </head>
 
-<body >
-<div id="mySidenav" class="sidenav menu_mobile hidden-md hidden-lg">
-		<div class="top_menu_mobile">
-			<span class="close_menu">
-			</span>
-		</div>
-		<div class="content_memu_mb">
-			<div class="link_list_mobile">
+<body>
+    <div id="mySidenav" class="sidenav menu_mobile hidden-md hidden-lg">
+        <div class="top_menu_mobile">
+            <span class="close_menu">
+            </span>
+        </div>
+        <div class="content_memu_mb">
+            <div class="link_list_mobile">
 
-				<ul class="ct-mobile hidden">
+                <ul class="ct-mobile hidden">
+                </ul>
+                <ul class="ct-mobile">
 
+                    <li class="level0 level-top parent level_ico">
+                        <a href="/">Trang chủ</a>
 
-				</ul>
-				<ul class="ct-mobile">
+                    </li>
 
-					<li class="level0 level-top parent level_ico">
-						<a href="/">Trang chủ</a>
+                    <li class="level0 level-top parent level_ico">
+                        <a href="#">Sản phẩm</a>
 
-					</li>
+                        <i class="ti-plus hide_close"></i>
+                        <ul class="level0 sub-menu" style="display:none;">
+                            @foreach (var item in listProductCate)
+                            {
+                                if (item.ParentId == 0)
+                                {
+                                    var childrenItem = listProductCate.Where(childItem => childItem.ParentId == item.Id).ToList();
 
-					<li class="level0 level-top parent level_ico">
-						<a href="#">Sản phẩm</a>
+                                    <li class="level1">
+                                        <a href="/product?id=@(item.Id)"><span>@(item.CategoryName)</span></a>
 
-						<i class="ti-plus hide_close"></i>
-						<ul class="level0 sub-menu" style="display:none;">
-							@foreach(var item in listProductCate)
-							{
-								if (item.ParentId == 0)
-								{
-									var childrenItem = listProductCate.Where(childItem => childItem.ParentId == item.Id).ToList();
+                                        <i class="ti-plus hide_close"></i>
+                                        <ul class="level1 sub-menu" style="display:none;">
+                                            @foreach (var childItem in childrenItem)
+                                            {
+                                                <li class="level2">
+                                                    <a href="/product?id=@(childItem.Id)"><span>@(childItem.CategoryName)</span></a>
+                                                </li>
+                                            }
+                                        </ul>
 
-									<li class="level1">
-										<a href="/product?id=@(item.Id)"><span>@(item.CategoryName)</span></a>
+                                    </li>
+                                }
+                            }
 
-										<i class="ti-plus hide_close"></i>
-										<ul class="level1 sub-menu" style="display:none;">
-											@foreach(var childItem in childrenItem)
-											{
-												<li class="level2">
-													<a href="/product?id=@(childItem.Id)"><span>@(childItem.CategoryName)</span></a>
-												</li>
-											}
-										</ul>
+                        </ul>
 
-									</li>
-								}
-							}
+                    </li>
 
-						</ul>
+                    <li class="level0 level-top parent level_ico">
+                        <a href="/tin-tuc">Tin tức</a>
 
-					</li>
+                    </li>
 
-					<li class="level0 level-top parent level_ico">
-						<a href="/tin-tuc">Tin tức</a>
+                    <li class="level0 level-top parent level_ico">
+                        <a href="/contact.html">Liên hệ</a>
 
-					</li>
+                    </li>
 
-					<li class="level0 level-top parent level_ico">
-						<a href="/contact.html">Liên hệ</a>
+                    <li class="level0 level-top parent level_ico">
+                        <a href="/gioi-thieu">Thông tin công ty</a>
 
-					</li>
+                    </li>
 
-					<li class="level0 level-top parent level_ico">
-						<a href="/gioi-thieu">Thông tin công ty</a>
-
-					</li>
-
-				</ul>
-			</div>
-		</div>
+                </ul>
+            </div>
+        </div>
 
 
-	</div>
-	<!-- End -->
-	<header class="header">
-		<div class="topbar">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 col-sm-6 col-xs-2">
-						<ul class="list-inline topbar_left hidden-sm hidden-xs">
+    </div>
+    <!-- End -->
+    <header class="header">
+        <div class="topbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-2">
+                        <ul class="list-inline topbar_left hidden-sm hidden-xs">
 
 
-							<li>
-								Hotline: <a class="hai01" href="tel:0987983948">0987983948</a>
+                            <li>
+                                Hotline: <a class="hai01" href="tel:0987983948">0987983948</a>
 
-								<span>-</span> <a href="tel:0949089879">0949089879</a>
-
-
-							</li>
-
-						</ul>
-					</div>
-
-					<div class="col-md-6 col-sm-6 d-list col-xs-10 a-right topbar_right">
-						<div class="list-inline a-center f-right">
-							<ul>
-
-								<li class="hidden-md hidden-lg"><a href="/register.html" title="Đăng ký">Đăng ký</a>
-								</li>
-								<li class="hidden-md hidden-lg"><a href="/login.html" title="Đăng nhập">Đăng nhập</a>
-								</li>
-								<li class="hidden-xs hidden-sm">
-									<a href="/register.html" class="account_a register_btn" title="Đăng ký">Đăng ký</a>
-								</li>
-								<li class="hidden-xs hidden-sm">
-									<a href="/login.html" class="account_a login_btn" title="Đăng nhập">Đăng nhập</a>
-								</li>
-
-								<li class="hidden-sm hidden-xs">
-
-									<a href="/contact.html" title="Hệ thống cửa hàng" class="account_a">
-										Hệ thống cửa hàng
-									</a>
-
-								</li>
-								<li class="hidden-sm hidden-xs">
-
-									<a href="/promotion.html" title="Khuyến mãi hot" class="account_a">
-										Tin khuyến mãi
-									</a>
-
-								</li>
-							</ul>
-						</div>
+                                <span>-</span> <a href="tel:0949089879">0949089879</a>
 
 
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="mid-header">
-			<div class="container">
-				<div class="row">
-					<div class="content_header">
-						<div class="header-main">
-							<div class="menu-bar-h nav-mobile-button hidden-md hidden-lg">
-								<a href="#nav-mobile"><img  src="/assets/images/i_menubar.png" alt="menu bar"></a>
-							</div>
-							<div class="col-lg-3 col-md-3">
-								<div class="logo">
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 d-list col-xs-10 a-right topbar_right">
+                        <div class="list-inline a-center f-right">
+                            <ul>
+
+                                <li class="hidden-md hidden-lg">
+                                    <a href="/register.html" title="Đăng ký">Đăng ký</a>
+                                </li>
+                                <li class="hidden-md hidden-lg">
+                                    <a href="/login.html" title="Đăng nhập">Đăng nhập</a>
+                                </li>
+                                <li class="hidden-xs hidden-sm">
+                                    <a href="/register.html" class="account_a register_btn" title="Đăng ký">Đăng ký</a>
+                                </li>
+                                <li class="hidden-xs hidden-sm">
+                                    <a href="/login.html" class="account_a login_btn" title="Đăng nhập">Đăng nhập</a>
+                                </li>
+
+                                <li class="hidden-sm hidden-xs">
+
+                                    <a href="/contact.html" title="Hệ thống cửa hàng" class="account_a">
+                                        Hệ thống cửa hàng
+                                    </a>
+
+                                </li>
+                                <li class="hidden-sm hidden-xs">
+
+                                    <a href="/promotion.html" title="Khuyến mãi hot" class="account_a">
+                                        Tin khuyến mãi
+                                    </a>
+
+                                </li>
+                            </ul>
+                        </div>
 
 
-									<a href="/" class="logo-wrapper ">
-										<img  src="/assets/images/logo.png" alt="logo ">
-									</a>
-
-								</div>
-							</div>
-							<div class="col-lg-6 col-md-6">
-								<div class="header-left">
-									<div class="header_search hidden-xs hidden-sm">
-										<form action="/search" method="get" class="input-group search-bar"
-											role="search">
-											<input type="hidden" name="type" value="product">
-
-											<input type="search" name="query" value=""
-												placeholder="Bạn đang tìm sản phẩm gì..." class="input-group-field">
-											<span class="input-group-btn">
-												<button type="submit" class="btn icon-fallback-text">
-													Tìm kiếm
-												</button>
-											</span>
-										</form>
-									</div>
-									<div class="header_search hidden-lg hidden-md">
-										<form action="/search" method="get" class="input-group search-bar"
-											role="search">
-											<input type="hidden" name="type" value="product">
-
-											<input type="search" name="query" value="" placeholder="Tìm kiếm..."
-												class="input-group-field">
-											<span class="input-group-btn">
-												<button type="submit" class="btn icon-fallback-text">
-													Tìm kiếm
-												</button>
-											</span>
-										</form>
-									</div>
-
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-3">
-								<div class="header-right">
-									<div class="header-acount hidden-lg-down hidden-xs hidden-sm">
-										<div class="wishlist_header">
-
-										</div>
-									</div>
-									<div class="top-cart-contain f-right hidden-xs hidden-sm visible-md visible-lg">
-										<div class="mini-cart text-xs-center">
-											<div class="heading-cart">
-												<a class="bg_cart" href="/cart" title="Giỏ hàng">
-													<i class="ion-android-cart"></i>
-													<span class="count_item count_item_pr"></span>
-													<span class="text-giohang hidden-xs">Giỏ hàng</span>
-												</a>
-											</div>
-											<div class="top-cart-content">
-												<ul id="cart-sidebar" class="mini-products-list count_li">
-													<li class="list-item">
-														<ul></ul>
-													</li>
-													<li class="action">
-														<ul>
-															<li class="li-fix-1">
-																<div class="top-subtotal">
-																	Tổng tiền thanh toán:
-																	<span class="price"></span>
-																</div>
-															</li>
-															<li class="li-fix-2">
-																<div class="actions">
-																	<a href="/cart" class="btn btn-primary"
-																		title="Giỏ hàng">
-																		<span>Giỏ hàng</span>
-																	</a>
-																	<a href="/checkout"
-																		class="btn btn-checkout btn-gray"
-																		title="Thanh toán">
-																		<span>Thanh toán</span>
-																	</a>
-																</div>
-															</li>
-														</ul>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="top-cart-contain f-right hidden-lg hidden-md visible-xs visible-sm">
-										<div class="mini-cart text-xs-center">
-											<div class="heading-cart">
-												<a class="bg_cart" href="/cart" title="Giỏ hàng">
-													<i class="ion-android-cart"></i>
-													<span class="count_item count_item_pr"></span>
-												</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrap_main hidden-xs hidden-sm">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-mega hidden-sm hidden-xs">
-						<div class="menu_mega lineheight40">
-							<div class="title_menu">
-								<span class="title_">Danh mục sản phẩm</span>
-								<span class="nav_button"><span class="ion-android-menu"></span></span>
-							</div>
-							<div class="list_menu_header col-lg-3 col-md-3">
-								<ul class="ul_menu">
-									@foreach(var item in listProductCate)
-									{
-										if (item.ParentId == 0)
-										{
-											var childrenItem = listProductCate.Where(childItem => childItem.ParentId == item.Id).ToList();
-
-											<li class="nav_item lv1">
-												<a href="/product?id=@(item.Id)"><span>@(item.CategoryName)<i class="fa fa-angle-right"></i></span></a>
-
-												<ul class="ul_content_right_1 row">
-													@foreach(var childItem in childrenItem)
-													{
-														<li class="nav_item lv2 col-lg-3 col-md-3">
-															<a href="/product?id=@(childItem.Id)">@(childItem.CategoryName)</a>
-														</li>
-													}
-
-												</ul>
-											</li>
-										}
-									
-									}
-									
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-						<div class="bg-header-nav hidden-xs hidden-sm">
-							<div class="relative">
-								<div class="row row-noGutter-2">
-									<nav class="header-nav">
-										<ul class="item_big">
-											<li class="nav-item active ">
-												<a class="a-img" href="/"><span>Trang chủ</span></a>
-											</li>
-											<li class="nav-item ">
-												<a class="a-img" href="#"><span>Sản phẩm</span><i
-														class="fa fa-caret-down"></i></a>
-												<ul class="item_small">
-													@foreach(var item in listProductCate)
-													{
-														if (item.ParentId == 0)
-														{
-															var childrenItem = listProductCate.Where(childItem => childItem.ParentId == item.Id).ToList();
-															<li>
-																<a href="/product?id=@(item.Id)"><span>@(item.CategoryName)<i class="fa fa-angle-right"></i></span></a>
-																
-																<ul>
-																	@foreach(var childItem in childrenItem)
-																	{
-																		<li>
-																			<a href="/product?id=@(childItem.Id)">@(childItem.CategoryName)</a>
-																		</li>
-																	}
-																</ul>
-
-															</li>
-														}
-													}
-												</ul>
-											</li>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mid-header">
+            <div class="container">
+                <div class="row">
+                    <div class="content_header">
+                        <div class="header-main">
+                            <div class="menu-bar-h nav-mobile-button hidden-md hidden-lg">
+                                <a href="#nav-mobile"><img src="/assets/images/i_menubar.png" alt="menu bar"></a>
+                            </div>
+                            <div class="col-lg-3 col-md-3">
+                                <div class="logo">
 
 
+                                    <a href="/" class="logo-wrapper ">
+                                        <img src="/assets/images/logo.png" alt="logo ">
+                                    </a>
 
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="header-left">
+                                    <div class="header_search hidden-xs hidden-sm">
+                                        <form action="/search" method="get" class="input-group search-bar"
+                                              role="search">
+                                            <input type="hidden" name="type" value="product">
 
+                                            <input type="search" name="query" value=""
+                                                   placeholder="Bạn đang tìm sản phẩm gì..." class="input-group-field">
+                                            <span class="input-group-btn">
+                                                <button type="submit" class="btn icon-fallback-text">
+                                                    Tìm kiếm
+                                                </button>
+                                            </span>
+                                        </form>
+                                    </div>
+                                    <div class="header_search hidden-lg hidden-md">
+                                        <form action="/search" method="get" class="input-group search-bar"
+                                              role="search">
+                                            <input type="hidden" name="type" value="product">
 
-											<li class="nav-item ">
-												<a class="a-img" href="/tin-tuc"><span>Tin tức</span></a>
-											</li>
+                                            <input type="search" name="query" value="" placeholder="Tìm kiếm..."
+                                                   class="input-group-field">
+                                            <span class="input-group-btn">
+                                                <button type="submit" class="btn icon-fallback-text">
+                                                    Tìm kiếm
+                                                </button>
+                                            </span>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3">
+                                <div class="header-right">
+                                    <div class="header-acount hidden-lg-down hidden-xs hidden-sm">
+                                        <div class="wishlist_header">
+
+                                        </div>
+                                    </div>
+                                    <div class="top-cart-contain f-right hidden-xs hidden-sm visible-md visible-lg">
+                                        <div class="mini-cart text-xs-center">
+                                            <div class="heading-cart">
+                                                <a class="bg_cart" href="/cart" title="Giỏ hàng">
+                                                    <i class="ion-android-cart"></i>
+                                                    <span class="count_item count_item_pr"></span>
+                                                    <span class="text-giohang hidden-xs">Giỏ hàng</span>
+                                                </a>
+                                            </div>
+                                            <div class="top-cart-content">
+                                                <ul id="cart-sidebar" class="mini-products-list count_li">
+                                                    <li class="list-item">
+                                                        <ul></ul>
+                                                    </li>
+                                                    <li class="action">
+                                                        <ul>
+                                                            <li class="li-fix-1">
+                                                                <div class="top-subtotal">
+                                                                    Tổng tiền thanh toán:
+                                                                    <span class="price"></span>
+                                                                </div>
+                                                            </li>
+                                                            <li class="li-fix-2">
+                                                                <div class="actions">
+                                                                    <a href="/cart" class="btn btn-primary"
+                                                                       title="Giỏ hàng">
+                                                                        <span>Giỏ hàng</span>
+                                                                    </a>
+                                                                    <a href="/checkout"
+                                                                       class="btn btn-checkout btn-gray"
+                                                                       title="Thanh toán">
+                                                                        <span>Thanh toán</span>
+                                                                    </a>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="top-cart-contain f-right hidden-lg hidden-md visible-xs visible-sm">
+                                        <div class="mini-cart text-xs-center">
+                                            <div class="heading-cart">
+                                                <a class="bg_cart" href="/cart" title="Giỏ hàng">
+                                                    <i class="ion-android-cart"></i>
+                                                    <span class="count_item count_item_pr"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrap_main hidden-xs hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-mega hidden-sm hidden-xs">
+                        <div class="menu_mega lineheight40">
+                            <div class="title_menu">
+                                <span class="title_">Danh mục sản phẩm</span>
+                                <span class="nav_button"><span class="ion-android-menu"></span></span>
+                            </div>
+                            <div class="list_menu_header col-lg-3 col-md-3">
+                                <ul class="ul_menu">
+                                    @foreach (var item in listProductCate)
+                                    {
+                                        if (item.ParentId == 0)
+                                        {
+                                            var childrenItem = listProductCate.Where(childItem => childItem.ParentId == item.Id).ToList();
+
+                                            <li class="nav_item lv1">
+                                                <a href="/product?id=@(item.Id)"><span>@(item.CategoryName)<i class="fa fa-angle-right"></i></span></a>
+
+                                                <ul class="ul_content_right_1 row">
+                                                    @foreach (var childItem in childrenItem)
+                                                    {
+                                                        <li class="nav_item lv2 col-lg-3 col-md-3">
+                                                            <a href="/product?id=@(childItem.Id)">@(childItem.CategoryName)</a>
+                                                        </li>
+                                                    }
+
+                                                </ul>
+                                            </li>
+                                        }
+
+                                    }
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                        <div class="bg-header-nav hidden-xs hidden-sm">
+                            <div class="relative">
+                                <div class="row row-noGutter-2">
+                                    <nav class="header-nav">
+                                        <ul class="item_big">
+                                            <li class="nav-item active ">
+                                                <a class="a-img" href="/"><span>Trang chủ</span></a>
+                                            </li>
+                                            <li class="nav-item ">
+                                                <a class="a-img" href="#">
+                                                    <span>Sản phẩm</span><i class="fa fa-caret-down"></i>
+                                                </a>
+                                                <ul class="item_small">
+                                                    @foreach (var item in listProductCate)
+                                                    {
+                                                        if (item.ParentId == 0)
+                                                        {
+                                                            var childrenItem = listProductCate.Where(childItem => childItem.ParentId == item.Id).ToList();
+                                                            <li>
+                                                                <a href="/product?id=@(item.Id)"><span>@(item.CategoryName)<i class="fa fa-angle-right"></i></span></a>
+
+                                                                <ul>
+                                                                    @foreach (var childItem in childrenItem)
+                                                                    {
+                                                                        <li>
+                                                                            <a href="/product?id=@(childItem.Id)">@(childItem.CategoryName)</a>
+                                                                        </li>
+                                                                    }
+                                                                </ul>
+
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </li>
 
 
 
 
-											<li class="nav-item ">
-												<a class="a-img" href="/lien-he"><span>Liên hệ</span></a>
-											</li>
+
+                                            <li class="nav-item ">
+                                                <a class="a-img" href="/tin-tuc"><span>Tin tức</span></a>
+                                            </li>
 
 
 
 
-											<li class="nav-item ">
-												<a class="a-img" href="/gioi-thieu"><span>Thông tin công ty</span></a>
-											</li>
+                                            <li class="nav-item ">
+                                                <a class="a-img" href="/lien-he"><span>Liên hệ</span></a>
+                                            </li>
 
 
-										</ul>
-									</nav>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>
+
+
+                                            <li class="nav-item ">
+                                                <a class="a-img" href="/gioi-thieu"><span>Thông tin công ty</span></a>
+                                            </li>
+
+
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
     @RenderBody()
-    
-	<footer class="footer">
-		<div class="site-footer">
-			<div class="top-footer">
-				<div class="container">
-					<div class="row">
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-							<div class="widget-ft">
-								<h4 class="title-menu"> <a role="button" class="collapsed" data-toggle="collapse"
-										aria-expanded="false" data-target="#collapseListMenu01"
-										aria-controls="collapseListMenu01"> Hệ thống cửa hàng <i class="fa fa-plus"
-											aria-hidden="true"></i> </a> </h4>
-								<div class="collapse" id="collapseListMenu01">
-									<div class="list-menu">
-										<div class="widget-ft wg-logo">
-											<div class="item">
-												<h4 class="title-menu4 icon_none_first"> <a>Showroom Miền bắc</a> </h4>
-												<ul class="contact contact_x">
-													<li> <span class="txt_content_child"> <span>Địa chỉ:</span> Lô 03,
-															Tầng 1, tòa B Chung cư hateco- Phường yên sở - Hoàng Mai- TP
-															Hà nội </span> </li>
-													<li class="sdt"> <span> Hotline:</span> <a
-															href="tel:0987983948">0987983948</a> </li>
-												</ul>
-											</div>
-											<div class="item">
-												<h4 class="title-menu4 icon_none_first"> <a>Showroom Miền nam</a> </h4>
-												<ul class="contact contact_x">
-													<li> <span class="txt_content_child"> <span>Địa chỉ:</span> 579-581
-															Tạ Quang Bửu, Phường 4, Quận 8, TP.HCM </span> </li>
-													<li class="sdt"> <span> Hotline:</span> <a
-															href="tel:0949089879">0949089879</a> </li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-25 col-lg-25">
-							<div class="widget-ft">
-								<h4 class="title-menu"> <a role="button" class="collapsed" data-toggle="collapse"
-										aria-expanded="false" data-target="#collapseListMenu02"
-										aria-controls="collapseListMenu02"> Chào hàng &amp; mua sỉ <i class="fa fa-plus"
-											aria-hidden="true"></i> </a> </h4>
-								<div class="collapse" id="collapseListMenu02">
-									<ul class="list-menu">
-										<li class="li_menu"><a href="/dieu-khoan">Đt : 0949089879</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-25 col-lg-25">
-							<div class="widget-ft">
-								<h4 class="title-menu"> <a role="button" class="collapsed" data-toggle="collapse"
-										aria-expanded="false" data-target="#collapseListMenu03"
-										aria-controls="collapseListMenu03"> Hỗ trợ khách hàng <i class="fa fa-plus"
-											aria-hidden="true"></i> </a> </h4>
-								<div class="collapse time_work" id="collapseListMenu03">
-									<ul class="list-menu">
-										<li class="li_menu"><a href="/chinh-sach-van-chuyen">Chính sách vận chuyển và
-												giao nhận</a></li>
-										<li class="li_menu"><a href="/chinh-sach-bao-mat-thong-tin">Chính sách bảo mật
-												thông tin</a></li>
-										<li class="li_menu"><a href="/chinh-sach-doi-tra">Chính sách đổi trả</a></li>
-										<li class="li_menu"><a href="/chinh-sach-bao-hanh">Chính sách bảo hành - bảo
-												trì</a></li>
-										<li class="li_menu"><a href="/qui-dinh-thanh-toan-1">Qui định thanh toán</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-							<div class="widget-ft last-child">
-								<h4 class="title-menu title-db"> <a role="button" class="collapsed"
-										data-toggle="collapse" aria-expanded="false" data-target="#collapseListMenu04"
-										aria-controls="collapseListMenu04"> Kết nối trên Facebook <i class="fa fa-plus"
-											aria-hidden="true"></i> </a> </h4>
-								<div class="collapse" id="collapseListMenu04">
-									<div class="facebook">
-										<div id="fb-root"></div>
-										<script> 											var timer = undefined; timer = setTimeout(() => { (function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=631942543575730"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk')); timer = undefined; }, 5000) 										</script>
-										<div class="fb-page" data-href="https://www.facebook.com/sapo/"
-											data-tabs="timeline" data-height="150" data-small-header="true"
-											data-adapt-container-width="true" data-hide-cover="false"
-											data-show-facepile="true">
-											<div class="fb-xfbml-parse-ignore">
-												<blockquote cite="https://www.facebook.com/sapo/"> <a
-														href="https://www.facebook.com/sapo/">Facebook</a> </blockquote>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="border-bottom-1px"></div>
-				</div>
-			</div>
-			<div class="mid-footer">
-				<div class="container">
-					<div class="row">
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-5">
-							<div class="widget-ft wg-logo">
-								<h4 class="title-menu2 icon_none_first"> <a>CÔNG TY TNHH DV VÀ TM MÁY THỰC PHẨM TIẾN
-										ĐẠT</a> </h4>
-								<ul class="contact">
-									<li> <span class="txt_content_child"> <span> Địa chỉ:</span> Lô 03, Tầng 1, tòa B
-											Chung cư hateco- Phường yên sở - Hoàng Mai- TP Hà nội. MST 0110120028 do Sở
-											kế hoạch đầu tư TP Hà Nội cấp ngày 16/09/2022 </span> </li>
-									<li class="sdt"> <span> Hotline:</span> <a href="tel:0987983948">0987983948</a>
-										<span class="email_style"><span> Email:</span> <a
-												href="mailto:dienmaytiendatvn@gmail.com"> dienmaytiendatvn@gmail.com</a>
-										</span> </li>
-								</ul> <a href="http://online.gov.vn/Home/WebDetails/102241" target="_blank"><img
-										src="/assets/images/logo_bct.png" style="max-width:180px;margin-bottom: 10px;"></a>
-							</div>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 pay_footer">
-							<h4 class="title-menu2 icon_none_first"> <a>Chấp nhận thanh toán</a> </h4>
-							<ul class="follow_option">
-								<li> <a href="#"><img class="lazyload"
-											src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
-											data-src="css/pay_1.png"
-											alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín."></a> </li>
-								<li> <a href="#"><img class="lazyload"
-											src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
-											data-src="css/pay_2.png"
-											alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín."></a> </li>
-								<li> <a href="#"><img class="lazyload"
-											src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
-											data-src="css/pay_3.png"
-											alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín."></a> </li>
-								<li> <a href="#"><img class="lazyload"
-											src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
-											data-src="css/pay_4.png"
-											alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín."></a> </li>
-								<li> <a href="#"><img class="lazyload"
-											src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
-											data-src="css/pay_5.png"
-											alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín."></a> </li>
-							</ul>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 social_footer">
-							<h4 class="title-menu2 icon_none_first icon_title_last"> <a>Khiếu nại &amp; CSKH</a> </h4>
-							<div class="time_work">
-								<ul class="list-menu list-menu-time">
-									<li class="li_menu li_menu_xxx"> <a class="rc yeloww"
-											href="tel:0987983948">0987983948</a> </li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="border-bottom-1px"></div>
-				</div>
-			</div>
-			<div class="bg-footer-bottom copyright clearfix">
-				<div class="container">
-					<div class="inner clearfix">
-						<div class="row tablet">
-							<div id="copyright" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 a-center fot_copyright">
-								<span class="wsp"><span class="mobile">© Bản quyền thuộc về <b>Điện máy tiến
-											đạt.vn</b><span class="hidden-xs"> | </span></span><span class="opacity1"
-										style="opacity: 0.7;">Cung cấp bởi</span> <a
-										href="https://www.sapo.vn/?utm_campaign=cpn:site_khach_hang-plm:footer&amp;utm_source=site_khach_hang&amp;utm_medium=referral&amp;utm_content=fm:text_link-km:-sz:&amp;utm_term=&amp;campaign=site_khach_hang"
-										rel="nofollow" title="Sapo" target="_blank">Sapo</a> </span> </div>
-						</div>
-					</div> <a href="#" id="back-to-top" class="backtop" title="Lên đầu trang"><i class="fa fa-angle-up"
-							aria-hidden="true"></i></a>
-				</div>
-			</div>
-		</div>
-	</footer>
-	<div class="social-fix"> <a href="https://zalo.me/0987983948" target="_blank"> <img src="/assets/images/zaloicon.png"
-				alt="Zalo Điện Máy Tiến Đạt : Tổng kho điện máy uy tín."> </a> <a
-			href="https://www.facebook.com/messages/t/100009049422542/" target="_blank"> <img src="/assets/images/messicon.png"
-				alt="Messenger Điện Máy Tiến Đạt : Tổng kho điện máy uy tín."> </a> <a class="btn-call-now visible-xs"
-			href="tel:0987983948"> <i class="fa fa-phone"></i> </a> </div>
-	<style>
+
+    <footer class="footer">
+        <div class="site-footer">
+            <div class="top-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                            <div class="widget-ft">
+                                <h4 class="title-menu">
+                                    <a role="button" class="collapsed" data-toggle="collapse"
+                                       aria-expanded="false" data-target="#collapseListMenu01"
+                                       aria-controls="collapseListMenu01">
+                                        Hệ thống cửa hàng <i class="fa fa-plus"
+                                                             aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                                <div class="collapse" id="collapseListMenu01">
+                                    <div class="list-menu">
+                                        <div class="widget-ft wg-logo">
+                                            <div class="item">
+                                                <h4 class="title-menu4 icon_none_first"> <a>Showroom Miền bắc</a> </h4>
+                                                <ul class="contact contact_x">
+                                                    <li>
+                                                        <span class="txt_content_child">
+                                                            <span>Địa chỉ:</span> Lô 03,
+                                                            Tầng 1, tòa B Chung cư hateco- Phường yên sở - Hoàng Mai- TP
+                                                            Hà nội
+                                                        </span>
+                                                    </li>
+                                                    <li class="sdt">
+                                                        <span> Hotline:</span> <a href="tel:0987983948">0987983948</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="item">
+                                                <h4 class="title-menu4 icon_none_first"> <a>Showroom Miền nam</a> </h4>
+                                                <ul class="contact contact_x">
+                                                    <li>
+                                                        <span class="txt_content_child">
+                                                            <span>Địa chỉ:</span> 579-581
+                                                            Tạ Quang Bửu, Phường 4, Quận 8, TP.HCM
+                                                        </span>
+                                                    </li>
+                                                    <li class="sdt">
+                                                        <span> Hotline:</span> <a href="tel:0949089879">0949089879</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-25 col-lg-25">
+                            <div class="widget-ft">
+                                <h4 class="title-menu">
+                                    <a role="button" class="collapsed" data-toggle="collapse"
+                                       aria-expanded="false" data-target="#collapseListMenu02"
+                                       aria-controls="collapseListMenu02">
+                                        Chào hàng &amp; mua sỉ <i class="fa fa-plus"
+                                                                  aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                                <div class="collapse" id="collapseListMenu02">
+                                    <ul class="list-menu">
+                                        <li class="li_menu"><a href="/dieu-khoan">Đt : 0949089879</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-25 col-lg-25">
+                            <div class="widget-ft">
+                                <h4 class="title-menu">
+                                    <a role="button" class="collapsed" data-toggle="collapse"
+                                       aria-expanded="false" data-target="#collapseListMenu03"
+                                       aria-controls="collapseListMenu03">
+                                        Hỗ trợ khách hàng <i class="fa fa-plus"
+                                                             aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                                <div class="collapse time_work" id="collapseListMenu03">
+                                    <ul class="list-menu">
+                                        <li class="li_menu">
+                                            <a href="/chinh-sach-van-chuyen">
+                                                Chính sách vận chuyển và
+                                                giao nhận
+                                            </a>
+                                        </li>
+                                        <li class="li_menu">
+                                            <a href="/chinh-sach-bao-mat-thong-tin">
+                                                Chính sách bảo mật
+                                                thông tin
+                                            </a>
+                                        </li>
+                                        <li class="li_menu"><a href="/chinh-sach-doi-tra">Chính sách đổi trả</a></li>
+                                        <li class="li_menu">
+                                            <a href="/chinh-sach-bao-hanh">
+                                                Chính sách bảo hành - bảo
+                                                trì
+                                            </a>
+                                        </li>
+                                        <li class="li_menu">
+                                            <a href="/qui-dinh-thanh-toan-1">Qui định thanh toán</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                            <div class="widget-ft last-child">
+                                <h4 class="title-menu title-db">
+                                    <a role="button" class="collapsed"
+                                       data-toggle="collapse" aria-expanded="false" data-target="#collapseListMenu04"
+                                       aria-controls="collapseListMenu04">
+                                        Kết nối trên Facebook <i class="fa fa-plus"
+                                                                 aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                                <div class="collapse" id="collapseListMenu04">
+                                    <div class="facebook">
+                                        <div id="fb-root"></div>
+                                        <script>var timer = undefined; timer = setTimeout(() => { (function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=631942543575730"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk')); timer = undefined; }, 5000)</script>
+                                        <div class="fb-page" data-href="https://www.facebook.com/sapo/"
+                                             data-tabs="timeline" data-height="150" data-small-header="true"
+                                             data-adapt-container-width="true" data-hide-cover="false"
+                                             data-show-facepile="true">
+                                            <div class="fb-xfbml-parse-ignore">
+                                                <blockquote cite="https://www.facebook.com/sapo/">
+                                                    <a href="https://www.facebook.com/sapo/">Facebook</a>
+                                                </blockquote>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-bottom-1px"></div>
+                </div>
+            </div>
+            <div class="mid-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-5">
+                            <div class="widget-ft wg-logo">
+                                <h4 class="title-menu2 icon_none_first">
+                                    <a>
+                                        CÔNG TY TNHH DV VÀ TM MÁY THỰC PHẨM TIẾN
+                                        ĐẠT
+                                    </a>
+                                </h4>
+                                <ul class="contact">
+                                    <li>
+                                        <span class="txt_content_child">
+                                            <span> Địa chỉ:</span> Lô 03, Tầng 1, tòa B
+                                            Chung cư hateco- Phường yên sở - Hoàng Mai- TP Hà nội. MST 0110120028 do Sở
+                                            kế hoạch đầu tư TP Hà Nội cấp ngày 16/09/2022
+                                        </span>
+                                    </li>
+                                    <li class="sdt">
+                                        <span> Hotline:</span> <a href="tel:0987983948">0987983948</a>
+                                        <span class="email_style">
+                                            <span> Email:</span> <a href="mailto:dienmaytiendatvn@gmail.com"> dienmaytiendatvn@gmail.com</a>
+                                        </span>
+                                    </li>
+                                </ul> <a href="http://online.gov.vn/Home/WebDetails/102241" target="_blank">
+                                    <img src="/assets/images/logo_bct.png" style="max-width:180px;margin-bottom: 10px;">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 pay_footer">
+                            <h4 class="title-menu2 icon_none_first"> <a>Chấp nhận thanh toán</a> </h4>
+                            <ul class="follow_option">
+                                <li>
+                                    <a href="#">
+                                        <img class="lazyload"
+                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                             data-src="css/pay_1.png"
+                                             alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img class="lazyload"
+                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                             data-src="css/pay_2.png"
+                                             alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img class="lazyload"
+                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                             data-src="css/pay_3.png"
+                                             alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img class="lazyload"
+                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                             data-src="css/pay_4.png"
+                                             alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img class="lazyload"
+                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                             data-src="css/pay_5.png"
+                                             alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 social_footer">
+                            <h4 class="title-menu2 icon_none_first icon_title_last"> <a>Khiếu nại &amp; CSKH</a> </h4>
+                            <div class="time_work">
+                                <ul class="list-menu list-menu-time">
+                                    <li class="li_menu li_menu_xxx">
+                                        <a class="rc yeloww"
+                                           href="tel:0987983948">0987983948</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-bottom-1px"></div>
+                </div>
+            </div>
+            <div class="bg-footer-bottom copyright clearfix">
+                <div class="container">
+                    <div class="inner clearfix">
+                        <div class="row tablet">
+                            <div id="copyright" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 a-center fot_copyright">
+                                <span class="wsp">
+                                    <span class="mobile">
+                                        © Bản quyền thuộc về <b>
+                                            Điện máy tiến
+                                            đạt.vn
+                                        </b><span class="hidden-xs"> | </span>
+                                    </span><span class="opacity1"
+                                                 style="opacity: 0.7;">Cung cấp bởi</span> <a href="https://www.sapo.vn/?utm_campaign=cpn:site_khach_hang-plm:footer&amp;utm_source=site_khach_hang&amp;utm_medium=referral&amp;utm_content=fm:text_link-km:-sz:&amp;utm_term=&amp;campaign=site_khach_hang"
+                                                                                              rel="nofollow" title="Sapo" target="_blank">Sapo</a>
+                                </span>
+                            </div>
+                        </div>
+                    </div> <a href="#" id="back-to-top" class="backtop" title="Lên đầu trang">
+                        <i class="fa fa-angle-up"
+                           aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="social-fix">
+        <a href="https://zalo.me/0987983948" target="_blank">
+            <img src="/assets/images/zaloicon.png"
+                 alt="Zalo Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.">
+        </a> <a href="https://www.facebook.com/messages/t/100009049422542/" target="_blank">
+            <img src="/assets/images/messicon.png"
+                 alt="Messenger Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.">
+        </a> <a class="btn-call-now visible-xs"
+                href="tel:0987983948"> <i class="fa fa-phone"></i> </a>
+    </div>
+    <style>
 		.social-fix {
 			position: fixed;
 			top: initial !important;
@@ -662,252 +752,301 @@
 				min-width: initial
 			}
 		}
-	</style> 
-	<script src="/assets/js/option-selectors.js" type="text/javascript"></script>
-	<script src="/assets/js/api.jquery.js" type="text/javascript"></script> <!-- Plugin JS -->
-	<script src="/assets/js/owl.carousel.min.js" type="text/javascript"></script>
-	<link rel="preload" as="script" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
-	<script src="/assets/js/bootstrap.min.js" crossorigin="anonymous"></script> <!-- Add to cart -->
-	<div class="ajax-load"> <span class="loading-icon"> <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-				xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="30px"
-				viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-				<rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
-					<animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s"
-						repeatCount="indefinite"></animate>
-					<animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s"
-						repeatCount="indefinite"></animate>
-					<animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s"
-						repeatCount="indefinite"></animate>
+    </style>
+    <script src="/assets/js/option-selectors.js" type="text/javascript"></script>
+    <script src="/assets/js/api.jquery.js" type="text/javascript"></script> <!-- Plugin JS -->
+    <script src="/assets/js/owl.carousel.min.js" type="text/javascript"></script>
+    <link rel="preload" as="script" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    <script src="/assets/js/bootstrap.min.js" crossorigin="anonymous"></script> <!-- Add to cart -->
+    <div class="ajax-load">
+        <span class="loading-icon">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="30px"
+                 viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+            <rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
+            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
 				</rect>
-				<rect x="8" y="10" width="4" height="10" fill="#333" opacity="0.2">
-					<animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s"
-						repeatCount="indefinite"></animate>
-					<animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s"
-						repeatCount="indefinite"></animate>
-					<animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s"
-						repeatCount="indefinite"></animate>
+            <rect x="8" y="10" width="4" height="10" fill="#333" opacity="0.2">
+            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
 				</rect>
-				<rect x="16" y="10" width="4" height="10" fill="#333" opacity="0.2">
-					<animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s"
-						repeatCount="indefinite"></animate>
-					<animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s"
-						repeatCount="indefinite"></animate>
-					<animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s"
-						repeatCount="indefinite"></animate>
+            <rect x="16" y="10" width="4" height="10" fill="#333" opacity="0.2">
+            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
 				</rect>
-			</svg> </span> </div>
-	<div class="loading awe-popup">
-		<div class="overlay"></div>
-		<div class="loader" title="2"> <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-				xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="30px"
-				viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-				<rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
-					<animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s"
-						repeatCount="indefinite"></animate>
-					<animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s"
-						repeatCount="indefinite"></animate>
-					<animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s"
-						repeatCount="indefinite"></animate>
+			</svg>
+        </span>
+    </div>
+    <div class="loading awe-popup">
+        <div class="overlay"></div>
+        <div class="loader" title="2">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="30px"
+                 viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+            <rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
+            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
 				</rect>
-				<rect x="8" y="10" width="4" height="10" fill="#333" opacity="0.2">
-					<animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s"
-						repeatCount="indefinite"></animate>
-					<animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s"
-						repeatCount="indefinite"></animate>
-					<animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s"
-						repeatCount="indefinite"></animate>
+            <rect x="8" y="10" width="4" height="10" fill="#333" opacity="0.2">
+            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
 				</rect>
-				<rect x="16" y="10" width="4" height="10" fill="#333" opacity="0.2">
-					<animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s"
-						repeatCount="indefinite"></animate>
-					<animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s"
-						repeatCount="indefinite"></animate>
-					<animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s"
-						repeatCount="indefinite"></animate>
+            <rect x="16" y="10" width="4" height="10" fill="#333" opacity="0.2">
+            <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
+            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s"
+                     repeatCount="indefinite"></animate>
 				</rect>
-			</svg> </div>
-	</div>
-	<div class="addcart-popup product-popup awe-popup">
-		<div class="overlay no-background"></div>
-		<div class="content">
-			<div class="row row-noGutter">
-				<div class="col-xl-6 col-xs-12">
-					<div class="btn btn-full btn-primary a-left popup-title"><i class="fa fa-check"></i>Thêm vào giỏ
-						hàng thành công </div> <a href="javascript:void(0)" class="close-window close-popup"><i
-							class="fa fa-close"></i></a>
-					<div class="info clearfix">
-						<div class="product-image margin-top-5"> <img alt="popup" src="/assets/images/logo.png"
-								style="max-width:150px; height:auto"> </div>
-						<div class="product-info">
-							<p class="product-name"></p>
-							<p class="quantity color-main"><span>Số lượng: </span></p>
-							<p class="total-money color-main"><span>Tổng tiền: </span></p>
-						</div>
-						<div class="actions"> <button class="btn  btn-primary  margin-top-5 btn-continue">Tiếp tục mua
-								hàng</button> <button class="btn btn-gray margin-top-5"
-								onclick="window.location='/cart'">Kiểm tra giỏ hàng</button> </div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="error-popup awe-popup">
-		<div class="overlay no-background"></div>
-		<div class="popup-inner content">
-			<div class="error-message"></div>
-		</div>
-	</div>
-	<script src="/assets/js/jsfooter.js"> 	</script>
-	<div id="popup-cart" class="modal fade" role="dialog">
-		<div id="popup-cart-desktop" class="clearfix">
-			<div class="title-popup-cart"> <img src="/assets/images/icon-check.png"
-					alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín."> <span class="your_product">Bạn đã thêm <span
-						class="cart_name_style">[ <span class="cart-popup-name"></span>]</span> vào giỏ hàng thành công
-					! </span> </div>
-			<div class="wrap_popup">
-				<div class="title-quantity-popup"> <span class="cart_status" onclick="window.location.href='/cart';">Giỏ
-						hàng của bạn có <span class="cart-popup-count"></span> sản phẩm </span> <i
-						class="fa fa-caret-right" aria-hidden="true"></i> </div>
-				<div class="content-popup-cart">
-					<div class="thead-popup">
-						<div style="width: 53%;" class="text-left">Sản phẩm</div>
-						<div style="width: 15%;" class="text-center">Đơn giá</div>
-						<div style="width: 15%;" class="text-center">Số lượng</div>
-						<div style="width: 17%;" class="text-center">Thành tiền</div>
-					</div>
-					<div class="tbody-popup scrollbar-dynamic"> </div>
-					<div class="tfoot-popup">
-						<div class="tfoot-popup-1 a-right clearfix"> <span class="total-p popup-total">Tổng tiền thanh
-								toán: <span class="total-price"></span></span> </div>
-						<div class="tfoot-popup-2 clearfix"> <a class="button buy_ btn-proceed-checkout"
-								title="Tiếp tục mua hàng" onclick="$('#popup-cart').modal('hide');"><span><span>Tiếp tục
-										mua hàng</span></span></a> <a class="button checkout_ btn-proceed-checkout"
-								title="Thực hiện thanh toán" href="/checkout"><span>Thực hiện thanh toán</span></a>
-						</div>
-					</div>
-				</div> <a title="Close" class="quickview-close close-window" href="javascript:;"
-					onclick="$('#popup-cart').modal('hide');"><i class="fa  fa-close"></i></a>
-			</div>
-		</div>
-	</div>
-	<div id="myModal" class="modal fade" role="dialog"> </div> <!-- Quick view -->
-	<div id="quick-view-product" class="quickview-product" style="display:none;">
-		<div class="quickview-overlay fancybox-overlay fancybox-overlay-fixed"></div>
-		<div class="quick-view-product"></div>
-		<div id="quickview-modal" style="display:none;">
-			<div class="block-quickview primary_block row">
-				<div class="product-left-column col-xs-12 col-sm-5 col-md-5 col-lg-5">
-					<div class="clearfix image-block"> <span class="view_full_size"> <a class="img-product" title=""
-								href="#"> <img id="product-featured-image-quickview"
-									class="img-responsive product-featured-image-quickview" src="/assets/images/logo.png"
-									alt="quickview"> </a> </span>
-						<div class="loading-imgquickview" style="display:none;"></div>
-					</div>
-					<div class="more-view-wrapper clearfix">
-						<div class="thumbs_quickview" id="thumbs_list_quickview">
-							<ul class="product-photo-thumbs quickview-more-views-owlslider" id="thumblist_quickview">
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="product-center-column product-info product-item col-xs-5 col-sm-7 col-md-7 col-lg-7">
-					<div class="head-qv">
-						<h3 class="qwp-name">abc</h3>
-						<div class="vend-qv">
-							<div class="left_vend"> <span class="vendor_"></span> <span class="line">|</span> Tình
-								trạng: <span class="soluong"></span> </div>
-						</div>
-					</div>
-					<div class="quickview-info">
-						<div class="reviews_qv">
-							<div class="bizweb-product-reviews-badge" data-id=""></div>
-						</div> <span class="prices"> <span class="price"></span> <del class="old-price"></del> </span>
-					</div>
-					<div class="product-description">
-						<div class="rte text2line"> </div>
-					</div>
-					<form action="/cart/add" method="post" enctype="multipart/form-data"
-						class="quick_option variants form-ajaxtocart"> <span class="price-product-detail hidden"
-							style="opacity: 0;"> <span class=""></span> </span> <select name="variantId" class="hidden"
-							style="display:none"></select>
-						<div class="clearfix"></div>
-						<div class="quantity_wanted_p">
-							<div class="input_qty_qv"> <a class="btn_num num_1 button button_qty"
-									onclick="decreaseQuantity()">-</a> <input type="text" id="quantity-detail"
-									name="quantity" value="1" onkeypress="return validate(event)"
-									onkeyup="return valid(this,'numbers')" onblur="return valid(this,'numbers')"
-									class="form-control prd_quantity"> <a class="btn_num num_2 button button_qty"
-									onclick="increaseQuantity()">+</a> </div>
-							<script> 								function decreaseQuantity() { var result = document.getElementById('quantity-detail'); var qtyqv = parseInt(result.value); if (!isNaN(qtyqv) && qtyqv > 1) { result.value = qtyqv - 1; } return false; } function increaseQuantity() { var result = document.getElementById('quantity-detail'); var qtyqv = parseInt(result.value); if (!isNaN(qtyqv)) { result.value = qtyqv + 1; } return false; } function validate(evt) { var theEvent = evt || window.event; var key = theEvent.keyCode || theEvent.which; key = String.fromCharCode(key); var regex = /[0-9]|\./; if (!regex.test(key)) { theEvent.returnValue = false; if (theEvent.preventDefault) theEvent.preventDefault(); } } function valid(element, type) { var regex = type === 'numbers' ? /[0-9]/g : /[a-zA-Z]/g; element.value = element.value.replace(regex, ''); } 							</script>
-							<div class="button_actions"> <button type="submit"
-									class="btn btn-lg fix_add_to_cart  btn-cart button_cart_buy_enable add_to_cart btn_buy add_to_cart_detail ajax_addtocart"
-									title="Cho vào giỏ hàng"> <span class="btn-image"> <img
-											src="/assets/images/shopping_cart.png" alt="shopping-cart"> </span> <span
-										class="btn-content">Cho vào giỏ hàng</span> </button> </div>
-						</div>
-						<div class="total-price" style="display:none"> <label>Tổng cộng: </label> <span></span> </div>
-					</form>
-				</div>
-			</div> <a title="Close" class="quickview-close close-window" href="javascript:;"><i
-					class="fa   fa-times"></i></a>
-		</div>
-	</div>
-	<script> 		document.addEventListener('DOMContentLoaded', function () {
-								var quickViewButton = document.getElementById('xem_nhanh button_wh_40 btn_view right-to quick-view hidden-xs hidden-sm hidden-md'); if (quickViewButton) {
-									quickViewButton.addEventListener('click', function (event) {
-										event.preventDefault();  					// Hiển thị modal xem nhanh 					var quickViewModal = document.getElementById('quick-view-product'); 					if (quickViewModal) { 						quickViewModal.style.display = 'block'; 					} 				}); 			} 		}); 	</script>
-	<script
-		type="text/javascript">  		Bizweb.doNotTriggerClickOnThumb = false; function changeImageQuickView(img, selector) { var src = $(img).attr("src"); src = src.replace("_compact", ""); $(selector).attr("src", src); } function validate(evt) { var theEvent = evt || window.event; var key = theEvent.keyCode || theEvent.which; key = String.fromCharCode(key); var regex = /[0-9]|\./; if (!regex.test(key)) { theEvent.returnValue = false; if (theEvent.preventDefault) theEvent.preventDefault(); } } var selectCallbackQuickView = function (variant, selector) { $('#quick-view-product form').show(); var productItem = jQuery('.quick-view-product .product-item'), addToCart = productItem.find('.add_to_cart_detail'), productPrice = productItem.find('.price'), comparePrice = productItem.find('.old-price'), status = productItem.find('.soluong'), totalPrice = productItem.find('.total-price span'); if (variant && variant.available) { var form = jQuery('#' + selector.domIdPrefix).closest('form'); for (var i = 0, length = variant.options.length; i < length; i++) { var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] + '"]'); if (radioButton.size()) { radioButton.get(0).checked = true; } } addToCart.removeClass('disabled').removeAttr('disabled'); addToCart.text('Cho vào giỏ hàng').removeAttr('disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Cho vào giỏ hàng').html('<span class="btn-image"><img src=\"css/shopping_cart.png\" alt="shopping-cart"/></span><span class="btn-content">Cho vào giỏ hàng</span>').show(); status.text('Còn hàng'); if (variant.price < 1) { $("#quick-view-product .price").html('Liên hệ'); $("#quick-view-product del, #quick-view-product .quantity_wanted_p").hide(); $("#quick-view-product .prices .old-price").hide(); } else { productPrice.html(Bizweb.formatMoney(variant.price, "{{amount_no_decimals_with_comma_separator}}₫")); if (variant.compare_at_price > variant.price) { comparePrice.html(Bizweb.formatMoney(variant.compare_at_price, "{{amount_no_decimals_with_comma_separator}}₫")).show(); productPrice.addClass('on-sale'); } else { comparePrice.hide(); productPrice.removeClass('on-sale'); } $(".quantity_wanted_p").show(); } updatePricingQuickView();  				/*begin variant image*/ 				if (variant && variant.featured_image) { var originalImage = $("#product-featured-image-quickview"); var newImage = variant.featured_image; var element = originalImage[0]; Bizweb.Image.switchImage(newImage, element, function (newImageSizedSrc, newImage, element) { $('#thumblist_quickview img').each(function () { var parentThumbImg = $(this).parent(); var productImage = $(this).parent().data("image"); if (newImageSizedSrc.includes(productImage)) { $(this).parent().trigger('click'); return false; } }); }); $('#product-featured-image-quickview').attr('src', variant.featured_image.src); } } else { addToCart.addClass('disabled').attr('disabled', 'disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show(); status.text('Hết hàng'); $(".quantity_wanted_p").show(); if (variant) { if (variant.price < 1) { $("#quick-view-product .price").html('Liên hệ'); $("#quick-view-product del").hide(); $("#quick-view-product .quantity_wanted_p").hide(); $("#quick-view-product .prices .old-price").hide(); comparePrice.hide(); productPrice.removeClass('on-sale'); addToCart.addClass('disabled').attr('disabled', 'disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show(); } else { if (variant.compare_at_price > variant.price) { comparePrice.html(Bizweb.formatMoney(variant.compare_at_price, "{{amount_no_decimals_with_comma_separator}}₫")).show(); productPrice.addClass('on-sale'); } else { comparePrice.hide(); productPrice.removeClass('on-sale'); $("#quick-view-product .prices .old-price").html(''); } $("#quick-view-product .price").html(Bizweb.formatMoney(variant.price, "{{amount_no_decimals_with_comma_separator}}₫")); $("#quick-view-product del ").hide(); $("#quick-view-product .prices .old-price").show(); addToCart.addClass('disabled').attr('disabled', 'disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show(); } } else { $("#quick-view-product .price").html('Liên hệ'); $("#quick-view-product del").hide(); $("#quick-view-product .quantity_wanted_p").hide(); $("#quick-view-product .prices .old-price").hide(); comparePrice.hide(); productPrice.removeClass('on-sale'); addToCart.addClass('disabled').attr('disabled', 'disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show(); } } 			/*begin variant image*/ 			if (variant && variant.featured_image) { var originalImage = $("#product-featured-image-quickview"); var newImage = variant.featured_image; var element = originalImage[0]; Bizweb.Image.switchImage(newImage, element, function (newImageSizedSrc, newImage, element) { $('#thumblist_quickview img').each(function () { var parentThumbImg = $(this).parent(); var productImage = $(this).parent().data("image"); if (newImageSizedSrc.includes(productImage)) { $(this).parent().trigger('click'); return false; } }); }); $('#product-featured-image-quickview').attr('src', variant.featured_image.src); } }; 	</script>
-	<script type="text/javascript" defer="" src="/assets/js/quickview.js"></script> <!-- Main JS -->
-	<link rel="preload" as="script" href="css/main.js">
-	<script src="/assets/js/main.js" type="text/javascript"></script> <!-- Product detail JS,CSS -->
-	<script> 		var timer = undefined; timer = setTimeout(() => { 			//<![CDATA[  			function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("footer")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) } loadCSS("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"); 			function loadCSSFont(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("footer")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) } loadCSSFont("https://cdn.jsdelivr.net/themify-icons/0.1.2/css/themify-icons.css"); 			function loadCSSFonts(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("footer")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) } loadCSSFonts("https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"); 			//]]>  			timer = undefined; 		}, 5000) 	</script>
-	<a class="btn-call-now"> <i class="fa fa-phone"></i> <span>Hotline: 0987983948</span> </a>
-	<style>
-		.btn-call-now {
-			display: flex;
-			align-items: center;
-			position: fixed;
-			width: 260px;
-			bottom: 20px;
-			background: #f00;
-			-webkit-box-shadow: 0 0 5px #ddd;
-			-moz-box-shadow: 0 0 5px #ddd;
-			box-shadow: 0 0 5px #ddd;
-			z-index: 999999999;
-			left: 20px;
-			top: initial !important;
-			color: #FFF;
-			font-weight: 700;
-			font-size: 125%;
-			border-radius: 25px;
-			padding: 5px;
-			-moz-animation-duration: 500ms;
-			-moz-animation-name: calllink;
-			-moz-animation-iteration-count: infinite;
-			-moz-animation-direction: alternate;
-			-webkit-animation-duration: 500ms;
-			-webkit-animation-name: calllink;
-			-webkit-animation-iteration-count: infinite;
-			-webkit-animation-direction: alternate;
-			animation-duration: 500ms;
-			animation-name: calllink;
-			animation-iteration-count: infinite;
-			animation-direction: alternate;
-		}
+			</svg>
+        </div>
+    </div>
+    <div class="addcart-popup product-popup awe-popup">
+        <div class="overlay no-background"></div>
+        <div class="content">
+            <div class="row row-noGutter">
+                <div class="col-xl-6 col-xs-12">
+                    <div class="btn btn-full btn-primary a-left popup-title">
+                        <i class="fa fa-check"></i>Thêm vào giỏ
+                        hàng thành công
+                    </div> <a href="javascript:void(0)" class="close-window close-popup">
+                        <i class="fa fa-close"></i>
+                    </a>
+                    <div class="info clearfix">
+                        <div class="product-image margin-top-5">
+                            <img alt="popup" src="/assets/images/logo.png"
+                                 style="max-width:150px; height:auto">
+                        </div>
+                        <div class="product-info">
+                            <p class="product-name"></p>
+                            <p class="quantity color-main"><span>Số lượng: </span></p>
+                            <p class="total-money color-main"><span>Tổng tiền: </span></p>
+                        </div>
+                        <div class="actions">
+                            <button class="btn  btn-primary  margin-top-5 btn-continue">
+                                Tiếp tục mua
+                                hàng
+                            </button> <button class="btn btn-gray margin-top-5"
+                                              onclick="window.location='/cart'">
+                                Kiểm tra giỏ hàng
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="error-popup awe-popup">
+        <div class="overlay no-background"></div>
+        <div class="popup-inner content">
+            <div class="error-message"></div>
+        </div>
+    </div>
+    <script src="/assets/js/jsfooter.js"></script>
+    <div id="popup-cart" class="modal fade" role="dialog">
+        <div id="popup-cart-desktop" class="clearfix">
+            <div class="title-popup-cart">
+                <img src="/assets/images/icon-check.png"
+                     alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín."> <span class="your_product">
+                    Bạn đã thêm <span class="cart_name_style">[ <span class="cart-popup-name"></span>]</span> vào giỏ hàng thành công
+                    !
+                </span>
+            </div>
+            <div class="wrap_popup">
+                <div class="title-quantity-popup">
+                    <span class="cart_status" onclick="window.location.href='/cart';">
+                        Giỏ
+                        hàng của bạn có <span class="cart-popup-count"></span> sản phẩm
+                    </span> <i class="fa fa-caret-right" aria-hidden="true"></i>
+                </div>
+                <div class="content-popup-cart">
+                    <div class="thead-popup">
+                        <div style="width: 53%;" class="text-left">Sản phẩm</div>
+                        <div style="width: 15%;" class="text-center">Đơn giá</div>
+                        <div style="width: 15%;" class="text-center">Số lượng</div>
+                        <div style="width: 17%;" class="text-center">Thành tiền</div>
+                    </div>
+                    <div class="tbody-popup scrollbar-dynamic"> </div>
+                    <div class="tfoot-popup">
+                        <div class="tfoot-popup-1 a-right clearfix">
+                            <span class="total-p popup-total">
+                                Tổng tiền thanh
+                                toán: <span class="total-price"></span>
+                            </span>
+                        </div>
+                        <div class="tfoot-popup-2 clearfix">
+                            <a class="button buy_ btn-proceed-checkout"
+                               title="Tiếp tục mua hàng" onclick="$('#popup-cart').modal('hide');">
+                                <span>
+                                    <span>
+                                        Tiếp tục
+                                        mua hàng
+                                    </span>
+                                </span>
+                            </a> <a class="button checkout_ btn-proceed-checkout"
+                                    title="Thực hiện thanh toán" href="/checkout"><span>Thực hiện thanh toán</span></a>
+                        </div>
+                    </div>
+                </div> <a title="Close" class="quickview-close close-window" href="javascript:;"
+                          onclick="$('#popup-cart').modal('hide');"><i class="fa  fa-close"></i></a>
+            </div>
+        </div>
+    </div>
+    <div id="myModal" class="modal fade" role="dialog"> </div> <!-- Quick view -->
+    <div id="quick-view-product" class="quickview-product" style="display:none;">
+        <div class="quickview-overlay fancybox-overlay fancybox-overlay-fixed"></div>
+        <div class="quick-view-product"></div>
+        <div id="quickview-modal" style="display:none;">
+            <div class="block-quickview primary_block row">
+                <div class="product-left-column col-xs-12 col-sm-5 col-md-5 col-lg-5">
+                    <div class="clearfix image-block">
+                        <span class="view_full_size">
+                            <a class="img-product" title=""
+                               href="#">
+                                <img id="product-featured-image-quickview"
+                                     class="img-responsive product-featured-image-quickview" src="/assets/images/logo.png"
+                                     alt="quickview">
+                            </a>
+                        </span>
+                        <div class="loading-imgquickview" style="display:none;"></div>
+                    </div>
+                    <div class="more-view-wrapper clearfix">
+                        <div class="thumbs_quickview" id="thumbs_list_quickview">
+                            <ul class="product-photo-thumbs quickview-more-views-owlslider" id="thumblist_quickview">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-center-column product-info product-item col-xs-5 col-sm-7 col-md-7 col-lg-7">
+                    <div class="head-qv">
+                        <h3 class="qwp-name">abc</h3>
+                        <div class="vend-qv">
+                            <div class="left_vend">
+                                <span class="vendor_"></span> <span class="line">|</span> Tình
+                                trạng: <span class="soluong"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quickview-info">
+                        <div class="reviews_qv">
+                            <div class="bizweb-product-reviews-badge" data-id=""></div>
+                        </div> <span class="prices"> <span class="price"></span> <del class="old-price"></del> </span>
+                    </div>
+                    <div class="product-description">
+                        <div class="rte text2line"> </div>
+                    </div>
+                    <form action="/cart/add" method="post" enctype="multipart/form-data"
+                          class="quick_option variants form-ajaxtocart">
+                        <span class="price-product-detail hidden"
+                              style="opacity: 0;"> <span class=""></span> </span> <select name="variantId" class="hidden"
+                                                                                          style="display:none"></select>
+                        <div class="clearfix"></div>
+                        <div class="quantity_wanted_p">
+                            <div class="input_qty_qv">
+                                <a class="btn_num num_1 button button_qty"
+                                   onclick="decreaseQuantity()">-</a> <input type="text" id="quantity-detail"
+                                                                             name="quantity" value="1" onkeypress="return validate(event)"
+                                                                             onkeyup="return valid(this,'numbers')" onblur="return valid(this,'numbers')"
+                                                                             class="form-control prd_quantity"> <a class="btn_num num_2 button button_qty"
+                                                                                                                   onclick="increaseQuantity()">+</a>
+                            </div>
+                            <script>function decreaseQuantity() { var result = document.getElementById('quantity-detail'); var qtyqv = parseInt(result.value); if (!isNaN(qtyqv) && qtyqv > 1) { result.value = qtyqv - 1; } return false; } function increaseQuantity() { var result = document.getElementById('quantity-detail'); var qtyqv = parseInt(result.value); if (!isNaN(qtyqv)) { result.value = qtyqv + 1; } return false; } function validate(evt) { var theEvent = evt || window.event; var key = theEvent.keyCode || theEvent.which; key = String.fromCharCode(key); var regex = /[0-9]|\./; if (!regex.test(key)) { theEvent.returnValue = false; if (theEvent.preventDefault) theEvent.preventDefault(); } } function valid(element, type) { var regex = type === 'numbers' ? /[0-9]/g : /[a-zA-Z]/g; element.value = element.value.replace(regex, ''); }</script>
+                            <div class="button_actions">
+                                <button type="submit"
+                                        class="btn btn-lg fix_add_to_cart  btn-cart button_cart_buy_enable add_to_cart btn_buy add_to_cart_detail ajax_addtocart"
+                                        title="Cho vào giỏ hàng">
+                                    <span class="btn-image">
+                                        <img src="/assets/images/shopping_cart.png" alt="shopping-cart">
+                                    </span> <span class="btn-content">Cho vào giỏ hàng</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="total-price" style="display:none"> <label>Tổng cộng: </label> <span></span> </div>
+                    </form>
+                </div>
+            </div> <a title="Close" class="quickview-close close-window" href="javascript:;">
+                <i class="fa   fa-times"></i>
+            </a>
+        </div>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+            var quickViewButton = document.getElementById('xem_nhanh button_wh_40 btn_view right-to quick-view hidden-xs hidden-sm hidden-md'); if (quickViewButton) {
+                quickViewButton.addEventListener('click', function (event) {
+                    event.preventDefault();  					// Hiển thị modal xem nhanh 					var quickViewModal = document.getElementById('quick-view-product'); 					if (quickViewModal) { 						quickViewModal.style.display = 'block'; 					} 				}); 			} 		}); 	</script>
+    <script type="text/javascript">  		Bizweb.doNotTriggerClickOnThumb = false; function changeImageQuickView(img, selector) { var src = $(img).attr("src"); src = src.replace("_compact", ""); $(selector).attr("src", src); } function validate(evt) { var theEvent = evt || window.event; var key = theEvent.keyCode || theEvent.which; key = String.fromCharCode(key); var regex = /[0-9]|\./; if (!regex.test(key)) { theEvent.returnValue = false; if (theEvent.preventDefault) theEvent.preventDefault(); } } var selectCallbackQuickView = function (variant, selector) { $('#quick-view-product form').show(); var productItem = jQuery('.quick-view-product .product-item'), addToCart = productItem.find('.add_to_cart_detail'), productPrice = productItem.find('.price'), comparePrice = productItem.find('.old-price'), status = productItem.find('.soluong'), totalPrice = productItem.find('.total-price span'); if (variant && variant.available) { var form = jQuery('#' + selector.domIdPrefix).closest('form'); for (var i = 0, length = variant.options.length; i < length; i++) { var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] + '"]'); if (radioButton.size()) { radioButton.get(0).checked = true; } } addToCart.removeClass('disabled').removeAttr('disabled'); addToCart.text('Cho vào giỏ hàng').removeAttr('disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Cho vào giỏ hàng').html('<span class="btn-image"><img src=\"css/shopping_cart.png\" alt="shopping-cart"/></span><span class="btn-content">Cho vào giỏ hàng</span>').show(); status.text('Còn hàng'); if (variant.price < 1) { $("#quick-view-product .price").html('Liên hệ'); $("#quick-view-product del, #quick-view-product .quantity_wanted_p").hide(); $("#quick-view-product .prices .old-price").hide(); } else { productPrice.html(Bizweb.formatMoney(variant.price, "{{amount_no_decimals_with_comma_separator}}₫")); if (variant.compare_at_price > variant.price) { comparePrice.html(Bizweb.formatMoney(variant.compare_at_price, "{{amount_no_decimals_with_comma_separator}}₫")).show(); productPrice.addClass('on-sale'); } else { comparePrice.hide(); productPrice.removeClass('on-sale'); } $(".quantity_wanted_p").show(); } updatePricingQuickView();  				/*begin variant image*/ 				if (variant && variant.featured_image) { var originalImage = $("#product-featured-image-quickview"); var newImage = variant.featured_image; var element = originalImage[0]; Bizweb.Image.switchImage(newImage, element, function (newImageSizedSrc, newImage, element) { $('#thumblist_quickview img').each(function () { var parentThumbImg = $(this).parent(); var productImage = $(this).parent().data("image"); if (newImageSizedSrc.includes(productImage)) { $(this).parent().trigger('click'); return false; } }); }); $('#product-featured-image-quickview').attr('src', variant.featured_image.src); } } else { addToCart.addClass('disabled').attr('disabled', 'disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show(); status.text('Hết hàng'); $(".quantity_wanted_p").show(); if (variant) { if (variant.price < 1) { $("#quick-view-product .price").html('Liên hệ'); $("#quick-view-product del").hide(); $("#quick-view-product .quantity_wanted_p").hide(); $("#quick-view-product .prices .old-price").hide(); comparePrice.hide(); productPrice.removeClass('on-sale'); addToCart.addClass('disabled').attr('disabled', 'disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show(); } else { if (variant.compare_at_price > variant.price) { comparePrice.html(Bizweb.formatMoney(variant.compare_at_price, "{{amount_no_decimals_with_comma_separator}}₫")).show(); productPrice.addClass('on-sale'); } else { comparePrice.hide(); productPrice.removeClass('on-sale'); $("#quick-view-product .prices .old-price").html(''); } $("#quick-view-product .price").html(Bizweb.formatMoney(variant.price, "{{amount_no_decimals_with_comma_separator}}₫")); $("#quick-view-product del ").hide(); $("#quick-view-product .prices .old-price").show(); addToCart.addClass('disabled').attr('disabled', 'disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show(); } } else { $("#quick-view-product .price").html('Liên hệ'); $("#quick-view-product del").hide(); $("#quick-view-product .quantity_wanted_p").hide(); $("#quick-view-product .prices .old-price").hide(); comparePrice.hide(); productPrice.removeClass('on-sale'); addToCart.addClass('disabled').attr('disabled', 'disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show(); } } 			/*begin variant image*/ 			if (variant && variant.featured_image) { var originalImage = $("#product-featured-image-quickview"); var newImage = variant.featured_image; var element = originalImage[0]; Bizweb.Image.switchImage(newImage, element, function (newImageSizedSrc, newImage, element) { $('#thumblist_quickview img').each(function () { var parentThumbImg = $(this).parent(); var productImage = $(this).parent().data("image"); if (newImageSizedSrc.includes(productImage)) { $(this).parent().trigger('click'); return false; } }); }); $('#product-featured-image-quickview').attr('src', variant.featured_image.src); } }; 	</script>
+    <script type="text/javascript" defer="" src="/assets/js/quickview.js"></script> <!-- Main JS -->
+    <link rel="preload" as="script" href="css/main.js">
+    <script src="/assets/js/main.js" type="text/javascript"></script> <!-- Product detail JS,CSS -->
+    <script>var timer = undefined; timer = setTimeout(() => { 			//<![CDATA[  			function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("footer")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) } loadCSS("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"); 			function loadCSSFont(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("footer")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) } loadCSSFont("https://cdn.jsdelivr.net/themify-icons/0.1.2/css/themify-icons.css"); 			function loadCSSFonts(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("footer")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) } loadCSSFonts("https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"); 			//]]>  			timer = undefined; 		}, 5000)</script>
+    <a class="btn-call-now"> <i class="fa fa-phone"></i> <span>Hotline: 0987983948</span> </a>
+    <style>
+        .btn-call-now {
+            display: flex;
+            align-items: center;
+            position: fixed;
+            width: 260px;
+            bottom: 20px;
+            background: #f00;
+            -webkit-box-shadow: 0 0 5px #ddd;
+            -moz-box-shadow: 0 0 5px #ddd;
+            box-shadow: 0 0 5px #ddd;
+            z-index: 999999999;
+            left: 20px;
+            top: initial !important;
+            color: #FFF;
+            font-weight: 700;
+            font-size: 125%;
+            border-radius: 25px;
+            padding: 5px;
+            -moz-animation-duration: 500ms;
+            -moz-animation-name: calllink;
+            -moz-animation-iteration-count: infinite;
+            -moz-animation-direction: alternate;
+            -webkit-animation-duration: 500ms;
+            -webkit-animation-name: calllink;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: alternate;
+            animation-duration: 500ms;
+            animation-name: calllink;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
 
-		.btn-call-now .fa {
-			color: #b70100;
-			font-size: 26px;
-			background: #fff;
-			width: 40px;
-			height: 40px;
-			line-height: 40px;
-			border-radius: 20px;
-			margin-right: 5px;
-			text-align: center;
-		}
-	</style>
+            .btn-call-now .fa {
+                color: #b70100;
+                font-size: 26px;
+                background: #fff;
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+                border-radius: 20px;
+                margin-right: 5px;
+                text-align: center;
+            }
+    </style>
 </body>
 
 </html>
