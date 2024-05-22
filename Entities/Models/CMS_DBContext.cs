@@ -23,6 +23,8 @@ namespace Entities.Models
         public DbSet<Import> Imports { get; set; }
         public DbSet<Export> Exports { get; set; }
         public DbSet<ImportDetail> ImportDetails { get; set; }
+        public DbSet<StaticData> StaticDatas { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Accounts>().ToTable("Accounts");
@@ -41,6 +43,7 @@ namespace Entities.Models
             modelBuilder.Entity<ImportDetail>().ToTable("ImportDetail");
             modelBuilder.Entity<Feedback>().ToTable("Feedback");
             modelBuilder.Entity<SubscribeEmail>().ToTable("SubscribeEmail");
+            modelBuilder.Entity<StaticData>().ToTable("staticdatas");
         }
 
     }

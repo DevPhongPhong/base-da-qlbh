@@ -61,10 +61,10 @@ namespace Services.Kaafly
                                 PromotionPrice = a.PromotionPrice,
                                 currentCategoryId = request.categoryId
                             };
-
+                var childCateIds = context.ProductCategories.Where(pc => pc.ParentId == request.categoryId).Select(x => x.Id).ToList();
                 if (request.categoryId > 0)
                 {
-                    query = query.Where(x => x.CategoryId == request.categoryId);
+                    query = query.Where(x => x.CategoryId == request.categoryId || childCateIds.Contains(x.CategoryId.HasValue ? x.CategoryId.Value : 0));
                 }
 
                 var count = query.Count();
@@ -186,7 +186,7 @@ namespace Services.Kaafly
                     foreach (var item in model.ProductsOrder)
                     {
                         var detail = new OrderDetails();
-                        context.Products.Find(item.ProductId).Quantity-=item.Quantity;
+                        context.Products.Find(item.ProductId).Quantity -= item.Quantity;
                         context.SaveChanges();
                         detail.OrderId = order.Id;
                         detail.ProductId = item.ProductId;
@@ -416,7 +416,7 @@ namespace Services.Kaafly
                 {
                     var productOrder = new ProductOrder();
                     var product = context.Products.FirstOrDefault(x => x.Id == item.ProductId);
-                   
+
                     productOrder.ProductId = item.ProductId;
                     productOrder.ProductPrice = item.ProductPrice;
                     productOrder.Quantity = item.Quantity;

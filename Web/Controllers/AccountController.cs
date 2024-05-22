@@ -9,6 +9,7 @@ using System;
 using System.Linq;
 using Services.Kaafly;
 using Services.Product;
+using Ultilities;
 
 namespace Web.Controllers
 {
@@ -103,6 +104,10 @@ namespace Web.Controllers
         [HttpPost]
         public IActionResult ChangePass(AccountChangePassDTO account)
         {
+            account.oldpass = EncryptExtensions.Hash(account.oldpass, null);
+            account.newpassword = EncryptExtensions.Hash(account.newpassword, null);
+            account.renewpassword = EncryptExtensions.Hash(account.renewpassword, null);
+
             if (account.oldpass != GetMemberData().Password)
             {
                 ViewData["Error"] = "Mật khẩu cũ không đúng!";
@@ -187,6 +192,7 @@ namespace Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
         [HttpPost]
         [Route("dang-nhap")]
         [ValidateAntiForgeryToken]
@@ -194,6 +200,8 @@ namespace Web.Controllers
         {
             try
             {
+                member.password = EncryptExtensions.Hash(member.password, null);
+
                 var check = commonService.AccountLogin(member);
                 if (check != null)
                 {
@@ -239,6 +247,7 @@ namespace Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
         [HttpPost]
         [Route("dang-ky")]
         [ValidateAntiForgeryToken]
@@ -277,7 +286,7 @@ namespace Web.Controllers
 
             var newAccount = new Accounts();
             newAccount.Username = register.Username;
-            newAccount.Password = register.Password;
+            newAccount.Password = EncryptExtensions.Hash(register.Password, null);
             newAccount.Phone = register.Phone;
             newAccount.Email = register.Email;
             newAccount.CreateBy = register.Username;
@@ -290,7 +299,7 @@ namespace Web.Controllers
             var check = commonService.InsertOrUpdateAccount(newAccount);
             if (check)
             {
-                var account = commonService.AccountLogin(new AccountLoginDTO { username = register.Username, password = register.Password });
+                var account = commonService.AccountLogin(new AccountLoginDTO { username = newAccount.Username, password = newAccount.Password });
                 SetMemberData(account);
                 return RedirectToAction("Index", "Home");
             }

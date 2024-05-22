@@ -1,12 +1,7 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-/Entities/bin
-/Entities/obj
-/Services/bin
-/Services/obj
-/Ultilities/bin
-/Ultilities/obj
-/Web/bin
-/Web/obj
+﻿.vs/
+*.user
+_ReSharper.*
+bin
+obj
+packages
+FE
