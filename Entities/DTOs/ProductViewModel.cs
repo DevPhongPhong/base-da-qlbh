@@ -89,7 +89,8 @@ namespace Entities.DTOs
         [StringLength(50)]
         public string ModifiedBy { get; set; }
         public int? currentCategoryId { get; set; }
-
+        public string Branch { get; set; }
+        public string SubDes { get; set; }
         public ProductCategory ProductCategory { get; set; }
         public List<ProductImages> ProductImages { get; set; }
     }

@@ -89,6 +89,8 @@ namespace Services.Kaafly
             var query = from a in context.Products
                         select new ProductViewModel
                         {
+                            Branch = a.Branch,
+                            SubDes = a.SubDes,
                             CategoryId = a.CategoryId,
                             Code = a.Code,
                             CreatedBy = a.CreatedBy,
