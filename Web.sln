@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.34601.136
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{A3099606-18DF-4FF7-B844-760AF5F50384}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ultilities", "Ultilities\Ultilities.csproj", "{1D067CC5-E828-4468-874D-153FF58A1237}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisModule", "RedisModule\RedisModule.csproj", "{681F602C-71B8-4A2D-8FFF-B0D89F15EC16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolCaoDataDienMayTienDar", "ToolCaoDataDienMayTienDar\ToolCaoDataDienMayTienDar.csproj", "{D16A4DEE-44F0-4BA4-9721-3FC6ADB87594}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{681F602C-71B8-4A2D-8FFF-B0D89F15EC16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{681F602C-71B8-4A2D-8FFF-B0D89F15EC16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{681F602C-71B8-4A2D-8FFF-B0D89F15EC16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D16A4DEE-44F0-4BA4-9721-3FC6ADB87594}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D16A4DEE-44F0-4BA4-9721-3FC6ADB87594}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D16A4DEE-44F0-4BA4-9721-3FC6ADB87594}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D16A4DEE-44F0-4BA4-9721-3FC6ADB87594}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

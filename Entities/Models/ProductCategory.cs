@@ -10,7 +10,7 @@ namespace Entities.Models
         [Key]
         [Column(Order = 0)]
         public int Id { get; set; }
-        
+
         [Required]
         public int ParentId { get; set; }
 
@@ -34,5 +34,6 @@ namespace Entities.Models
         public string ModifiedBy { get; set; }
 
         public DateTime? ModifiedDate { get; set; }
+        public string Code { get; set; }
     }
 }
