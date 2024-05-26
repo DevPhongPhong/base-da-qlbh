@@ -25,6 +25,8 @@ namespace Entities.DTOs
         public string Name { get; set; }
 
         public string Description { get; set; }
+        public string SubDes { get; set; }
+        public string Branch { get; set; }
         [Required]
         public decimal? Price { get; set; }
 
@@ -89,8 +91,6 @@ namespace Entities.DTOs
         [StringLength(50)]
         public string ModifiedBy { get; set; }
         public int? currentCategoryId { get; set; }
-        public string Branch { get; set; }
-        public string SubDes { get; set; }
         public ProductCategory ProductCategory { get; set; }
         public List<ProductImages> ProductImages { get; set; }
     }

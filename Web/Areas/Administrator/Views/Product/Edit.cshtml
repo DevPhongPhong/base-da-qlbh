@@ -54,6 +54,15 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
+                                <label asp-for="Branch" class="control-label">Thương hiệu</label>
+                                <input asp-for="Branch" class="form-control" placeholder="Nhập vào tên thương hiệu" />
+                                <span asp-validation-for="Branch" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
                                 <label asp-for="ImageFile" class="control-label">Ảnh đại diện sản phẩm</label>
                                 <div style="margin-bottom: 10px;">
                                     <img src="@Model.MainImageThumb"
@@ -131,8 +140,46 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
+                                <label asp-for="SubDes" class="control-label">Mô tả thông số sản phẩm</label>
+                                <textarea asp-for="SubDes" id="SubDes" name="SubDes" placeholder="Nhập vào mô tả thông sản phẩm" class="form-control" onkeyup="ChangeToSlug()"></textarea>
+                                <span asp-validation-for="SubDes" class="text-danger"></span>
+                                <script type="text/javascript" charset="utf-8">
+                            CKEDITOR.config.pasteFromWordPromtCleanup = true;
+                            CKEDITOR.config.pasteFromWordRemoveFontStyles = false;
+                            CKEDITOR.config.pasteFromWordRemoveStyles = false;
+                            CKEDITOR.config.language = 'vi';
+                            CKEDITOR.config.htmlEncodeOutput = false;
+                            CKEDITOR.config.ProcessHTMLEntities = false;
+                            CKEDITOR.config.entities = false;
+                            CKEDITOR.config.entities_latin = false;
+                            CKEDITOR.config.ForceSimpleAmpersand = true;
+                                    CKEDITOR.replace("SubDes", {
+                                filebrowserUploadUrl: '@Url.Action("UploadImage")'
+                            });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="text-right">
+                            <a href="@Url.Action("Index")" class="pull-right">Quay lại</a>
+                            &nbsp;
+                            <input type="submit" value="Lưu lại" class="btn btn-success pull-right" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-success">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
                                 <label asp-for="Description" class="control-label">Mô tả sản phẩm</label>
-                                <textarea asp-for="Description" id="NewsContent" name="Description" placeholder="Nhập vào mô tả sản phẩm" class="form-control" onkeyup="ChangeToSlug()"></textarea>
+                                <textarea asp-for="Description" id="Description" name="Description" placeholder="Nhập vào mô tả sản phẩm" class="form-control" onkeyup="ChangeToSlug()"></textarea>
                                 <span asp-validation-for="Description" class="text-danger"></span>
                                 <script type="text/javascript" charset="utf-8">
                             CKEDITOR.config.pasteFromWordPromtCleanup = true;
@@ -144,7 +191,7 @@
                             CKEDITOR.config.entities = false;
                             CKEDITOR.config.entities_latin = false;
                             CKEDITOR.config.ForceSimpleAmpersand = true;
-                            CKEDITOR.replace("NewsContent", {
+                                    CKEDITOR.replace("Description", {
                                 filebrowserUploadUrl: '@Url.Action("UploadImage")'
                             });
                                 </script>
