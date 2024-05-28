@@ -3,32 +3,30 @@
     ViewData["Title"] = "Đăng ký";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<span></span>
-<div class="login-register-area mb-60px mt-53px">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-7 col-md-12 mx-auto">
-                <div class="login-register-wrapper">
-                    <div class="login-register-tab-list nav">
-                        <a class="btn btn-primary" href="@Url.Action("Login", "Account")">
-                            <h6>Đăng nhập</h6>
-                        </a>
-                        <button class="btn btn-primary" href="#" asp-antiforgery="true"style="background:#ffffff;color:red" type="button">
-                            <h6>Đăng ký</h6>
-                        </button>
-                    </div>
+<div class="container margin-bottom-20">
+    <h1 class="title-head"><a href="#">Đăng ký tài khoản</a></h1>
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="page-login">
+                <div id="login">
+                    <span>Nếu chưa có tài khoản vui lòng đăng ký tại đây</span>
+
                     <div class="tab-content">
                         <div id="lg2" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form billing-info-wrap">
-                                    <form class="subscribe-popup-form" method="post" action="@Url.ActionLink("Register")" asp-antiforgery="true">
+                                    <form class="subscribe-popup-form" method="post"
+                                        action="@Url.ActionLink("Register")" asp-antiforgery="true">
                                         <input type="text" asp-for="Username" placeholder="Tên đăng nhập (bắt buộc)">
                                         <input type="password" asp-for="Password" placeholder="Mật khẩu (bắt buộc)">
-                                        <input type="password" asp-for="RePassword" placeholder="Nhập lại mật khẩu (bắt buộc)">
+                                        <input type="password" asp-for="RePassword"
+                                            placeholder="Nhập lại mật khẩu (bắt buộc)">
                                         <input asp-for="FullName" placeholder="Họ và tên (bắt buộc)" type="text">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <select class="form-control" asp-for="Gender" aria-label="Giới tính (bắt buộc)" style="width: 100%; border: 1px solid #cacaca; border-radius: 50px; padding: 12px 18px; font-size: 14px; color: #7a7a7a; margin: 25px 0 10px 0;">
+                                                <select class="form-control" asp-for="Gender"
+                                                    aria-label="Giới tính (bắt buộc)"
+                                                    style="width: 100%; border: 1px solid #cacaca; border-radius: 50px; padding: 12px 18px; font-size: 14px; color: #7a7a7a; margin: 25px 0 10px 0;">
                                                     <option class="optionForm" value="3">Chọn giới tính</option>
                                                     <option value="1">Nam</option>
                                                     <option value="2">Nữ</option>
@@ -36,7 +34,8 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="date" asp-for="Birthday" placeholder="Ngày sinh (bắt buộc)">
+                                                <input type="date" asp-for="Birthday"
+                                                    placeholder="Ngày sinh (bắt buộc)">
                                             </div>
                                         </div>
                                         <input type="text" asp-for="Address" placeholder="Địa chỉ (bắt buộc)">
@@ -45,7 +44,8 @@
                                                 <input asp-for="Email" placeholder="Email (bắt buộc)" type="email">
                                             </div>
                                             <div class="col-md-6">
-                                                <input asp-for="Phone" placeholder="Số điện thoại (bắt buộc)" type="tel">
+                                                <input asp-for="Phone" placeholder="Số điện thoại (bắt buộc)"
+                                                    type="tel">
                                             </div>
                                         </div>
                                         @if (ViewData["Error"] != null)
@@ -66,4 +66,23 @@
         </div>
     </div>
 </div>
+<div class="login-register-area mb-60px mt-53px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-12 mx-auto">
+                <div class="login-register-wrapper">
+                    <div class="login-register-tab-list nav">
+                        <a class="btn btn-primary" href="@Url.Action("Login", "Account")">
+                            <h6>Đăng nhập</h6>
+                        </a>
+                        <button class="btn btn-primary" href="#" asp-antiforgery="true"
+                            style="background:#ffffff;color:red" type="button">
+                            <h6>Đăng ký</h6>
+                        </button>
+                    </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
