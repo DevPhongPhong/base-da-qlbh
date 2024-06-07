@@ -1,5 +1,5 @@
--- ALTER TABLE qlbh.product
--- ADD COLUMN ProductDataPath VARCHAR(255);
+ALTER TABLE qlbh.product
+ADD COLUMN ProductDataPath VARCHAR(255);
 ALTER TABLE qlbh.product
 DROP COLUMN Id;
 ALTER TABLE qlbh.product
