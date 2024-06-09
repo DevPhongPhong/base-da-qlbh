@@ -77,21 +77,21 @@
     <meta property="og:image:secure_url" content="images/logo.png">
 
     <meta property="og:description"
-        content="Điện Máy Tiến Đạt chuyên cung cấp sỉ và lẻ máy làm thực phẩm chính hãng, máy làm kem lớn nhất tại Việt Nam">
+          content="Điện Máy Tiến Đạt chuyên cung cấp sỉ và lẻ máy làm thực phẩm chính hãng, máy làm kem lớn nhất tại Việt Nam">
     <meta property="og:url" content="https://dienmaytiendat.vn/">
     <meta property="og:site_name" content="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.">
 
 
     <link rel="preload" as="style" type="text/css"
-        href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/base.scss.css?1709110859833">
+          href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/base.scss.css?1709110859833">
     <link rel="preload" as="style" type="text/css"
-        href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/style.scss.css?1709110859833">
+          href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/style.scss.css?1709110859833">
     <link rel="preload" as="style" type="text/css"
-        href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/module.scss.css?1709110859833">
+          href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/module.scss.css?1709110859833">
     <link rel="preload" as="style" type="text/css"
-        href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/responsive.scss.css?1709110859833">
+          href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/responsive.scss.css?1709110859833">
     <link rel="preload" as="style" type="text/css"
-        href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/owl.carousel.min.css?1709110859833">
+          href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/owl.carousel.min.css?1709110859833">
 
 
     <!-- Plugin CSS -->
@@ -133,20 +133,72 @@
                     productId: productId,
                     quantity: quantity
                 },
-                success: function(response) {
-                    // Xử lý kết quả trả về từ server
-                    alert('Thêm sản phẩm thành công');
+                success: function (response) {
+                    // Check if the operation was successful
+                    if (response.success) {
+                        alert(response.message);  // Show success message
+                    } else {
+                        alert(response.message);  // Show error message from the response
+                    }
+                    loadCart();
                 },
-                error: function(xhr, status, error) {
-                    // Xử lý lỗi
+                error: function (xhr, status, error) {
+                    // Handle error
                     alert('Thêm sản phẩm không thành công');
                 }
             });
         }
-        function showcart(){
 
+        function loadCart() {
+            $.ajax({
+                url: '/getdatacart',
+                type: 'GET',
+                success: function (response) {
+                    if (response.success) {
+                        let cart = response.cart;
+                        let itemList = $('#cart-sidebar .list-item ul');
+                        itemList.empty(); // Clear the current list
+
+                        let totalAmount = 0;
+                        let totalCount = cart.length;
+
+                        cart.forEach(item => {
+                            let product = item.Product;
+                            let quantity = item.Quantity;
+                            let price = (product.IsPromote && product.PromotionPrice ? product.PromotionPrice : product.Price) * quantity;
+                            totalAmount += price;
+
+                            itemList.append(`
+                            <li class="item">
+                                <div class="product-info" style="display: flex;">
+                                    <img class="lazyload loading" style="max-width: 100px;" src="${product.MainImageThumb}">
+                                    <span class="product-name">${product.Name}</span>
+                                    <span class="product-quantity">Số lượng: ${quantity}</span>
+                                    <span class="product-price">Giá: ${price.toLocaleString()} đ</span>
+                                </div>
+                            </li>
+                        `);
+                        });
+
+                        $('#cart-sidebar .top-subtotal .price').text(`${totalAmount.toLocaleString()} đ`);
+                        $('.count_item, .count_item_pr').text(totalCount);
+                    } else {
+                        alert('Failed to load cart data.');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    debugger
+                    alert('Error occurred while loading cart data.');
+                }
+            });
         }
-</script>
+
+        // Call the function to load the cart data when the page is ready
+        $(document).ready(function () {
+            loadCart();
+        });
+
+    </script>
 </head>
 
 <body>
@@ -304,7 +356,7 @@
                                               role="search">
                                             <input type="hidden" name="type" value="product">
 
-                                            <input type="search" name="query" id ="search_input" value=""
+                                            <input type="search" name="query" id="search_input" value=""
                                                    placeholder="Bạn đang tìm sản phẩm gì..." class="input-group-field">
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn icon-fallback-text" onclick="window.location.href='/tim-kiem?keyword='+document.getElementById('search_input').value">
@@ -1062,7 +1114,7 @@
         </div>
     </div>
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function () {
             var quickViewButton = document.getElementById('xem_nhanh button_wh_40 btn_view right-to quick-view hidden-xs hidden-sm hidden-md'); if (quickViewButton) {
                 quickViewButton.addEventListener('click', function (event) {
                     event.preventDefault();  					// Hiển thị modal xem nhanh 					var quickViewModal = document.getElementById('quick-view-product'); 					if (quickViewModal) { 						quickViewModal.style.display = 'block'; 					} 				}); 			} 		}); 	</script>
