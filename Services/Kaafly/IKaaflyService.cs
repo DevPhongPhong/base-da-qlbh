@@ -11,12 +11,13 @@ namespace Services.Kaafly
     {
         PaginationModel<List<ProductViewModel>> GetListProductByCategoryId(RequestHomeViewModel request);
         ProductCategory GetCategoryById(int id);
-        ProductViewModel GetProductById(int id);
+        ProductViewModel GetProductViewModelById(int id);
         List<ProductViewModel> GetListProductByHomeHot(bool isHome, bool isHot, int count);
         OrderResponseViewModel OrderRequest(OrderRequestViewModel model);
         TrackingOrderReceivedModel GetOrderReceivedByOrderCode(string orderCode);
         TrackingOrderReceivedModel GetOrderReceivedByOrderCodeAndEmail(string orderCode,string email);
         List<OrderReceivedViewModel> ListOrderReceivedOfMemberByEmail(string Email);
         PaginationModel<List<ProductViewModel>> GetListProductBySearchKeyWord(RequestSearchModel request);
+        Entities.Models.Product GetProductById(int id);
     }
 }

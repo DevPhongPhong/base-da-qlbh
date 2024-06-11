@@ -53,21 +53,6 @@
         })();
     </script>
 
-
-    <script src="js/stats.min.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!-- Facebook Open Graph meta tags -->
 
 
@@ -77,39 +62,36 @@
     <meta property="og:image:secure_url" content="images/logo.png">
 
     <meta property="og:description"
-        content="Điện Máy Tiến Đạt chuyên cung cấp sỉ và lẻ máy làm thực phẩm chính hãng, máy làm kem lớn nhất tại Việt Nam">
+          content="Điện Máy Tiến Đạt chuyên cung cấp sỉ và lẻ máy làm thực phẩm chính hãng, máy làm kem lớn nhất tại Việt Nam">
     <meta property="og:url" content="https://dienmaytiendat.vn/">
     <meta property="og:site_name" content="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.">
 
 
     <link rel="preload" as="style" type="text/css"
-        href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/base.scss.css?1709110859833">
+          href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/base.scss.css?1709110859833">
     <link rel="preload" as="style" type="text/css"
-        href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/style.scss.css?1709110859833">
+          href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/style.scss.css?1709110859833">
     <link rel="preload" as="style" type="text/css"
-        href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/module.scss.css?1709110859833">
+          href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/module.scss.css?1709110859833">
     <link rel="preload" as="style" type="text/css"
-        href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/responsive.scss.css?1709110859833">
+          href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/responsive.scss.css?1709110859833">
     <link rel="preload" as="style" type="text/css"
-        href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/owl.carousel.min.css?1709110859833">
-
-
+          href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/owl.carousel.min.css?1709110859833">
+    @* <script src="/assets/js/jquery-3.7.1.min.js"></script> *@
+    <script src="/assets/js/headerjs.js"></script>
     <!-- Plugin CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link href="css/owl.carousel.min.css" rel="stylesheet" type="text/css" media="all">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link href="/assets/css/owl.carousel.min.css" rel="stylesheet" type="text/css" media="all">
 
     <!-- Build Main CSS -->
-    <link href="css/base.scss.css" rel="stylesheet" type="text/css" media="all">
-    <link href="css/style.scss.css" rel="stylesheet" type="text/css" media="all">
-    <link href="css/module.scss.css" rel="stylesheet" type="text/css" media="all">
-    <link href="css/responsive.scss.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/css/base.scss.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/css/style.scss.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/css/module.scss.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/css/responsive.scss.css" rel="stylesheet" type="text/css" media="all">
 
     <script>var ProductReviewsAppUtil = ProductReviewsAppUtil || {}; ProductReviewsAppUtil.store = { name: 'Điện Máy Tiến Đạt : Tổng kho điện máy uy tín.' };</script>
     <meta name="google-site-verification" content="YvoTKALcdCsGq3lPFSg5wK22EJ0wfcBRcFMrh9iYDdQ">
-</head>
-
-<head>
-
+    
     <link rel="preload" as="style" type="text/css" href="/assets/css/base.scss.css">
     <link rel="preload" as="style" type="text/css" href="/assets/css/style.scss.css">
     <link rel="preload" as="style" type="text/css" href="/assets/css/module.scss.css">
@@ -123,7 +105,6 @@
     <link href="/assets/css/responsive.scss.css" rel="stylesheet" type="text/css" media="all">
     <link href="/assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="/assets/css/ionicons.min.css" rel="stylesheet" />
-    <script src="/assets/js/headerjs.js"></script>
     <script type="text/javascript">
         function addtocart(productId, quantity) {
             $.ajax({
@@ -133,20 +114,164 @@
                     productId: productId,
                     quantity: quantity
                 },
-                success: function(response) {
-                    // Xử lý kết quả trả về từ server
-                    alert('Thêm sản phẩm thành công');
+                success: function (response) {
+                    // Check if the operation was successful
+                    if (response.success) {
+                        alert(response.message);  // Show success message
+                    } else {
+                        alert(response.message);  // Show error message from the response
+                    }
+                    loadCart();
                 },
-                error: function(xhr, status, error) {
-                    // Xử lý lỗi
+                error: function (xhr, status, error) {
+                    // Handle error
                     alert('Thêm sản phẩm không thành công');
                 }
             });
         }
-        function showcart(){
 
+        function loadCart() {
+            $.ajax({
+                url: '/getdatacart',
+                type: 'GET',
+                success: function (response) {
+                    if (response.success) {
+                        let cart = response.cart;
+                        let itemList = $('#cart-sidebar .list-item ul');
+                        itemList.empty(); // Clear the current list
+                        if (cart.length == 0) {
+                             itemList.append(`
+                            <li class="item">
+                                <div class="product-info" style="display: flex;">
+                                   Không có sản phẩm
+                                </div>
+                            </li>
+                        `);
+                        }
+                        let totalAmount = 0;
+                        let totalCount = cart.length;
+
+                        cart.forEach(item => {
+                            let product = item.Product;
+                            let quantity = item.Quantity;
+                            let price = (product.IsPromote && product.PromotionPrice ? product.PromotionPrice : product.Price) * quantity;
+                            totalAmount += price;
+
+                            itemList.append(`
+                            <li class="item">
+                                <div class="product-info" style="display: flex;">
+                                    <img class="lazyload loading" style="max-width: 100px;" src="/${product.MainImageThumb}">
+                                    <span class="product-name">${product.Name}</span>
+                                    <span class="product-quantity">Số lượng: ${quantity}</span>
+                                    <span class="product-price">Giá: ${price.toLocaleString()} đ</span>
+                                </div>
+                            </li>
+                        `);
+                        });
+
+                        $('#cart-sidebar .top-subtotal .price').text(`${totalAmount.toLocaleString()} đ`);
+                        $('.count_item, .count_item_pr').text(totalCount);
+                    } else {
+                        debugger
+                        let itemList = $('#cart-sidebar .list-item ul');
+                        itemList.empty(); // Clear the current list
+                        itemList.append(`
+                            <li class="item">
+                                <div class="product-info" style="display: flex;">
+                                   Không có sản phẩm
+                                </div>
+                            </li>
+                        `);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    debugger
+                    let itemList = $('#cart-sidebar .list-item ul');
+                        itemList.empty(); // Clear the current list
+                        itemList.append(`
+                            <li class="item">
+                                <div class="product-info" style="display: flex;">
+                                    Không có sản phẩm
+                                </div>
+                            </li>
+                        `);
+                }
+            });
         }
-</script>
+
+        // Call the function to load the cart data when the page is ready
+        $(document).ready(function () {
+            loadCart();
+        });
+
+    </script>
+    <script type="text/javascript">
+function showQuickView(id) {
+    $.ajax({
+        url: '/product/getquickview?id=' + id,
+        type: 'GET',
+        success: function (response) {
+            if (response.success) {
+                // Get the quick view product element by ID and set display to block
+                let quickViewProduct = document.getElementById('quick-view-product');
+                quickViewProduct.style.display = 'block';
+
+                // Create a new div element for the modal backdrop
+                let modalBackdrop = document.createElement('div');
+                modalBackdrop.className = 'modal-backdrop in';
+
+                // Append the modal backdrop to the body
+                document.body.appendChild(modalBackdrop);
+
+                // Fill in the product details in the quick view
+                debugger
+                document.querySelector('.qwp-name a').innerText = response.Name;
+                document.querySelector('.qwp-name a').title = response.Name;
+                document.querySelector('.qwp-name a').href = '/product/' + id;
+                document.querySelector('.vendor_').innerHTML = '<span>Thương hiệu: </span>'+response.Branch;
+                document.querySelector('.soluong').innerText = (response.Quantity > 0 ? 'Còn hàng' : 'Hết hàng');
+                document.querySelector('.sale-price').innerText = response.Price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                if (response.IsPromote && response.PromotionPrice) {
+                    document.querySelector('.old-price').innerText = response.Price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                    document.querySelector('.sale-price').innerText = response.PromotionPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                    document.querySelector('.old-price').style.display = ''
+                } else {
+                    document.querySelector('.old-price').style.display = 'none';
+                }
+                document.querySelector('.product-featured-image-quickview').src = response.MainImageLarge;
+                document.querySelector('.product-description .rte').innerHTML = response.SubDes;
+                document.getElementById('quickviewadd').outerHTML=`<button type="button" id="quickviewadd" onclick="addtocart(`+id+`,1)" class="btn btn-lg fix_add_to_cart  btn-cart button_cart_buy_enable add_to_cart btn_buy add_to_cart_detail ajax_addtocart" title="Cho vào giỏ hàng">
+								<span class="btn-image">
+									<img src="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/shopping_cart.png?1717722179993" alt="shopping-cart">
+								</span>
+								<span class="btn-content">Cho vào giỏ hàng</span>
+							</button>`
+
+            } else {
+                console.error('Failed to fetch product details');
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error('Error fetching product details:', error);
+        }
+    });
+}
+
+
+        function hideQuickView() {
+            // Get the quick view product element by ID and set display to none
+            let quickViewProduct = document.getElementById('quick-view-product');
+            quickViewProduct.style.display = 'none';
+    
+            // Find the modal backdrop element
+            let modalBackdrop = document.querySelector('.modal-backdrop.in');
+    
+            // Remove the modal backdrop from the body if it exists
+            if (modalBackdrop) {
+                document.body.removeChild(modalBackdrop);
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -304,7 +429,7 @@
                                               role="search">
                                             <input type="hidden" name="type" value="product">
 
-                                            <input type="search" name="query" id ="search_input" value=""
+                                            <input type="search" name="query" id="search_input" value=""
                                                    placeholder="Bạn đang tìm sản phẩm gì..." class="input-group-field">
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn icon-fallback-text" onclick="window.location.href='/tim-kiem?keyword='+document.getElementById('search_input').value">
@@ -365,7 +490,7 @@
                                                                        title="Giỏ hàng">
                                                                         <span>Giỏ hàng</span>
                                                                     </a>
-                                                                    <a href="/checkout"
+                                                                    <a href="/payment"
                                                                        class="btn btn-checkout btn-gray"
                                                                        title="Thanh toán">
                                                                         <span>Thanh toán</span>
@@ -627,7 +752,6 @@
                                 <div class="collapse" id="collapseListMenu04">
                                     <div class="facebook">
                                         <div id="fb-root"></div>
-                                        <script>var timer = undefined; timer = setTimeout(() => { (function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=631942543575730"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk')); timer = undefined; }, 5000)</script>
                                         <div class="fb-page" data-href="https://www.facebook.com/sapo/"
                                              data-tabs="timeline" data-height="150" data-small-header="true"
                                              data-adapt-container-width="true" data-hide-cover="false"
@@ -934,143 +1058,7 @@
             <div class="error-message"></div>
         </div>
     </div>
-    <script src="/assets/js/jsfooter.js"></script>
-    <div id="popup-cart" class="modal fade" role="dialog">
-        <div id="popup-cart-desktop" class="clearfix">
-            <div class="title-popup-cart">
-                <img src="/assets/images/icon-check.png"
-                     alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín."> <span class="your_product">
-                    Bạn đã thêm <span class="cart_name_style">[ <span class="cart-popup-name"></span>]</span> vào giỏ hàng thành công
-                    !
-                </span>
-            </div>
-            <div class="wrap_popup">
-                <div class="title-quantity-popup">
-                    <span class="cart_status" onclick="window.location.href='/cart';">
-                        Giỏ
-                        hàng của bạn có <span class="cart-popup-count"></span> sản phẩm
-                    </span> <i class="fa fa-caret-right" aria-hidden="true"></i>
-                </div>
-                <div class="content-popup-cart">
-                    <div class="thead-popup">
-                        <div style="width: 53%;" class="text-left">Sản phẩm</div>
-                        <div style="width: 15%;" class="text-center">Đơn giá</div>
-                        <div style="width: 15%;" class="text-center">Số lượng</div>
-                        <div style="width: 17%;" class="text-center">Thành tiền</div>
-                    </div>
-                    <div class="tbody-popup scrollbar-dynamic"> </div>
-                    <div class="tfoot-popup">
-                        <div class="tfoot-popup-1 a-right clearfix">
-                            <span class="total-p popup-total">
-                                Tổng tiền thanh
-                                toán: <span class="total-price"></span>
-                            </span>
-                        </div>
-                        <div class="tfoot-popup-2 clearfix">
-                            <a class="button buy_ btn-proceed-checkout"
-                               title="Tiếp tục mua hàng" onclick="$('#popup-cart').modal('hide');">
-                                <span>
-                                    <span>
-                                        Tiếp tục
-                                        mua hàng
-                                    </span>
-                                </span>
-                            </a> <a class="button checkout_ btn-proceed-checkout"
-                                    title="Thực hiện thanh toán" href="/checkout"><span>Thực hiện thanh toán</span></a>
-                        </div>
-                    </div>
-                </div> <a title="Close" class="quickview-close close-window" href="javascript:;"
-                          onclick="$('#popup-cart').modal('hide');"><i class="fa  fa-close"></i></a>
-            </div>
-        </div>
-    </div>
-    <div id="myModal" class="modal fade" role="dialog"> </div> <!-- Quick view -->
-    <div id="quick-view-product" class="quickview-product" style="display:none;">
-        <div class="quickview-overlay fancybox-overlay fancybox-overlay-fixed"></div>
-        <div class="quick-view-product"></div>
-        <div id="quickview-modal" style="display:none;">
-            <div class="block-quickview primary_block row">
-                <div class="product-left-column col-xs-12 col-sm-5 col-md-5 col-lg-5">
-                    <div class="clearfix image-block">
-                        <span class="view_full_size">
-                            <a class="img-product" title=""
-                               href="#">
-                                <img id="product-featured-image-quickview"
-                                     class="img-responsive product-featured-image-quickview" src="/assets/images/logo.png"
-                                     alt="quickview">
-                            </a>
-                        </span>
-                        <div class="loading-imgquickview" style="display:none;"></div>
-                    </div>
-                    <div class="more-view-wrapper clearfix">
-                        <div class="thumbs_quickview" id="thumbs_list_quickview">
-                            <ul class="product-photo-thumbs quickview-more-views-owlslider" id="thumblist_quickview">
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-center-column product-info product-item col-xs-5 col-sm-7 col-md-7 col-lg-7">
-                    <div class="head-qv">
-                        <h3 class="qwp-name">abc</h3>
-                        <div class="vend-qv">
-                            <div class="left_vend">
-                                <span class="vendor_"></span> <span class="line">|</span> Tình
-                                trạng: <span class="soluong"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="quickview-info">
-                        <div class="reviews_qv">
-                            <div class="bizweb-product-reviews-badge" data-id=""></div>
-                        </div> <span class="prices"> <span class="price"></span> <del class="old-price"></del> </span>
-                    </div>
-                    <div class="product-description">
-                        <div class="rte text2line"> </div>
-                    </div>
-                    <form action="/cart/add" method="post" enctype="multipart/form-data"
-                          class="quick_option variants form-ajaxtocart">
-                        <span class="price-product-detail hidden"
-                              style="opacity: 0;"> <span class=""></span> </span> <select name="variantId" class="hidden"
-                                                                                          style="display:none"></select>
-                        <div class="clearfix"></div>
-                        <div class="quantity_wanted_p">
-                            <div class="input_qty_qv">
-                                <a class="btn_num num_1 button button_qty"
-                                   onclick="decreaseQuantity()">-</a> <input type="text" id="quantity-detail"
-                                                                             name="quantity" value="1" onkeypress="return validate(event)"
-                                                                             onkeyup="return valid(this,'numbers')" onblur="return valid(this,'numbers')"
-                                                                             class="form-control prd_quantity"> <a class="btn_num num_2 button button_qty"
-                                                                                                                   onclick="increaseQuantity()">+</a>
-                            </div>
-                            <script>function decreaseQuantity() { var result = document.getElementById('quantity-detail'); var qtyqv = parseInt(result.value); if (!isNaN(qtyqv) && qtyqv > 1) { result.value = qtyqv - 1; } return false; } function increaseQuantity() { var result = document.getElementById('quantity-detail'); var qtyqv = parseInt(result.value); if (!isNaN(qtyqv)) { result.value = qtyqv + 1; } return false; } function validate(evt) { var theEvent = evt || window.event; var key = theEvent.keyCode || theEvent.which; key = String.fromCharCode(key); var regex = /[0-9]|\./; if (!regex.test(key)) { theEvent.returnValue = false; if (theEvent.preventDefault) theEvent.preventDefault(); } } function valid(element, type) { var regex = type === 'numbers' ? /[0-9]/g : /[a-zA-Z]/g; element.value = element.value.replace(regex, ''); }</script>
-                            <div class="button_actions">
-                                <button type="submit"
-                                        class="btn btn-lg fix_add_to_cart  btn-cart button_cart_buy_enable add_to_cart btn_buy add_to_cart_detail ajax_addtocart"
-                                        title="Cho vào giỏ hàng">
-                                    <span class="btn-image">
-                                        <img src="/assets/images/shopping_cart.png" alt="shopping-cart">
-                                    </span> <span class="btn-content">Cho vào giỏ hàng</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="total-price" style="display:none"> <label>Tổng cộng: </label> <span></span> </div>
-                    </form>
-                </div>
-            </div> <a title="Close" class="quickview-close close-window" href="javascript:;">
-                <i class="fa   fa-times"></i>
-            </a>
-        </div>
-    </div>
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-            var quickViewButton = document.getElementById('xem_nhanh button_wh_40 btn_view right-to quick-view hidden-xs hidden-sm hidden-md'); if (quickViewButton) {
-                quickViewButton.addEventListener('click', function (event) {
-                    event.preventDefault();  					// Hiển thị modal xem nhanh 					var quickViewModal = document.getElementById('quick-view-product'); 					if (quickViewModal) { 						quickViewModal.style.display = 'block'; 					} 				}); 			} 		}); 	</script>
-    <script type="text/javascript">  		Bizweb.doNotTriggerClickOnThumb = false; function changeImageQuickView(img, selector) { var src = $(img).attr("src"); src = src.replace("_compact", ""); $(selector).attr("src", src); } function validate(evt) { var theEvent = evt || window.event; var key = theEvent.keyCode || theEvent.which; key = String.fromCharCode(key); var regex = /[0-9]|\./; if (!regex.test(key)) { theEvent.returnValue = false; if (theEvent.preventDefault) theEvent.preventDefault(); } } var selectCallbackQuickView = function (variant, selector) { $('#quick-view-product form').show(); var productItem = jQuery('.quick-view-product .product-item'), addToCart = productItem.find('.add_to_cart_detail'), productPrice = productItem.find('.price'), comparePrice = productItem.find('.old-price'), status = productItem.find('.soluong'), totalPrice = productItem.find('.total-price span'); if (variant && variant.available) { var form = jQuery('#' + selector.domIdPrefix).closest('form'); for (var i = 0, length = variant.options.length; i < length; i++) { var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] + '"]'); if (radioButton.size()) { radioButton.get(0).checked = true; } } addToCart.removeClass('disabled').removeAttr('disabled'); addToCart.text('Cho vào giỏ hàng').removeAttr('disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Cho vào giỏ hàng').html('<span class="btn-image"><img src=\"css/shopping_cart.png\" alt="shopping-cart"/></span><span class="btn-content">Cho vào giỏ hàng</span>').show(); status.text('Còn hàng'); if (variant.price < 1) { $("#quick-view-product .price").html('Liên hệ'); $("#quick-view-product del, #quick-view-product .quantity_wanted_p").hide(); $("#quick-view-product .prices .old-price").hide(); } else { productPrice.html(Bizweb.formatMoney(variant.price, "{{amount_no_decimals_with_comma_separator}}₫")); if (variant.compare_at_price > variant.price) { comparePrice.html(Bizweb.formatMoney(variant.compare_at_price, "{{amount_no_decimals_with_comma_separator}}₫")).show(); productPrice.addClass('on-sale'); } else { comparePrice.hide(); productPrice.removeClass('on-sale'); } $(".quantity_wanted_p").show(); } updatePricingQuickView();  				/*begin variant image*/ 				if (variant && variant.featured_image) { var originalImage = $("#product-featured-image-quickview"); var newImage = variant.featured_image; var element = originalImage[0]; Bizweb.Image.switchImage(newImage, element, function (newImageSizedSrc, newImage, element) { $('#thumblist_quickview img').each(function () { var parentThumbImg = $(this).parent(); var productImage = $(this).parent().data("image"); if (newImageSizedSrc.includes(productImage)) { $(this).parent().trigger('click'); return false; } }); }); $('#product-featured-image-quickview').attr('src', variant.featured_image.src); } } else { addToCart.addClass('disabled').attr('disabled', 'disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show(); status.text('Hết hàng'); $(".quantity_wanted_p").show(); if (variant) { if (variant.price < 1) { $("#quick-view-product .price").html('Liên hệ'); $("#quick-view-product del").hide(); $("#quick-view-product .quantity_wanted_p").hide(); $("#quick-view-product .prices .old-price").hide(); comparePrice.hide(); productPrice.removeClass('on-sale'); addToCart.addClass('disabled').attr('disabled', 'disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show(); } else { if (variant.compare_at_price > variant.price) { comparePrice.html(Bizweb.formatMoney(variant.compare_at_price, "{{amount_no_decimals_with_comma_separator}}₫")).show(); productPrice.addClass('on-sale'); } else { comparePrice.hide(); productPrice.removeClass('on-sale'); $("#quick-view-product .prices .old-price").html(''); } $("#quick-view-product .price").html(Bizweb.formatMoney(variant.price, "{{amount_no_decimals_with_comma_separator}}₫")); $("#quick-view-product del ").hide(); $("#quick-view-product .prices .old-price").show(); addToCart.addClass('disabled').attr('disabled', 'disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show(); } } else { $("#quick-view-product .price").html('Liên hệ'); $("#quick-view-product del").hide(); $("#quick-view-product .quantity_wanted_p").hide(); $("#quick-view-product .prices .old-price").hide(); comparePrice.hide(); productPrice.removeClass('on-sale'); addToCart.addClass('disabled').attr('disabled', 'disabled'); addToCart.removeClass('hidden').addClass('btn_buy').removeAttr('disabled', 'disabled').attr('title', 'Hết hàng').html('<span class="btn-content">Hết hàng</span>').show(); } } 			/*begin variant image*/ 			if (variant && variant.featured_image) { var originalImage = $("#product-featured-image-quickview"); var newImage = variant.featured_image; var element = originalImage[0]; Bizweb.Image.switchImage(newImage, element, function (newImageSizedSrc, newImage, element) { $('#thumblist_quickview img').each(function () { var parentThumbImg = $(this).parent(); var productImage = $(this).parent().data("image"); if (newImageSizedSrc.includes(productImage)) { $(this).parent().trigger('click'); return false; } }); }); $('#product-featured-image-quickview').attr('src', variant.featured_image.src); } }; 	</script>
-    <script type="text/javascript" defer="" src="/assets/js/quickview.js"></script> <!-- Main JS -->
-    <link rel="preload" as="script" href="css/main.js">
-    <script src="/assets/js/main.js" type="text/javascript"></script> <!-- Product detail JS,CSS -->
-    <script>var timer = undefined; timer = setTimeout(() => { 			//<![CDATA[  			function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("footer")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) } loadCSS("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"); 			function loadCSSFont(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("footer")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) } loadCSSFont("https://cdn.jsdelivr.net/themify-icons/0.1.2/css/themify-icons.css"); 			function loadCSSFonts(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("footer")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) } loadCSSFonts("https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"); 			//]]>  			timer = undefined; 		}, 5000)</script>
+   
     <a class="btn-call-now"> <i class="fa fa-phone"></i> <span>Hotline: 0987983948</span> </a>
     <style>
         .btn-call-now {
@@ -1117,6 +1105,92 @@
                 text-align: center;
             }
     </style>
+
+    <div id="quick-view-product" class="quickview-product in" style="display:none;">
+	<div class="quickview-overlay fancybox-overlay fancybox-overlay-fixed"></div>
+	<div class="quick-view-product">
+		<div class="block-quickview primary_block row">
+
+			<div class="product-left-column col-xs-12 col-sm-5 col-md-5 col-lg-5">
+				<div class="clearfix image-block">
+					<span class="view_full_size">
+						<a class="img-product" title="" href="#">
+							<img id="product-featured-image-quickview" class="img-responsive product-featured-image-quickview" src="" alt="quickview">
+						</a>
+					</span>
+					<div class="loading-imgquickview" style="display:none;"></div>
+				</div>
+				<div class="more-view-wrapper clearfix">
+					<div class="thumbs_quickview" id="thumbs_list_quickview">
+						<ul class="product-photo-thumbs quickview-more-views-owlslider" id="thumblist_quickview"></ul>
+					</div>
+				</div>
+			</div>
+			<div class="product-center-column product-info product-item col-xs-5 col-sm-7 col-md-7 col-lg-7">
+				<div class="head-qv">
+					<h3 class="qwp-name"><a class="text2line" href="" title=""></a></h3>
+					<div class="vend-qv">
+						<div class="left_vend">
+							<span class="vendor_"><span>Thương hiệu: </span>Electrolux</span>		
+							<span class="line">|</span>
+							Tình trạng: <span class="soluong">Còn hàng</span>
+						</div>
+						
+					</div>
+				</div>
+				<div class="quickview-info">
+					
+					<div class="reviews_qv">
+						<div class="bizweb-product-reviews-badge" data-id="29474760"></div>
+					</div>
+					
+					<span class="prices">
+						<span class="price sale-price">7.850.000₫</span>
+						<del class="old-price">8.950.000₫</del>
+					</span>
+				</div>
+				<div class="product-description">
+					<div class="rte text2line"></div>
+					
+				</div>
+				
+				<form action="/cart/add" method="post" enctype="multipart/form-data" class="quick_option variants form-ajaxtocart" id="product-actions-29474760">
+					<span class="price-product-detail hidden" style="opacity: 0;">
+						<span class=""></span>
+					</span>
+					
+					<div class="clearfix"></div>
+					<div class="quantity_wanted_p">
+						<div class="input_qty_qv">
+							<a class="btn_num num_1 button button_qty" onclick="var result = document.getElementById('quantity-detail'); var qtyqv = result.value; if( !isNaN( qtyqv ) &amp;&amp; qtyqv > 1 ) result.value--;return false;">-</a>
+							<input type="text" id="quantity-detail" name="quantity" value="1" onkeypress="validate(event)" onkeyup="valid(this,'numbers')" onblur="valid(this,'numbers')" class="form-control prd_quantity">
+							<a class="btn_num num_2 button button_qty" onclick="var result = document.getElementById('quantity-detail'); var qtyqv = result.value; if( !isNaN( qtyqv )) result.value++;return false;">+</a>
+						</div>
+						
+						<div class="button_actions">							
+							<button type="button"
+                                id="quickviewadd"
+                                onclick=""
+                                class="btn btn-lg fix_add_to_cart  btn-cart button_cart_buy_enable add_to_cart btn_buy add_to_cart_detail ajax_addtocart" title="Cho vào giỏ hàng">
+								<span class="btn-image">
+									<img src="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/shopping_cart.png?1717722179993" alt="shopping-cart">
+								</span>
+								<span class="btn-content">Cho vào giỏ hàng</span>
+							</button>
+						</div>
+					</div>
+					<div class="total-price" style="display:none">0₫</div>
+
+				<input type="hidden" name="id" value="29474760"><input type="hidden" name="variantId" value="81033893"></form>
+				
+				
+			</div>
+
+		</div>      
+		<a title="Close" class="quickview-close close-window" href="javascript:;" onclick="hideQuickView()"><i class="fa   fa-times"></i></a>
+	</div>
+
+
 </body>
 
 </html>

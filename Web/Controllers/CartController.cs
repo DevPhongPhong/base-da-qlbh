@@ -118,145 +118,103 @@ namespace Web.Controllers
                 return View(model);
             }
         }
-        [Route("add-to-cart")]
-        public ActionResult AddItem(int productId, int quantity)
+        [HttpPost("add-to-cart")]
+        public JsonResult AddItem(int productId, int quantity)
         {
             if (quantity <= 0)
             {
-                TempData["StrErr"] = "Quantity is not valid!";
-                return RedirectToAction("ProductDetails", "Home", new { id = productId });
+                return Json(new { success = false, message = "Số lượng không đúng!" });
             }
             if (productId <= 0)
             {
-                TempData["StrErr"] = "Product is not valid!";
-                return RedirectToAction("ProductDetails", "Home", new { id = productId });
+                return Json(new { success = false, message = "Mã sản phẩm không đúng!" });
             }
+
             var product = productService.GetProduct(productId);
-            if (product == null) return RedirectToAction("Index", "Home");
+            if (product == null)
+            {
+                return Json(new { success = false, message = "Không tồn tại sản phẩm!" });
+            }
+
             var cart = HttpContext.Session.GetString("cart");
-            // Giỏ hàng rỗng
+            List<CartItem> list;
+            int currentCartQuantity = 0;
+
             if (cart != null)
             {
-                var list = JsonConvert.DeserializeObject<List<CartItem>>(cart);
-                // Đã có hàng
-                if (list.Exists(x => x.Product.Id == productId))
+                list = JsonConvert.DeserializeObject<List<CartItem>>(cart);
+                var cartItem = list.FirstOrDefault(x => x.Product.Id == productId);
+                if (cartItem != null)
                 {
-
-                    foreach (var item in list)
-                    {
-                        if (item.Product.Id == productId)
-                        {
-                            item.Quantity += quantity;
-                        }
-                    }
+                    currentCartQuantity = cartItem.Quantity;
                 }
-                else
-                {
-                    //tạo mới đối tượng cart item
-                    var item = new CartItem();
-                    item.Product = product;
-                    item.Quantity = quantity;
-                    list.Add(item);
-                }
-                //Gán vào session
-                string jsonData = JsonConvert.SerializeObject(list);
-                HttpContext.Session.SetString("cart", jsonData);
             }
             else
             {
-                //tạo mới đối tượng cart item
-                var item = new CartItem();
-                item.Product = product;
-                item.Quantity = quantity;
-                var list = new List<CartItem>();
-                list.Add(item);
-                //Gán vào session
-                string jsonData = JsonConvert.SerializeObject(list);
-                HttpContext.Session.SetString("cart", jsonData);
+                list = new List<CartItem>();
             }
-            return RedirectToAction("Index");
-        }
-        public IActionResult AddToCart(int productId)
-        {
-            try
+
+            if (currentCartQuantity + quantity > product.Quantity)
             {
-                var product = productService.GetProduct(productId);
-                if (product == null) return Json(new { response = "error", message = "product is not exsit" });
-                if (product.Quantity <= 0 || product.Quantity == null) return Json(new { response = "error", message = "Sản phẩm đã hết hàng!" });
-                var cart = HttpContext.Session.GetString("cart");
-                // Giỏ hàng rỗng
-                if (cart != null && cart != "[]")
+                return Json(new { success = false, message = "Số lượng trong kho không đủ" });
+            }
+
+            if (cart != null)
+            {
+                var cartItem = list.FirstOrDefault(x => x.Product.Id == productId);
+                if (cartItem != null)
                 {
-                    var list = JsonConvert.DeserializeObject<List<CartItem>>(cart);
-                    // Đã có hàng
-                    if (list.Exists(x => x.Product.Id == productId))
-                    {
-                        var obj = list.First(x => x.Product.Id == productId);
-                        obj.Quantity += 1;
-                        //Gán vào session
-                        string jsonData = JsonConvert.SerializeObject(list);
-                        HttpContext.Session.SetString("cart", jsonData);
-                        return Json(new
-                        {
-                            response = "added",
-                            type = "edit",
-                            productId = obj.Product.Id,
-                            quantity = obj.Quantity,
-                            totalPrice = TotalPrice().GetValueOrDefault(0).ToString("N0") + " đ"
-                        });
-                    }
-                    else
-                    {
-                        //tạo mới đối tượng cart item
-                        var item = new CartItem();
-                        item.Product = product;
-                        item.Quantity = 1;
-                        list.Add(item);
-                        //Gán vào session
-                        string jsonData = JsonConvert.SerializeObject(list);
-                        HttpContext.Session.SetString("cart", jsonData);
-                        return Json(new
-                        {
-                            response = "added",
-                            type = "newItem",
-                            productId = item.Product.Id,
-                            productName = item.Product.Name,
-                            price = (item.Product.PromotionPrice.HasValue ? item.Product.PromotionPrice : item.Product.Price).GetValueOrDefault(0).ToString("N0") + " đ",
-                            productImage = item.Product.MainImageThumb,
-                            totalPrice = TotalPrice().GetValueOrDefault(0).ToString("N0") + " đ",
-                            countCI = list.Count()
-                        });
-                    }
+                    cartItem.Quantity += quantity;
                 }
                 else
                 {
-                    //tạo mới đối tượng cart item
-                    var item = new CartItem();
-                    item.Product = product;
-                    item.Quantity = 1;
-                    var list = new List<CartItem>();
-                    list.Add(item);
-                    //Gán vào session
-                    string jsonData = JsonConvert.SerializeObject(list);
-                    HttpContext.Session.SetString("cart", jsonData);
-                    return Json(new
+                    var newItem = new CartItem
                     {
-                        response = "added",
-                        type = "newCart",
-                        productId = item.Product.Id,
-                        productName = item.Product.Name,
-                        price = (item.Product.PromotionPrice.HasValue ? item.Product.PromotionPrice : item.Product.Price).GetValueOrDefault(0).ToString("N0") + " đ",
-                        productImage = item.Product.MainImageThumb,
-                        totalPrice = TotalPrice().GetValueOrDefault(0).ToString("N0") + " đ",
-                        countCI = list.Count()
-                    });
+                        Product = product,
+                        Quantity = quantity
+                    };
+                    list.Add(newItem);
                 }
             }
-            catch (Exception ex)
+            else
             {
-                return Json(new { response = "error", message = ex.Message });
+                var newItem = new CartItem
+                {
+                    Product = product,
+                    Quantity = quantity
+                };
+                list.Add(newItem);
             }
 
+            // Update session with the modified cart
+            string jsonData = JsonConvert.SerializeObject(list);
+            HttpContext.Session.SetString("cart", jsonData);
+
+            return Json(new { success = true, message = "Thêm sản phẩm thành công", cart = list });
+        }
+        [Route("count-cart-items")]
+        public JsonResult CountCartItems()
+        {
+            var cart = HttpContext.Session.GetString("cart");
+            if (cart != null)
+            {
+                var list = JsonConvert.DeserializeObject<List<CartItem>>(cart);
+                int distinctProductCount = list.Count;
+                return Json(new { success = true, count = distinctProductCount });
+            }
+            return Json(new { success = false, count = 0 });
+        }
+        [Route("getdatacart")]
+        [HttpGet]
+        public JsonResult GetCart()
+        {
+            var cart = HttpContext.Session.GetString("cart");
+            if (cart != null)
+            {
+                var list = JsonConvert.DeserializeObject<List<CartItem>>(cart);
+                return Json(new { success = true, cart = list });
+            }
+            return Json(new { success = false, cart = new List<CartItem>() });
         }
         public JsonResult DeleteAll()
         {
@@ -289,6 +247,22 @@ namespace Web.Controllers
                 var oldData = JsonConvert.DeserializeObject<List<CartItem>>(oldJson);
                 var item = oldData.FirstOrDefault(x => x.Product.Id == id);
 
+                if (item == null)
+                {
+                    return Json(new { status = false, message = "Product not found in cart." });
+                }
+
+                var product = productService.GetProduct(id); // Assuming you have a method to get the product details from the database
+                if (product == null)
+                {
+                    return Json(new { status = false, message = "Product not found." });
+                }
+
+                if (quantity > product.Quantity)
+                {
+                    return Json(new { status = false, message = "Không thể thêm sản phẩm do kho hàng không đủ." });
+                }
+
                 var oldQuantity = item.Quantity;
 
                 SumPrice += (quantity - oldQuantity) * (item.Product.IsPromote ? item.Product.PromotionPrice.GetValueOrDefault(0) : item.Product.Price.GetValueOrDefault(0));
@@ -307,7 +281,7 @@ namespace Web.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { status = ex.Message });
+                return Json(new { status = false, message = ex.Message });
             }
         }
 

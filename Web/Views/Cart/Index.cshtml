@@ -203,21 +203,27 @@ else
         var q = parseInt(quantity);
         var sum = document.getElementById(productId + "-total");
         var all = document.getElementById("totalPriceAll");
-        var s = sum.innerHTML.replace(' đ', '');
-        var a = all.innerHTML.replace(' đ', '');
+        var s = sum.innerHTML.replace(' đ', '').replace(/,/g, ''); // Remove currency and commas
+        var a = all.innerHTML.replace(' đ', '').replace(/,/g, ''); // Remove currency and commas
         $.ajax({
             data: { id: i, quantity: q, sumPrice: s, allPrice: a },
             url: '/Cart/UpdateItem',
             dataType: 'json',
             type: 'POST',
             success: function (res) {
-                if (res.status == true) {
+                if (res.status === true) {
                     sum.innerHTML = res.sumPrice + ' đ';
                     all.innerHTML = res.allPrice + ' đ';
+                } else {
+                    alert(res.message); // Show the error message to the user
                 }
+            },
+            error: function (xhr, status, error) {
+                alert('Error occurred while updating the cart.');
             }
-        })
+        });
     }
+
 
     function deleteItem(productId) {
         var i = parseInt(productId);

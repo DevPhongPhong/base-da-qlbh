@@ -84,7 +84,7 @@ namespace Services.Kaafly
         {
             return context.ProductCategories.FirstOrDefault(x => x.Id == id);
         }
-        public ProductViewModel GetProductById(int id)
+        public ProductViewModel GetProductViewModelById(int id)
         {
             var query = from a in context.Products
                         select new ProductViewModel
@@ -439,6 +439,11 @@ namespace Services.Kaafly
             {
                 throw e;
             }
+        }
+
+        public Entities.Models.Product GetProductById(int id)
+        {
+            return context.Products.FirstOrDefault(x => x.Id == id);
         }
     }
 }

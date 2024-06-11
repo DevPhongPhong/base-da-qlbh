@@ -43,7 +43,7 @@ namespace Web.Controllers
             //ViewBag.HotCategoryProduct = productService.GetListProductCategoryByHomeHot(true, true, 10);
             //ViewBag.ProductCategoryShowOnHome = productService.GetAllProductCategoryShowOnHome(true, true, 5);
             GetDataMenu();
-			return View();
+            return View();
         }
 
         public IActionResult Privacy()
@@ -113,13 +113,21 @@ namespace Web.Controllers
         {
             GetDataMenu();
 
-            var data = kaaflyService.GetProductById(id);
+            var data = kaaflyService.GetProductViewModelById(id);
             if (data == null)
             {
                 return RedirectToAction("Index", "Home");
             }
-            ViewBag.ProductDetail = kaaflyService.GetProductById(id);
+            ViewBag.ProductDetail = kaaflyService.GetProductViewModelById(id);
             return View(data);
+        }
+        [Route("product/getquickview")]
+        public JsonResult GetQuickView(int id)
+        {
+            var data = kaaflyService.GetProductById(id);
+            if (data == null)
+                return Json(new { success = false, message = "Không tồn tại sản phẩm!" });
+            return Json(new { success = true, data.Name, data.Price, data.IsPromote, data.PromotionPrice, data.MainImageLarge, data.SubDes, data.Quantity, data.Branch });
         }
 
         [Route("tin-tuc")]
@@ -166,7 +174,7 @@ namespace Web.Controllers
             ViewBag.ListRandomCategoryNews = commonService.GetRandomCategoryNews(4);
             ViewBag.ListHotNewses = newsService.GetRandomHotNewses(4);
             ViewBag.ListRecentNews = newsService.GetRecentNewses(3);
-            ViewBag.ListFeedback = fromCustomerService.GetNewsComments().Where(x => x.NewsID == id && x.Status == true && x.ShowOnHome==true).OrderByDescending(x=>x.CreateDate).Take(3).ToList();
+            ViewBag.ListFeedback = fromCustomerService.GetNewsComments().Where(x => x.NewsID == id && x.Status == true && x.ShowOnHome == true).OrderByDescending(x => x.CreateDate).Take(3).ToList();
             GetDataMenu();
 
             var data = newsService.GetNews(id);
