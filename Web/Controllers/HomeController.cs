@@ -113,12 +113,12 @@ namespace Web.Controllers
         {
             GetDataMenu();
 
-            var data = kaaflyService.GetProductById(id);
+            var data = kaaflyService.GetProductViewModelById(id);
             if (data == null)
             {
                 return RedirectToAction("Index", "Home");
             }
-            ViewBag.ProductDetail = kaaflyService.GetProductById(id);
+            ViewBag.ProductDetail = kaaflyService.GetProductViewModelById(id);
             return View(data);
         }
         [Route("product/getquickview")]

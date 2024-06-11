@@ -77,8 +77,8 @@
           href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/responsive.scss.css?1709110859833">
     <link rel="preload" as="style" type="text/css"
           href="//bizweb.dktcdn.net/100/415/549/themes/804146/assets/owl.carousel.min.css?1709110859833">
-    <script src="/assets/js/jquery-3.7.1.min.js"></script>
-    
+    @* <script src="/assets/js/jquery-3.7.1.min.js"></script> *@
+    <script src="/assets/js/headerjs.js"></script>
     <!-- Plugin CSS -->
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
     <link href="/assets/css/owl.carousel.min.css" rel="stylesheet" type="text/css" media="all">
@@ -139,7 +139,15 @@
                         let cart = response.cart;
                         let itemList = $('#cart-sidebar .list-item ul');
                         itemList.empty(); // Clear the current list
-
+                        if (cart.length == 0) {
+                             itemList.append(`
+                            <li class="item">
+                                <div class="product-info" style="display: flex;">
+                                   Không có sản phẩm
+                                </div>
+                            </li>
+                        `);
+                        }
                         let totalAmount = 0;
                         let totalCount = cart.length;
 
@@ -152,7 +160,7 @@
                             itemList.append(`
                             <li class="item">
                                 <div class="product-info" style="display: flex;">
-                                    <img class="lazyload loading" style="max-width: 100px;" src="${product.MainImageThumb}">
+                                    <img class="lazyload loading" style="max-width: 100px;" src="/${product.MainImageThumb}">
                                     <span class="product-name">${product.Name}</span>
                                     <span class="product-quantity">Số lượng: ${quantity}</span>
                                     <span class="product-price">Giá: ${price.toLocaleString()} đ</span>
@@ -164,11 +172,29 @@
                         $('#cart-sidebar .top-subtotal .price').text(`${totalAmount.toLocaleString()} đ`);
                         $('.count_item, .count_item_pr').text(totalCount);
                     } else {
-                   
+                        debugger
+                        let itemList = $('#cart-sidebar .list-item ul');
+                        itemList.empty(); // Clear the current list
+                        itemList.append(`
+                            <li class="item">
+                                <div class="product-info" style="display: flex;">
+                                   Không có sản phẩm
+                                </div>
+                            </li>
+                        `);
                     }
                 },
                 error: function (xhr, status, error) {
-                   
+                    debugger
+                    let itemList = $('#cart-sidebar .list-item ul');
+                        itemList.empty(); // Clear the current list
+                        itemList.append(`
+                            <li class="item">
+                                <div class="product-info" style="display: flex;">
+                                    Không có sản phẩm
+                                </div>
+                            </li>
+                        `);
                 }
             });
         }
