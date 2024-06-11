@@ -15,11 +15,11 @@ namespace Entities.Models
         [StringLength(100)]
         public string Email { get; set; }
         [StringLength(12)]
-        public string PhoneNumber{ get; set; }
+        public string PhoneNumber { get; set; }
         [StringLength(500)]
-        public string Subject{ get; set; }
-        public string Message{ get; set; }
-        public string Avatar{ get; set; }
+        public string Subject { get; set; }
+        public string Message { get; set; }
+        public string Avatar { get; set; }
         /// <summary>
         /// Type of Feed back
         /// </summary>
@@ -28,7 +28,7 @@ namespace Entities.Models
         /// 2: Comment Product
         /// 3: Comment News
         /// </value>
-        public int Type{ get; set; }
+        public int Type { get; set; }
         public DateTime CreateDate { get; set; }
         public int ProductID { get; set; }
         public int NewsID { get; set; }

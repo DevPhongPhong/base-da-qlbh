@@ -32,6 +32,7 @@ namespace Web.Controllers
             this.productService = productService;
             this.newsService = newsService;
             this.commonService = commonService;
+            this.fromCustomerService = _fromCustomerService;
         }
 
         public IActionResult Index()
@@ -231,42 +232,32 @@ namespace Web.Controllers
         [HttpPost]
         public IActionResult Contact(SendContactModel model)
         {
-            try
+            var feedback = new Feedback
             {
-                var feedback = new Feedback
-                {
-                    Email = model.email,
-                    Name = model.name,
-                    Message = model.description,
-                    PhoneNumber = model.phone,
-                    Subject = model.subject
-                };
-                feedback.Type = model.type;
-                if (model.type == 2) feedback.ProductID = model.objID;
-                if (model.type == 3) feedback.NewsID = model.objID;
-                feedback.CreateDate = DateTime.Now;
-                feedback.Status = true;
-                feedback.ShowOnHome = true;
-                feedback.Avatar = "/Upload/user-avatar.png";
-                var status = fromCustomerService.AddFeedback(feedback);
-                if (status)
-                {
-                    TempData["sentContact"] = "success";
-                    return Redirect(model.url);
-                }
-
-                else
-                {
-                    TempData["sentContact"] = "error";
-                    return Redirect(model.url);
-                }
+                Email = model.email,
+                Name = model.name,
+                Message = model.description,
+                PhoneNumber = model.phone,
+                Subject = model.subject
+            };
+            feedback.Type = model.type;
+            feedback.ProductID = model.objID;
+            feedback.NewsID = model.objID;
+            feedback.CreateDate = DateTime.Now;
+            feedback.Status = true;
+            feedback.ShowOnHome = true;
+            feedback.Avatar = "/Upload/user-avatar.png";
+            var status = fromCustomerService.AddFeedback(feedback);
+            if (status)
+            {
+                TempData["sentContact"] = "success";
+                return RedirectToAction("Index", "Home");
             }
-            catch (Exception ex)
+            else
             {
                 TempData["sentContact"] = "error";
                 return Redirect(model.url);
             }
-
         }
         public IActionResult _MainMenu()
         {
