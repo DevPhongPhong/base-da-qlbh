@@ -89,12 +89,6 @@ $(document).on('click','.overlay, .close-popup, .btn-continue, .fancybox-close',
 	return false;
 })
 
-/*Double click go to link menu*/
-var wDWs = $(window).width();
-if (wDWs < 1199) {
-	$('.ul_menu li:has(ul)' ).doubleTapToGo();
-	$('.item_big li:has(ul)' ).doubleTapToGo();
-}
 
 /********************************************************
 # CONVERT VIETNAMESE
@@ -331,68 +325,6 @@ BANNER FIXED TOP
 if($(window).width()<=991){
 	$(".banner_a").remove();
 }
-if (wDWs > 992) {
-
-	$(window).on("load resize",function(){
-		if(jQuery(window).width() >= 1367){
-			if(jQuery(window).width() < 1600){
-				var a = (($(window).width() - $('.container').width())/2);
-				var b = ((a*90)/100);
-				$('.banner_').css('width', b);
-			}	
-			if ($('.banner_fixed_index_1, .banner_fixed_index_2').length) {
-				backToTop = function () {
-					var min_height = $('.header').height(),
-						awe_section_1 = $('.awe-section-1').height(),
-						height_banner = $('.banner_').height(),
-						footer_height = $('.footer').height(),
-						toal_height_1 = $('.footer').offset().top;
-					if ( $('.footer').offset().top <= ($('.banner_').offset().top +$('.banner_').height())){
-						$('.banner_fixed_index_1, .banner_fixed_index_2').removeClass('show');
-					} else {
-						if ($(this).scrollTop() >= min_height + awe_section_1){
-							$('.banner_fixed_index_1, .banner_fixed_index_2').addClass('show');
-						}
-						else {
-							$('.banner_fixed_index_1, .banner_fixed_index_2').removeClass('show');
-						}
-					}
-				};
-				backToTop();
-				$(window).on('scroll', function () {
-					backToTop();
-				});
-			}
-			if ($('.banner_fixed_1, .banner_fixed_2').length) {
-
-				backToTop = function () {
-					var min_height = $('.header').height(),
-						height_banner = $('.banner_').height(),
-						footer_height = $('.footer').height(),
-						wrap_main_height = $('.wrap_main').height(),
-						bread_crumb_height = $('.bread-crumb').height(),
-						toal_height_1 = $('.footer').offset().top;
-
-					if ( $('.footer').offset().top <= ($('.banner_').offset().top +$('.banner_').height())){
-						$('.banner_fixed_1, .banner_fixed_2').removeClass('show');
-					} else {
-						if ($(this).scrollTop() >= min_height + wrap_main_height + bread_crumb_height){
-							$('.banner_fixed_1, .banner_fixed_2').addClass('show');
-						}
-						else {
-							$('.banner_fixed_1, .banner_fixed_2').removeClass('show');
-						}
-					}
-				};
-				backToTop();
-				$(window).on('scroll', function () {
-					backToTop();
-				});
-			}
-		}
-	});
-}
-
 
 /********************************************************
 # BACKTOTOP

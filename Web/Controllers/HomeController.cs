@@ -32,6 +32,7 @@ namespace Web.Controllers
             this.productService = productService;
             this.newsService = newsService;
             this.commonService = commonService;
+            this.fromCustomerService = _fromCustomerService;
         }
 
         public IActionResult Index()
@@ -43,7 +44,7 @@ namespace Web.Controllers
             //ViewBag.HotCategoryProduct = productService.GetListProductCategoryByHomeHot(true, true, 10);
             //ViewBag.ProductCategoryShowOnHome = productService.GetAllProductCategoryShowOnHome(true, true, 5);
             GetDataMenu();
-			return View();
+            return View();
         }
 
         public IActionResult Privacy()
@@ -113,13 +114,21 @@ namespace Web.Controllers
         {
             GetDataMenu();
 
-            var data = kaaflyService.GetProductById(id);
+            var data = kaaflyService.GetProductViewModelById(id);
             if (data == null)
             {
                 return RedirectToAction("Index", "Home");
             }
-            ViewBag.ProductDetail = kaaflyService.GetProductById(id);
+            ViewBag.ProductDetail = kaaflyService.GetProductViewModelById(id);
             return View(data);
+        }
+        [Route("product/getquickview")]
+        public JsonResult GetQuickView(int id)
+        {
+            var data = kaaflyService.GetProductById(id);
+            if (data == null)
+                return Json(new { success = false, message = "Không tồn tại sản phẩm!" });
+            return Json(new { success = true, data.Name, data.Price, data.IsPromote, data.PromotionPrice, data.MainImageLarge, data.SubDes, data.Quantity, data.Branch });
         }
 
         [Route("tin-tuc")]
@@ -166,7 +175,7 @@ namespace Web.Controllers
             ViewBag.ListRandomCategoryNews = commonService.GetRandomCategoryNews(4);
             ViewBag.ListHotNewses = newsService.GetRandomHotNewses(4);
             ViewBag.ListRecentNews = newsService.GetRecentNewses(3);
-            ViewBag.ListFeedback = fromCustomerService.GetNewsComments().Where(x => x.NewsID == id && x.Status == true && x.ShowOnHome==true).OrderByDescending(x=>x.CreateDate).Take(3).ToList();
+            ViewBag.ListFeedback = fromCustomerService.GetNewsComments().Where(x => x.NewsID == id && x.Status == true && x.ShowOnHome == true).OrderByDescending(x => x.CreateDate).Take(3).ToList();
             GetDataMenu();
 
             var data = newsService.GetNews(id);
@@ -223,42 +232,32 @@ namespace Web.Controllers
         [HttpPost]
         public IActionResult Contact(SendContactModel model)
         {
-            try
+            var feedback = new Feedback
             {
-                var feedback = new Feedback
-                {
-                    Email = model.email,
-                    Name = model.name,
-                    Message = model.description,
-                    PhoneNumber = model.phone,
-                    Subject = model.subject
-                };
-                feedback.Type = model.type;
-                if (model.type == 2) feedback.ProductID = model.objID;
-                if (model.type == 3) feedback.NewsID = model.objID;
-                feedback.CreateDate = DateTime.Now;
-                feedback.Status = true;
-                feedback.ShowOnHome = true;
-                feedback.Avatar = "/Upload/user-avatar.png";
-                var status = fromCustomerService.AddFeedback(feedback);
-                if (status)
-                {
-                    TempData["sentContact"] = "success";
-                    return Redirect(model.url);
-                }
-
-                else
-                {
-                    TempData["sentContact"] = "error";
-                    return Redirect(model.url);
-                }
+                Email = model.email,
+                Name = model.name,
+                Message = model.description,
+                PhoneNumber = model.phone,
+                Subject = model.subject
+            };
+            feedback.Type = model.type;
+            feedback.ProductID = model.objID;
+            feedback.NewsID = model.objID;
+            feedback.CreateDate = DateTime.Now;
+            feedback.Status = true;
+            feedback.ShowOnHome = true;
+            feedback.Avatar = "/Upload/user-avatar.png";
+            var status = fromCustomerService.AddFeedback(feedback);
+            if (status)
+            {
+                TempData["sentContact"] = "success";
+                return RedirectToAction("Index", "Home");
             }
-            catch (Exception ex)
+            else
             {
                 TempData["sentContact"] = "error";
                 return Redirect(model.url);
             }
-
         }
         public IActionResult _MainMenu()
         {

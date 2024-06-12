@@ -25,7 +25,7 @@ namespace Services.FromCustomer
             {
                 throw ex;
             }
-        }    
+        }
         public IEnumerable<Feedback> GetMessages()
         {
             try
@@ -97,17 +97,14 @@ namespace Services.FromCustomer
         {
             try
             {
-                var sub = new SubscribeEmail { Email = feedback.Email , CreateDate = DateTime.Now};
+                var sub = new SubscribeEmail { Email = feedback.Email, CreateDate = DateTime.Now };
                 var addEmail = AddSubscribeEmail(sub);
-
-                if(feedback.Avatar==null || feedback.Avatar.Length<=0) feedback.Avatar = "Upload/user-avatar.png";
-
                 context.Feedbacks.Add(feedback);
                 return context.SaveChanges() > 0;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                return false;
             }
         }
         public bool ChangeStatusFeedback(int ID)
