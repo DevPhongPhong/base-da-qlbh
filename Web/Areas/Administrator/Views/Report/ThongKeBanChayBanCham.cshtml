@@ -1,0 +1,123 @@
+﻿@{
+    string filter = ViewBag.Filter != null ? ViewBag.Filter.ToString() : DateTime.Now.Date.ToString("dd/MM/yyyy");
+    ViewData["Title"] = "Bán chạy bán chậm năm " + filter;
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-md-4">
+            <select class="form-control" id="ddlFilterData" onchange="OnchangeData()">
+                @for (int i = 2010; i <= DateTime.Now.Year; i++)
+                {
+                    if (i.ToString() == filter)
+                    {
+                        <option value="@i" selected>Năm @i</option>
+                    }
+                    else
+                    {
+                        <option value="@i">Năm @i</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+    <hr />
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                    <h1 class="card-title">Biểu đồ sản phẩm bán chạy bán chậm năm @filter</h1>
+                </div>
+            </div>
+            <div class="card-body">
+                <canvas id="chartBanChay">
+                </canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+</div>
+
+<script>
+    function OnchangeData() {
+        var val = $('#ddlFilterData').val();
+        window.location.href = "@Url.Action("BaoCaoNam", "Report")?nam=" + val;
+    }
+</script>
+<script>
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    function SetCharBieuDoBanChay() {
+        var ctxDoc = document.getElementById('chartBanChay').getContext('2d');
+        var arrDataSanPhamDaBan = [];
+        var arrDataLabels = [];
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetDataThongKeBanChayBanCham", "Report")?nam=@filter',
+            dataType: 'json',
+            success: function (res) {
+                arrDataSanPhamDaBan = res.TotalQuantity;
+                arrDataLabels = res.ProductName;
+                console.log(res);
+            }
+        }).done(function () {
+            var myChart = new Chart(ctxDoc, {
+                type: 'bar',
+                data: {
+                    labels: arrDataLabels,
+
+                    datasets: [
+                        {
+                            label: 'Số lượng sản phẩm đã bán',
+                            data: arrDataSanPhamDaBan,
+                            backgroundColor: [
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745'
+                            ],
+                            borderColor: [
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745',
+                                '#28a745'
+                            ],
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+    }
+</script>
+<script>
+    SetCharBieuDoBanChay();
+</script>

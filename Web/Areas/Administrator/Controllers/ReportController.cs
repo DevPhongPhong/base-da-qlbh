@@ -59,9 +59,18 @@ namespace Web.Areas.Administrator.Controllers
             ViewBag.Filter = nam;
             return View();
         }
+        public IActionResult ThongKeBanChayBanCham(int nam)
+        {
+            if (nam == 0)
+            {
+                nam = DateTime.Now.Year;
+            }
+            ViewBag.Filter = nam;
+            return View();
+        }
         public IActionResult GetDataBaoCaoNam(int nam)
         {
-            if(nam == null || nam == 0)
+            if (nam == null || nam == 0)
             {
                 nam = DateTime.Now.Year;
             }
@@ -86,6 +95,16 @@ namespace Web.Areas.Administrator.Controllers
                 req = DateTime.Now;
             }
             var obj = orderService.GetDataBaoCaoNgay(req);
+            return Ok(JsonSerializer.Serialize(obj));
+        }
+
+        public IActionResult GetDataThongKeBanChayBanCham(int nam)
+        {
+            if (nam == 0)
+            {
+                nam = DateTime.Now.Year;
+            }
+            var obj = orderService.GetDataThongKeBanChayBanCham(nam);
             return Ok(JsonSerializer.Serialize(obj));
         }
     }

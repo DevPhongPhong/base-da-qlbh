@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     string filter = ViewBag.Filter != null ? ViewBag.Filter.ToString() : DateTime.Now.Date.ToString("dd/MM/yyyy");
     ViewData["Title"] = "Báo cáo năm " + filter;
     Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
@@ -9,7 +8,7 @@
     <div class="row">
         <div class="col-md-4">
             <select class="form-control" id="ddlFilterData" onchange="OnchangeData()">
-                @for (int i = 2010; i < 2023; i++)
+                @for (int i = 2010; i <= DateTime.Now.Year; i++)
                 {
                     if (i.ToString() == filter)
                     {
