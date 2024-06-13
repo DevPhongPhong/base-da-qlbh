@@ -278,7 +278,7 @@ namespace Services.Order
         {
             try
             {
-                if (context.ProductStatisticals.Any(x => x.Year == nam))
+                if (nam < DateTime.Now.Year && context.ProductStatisticals.Any(x => x.Year == nam))
                 {
                     var data = new DataBanChayBanCham();
 
