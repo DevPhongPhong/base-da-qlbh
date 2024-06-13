@@ -70,7 +70,7 @@ namespace Web.Areas.Administrator.Controllers
         }
         public IActionResult GetDataBaoCaoNam(int nam)
         {
-            if(nam == null || nam == 0)
+            if (nam == null || nam == 0)
             {
                 nam = DateTime.Now.Year;
             }
@@ -97,14 +97,14 @@ namespace Web.Areas.Administrator.Controllers
             var obj = orderService.GetDataBaoCaoNgay(req);
             return Ok(JsonSerializer.Serialize(obj));
         }
-        public IActionResult GetDataThongKeBanChayBanCham(string ngay)
+
+        public IActionResult GetDataThongKeBanChayBanCham(int nam)
         {
-            var req = DateTime.Parse(ngay);
-            if (req == DateTime.MinValue)
+            if (nam == 0)
             {
-                req = DateTime.Now;
+                nam = DateTime.Now.Year;
             }
-            var obj = orderService.GetDataBaoCaoNgay(req);
+            var obj = orderService.GetDataThongKeBanChayBanCham(nam);
             return Ok(JsonSerializer.Serialize(obj));
         }
     }

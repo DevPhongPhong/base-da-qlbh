@@ -227,6 +227,13 @@ namespace Entities.DTOs
         public decimal? DoanhThu { get; set; }
         public double TangTruong { get; set; }
     }
+
+    public class DataBanChayBanCham
+    {
+        public List<string> ProductName { get; set; }
+        public List<int> TotalQuantity { get; set; }
+    }
+
     public class DataBaoCaoNam
     {
         public DataAllTheoThang Thang1 { get; set; }

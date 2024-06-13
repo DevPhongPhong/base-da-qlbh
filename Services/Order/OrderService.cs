@@ -54,7 +54,7 @@ namespace Services.Order
                             context.Products.Find(item.ProductId).Quantity += item.Quantity;
                         }
                     }
-                    else if(status == 3)
+                    else if (status == 3)
                     {
                         var exportModel = new Entities.Models.Export
                         {
@@ -63,7 +63,7 @@ namespace Services.Order
                             OrderID = id
                         };
                         context.Exports.Add(exportModel);
-                    }    
+                    }
                     order.OrderStatusId = status;
                     context.Orders.Update(order);
                     return context.SaveChanges() > 0;
@@ -73,7 +73,7 @@ namespace Services.Order
             {
                 throw ex;
             }
-            
+
         }
         public OrderAdminViewModel GetDetailsOrderByOrderId(int id)
         {
@@ -217,6 +217,7 @@ namespace Services.Order
                 return null;
             }
         }
+
         public DataBaoCao GetDataBaoCaoNgay(DateTime ngay)
         {
             try
@@ -266,6 +267,75 @@ namespace Services.Order
 
                 }
                 return data;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public DataBanChayBanCham GetDataThongKeBanChayBanCham(int nam)
+        {
+            try
+            {
+                if (context.ProductStatisticals.Any(x => x.Year == nam))
+                {
+                    var data = new DataBanChayBanCham();
+
+                    var products = context.ProductStatisticals
+                        .Where(x => x.Year == nam)
+                        .OrderByDescending(x => x.TotalQuantity)
+                        .ThenBy(x => x.ProductName)
+                        .ToList();
+
+                    data.ProductName = products.Select(x => x.ProductName).ToList();
+                    data.TotalQuantity = products.Select(x => x.TotalQuantity).ToList();
+
+                    return data;
+                }
+                else
+                {
+                    var data = new DataBanChayBanCham();
+
+                    var orders = context.Orders
+                        .Where(x => x.OrderStatusId == 4 &&
+                                    x.CreatedDate.Value.Year == nam)
+                        .Select(x => x.Id);
+
+                    var orderDetails = context.OrderDetailses
+                        .Where(x => orders.Contains(x.OrderId))
+                        .ToList();
+
+                    var products = context.Products
+                        .Where(x => orderDetails.Select(od => od.ProductId).Contains(x.Id))
+                        .ToList();
+
+                    var combinedData = orderDetails
+                        .Join(products,
+                              od => od.ProductId,
+                              p => p.Id,
+                              (od, p) => new { ProductName = p.Name, TotalQuantity = od.Quantity })
+                        .OrderByDescending(x => x.TotalQuantity)
+                        .ThenBy(x => x.ProductName)
+                        .ToList();
+
+                    data.ProductName = combinedData.Select(x => x.ProductName).ToList();
+                    data.TotalQuantity = combinedData.Select(x => x.TotalQuantity).ToList();
+                    foreach (var item in combinedData)
+                    {
+                        context.ProductStatisticals.Add(new ProductStatistical
+                        {
+                            Year = nam,
+                            ProductName = item.ProductName,
+                            TotalQuantity = item.TotalQuantity
+                        });
+                    }
+
+                    // Save the changes to the database
+                    context.SaveChanges();
+                    return data;
+                }
+
             }
             catch (Exception)
             {

@@ -13,5 +13,6 @@ namespace Services.Order
         bool ChangeStatus(int id, int status);
         DataBaoCao GetDataBaoCaoNgay(DateTime ngay);
         DataBaoCao GetDataBaoCaoThang(DateTime ngay);
+        DataBanChayBanCham GetDataThongKeBanChayBanCham(int nam);
     }
 }
