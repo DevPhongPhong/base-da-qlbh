@@ -4,24 +4,55 @@
     ViewData["Title"] = "Giới thiệu";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@{var message = (string)TempData["sentContact"]; }
+@{
+    var message = (string)TempData["sentContact"];
+}
 <!-- Start Breadcrumbs Section -->
-<section class="breadcrumbs-section background_bg" data-img-src="/assets/images/contact-breadcrumbs-img.jpg" style="background: url(&quot;/assets/images/contact-breadcrumbs-img.jpg&quot;) center center / cover;">
+<section class="bread-crumb">
+    <span class="crumb-border"></span>
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="page_title text-center">
-                    <h1>Liên hệ</h1>
-                    <ul class="breadcrumb justify-content-center">
-                        <li><a href="/">Trang chủ</a></li>
-                        <li><span>Liên hệ</span></li>
-                    </ul>
+        <div class="row">
+            <div class="col-xs-12 a-left">
+                <ul class="breadcrumb">
+                    <li class="home">
+                        <a href="/"><span>Trang chủ</span></a>
+                        <span><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
+                    </li>
+
+                    <li><strong><span>Liên hệ</span></strong></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .box-maps iframe {
+        width: 100%;
+        vertical-align: top
+    }
+</style>
+<!-- End Header Section -->
+<section class="margin-top-0">
+    <div class="container">
+        <div class="row">
+            <div class="section_maps col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-bottom-20">
+                <div class="title_head margin-bottom-20">
+                    <h1 class="title_center_page title-head-contact">
+                        <span>Bản đồ liên hệ</span>
+                    </h1>
+                </div>
+                <div class="box-maps">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3722.853141082949!2d105.81396581443802!3d21.0785269859714!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab1aa346e469%3A0xd0ce38632af09897!2zxJBJ4buGTiBNw4FZIFTDglkgSOG7kiAtIDY3MCBM4bqgQyBMT05HIFFVw4JO!5e0!3m2!1svi!2s!4v1609917468273!5m2!1svi!2s"
+                        width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""
+                        aria-hidden="false" tabindex="0"></iframe>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- End Header Section -->
+
 <!-- Start Contact Detail Section -->
 <section class="contact-inner-page pt_large">
     <div class="container">
@@ -38,100 +69,157 @@
         <script>
             $("#alertSent").fadeOut();
         </script>
-        <div class="row">
-            <div class="col-lg-7 col-md-12">
-                <div class="contact-inputs">
-                    <div class="title text-left">
-                        <h4>Để lại lời nhắn cho chúng tôi</h4>
-                    </div>
-                    <form method="post" class="contact-form form-with-label" action="@Url.Action("Contact","Home")" asp-antiforgery="true">
-                        <div class="input-1">
-                            <label>Họ tên<span>*</span></label>
-                            <input required="true" class="form-control" name="name" placeholder="Họ tên" value="" type="text">
-                        </div>
-                        <div class="input-2">
-                            <label>Email<span>*</span></label>
-                            <input required="true" class="form-control" name="email" placeholder="Email" value="" type="email">
-                        </div>
-                        <div class="input-3">
-                            <label>Số điện thoại<span>*</span></label>
-                            <input required="true" class="form-control" name="phone" placeholder="Số điện thoại" value="" type="text">
-                        </div>
-                        <div class="input-4">
-                            <label>Chủ đề<span>*</span></label>
-                            <input required="true" class="form-control" name="subject" placeholder="Chủ đề" value="" type="text">
-                        </div>
-                        <div class="input-5">
-                            <label>Tin nhắn<span>*</span></label>
-                            <textarea required="true" rows="3" class="form-control" name="description" placeholder="Nội dung"></textarea>
-                        </div>
-                        <div class="submit-btn">
-                            <button type="submit" class="btn btn-primary">Gửi</button>
-                        </div>
-                        <input type="hidden" name="url" id="sendUrl">
+        <div class="container contact contact-owf">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="page-login page_cotact">
+                        <h2 class="title-head-contact a-left"><span>Liên hệ với chúng tôi:</span></h2>
+                        <div id="pagelogin">
+                            <form method="post" class="contact-form form-with-label"
+                                action="@Url.Action("Contact","Home")" asp-antiforgery="true">
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label>Họ và tên:</label>
+                                    <input required="true" class="form-control  form-control-lg" name="name"
+                                        placeholder="Nhập họ tên" value="" type="text">
+                                </div>
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label>Email:</label>
+                                    <input required="true" class="form-control  form-control-lg" name="email"
+                                        placeholder="Nhập Email" value="" type="email">
+                                </div>
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label>Số điện thoại:</label>
+                                    <input required="true" class="form-control  form-control-lg" name="phone"
+                                        placeholder="Nhập số điện thoại" value="" type="text">
+                                </div>
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label>Tiêu đề:</label>
+                                    <input required="true" class="form-control  form-control-lg" name="subject"
+                                        placeholder="Nhập tiêu đề" value="" type="text">
+                                </div>
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label>Tin nhắn:</label>
+                                    <textarea required="true" rows="5" class="form-control  form-control-lg"
+                                        name="description" placeholder="Nhập nội dung"></textarea>
+                                </div>
+                                <div class="submit-btn">
+                                    <button type="submit" class="btn btn-primary">Gửi liên hệ</button>
+                                </div>
+                                <input type="hidden" name="url" id="sendUrl" value="https://localhost:5001/lien-he">
 
-                        <input type="hidden" name="type" value="1">
-                        <div class="col-md-12">
-                            <div id="alert-msg" class="alert-msg text-center"></div>
+                                <input type="hidden" name="type" value="1">
+                                <div class="col-md-12">
+                                    <div id="alert-msg" class="alert-msg text-center"></div>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-5 col-md-12">
-                <div class="contact-details">
-                    <div class="title text-left">
-                        <h4>Hãy giữ liên lạc với chúng tôi</h4>
+                <div class="select_maps col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="bb">
+                        <div class="page_cotact">
+                            <h2 class="title_db"><span>CÔNG TY TNHH DV VÀ TM MÁY THỰC PHẨM TIẾN ĐẠT</span></h2>
+                        </div>
+                        <div class="contact-addresss margin-bottom-10">
+                            <ul class="contact">
+                                <li>
+                                    <span class="txt_content_child">
+                                        <span> Địa chỉ:</span>
+
+                                        Lô 03, Tầng 1, tòa B Chung cư hateco- Phường yên sở - Hoàng Mai- TP Hà nội. MST
+                                        0110120028 do Sở kế hoạch đầu tư TP Hà Nội cấp ngày 16/09/2022
+
+                                    </span>
+                                </li>
+                                <li class="sdt">
+                                    <span> Hotline:</span>
+
+                                    <a href="tel:0987983948">0987983948</a>
+
+                                    <span>-</span>
+                                    <span class="email_style"><span> Email:</span>
+
+
+
+                                        <a href="mailto:dienmaytiendatvn@gmail.com"> dienmaytiendatvn@gmail.com</a>
+
+
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="contact-inner">
-                        <p>Chúng tôi luôn nhận các phản hồi từ khách hàng</p>
-                        <ul class="contact-locations">
-                            <li><span class="fa fa-map-marker"></span><p>  ◾ 63 Hồ Tùng Mậu - Hà Nội</p></li>
-                            <li><span class="fa fa-map-marker"></span><p> ◾ 216M Nguyễn Trãi - Hà Đông</p></li>
-                            <li><span class="fa fa-map-marker"></span><p>◾ 350 Cầu Giấy</p></li>
-                            <li><span class="fa fa-map-marker"></span><p>◾ 972 Láng</p></li>
-                            <li><span class="fa fa-map-marker"></span><p>◾ 68 Chùa Bộc</p></li>
-                            <li><span class="fa fa-map-marker"></span><p>◾ 62 Lương Ngọc Quyến - Tp Thái Nguyên</p></li>
-                            <li><span class="fa fa-phone"></span><p>◾ 0867 881 345</p></li>
-                            <li><span class="fa fa-envelope-o"></span><a href="https://www.facebook.com/ThuyLinh.20112000">LinhThuy</a></li>
-                        </ul>
+
+                    <div class="aa">
+                        <div class="page_cotact">
+                            <h2 class="title_db"><span>Hệ thống cửa hàng</span></h2>
+                        </div>
+                        <div class="city_1 city-wrapper" style="display: block;">
+                            <div class="nano has-scrollbar">
+                                <div class="content">
+
+
+
+
+
+
+                                    <div class="showroom-item">
+                                        <div class="title-module-page">
+                                            <h2><span>Showroom Miền bắc</span></h2>
+                                        </div>
+                                        <span class="showroom-address">
+                                            <span>Địa chỉ:
+                                                Lô 03, Tầng 1, tòa B Chung cư hateco- Phường yên sở - Hoàng Mai- TP Hà
+                                                nội
+                                            </span>
+                                        </span>
+
+                                        <span class="showroom-contact"><span>Hotline:
+                                                <a href="tel:0987983948">0987983948</a>
+                                            </span></span>
+
+                                    </div>
+
+
+
+
+
+
+
+                                    <div class="showroom-item">
+                                        <div class="title-module-page">
+                                            <h2><span>Showroom Miền nam</span></h2>
+                                        </div>
+                                        <span class="showroom-address">
+                                            <span>Địa chỉ:
+                                                579-581 Tạ Quang Bửu, Phường 4, Quận 8, TP.HCM
+                                            </span>
+                                        </span>
+
+                                        <span class="showroom-contact"><span>Hotline:
+                                                <a href="tel:0949089879">0949089879</a>
+                                            </span></span>
+
+                                    </div>
+
+
+
+
+
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <span class="thank_text">
+                        Công ty chân thành cảm ơn sự quan tâm của quý khách đến các sản phẩm và dịch vụ của chúng tôi!
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- End Contact Detail Section -->
-<!-- Start Map Section -->
-<section class="pb-0">
-    <div class="container-fluid p-0">
-        <div class="row no-gutters">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <style>
-                    .iframe-rwd {
-                        position: relative;
-                        padding-bottom: 56.25%;
-                        height: 100px;
-                        overflow: hidden;
-                    }
-
-                        .iframe-rwd iframe {
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                        }
-                </style>
-                <div class="iframe-rwd">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d739.0542932405208!2d105.82568562493994!3d21.008654606486346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac803438c2ab%3A0xfa71929ce084c678!2zNjggUC4gQ2jDuWEgQuG7mWMsIFF1YW5nIFRydW5nLCDEkOG7kW5nIMSQYSwgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1647090385825!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.924298821181!2d105.79028791528802!3d21.035714785994646!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab4818e2d1c5%3A0x98f7ee012655e46e!2zMzUwIMSQLiBD4bqndSBHaeG6pXksIEThu4tjaCBW4buNbmcsIEPhuqd1IEdp4bqleSwgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1647090294545!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<script>
-    var obj = document.getElementById("sendUrl");
-    obj.value = window.location.pathname + window.location.search;
-</script>
-<!-- End Map Section -->
