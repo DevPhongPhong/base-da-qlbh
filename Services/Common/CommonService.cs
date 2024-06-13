@@ -52,6 +52,7 @@ namespace Services.Common
                         exist.Address = model.Address;
                         exist.Birthday = model.Birthday;
                         context.SaveChanges();
+
                         return true;
                     }
                     else return false;
@@ -59,7 +60,17 @@ namespace Services.Common
                 else
                 {
                     context.Accounts.Add(model);
-                    return context.SaveChanges() > 0;
+                    var result = context.SaveChanges() > 0;
+
+                    // Add orders to OrderAccount for orders with matching phone number
+                    var matchingOrders = context.Orders.Where(o => o.CustomerPhone == model.Phone).ToList();
+                    foreach (var order in matchingOrders)
+                    {
+                        context.OrderAccounts.Add(new OrderAccount { OrderId = order.Id, AccountId = model.Id });
+                    }
+                    context.SaveChanges();
+
+                    return result;
                 }
             }
             catch (Exception e)

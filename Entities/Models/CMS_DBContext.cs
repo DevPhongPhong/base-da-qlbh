@@ -24,6 +24,7 @@ namespace Entities.Models
         public DbSet<Export> Exports { get; set; }
         public DbSet<ImportDetail> ImportDetails { get; set; }
         public DbSet<StaticData> StaticDatas { get; set; }
+        public DbSet<OrderAccount> OrderAccounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,6 +45,7 @@ namespace Entities.Models
             modelBuilder.Entity<Feedback>().ToTable("Feedback");
             modelBuilder.Entity<SubscribeEmail>().ToTable("SubscribeEmail");
             modelBuilder.Entity<StaticData>().ToTable("staticdatas");
+            modelBuilder.Entity<OrderAccount>().ToTable("orderaccount").HasKey(x=>x.OrderId);
         }
 
     }

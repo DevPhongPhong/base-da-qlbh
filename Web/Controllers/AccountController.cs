@@ -236,7 +236,7 @@ namespace Web.Controllers
         [Route("dang-ky")]
         public IActionResult Register()
         {
-            GetDataMenu();
+            //GetDataMenu();
             var member = GetMemberData();
             if (member == null)
             {
@@ -297,6 +297,7 @@ namespace Web.Controllers
             newAccount.FullName = register.FullName;
             newAccount.Gender = register.Gender;
             var check = commonService.InsertOrUpdateAccount(newAccount);
+            
             if (check)
             {
                 var account = commonService.AccountLogin(new AccountLoginDTO { username = newAccount.Username, password = newAccount.Password });
