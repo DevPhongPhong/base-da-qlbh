@@ -375,15 +375,20 @@ namespace Web.Controllers
         }
         [HttpGet]
         [Route("don-hang")]
-        public IActionResult TrackingOrderReceived(string orderCode, string emailOrPhone)
+        public IActionResult TrackingOrderReceived(string orderCode, string email, string phone)
         {
             try
             {
                 var a = GetMemberData();
                 if (a != null) TempData["onSession"] = "true";
+                if(string.IsNullOrEmpty(phone) && string.IsNullOrEmpty(email))
+                {
+                    TempData["error"] = "Phải nhập số điện thoại hoặc email!";
+                    return RedirectToAction("SearchOrderReceived", "Cart");
+                }
                 if (!string.IsNullOrEmpty(orderCode))
                 {
-                    var order = kaaflyService.GetOrderReceivedByOrderCodeAndEmail(orderCode, emailOrPhone);
+                    var order = kaaflyService.GetOrderReceivedByOrderCodeAndEmailOrPhone(orderCode, email, phone);
                     GetDataMenu();
                     return View(order);
                 }

@@ -38,9 +38,17 @@
                     <div class="form-group">
                         <label for="orderCode">Nhập mã đơn hàng</label>
                         <input class="form-control a" id="orderCode" name="orderCode" placeholder="Mã đơn hàng" required="true" style="text-transform: none;">
-                        <label for="email">Nhập Email</label>
-                        <input class="form-control " id="email" name="email" placeholder="Email" required="true" style="text-transform: none;">
+                        <label for="email">Nhập Email hoặc số điện thoại</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input class="form-control" id="email" name="email" placeholder="Email" style="text-transform: none;">
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control" id="phone" name="phone" placeholder="Số điện thoại" style="text-transform: none;">
+                            </div>
+                        </div>
                     </div>
+
                     <button type="submit" class="btn btn-primary">Tra Cứu</button>
                 }
 

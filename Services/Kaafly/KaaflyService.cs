@@ -396,14 +396,14 @@ namespace Services.Kaafly
                 return null;
             }
         }
-        public TrackingOrderReceivedModel GetOrderReceivedByOrderCodeAndEmail(string orderCode, string emailOrPhone)
+        public TrackingOrderReceivedModel GetOrderReceivedByOrderCodeAndEmail(string orderCode, string email)
         {
             try
             {
                 var result = new TrackingOrderReceivedModel();
-                var o = context.Orders.FirstOrDefault(x => x.OrderCode.ToUpper() == orderCode.ToUpper() && (x.CustomerEmail == emailOrPhone || x.CustomerPhone == emailOrPhone));
+                var o = context.Orders.FirstOrDefault(x => x.OrderCode.ToUpper() == orderCode.ToUpper() && (x.CustomerEmail == email));
 
-                if (o == null) throw new Exception("Sai mã đơn hàng hoặc email hoặc số điện thoại!");
+                if (o == null) throw new Exception("Sai mã đơn hàng hoặc email!");
 
                 result.TotalPrice = o.TotalPrice;
                 result.OrderCode = orderCode;
@@ -473,6 +473,51 @@ namespace Services.Kaafly
                     return result;
                 }
                 else throw new Exception("Email chưa từng mua hàng!");
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public TrackingOrderReceivedModel GetOrderReceivedByOrderCodeAndEmailOrPhone(string orderCode, string email, string phone)
+        {
+            try
+            {
+                var result = new TrackingOrderReceivedModel();
+                var o = context.Orders.FirstOrDefault(x => x.OrderCode.ToUpper() == orderCode.ToUpper() && (x.CustomerEmail == email || x.CustomerPhone == phone));
+
+                if (o == null) throw new Exception("Sai mã đơn hàng hoặc email hoặc số điện thoại!");
+
+                result.TotalPrice = o.TotalPrice;
+                result.OrderCode = orderCode;
+                result.CustomerFullName = o.CustomerFullName;
+                result.CustomerEmail = o.CustomerEmail;
+                result.CreatedDate = o.CreatedDate;
+                result.CustomerAddress = o.CustomerAddress;
+                result.CustomerPhone = o.CustomerPhone;
+                result.OrderStatusId = o.OrderStatusId;
+
+                var listOrderDetail = context.OrderDetailses.Where(x => x.OrderId == o.Id).ToList();
+                var listProductOrder = new List<ProductOrder>();
+
+                if (listOrderDetail == null || listOrderDetail.Count <= 0 || listOrderDetail[0] == null) throw new Exception("Đơn hàng không có sản phẩm!");
+
+                foreach (var item in listOrderDetail)
+                {
+                    var productOrder = new ProductOrder();
+                    var product = context.Products.FirstOrDefault(x => x.Id == item.ProductId);
+
+                    productOrder.ProductId = item.ProductId;
+                    productOrder.ProductPrice = item.ProductPrice;
+                    productOrder.Quantity = item.Quantity;
+                    productOrder.ProductImage = (product == null ? "<Sản phẩm không còn tồn tại>" : product.MainImageLarge);
+                    productOrder.ProductName = (product == null ? "<Sản phẩm không còn tồn tại>" : product.Name);
+                    listProductOrder.Add(productOrder);
+                }
+
+                result.ListProductOrder = listProductOrder;
+                return result;
             }
             catch (Exception e)
             {
