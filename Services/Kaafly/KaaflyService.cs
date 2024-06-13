@@ -275,12 +275,12 @@ namespace Services.Kaafly
             }
 
         }
-        public List<OrderReceivedViewModel> ListOrderReceivedOfMemberByEmail(string email)
+        public List<OrderReceivedViewModel> ListOrderReceivedOfMemberByEmailPhone(string email, string phone)
         {
             try
             {
                 var result = new List<OrderReceivedViewModel>();
-                var os = context.Orders.Where(x => x.CustomerEmail == email).ToList();
+                var os = context.Orders.Where(x => x.CustomerEmail == email || x.CustomerPhone == phone).ToList();
                 if (os != null && os.Count > 0 && os[0] != null)
                 {
                     foreach (var item in os)
@@ -396,14 +396,14 @@ namespace Services.Kaafly
                 return null;
             }
         }
-        public TrackingOrderReceivedModel GetOrderReceivedByOrderCodeAndEmail(string orderCode, string email)
+        public TrackingOrderReceivedModel GetOrderReceivedByOrderCodeAndEmail(string orderCode, string emailOrPhone)
         {
             try
             {
                 var result = new TrackingOrderReceivedModel();
-                var o = context.Orders.FirstOrDefault(x => x.OrderCode.ToUpper() == orderCode.ToUpper() && x.CustomerEmail == email);
+                var o = context.Orders.FirstOrDefault(x => x.OrderCode.ToUpper() == orderCode.ToUpper() && (x.CustomerEmail == emailOrPhone || x.CustomerPhone == emailOrPhone));
 
-                if (o == null) throw new Exception("Sai mã đơn hàng hoặc email!");
+                if (o == null) throw new Exception("Sai mã đơn hàng hoặc email hoặc số điện thoại!");
 
                 result.TotalPrice = o.TotalPrice;
                 result.OrderCode = orderCode;
@@ -444,6 +444,40 @@ namespace Services.Kaafly
         public Entities.Models.Product GetProductById(int id)
         {
             return context.Products.FirstOrDefault(x => x.Id == id);
+        }
+
+        public List<OrderReceivedViewModel> ListOrderReceivedOfMemberByAccountId(Guid id)
+        {
+            try
+            {
+                var result = new List<OrderReceivedViewModel>();
+                var os = (from oa in context.OrderAccounts
+                         from o in context.Orders
+                         where oa.OrderId == o.Id && oa.AccountId == id
+                         select o).ToList();
+
+                if (os != null && os.Count > 0 && os[0] != null)
+                {
+                    foreach (var item in os)
+                    {
+                        var orderView = new OrderReceivedViewModel()
+                        {
+                            CreatedDate = item.CreatedDate,
+                            CustomerFullName = item.CustomerFullName,
+                            OrderCode = item.OrderCode,
+                            OrderStatusId = item.OrderStatusId,
+                            TotalPrice = item.TotalPrice
+                        };
+                        result.Add(orderView);
+                    }
+                    return result;
+                }
+                else throw new Exception("Email chưa từng mua hàng!");
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

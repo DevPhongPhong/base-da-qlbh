@@ -63,7 +63,7 @@ namespace Services.Common
                     var result = context.SaveChanges() > 0;
 
                     // Add orders to OrderAccount for orders with matching phone number
-                    var matchingOrders = context.Orders.Where(o => o.CustomerPhone == model.Phone).ToList();
+                    var matchingOrders = context.Orders.Where(o => o.CustomerPhone == model.Phone || o.CustomerEmail == model.Email).ToList();
                     foreach (var order in matchingOrders)
                     {
                         context.OrderAccounts.Add(new OrderAccount { OrderId = order.Id, AccountId = model.Id });

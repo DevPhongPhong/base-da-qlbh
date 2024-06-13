@@ -111,21 +111,25 @@ namespace Web.Controllers
             if (account.oldpass != GetMemberData().Password)
             {
                 ViewData["Error"] = "Mật khẩu cũ không đúng!";
+                GetDataMenu();
                 return View(account);
             }
             if (account.oldpass == account.newpassword)
             {
                 ViewData["Error"] = "Mật khẩu cũ không được giống mật khẩu mới!";
+                GetDataMenu();
                 return View(account);
             }
             if (!ModelState.IsValid)
             {
                 ViewData["Error"] = "Cần nhập đầy đủ các trường dữ liệu bắt buộc!";
+                GetDataMenu();
                 return View(account);
             }
             if (account.newpassword != account.renewpassword)
             {
                 ViewData["Error"] = "2 mật khẩu mới không trùng nhau!";
+                GetDataMenu();
                 return View(account);
             }
 
@@ -138,11 +142,13 @@ namespace Web.Controllers
             {
                 ViewData["Success"] = "Cập nhật thông tin tài khoản thành công!";
                 SetMemberData(member);
+                GetDataMenu();
                 return View(account);
             }
             else
             {
                 ViewData["Error"] = "Có lỗi trong quá trình cập nhật tài khoản!";
+                GetDataMenu();
                 return View(account);
             }
         }
@@ -169,6 +175,7 @@ namespace Web.Controllers
             var member = GetMemberData();
             if (member == null)
             {
+                GetDataMenu();
                 return View(member);
             }
             else
@@ -181,10 +188,10 @@ namespace Web.Controllers
         [Route("dang-nhap")]
         public IActionResult Login()
         {
-            GetDataMenu();
             var member = GetMemberData();
             if (member == null)
             {
+                GetDataMenu();
                 return View();
             }
             else
@@ -216,6 +223,7 @@ namespace Web.Controllers
                 else
                 {
                     ViewData["Error"] = "Tên đăng nhập hoặc mật khẩu không chính xác!";
+                    GetDataMenu();
                     return View(member);
                 }
             }
@@ -236,10 +244,10 @@ namespace Web.Controllers
         [Route("dang-ky")]
         public IActionResult Register()
         {
-            //GetDataMenu();
             var member = GetMemberData();
             if (member == null)
             {
+                GetDataMenu();
                 return View();
             }
             else
@@ -256,31 +264,37 @@ namespace Web.Controllers
             if (!ModelState.IsValid)
             {
                 ViewData["Error"] = "Cần nhập đầy đủ các trường dữ liệu bắt buộc!";
+                GetDataMenu();
                 return View(register);
             }
             if (register.Birthday.Value.Year < 1899 || register.Birthday > DateTime.Now)
             {
                 ViewData["Error"] = "Ngày sinh không phù hợp!";
+                GetDataMenu();
                 return View(register);
             }
             if (register.Password != register.RePassword)
             {
                 ViewData["Error"] = "2 mật khẩu không trùng nhau!";
+                GetDataMenu();
                 return View(register);
             }
             if (commonService.CheckExistAccountUserName(register.Username))
             {
                 ViewData["Error"] = "Tên tài khoản tồn tại!";
+                GetDataMenu();
                 return View(register);
             }
             if (commonService.CheckExistAccountEmail(register.Email))
             {
                 ViewData["Error"] = "Email đã đăng ký!";
+                GetDataMenu();
                 return View(register);
             }
             if (commonService.CheckExistAccountPhoneNumber(register.Phone))
             {
                 ViewData["Error"] = "Số điện thoại đã đăng ký!";
+                GetDataMenu();
                 return View(register);
             }
 
@@ -307,6 +321,7 @@ namespace Web.Controllers
             else
             {
                 ViewData["Error"] = "Có lỗi trong quá trình đăng ký!";
+                GetDataMenu();
                 return View(register);
             }
         }

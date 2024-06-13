@@ -15,8 +15,9 @@ namespace Services.Kaafly
         List<ProductViewModel> GetListProductByHomeHot(bool isHome, bool isHot, int count);
         OrderResponseViewModel OrderRequest(OrderRequestViewModel model);
         TrackingOrderReceivedModel GetOrderReceivedByOrderCode(string orderCode);
-        TrackingOrderReceivedModel GetOrderReceivedByOrderCodeAndEmail(string orderCode,string email);
-        List<OrderReceivedViewModel> ListOrderReceivedOfMemberByEmail(string Email);
+        TrackingOrderReceivedModel GetOrderReceivedByOrderCodeAndEmail(string orderCode,string emailOrPhone);
+        List<OrderReceivedViewModel> ListOrderReceivedOfMemberByEmailPhone(string Email, string Phone);
+        List<OrderReceivedViewModel> ListOrderReceivedOfMemberByAccountId(Guid id);
         PaginationModel<List<ProductViewModel>> GetListProductBySearchKeyWord(RequestSearchModel request);
         Entities.Models.Product GetProductById(int id);
     }

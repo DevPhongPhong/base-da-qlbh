@@ -359,7 +359,7 @@ namespace Web.Controllers
                 if (obj != null)
                 {
                     GetDataMenu();
-                    var list = kaaflyService.ListOrderReceivedOfMemberByEmail(obj.Email);
+                    var list = kaaflyService.ListOrderReceivedOfMemberByAccountId(obj.Id);
                     TempData["phoneNumber"] = obj.Phone;
                     TempData["email"] = obj.Email;
                     return View(list);
@@ -375,7 +375,7 @@ namespace Web.Controllers
         }
         [HttpGet]
         [Route("don-hang")]
-        public IActionResult TrackingOrderReceived(string orderCode, string email)
+        public IActionResult TrackingOrderReceived(string orderCode, string emailOrPhone)
         {
             try
             {
@@ -383,7 +383,7 @@ namespace Web.Controllers
                 if (a != null) TempData["onSession"] = "true";
                 if (!string.IsNullOrEmpty(orderCode))
                 {
-                    var order = kaaflyService.GetOrderReceivedByOrderCodeAndEmail(orderCode, email);
+                    var order = kaaflyService.GetOrderReceivedByOrderCodeAndEmail(orderCode, emailOrPhone);
                     GetDataMenu();
                     return View(order);
                 }

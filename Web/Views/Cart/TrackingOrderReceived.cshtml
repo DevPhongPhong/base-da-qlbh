@@ -17,22 +17,33 @@
 else
 {
     <!-- Start Breadcrumbs Section -->
-    <section class="breadcrumbs-section background_bg" data-img-src="/assets/images/aboutus-breadcrumbs-img.jpg" style="        background: url(&quot;/assets/images/aboutus-breadcrumbs-img.jpg&quot;) center center / cover;">
+    <section class="bread-crumb">
+        <span class="crumb-border"></span>
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="page_title text-center">
-                        <h1>Thông tin đơn hàng</h1>
-                        <ul class="breadcrumb justify-content-center">
-                            <li><a href="/">Trang chủ</a></li>
-                            <li><a href="@Url.Action("SearchOrderReceived", "Cart")">Tra cứu đơn hàng</a></li>
-                            <li><span>Mã đơn hàng: @Model.OrderCode</span></li>
-                        </ul>
-                    </div>
+                <div class="col-xs-12 a-left">
+                    <ul class="breadcrumb">
+                        <li class="home">
+                            <a href="/"><span>Trang chủ</span></a><span>
+                                <i class="fa fa-angle-double-right"
+                                   aria-hidden="true"></i>
+                            </span>
+                        </li>
+                        <li class="home">
+                            <a href="@Url.Action("SearchOrderReceived", "Cart")"><span>Tra cứu đơn hàng</span></a><span>
+                                <i class="fa fa-angle-double-right"
+                                   aria-hidden="true"></i>
+                            </span>
+                        </li>
+                        <li>
+                            <strong><span>Mã đơn hàng: @Model.OrderCode</span></strong>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
+   
     <!-- End Header Section -->
     <div class="container">
         <div style="padding: 100px,0px">

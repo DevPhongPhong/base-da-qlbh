@@ -352,36 +352,52 @@ function showQuickView(id) {
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-2">
                         <ul class="list-inline topbar_left hidden-sm hidden-xs">
-
-
                             <li>
                                 Hotline: <a class="hai01" href="tel:0987983948">0987983948</a>
-
                                 <span>-</span> <a href="tel:0949089879">0949089879</a>
-
-
                             </li>
-
                         </ul>
                     </div>
 
                     <div class="col-md-6 col-sm-6 d-list col-xs-10 a-right topbar_right">
                         <div class="list-inline a-center f-right">
                             <ul>
-
                                 <li class="hidden-md hidden-lg">
-                                    <a href="/dang-ky" title="Đăng ký">Đăng ký</a>
+                                    <a href="/tra-cuu-don-hang" title="Tra cứu đơn hàng">Tra cứu đơn hàng</a>
                                 </li>
-                                <li class="hidden-md hidden-lg">
-                                    <a href="/dang-nhap" title="Đăng nhập">Đăng nhập</a>
+                                <li class="hidden-md hidden-sm">
+                                    <a href="/tra-cuu-don-hang" title="Tra cứu đơn hàng">Tra cứu đơn hàng</a>
                                 </li>
-                                <li class="hidden-xs hidden-sm">
-                                    <a href="/dang-ky" class="account_a register_btn" title="Đăng ký">Đăng ký</a>
-                                </li>
-                                <li class="hidden-xs hidden-sm">
-                                    <a href="/dang-nhap" class="account_a login_btn" title="Đăng nhập">Đăng nhập</a>
-                                </li>
-
+                                @if (memberSession == null)
+                                {
+                                    <li class="hidden-md hidden-lg">
+                                        <a href="/dang-ky" title="Đăng ký">Đăng ký</a>
+                                    </li>
+                                    <li class="hidden-md hidden-lg">
+                                        <a href="/dang-nhap" title="Đăng nhập">Đăng nhập</a>
+                                    </li>
+                                    <li class="hidden-xs hidden-sm">
+                                        <a href="/dang-ky" class="account_a register_btn" title="Đăng ký">Đăng ký</a>
+                                    </li>
+                                    <li class="hidden-xs hidden-sm">
+                                        <a href="/dang-nhap" class="account_a login_btn" title="Đăng nhập">Đăng nhập</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="hidden-md hidden-lg">
+                                        <a href="/tai-khoan" title="Tài khoản">Tài khoản</a>
+                                    </li>
+                                    <li class="hidden-md hidden-lg">
+                                        <a href="/dang-xuat" title="Đăng xuất">Đăng xuất</a>
+                                    </li>
+                                    <li class="hidden-xs hidden-sm">
+                                        <a href="/tai-khoan" class="account_a register_btn" title="Tài khoản">Tài khoản</a>
+                                    </li>
+                                    <li class="hidden-xs hidden-sm">
+                                        <a href="/dang-xuat" class="account_a login_btn" title="Đăng xuất">Đăng xuất</a>
+                                    </li>
+                                }
                                 <li class="hidden-sm hidden-xs">
 
                                     <a href="/contact.html" title="Hệ thống cửa hàng" class="account_a">
