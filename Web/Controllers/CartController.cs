@@ -82,6 +82,12 @@ namespace Web.Controllers
                 }
                 model.ProductsOrder = new List<ProductOrder>();
                 model.TotalPrice = 0;
+                var obj = GetMemberData();
+                if (obj != null)
+                {
+                    model.AccountId = obj.Id;
+                }
+
                 foreach (var item in list)
                 {
                     if (!productService.CheckQuantityProductOrder(item.Product.Id, item.Quantity))
@@ -89,6 +95,7 @@ namespace Web.Controllers
                         TempData["StrErr"] = "Có lỗi xảy ra: " + "Sản phẩm " + item.Product.Name + " không có đủ hàng trong kho" + "!";
                         return RedirectToAction("Index", "Cart");
                     };
+
                     var productOrder = new ProductOrder();
                     productOrder.ProductId = item.Product.Id;
                     productOrder.ProductName = item.Product.Name;
@@ -380,8 +387,12 @@ namespace Web.Controllers
             try
             {
                 var a = GetMemberData();
-                if (a != null) TempData["onSession"] = "true";
-                if(string.IsNullOrEmpty(phone) && string.IsNullOrEmpty(email))
+                if (a != null)
+                {
+                    TempData["onSession"] = "true";
+                    TempData["Account"] = a;
+                }
+                if (string.IsNullOrEmpty(phone) && string.IsNullOrEmpty(email))
                 {
                     TempData["error"] = "Phải nhập số điện thoại hoặc email!";
                     return RedirectToAction("SearchOrderReceived", "Cart");
@@ -404,6 +415,62 @@ namespace Web.Controllers
                 return RedirectToAction("SearchOrderReceived", "Cart");
             }
         }
+
+        [HttpPost("danh-gia")]
+        public IActionResult Comment(string orderCode, int rating, string comment, string phone, string email)
+        {
+            try
+            {
+                var a = GetMemberData();
+                if (a != null)
+                {
+
+                }
+                else
+                {
+                    TempData["success"] = "Chức năng đánh giá sản phẩm chỉ dành cho khách hàng đã có tài khoản";
+                    return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
+                }
+
+                if (!string.IsNullOrEmpty(orderCode))
+                {
+                    var order = kaaflyService.GetOrderByCode(orderCode);
+
+                    Feedback fb = kaaflyService.GetFeedback(order.Id);
+                    if (fb == null)
+                    {
+                        fb = new Feedback
+                        {
+                            ID = order.Id,
+                            Rating = rating,
+                            Comment = comment,
+                        };
+                        kaaflyService.AddFeedback(fb);
+                    }
+                    else
+                    {
+                        fb.Rating = rating;
+                        fb.Comment = comment;
+                        kaaflyService.UpdateFeedback(fb);
+                    }
+
+
+                    TempData["success"] = "Thêm đánh giá thành công";
+                    return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
+                }
+                else
+                {
+                    TempData["error"] = "Mã đơn hàng không được trống!";
+                    return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+                return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
+            }
+        }
+
         #region Private Functions
         private Accounts GetMemberData()
         {

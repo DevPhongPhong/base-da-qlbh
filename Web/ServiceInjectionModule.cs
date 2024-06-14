@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Services.Common;
 using Services.Export;
-using Services.FromCustomer;
 using Services.Import;
 using Services.Kaafly;
 using Services.Login;
@@ -23,7 +22,6 @@ namespace Web
             services.AddScoped<IKaaflyService, KaaflyService>();
             services.AddScoped<IImportService, ImportService>();
             services.AddScoped<IExportService, ExportService>();
-            services.AddScoped<IFromCustomerService, FromCustomerService>();
 
             return services;
         }

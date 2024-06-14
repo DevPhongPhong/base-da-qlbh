@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Services.Common;
-using Services.FromCustomer;
 using Services.Kaafly;
 using Services.News;
 using Services.Product;
@@ -23,16 +22,14 @@ namespace Web.Controllers
         private IProductService productService;
         private INewsService newsService;
         private ICommonService commonService;
-        private IFromCustomerService fromCustomerService;
 
-        public HomeController(ILogger<HomeController> logger, IKaaflyService kaaflyService, IProductService productService, INewsService newsService, ICommonService commonService, IFromCustomerService _fromCustomerService)
+        public HomeController(ILogger<HomeController> logger, IKaaflyService kaaflyService, IProductService productService, INewsService newsService, ICommonService commonService)
         {
             _logger = logger;
             this.kaaflyService = kaaflyService;
             this.productService = productService;
             this.newsService = newsService;
             this.commonService = commonService;
-            this.fromCustomerService = _fromCustomerService;
         }
 
         public IActionResult Index()
@@ -119,7 +116,7 @@ namespace Web.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            ViewBag.ProductDetail = kaaflyService.GetProductViewModelById(id);
+            ViewBag.ProductDetail = data;
             return View(data);
         }
         [Route("product/getquickview")]
@@ -175,7 +172,6 @@ namespace Web.Controllers
             ViewBag.ListRandomCategoryNews = commonService.GetRandomCategoryNews(4);
             ViewBag.ListHotNewses = newsService.GetRandomHotNewses(4);
             ViewBag.ListRecentNews = newsService.GetRecentNewses(3);
-            ViewBag.ListFeedback = fromCustomerService.GetNewsComments().Where(x => x.NewsID == id && x.Status == true && x.ShowOnHome == true).OrderByDescending(x => x.CreateDate).Take(3).ToList();
             GetDataMenu();
 
             var data = newsService.GetNews(id);
@@ -228,55 +224,11 @@ namespace Web.Controllers
             GetDataMenu();
             return View();
         }
-        [Route("lien-he")]
-        [HttpPost]
-        public IActionResult Contact(SendContactModel model)
-        {
-            var feedback = new Feedback
-            {
-                Email = model.email,
-                Name = model.name,
-                Message = model.description,
-                PhoneNumber = model.phone,
-                Subject = model.subject
-            };
-            feedback.Type = model.type;
-            feedback.ProductID = model.objID;
-            feedback.NewsID = model.objID;
-            feedback.CreateDate = DateTime.Now;
-            feedback.Status = true;
-            feedback.ShowOnHome = true;
-            feedback.Avatar = "/Upload/user-avatar.png";
-            var status = fromCustomerService.AddFeedback(feedback);
-            if (status)
-            {
-                TempData["sentContact"] = "success";
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                TempData["sentContact"] = "error";
-                return Redirect(model.url);
-            }
-        }
         public IActionResult _MainMenu()
         {
             return PartialView();
         }
 
-        [HttpPost]
-        public IActionResult Subscribe(string email)
-        {
-            try
-            {
-                var sub = new SubscribeEmail { Email = email, CreateDate = DateTime.Now };
-                return Json(new { status = fromCustomerService.AddSubscribeEmail(sub) });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { status = false, message = ex.Message });
-            }
-        }
         private void GetDataMenu()
         {
             TempData["productmenu"] = commonService.GetListProductCategory().OrderBy(x => x.CategoryOrder).ToList();

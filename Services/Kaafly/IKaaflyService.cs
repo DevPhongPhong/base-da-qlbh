@@ -21,5 +21,9 @@ namespace Services.Kaafly
         List<OrderReceivedViewModel> ListOrderReceivedOfMemberByAccountId(Guid id);
         PaginationModel<List<ProductViewModel>> GetListProductBySearchKeyWord(RequestSearchModel request);
         Entities.Models.Product GetProductById(int id);
+        Entities.Models.Order GetOrderByCode(string orderCode);
+        bool AddFeedback(Feedback feedback);
+        bool UpdateFeedback(Feedback feedback);
+        Feedback GetFeedback(int orderId);
     }
 }

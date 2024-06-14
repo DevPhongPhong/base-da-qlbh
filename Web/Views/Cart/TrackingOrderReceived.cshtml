@@ -1,8 +1,10 @@
-﻿@{
+﻿@using Entities.Models;
+@{
     ViewData["Title"] = "Giỏ hàng của bạn";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var listItem = (List<Entities.DTOs.ProductOrder>)Model.ListProductOrder;
     var totalAll = (decimal)0;
+    Accounts account = (Accounts)TempData["Account"];
 }
 @model Entities.DTOs.TrackingOrderReceivedModel
 
@@ -43,9 +45,21 @@ else
             </div>
         </div>
     </section>
-   
+
     <!-- End Header Section -->
     <div class="container">
+        @if (TempData["success"] != null)
+        {
+            <div class="alert alert-success" role="alert" style="margin-top:20px">
+                <p class="info">@TempData["success"].ToString()</p>
+            </div>
+        }
+        else if (TempData["error"] != null)
+        {
+            <div class="alert alert-danger" role="alert" style="margin-top:20px">
+                <p class="info">@TempData["error"].ToString()</p>
+            </div>
+        }
         <div style="padding: 100px,0px">
             <style>
                 .alert {
@@ -107,6 +121,7 @@ else
             <div class="alert alert-@type" role="alert" style="margin-top:20px">
                 <p class="info">Trạng thái: @message</p>
             </div>
+
             <div class="row">
                 <div class="col-lg-12 ">
                     <div class="checkout-process">
@@ -177,6 +192,7 @@ else
                                                     <table class="table table-bordered text-center">
                                                         <thead>
                                                             <tr class="row-1">
+                                                                <th class="row-image">Hình ảnh</th>
                                                                 <th class="row-title text-left">Tên sản phẩm</th>
                                                                 <th class="row-title">Đơn giá</th>
                                                                 <th class="row-title">Số lượng</th>
@@ -195,6 +211,7 @@ else
 
 
                                                                 <tr class="row-2">
+                                                                    <td class="product-image"><img src="@item.ProductImage" style="max-width: 150px;" /></td>
                                                                     <td class="product-name">@item.ProductName</td>
                                                                     <td class="product-price">@price.GetValueOrDefault(0).ToString("N0") đ</td>
                                                                     <td class="product-quantity">@item.Quantity</td>
@@ -216,6 +233,56 @@ else
                                     </div>
                                 </div>
                             </div>
+                            @if (account != null)
+                            {
+                                <div class="card">
+                                    <div class="card-header form-wizard-step">
+                                        <h5>
+                                            <a class="btn btn-link collapsed" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><span>03</span>Đánh giá sản phẩm</a>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseOne " class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <div class="check-tab">
+                                                <div class="checkout-form">
+                                                    <div class="row">
+
+                                                        <form method="post" action="/danh-gia">
+                                                            <input type="hidden" name="orderCode" value="@Model.OrderCode" />
+                                                            <input type="hidden" name="email" value="@Model.CustomerEmail" />
+                                                            <input type="hidden" name="phone" value="@Model.CustomerPhone" />
+
+                                                            <div class="form-group">
+                                                                <label for="Rating">Số sao ⭐: (1-5): @(Model.Rating == 0 ? "" : "Hiện tại: " + Model.Rating + " ⭐")</label>
+                                                                <select id="Rating" name="rating" class="form-control" required>
+                                                                    <option value="5">5 ⭐</option>
+                                                                    <option value="4">4 ⭐</option>
+                                                                    <option value="3">3 ⭐</option>
+                                                                    <option value="2">2 ⭐</option>
+                                                                    <option value="1">1 ⭐</option>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="Comment">Nhận xét:</label>
+                                                                <textarea id="Comment" name="comment" class="form-control" rows="4">@Model.Comment</textarea>
+                                                            </div>
+
+                                                            <button type="submit" class="btn btn-primary">@(Model.Rating == 0 ? "Đánh giá" : "Cập nhật đánh giá")</button>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                            else
+                            {
+                                <p>Vui lòng <u><i><a href="/dang-nhap">đăng nhập</a></i></u> để đánh giá sản phẩm</p>
+                            }
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,18 @@
+INSERT INTO qlbh.orderstatus
+(Id, Name, Description)
+VALUES(-2, 'Giao thất bại', 'Order delivery failed');
+INSERT INTO qlbh.orderstatus
+(Id, Name, Description)
+VALUES(-1, 'Hủy', 'Order has been cancelled');
+INSERT INTO qlbh.orderstatus
+(Id, Name, Description)
+VALUES(1, 'Chờ xác nhận', 'Order is waiting for confirmation');
+INSERT INTO qlbh.orderstatus
+(Id, Name, Description)
+VALUES(2, 'Chờ giao hàng', 'Order is waiting to be delivered');
+INSERT INTO qlbh.orderstatus
+(Id, Name, Description)
+VALUES(3, 'Đang được giao', 'Order is being delivered');
+INSERT INTO qlbh.orderstatus
+(Id, Name, Description)
+VALUES(4, 'Đã được giao', 'Order has been delivered');

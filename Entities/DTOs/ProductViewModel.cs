@@ -91,6 +91,7 @@ namespace Entities.DTOs
         [StringLength(50)]
         public string ModifiedBy { get; set; }
         public int? currentCategoryId { get; set; }
+        public List<Feedback> Feedbacks { get;set; }
         public ProductCategory ProductCategory { get; set; }
         public List<ProductImages> ProductImages { get; set; }
     }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
 
 namespace Services.Kaafly
 {
@@ -110,7 +111,8 @@ namespace Services.Kaafly
                             ProductImagesId = a.ProductImagesId,
                             PromotionPrice = a.PromotionPrice,
                             IsPromote = a.IsPromote,
-                            Quantity = a.Quantity
+                            Quantity = a.Quantity,
+                            Feedbacks = (from f in context.Feedbacks)
                         };
             return query.FirstOrDefault(x => x.Id == id);
         }
@@ -187,7 +189,7 @@ namespace Services.Kaafly
                             dbContextTransaction.Rollback();
                             return null;
                         }
-                        order.OrderCode = "Order0000" + order.Id;
+                        order.OrderCode = "Order" + order.Id.ToString().PadLeft(4, '0');
                         context.Orders.Update(order);
                         foreach (var item in model.ProductsOrder)
                         {
@@ -201,6 +203,20 @@ namespace Services.Kaafly
                             context.OrderDetailses.Add(detail);
                         }
                         check = context.SaveChanges() > 0;
+
+                        if (model.AccountId != Guid.Empty)
+                        {
+                            OrderAccount oa = new OrderAccount
+                            {
+                                AccountId = model.AccountId,
+                                OrderId = order.Id
+                            };
+
+                            context.OrderAccounts.Add(oa);
+                            context.SaveChanges();
+                        }
+
+
                         if (!check)
                         {
                             dbContextTransaction.Rollback();
@@ -452,9 +468,9 @@ namespace Services.Kaafly
             {
                 var result = new List<OrderReceivedViewModel>();
                 var os = (from oa in context.OrderAccounts
-                         from o in context.Orders
-                         where oa.OrderId == o.Id && oa.AccountId == id
-                         select o).ToList();
+                          from o in context.Orders
+                          where oa.OrderId == o.Id && oa.AccountId == id
+                          select o).ToList();
 
                 if (os != null && os.Count > 0 && os[0] != null)
                 {
@@ -517,11 +533,59 @@ namespace Services.Kaafly
                 }
 
                 result.ListProductOrder = listProductOrder;
+
+                var feedback = context.Feedbacks.FirstOrDefault(x => x.ID == o.Id);
+                if (feedback != null)
+                {
+                    result.Rating = feedback.Rating;
+                    result.Comment = feedback.Comment;
+                }
+
+
                 return result;
             }
             catch (Exception e)
             {
                 throw e;
+            }
+        }
+
+        public Entities.Models.Order GetOrderByCode(string orderCode)
+        {
+            return context.Orders.FirstOrDefault(x => x.OrderCode == orderCode);
+        }
+        public bool AddFeedback(Feedback feedback)
+        {
+            try
+            {
+                context.Feedbacks.Add(feedback);
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public Feedback GetFeedback(int orderId)
+        {
+            return context.Feedbacks.FirstOrDefault(x => x.ID == orderId);
+        }
+
+        public bool UpdateFeedback(Feedback feedback)
+        {
+            try
+            {
+                var fb = context.Feedbacks.FirstOrDefault(x=>x.ID == feedback.ID);
+                fb.Comment = feedback.Comment;
+                fb.Rating = feedback.Rating;
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
     }
