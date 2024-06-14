@@ -34,7 +34,8 @@
     <section class="cart-section pt_large">
         <div class="container">
             <div class="row">
-                @{ var erMes = (string)TempData["StrErr"];
+                @{
+                    var erMes = (string)TempData["StrErr"];
                     if (erMes != null && erMes != "")
                     {
                         <div class="alert alert-danger">@erMes</div>
@@ -49,6 +50,7 @@
                                     <th class="row-title" style="width:400px"><p>Tên sản phẩm</p></th>
                                     <th class="row-title" style="width:170px"><p>Giá</p></th>
                                     <th class="row-title" style="width:100px"><p>Số lượng</p></th>
+                                    <th class="row-title" style="width:100px"><p>Kho</p></th>
                                     <th class="row-title"><p>Tổng</p></th>
                                     <th class="row-title"></th>
                                 </tr>
@@ -69,11 +71,10 @@
                                         }
                                     }
 
-                                    <tr class="row-2">
-                                        <td class="row-close close-1" data-title="product-remove"><a href="#"><i class="ion-close-circled"></i></a></td>
-                                        <td class="row-img"><img src="@item.Product.MainImageThumb" alt="cart-img" style="width:100px"></td>
-                                        <td class="product-name" data-title="Product"><a href="#">@item.Product.Name</a></td>
-                                        <td class="product-price" data-title="Price">
+                                    <tr>
+                                        <td><img src="@item.Product.MainImageThumb" alt="cart-img" style="width:100px"></td>
+                                        <td><a href="#">@item.Product.Name</a></td>
+                                        <td>
                                             @if (item.Product.IsPromote)
                                             {
                                                 <p id="@item.Product.Id-product-price">@item.Product.PromotionPrice.GetValueOrDefault(0).ToString("N0") đ</p>
@@ -85,13 +86,12 @@
 
                                             }
                                         </td>
-                                        <td class="product-quantity" data-title="Quantity">
-                                            <div class="quantity_filter">
-                                                <input id="@item.Product.Id-quantity" class="quantity-number qty" type="number" value="@item.Quantity" min="1" max="200" onchange="updateQuantity(@item.Product.Id, value)">
-                                            </div>
+                                        <td>
+                                            <input style="padding:0" id="@item.Product.Id-quantity" type="number" value="@item.Quantity" oldValue="@item.Quantity" min="1" max="200" onchange="updateQuantity(@item.Product.Id, this)">
                                         </td>
-                                        <td class="product-total" data-title="Subprice"><p id="@item.Product.Id-total">@total.ToString("N0") đ</p></td>
-                                        <td class="row-close close-2" data-title="product-remove"><button type="button" class="btn btn-primary" onclick="deleteItem(@item.Product.Id)">Xoá</button></td>
+                                        <td><p>@item.Product.Quantity</p></td>
+                                        <td><p id="@item.Product.Id-total">@total.ToString("N0") đ</p></td>
+                                        <td><button type="button" class="btn btn-primary" onclick="deleteItem(@item.Product.Id)">Xoá</button></td>
                                     </tr>
                                     totalAll += total;
                                 }
@@ -202,9 +202,9 @@ else
         })
     });
 
-    function updateQuantity(productId, quantity) {
+    function updateQuantity(productId, element) {
         var i = parseInt(productId);
-        var q = parseInt(quantity);
+        var q = parseInt(element.value);
         var sum = document.getElementById(productId + "-total");
         var all = document.getElementById("totalPriceAll");
         var s = sum.innerHTML.replace(' đ', '').replace(/,/g, ''); // Remove currency and commas
@@ -218,12 +218,15 @@ else
                 if (res.status === true) {
                     sum.innerHTML = res.sumPrice + ' đ';
                     all.innerHTML = res.allPrice + ' đ';
+                    element.setAttribute('oldValue', element.value); // Cập nhật oldValue với value mới
                 } else {
-                    alert(res.message); // Show the error message to the user
+                    alert(res.message); // Hiển thị thông báo lỗi cho người dùng
+                    element.value = element.getAttribute('oldValue'); // Khôi phục giá trị cũ
                 }
             },
             error: function (xhr, status, error) {
-                alert('Error occurred while updating the cart.');
+                alert('Đã xảy ra lỗi khi cập nhật giỏ hàng.');
+                element.value = element.getAttribute('oldValue'); // Khôi phục giá trị cũ
             }
         });
     }

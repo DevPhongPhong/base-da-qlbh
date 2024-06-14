@@ -297,7 +297,7 @@ namespace Services.Kaafly
                     }
                     return result;
                 }
-                else throw new Exception("Email chưa từng mua hàng!");
+                else throw new Exception("Không có đơn hàng!");
             }
             catch (Exception e)
             {
@@ -472,7 +472,7 @@ namespace Services.Kaafly
                     }
                     return result;
                 }
-                else throw new Exception("Email chưa từng mua hàng!");
+                else throw new Exception("Không có đơn hàng!");
             }
             catch (Exception e)
             {
