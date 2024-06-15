@@ -112,7 +112,7 @@ namespace Services.Kaafly
                             PromotionPrice = a.PromotionPrice,
                             IsPromote = a.IsPromote,
                             Quantity = a.Quantity,
-                            Feedbacks = (from f in context.Feedbacks)
+                            //Feedbacks = (from f in context.Feedbacks)
                         };
             return query.FirstOrDefault(x => x.Id == id);
         }
@@ -265,24 +265,26 @@ namespace Services.Kaafly
                 result.OrderStatusId = o.OrderStatusId;
 
                 var listOrderDetail = context.OrderDetailses.Where(x => x.OrderId == o.Id).ToList();
-                var listProductOrder = new List<ProductOrder>();
+                var listProductOrder = new List<TrackingOrderReceivedDetailModel>();
 
                 if (listOrderDetail == null || listOrderDetail.Count <= 0 || listOrderDetail[0] == null) throw new Exception("Đơn hàng không có sản phẩm!");
 
                 foreach (var item in listOrderDetail)
                 {
-                    var productOrder = new ProductOrder();
+                    var productOrder = new TrackingOrderReceivedDetailModel();
                     var product = context.Products.FirstOrDefault(x => x.Id == item.ProductId);
-
+                    var feedback = context.Feedbacks.FirstOrDefault(x => x.ID == item.Id);
+                    productOrder.OrderDetailId = item.Id;
                     productOrder.ProductId = item.ProductId;
                     productOrder.ProductPrice = item.ProductPrice;
                     productOrder.Quantity = item.Quantity;
                     productOrder.ProductImage = (product == null ? "<Sản phẩm không còn tồn tại>" : product.MainImageLarge);
                     productOrder.ProductName = (product == null ? "<Sản phẩm không còn tồn tại>" : product.Name);
+                    productOrder.FeedBack = feedback;
                     listProductOrder.Add(productOrder);
                 }
 
-                result.ListProductOrder = listProductOrder;
+                result.TrackingOrderReceivedDetailModels = listProductOrder;
                 return result;
             }
             catch (Exception e)
@@ -431,24 +433,26 @@ namespace Services.Kaafly
                 result.OrderStatusId = o.OrderStatusId;
 
                 var listOrderDetail = context.OrderDetailses.Where(x => x.OrderId == o.Id).ToList();
-                var listProductOrder = new List<ProductOrder>();
+                var listProductOrder = new List<TrackingOrderReceivedDetailModel>();
 
                 if (listOrderDetail == null || listOrderDetail.Count <= 0 || listOrderDetail[0] == null) throw new Exception("Đơn hàng không có sản phẩm!");
 
                 foreach (var item in listOrderDetail)
                 {
-                    var productOrder = new ProductOrder();
+                    var productOrder = new TrackingOrderReceivedDetailModel();
                     var product = context.Products.FirstOrDefault(x => x.Id == item.ProductId);
-
+                    var feedback = context.Feedbacks.FirstOrDefault(x => x.ID == item.Id);
+                    productOrder.OrderDetailId = item.Id;
                     productOrder.ProductId = item.ProductId;
                     productOrder.ProductPrice = item.ProductPrice;
                     productOrder.Quantity = item.Quantity;
                     productOrder.ProductImage = (product == null ? "<Sản phẩm không còn tồn tại>" : product.MainImageLarge);
                     productOrder.ProductName = (product == null ? "<Sản phẩm không còn tồn tại>" : product.Name);
+                    productOrder.FeedBack = feedback;
                     listProductOrder.Add(productOrder);
                 }
 
-                result.ListProductOrder = listProductOrder;
+                result.TrackingOrderReceivedDetailModels= listProductOrder;
                 return result;
             }
             catch (Exception e)
@@ -515,31 +519,33 @@ namespace Services.Kaafly
                 result.OrderStatusId = o.OrderStatusId;
 
                 var listOrderDetail = context.OrderDetailses.Where(x => x.OrderId == o.Id).ToList();
-                var listProductOrder = new List<ProductOrder>();
+                var listProductOrder = new List<TrackingOrderReceivedDetailModel>();
 
                 if (listOrderDetail == null || listOrderDetail.Count <= 0 || listOrderDetail[0] == null) throw new Exception("Đơn hàng không có sản phẩm!");
 
                 foreach (var item in listOrderDetail)
                 {
-                    var productOrder = new ProductOrder();
+                    var productOrder = new TrackingOrderReceivedDetailModel();
                     var product = context.Products.FirstOrDefault(x => x.Id == item.ProductId);
-
+                    var feedback = context.Feedbacks.FirstOrDefault(x => x.ID == item.Id);
+                    productOrder.OrderDetailId = item.Id;
                     productOrder.ProductId = item.ProductId;
                     productOrder.ProductPrice = item.ProductPrice;
                     productOrder.Quantity = item.Quantity;
                     productOrder.ProductImage = (product == null ? "<Sản phẩm không còn tồn tại>" : product.MainImageLarge);
                     productOrder.ProductName = (product == null ? "<Sản phẩm không còn tồn tại>" : product.Name);
+                    productOrder.FeedBack = feedback;
                     listProductOrder.Add(productOrder);
                 }
 
-                result.ListProductOrder = listProductOrder;
+                result.TrackingOrderReceivedDetailModels = listProductOrder;
 
-                var feedback = context.Feedbacks.FirstOrDefault(x => x.ID == o.Id);
-                if (feedback != null)
-                {
-                    result.Rating = feedback.Rating;
-                    result.Comment = feedback.Comment;
-                }
+                //var feedback = context.Feedbacks.FirstOrDefault(x => x.ID == o.Id);
+                //if (feedback != null)
+                //{
+                //    result.Rating = feedback.Rating;
+                //    result.Comment = feedback.Comment;
+                //}
 
 
                 return result;
@@ -586,6 +592,20 @@ namespace Services.Kaafly
             catch (Exception)
             {
                 return false;
+            }
+        }
+
+        public void RemoveFeedBack(int orderDetailId)
+        {
+            try
+            {
+                var fb = context.Feedbacks.FirstOrDefault(x => x.ID == orderDetailId);
+                context.Feedbacks.Remove(fb);
+                context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Xóa không thành công");
             }
         }
     }

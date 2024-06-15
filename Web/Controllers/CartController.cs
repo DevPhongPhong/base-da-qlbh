@@ -390,7 +390,10 @@ namespace Web.Controllers
                 if (a != null)
                 {
                     TempData["onSession"] = "true";
-                    TempData["Account"] = a;
+                    if (a.Email == email || a.Phone == phone)
+                    {
+                        TempData["Account"] = a;
+                    }
                 }
                 if (string.IsNullOrEmpty(phone) && string.IsNullOrEmpty(email))
                 {
@@ -417,45 +420,47 @@ namespace Web.Controllers
         }
 
         [HttpPost("danh-gia")]
-        public IActionResult Comment(string orderCode, int rating, string comment, string phone, string email)
+        public IActionResult Comment(string orderCode, int rating, string comment, string phone, string email, int orderDetailId)
         {
             try
             {
                 var a = GetMemberData();
                 if (a != null)
                 {
-
+                    if (a.Email != email && a.Phone != phone)
+                    {
+                        TempData["error"] = "Không thể đánh giá sản phẩm trong đơn của người khác";
+                        return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
+                    }
                 }
                 else
                 {
-                    TempData["success"] = "Chức năng đánh giá sản phẩm chỉ dành cho khách hàng đã có tài khoản";
+                    TempData["error"] = "Chức năng đánh giá sản phẩm chỉ dành cho khách hàng đã có tài khoản";
                     return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
                 }
 
                 if (!string.IsNullOrEmpty(orderCode))
                 {
-                    var order = kaaflyService.GetOrderByCode(orderCode);
-
-                    Feedback fb = kaaflyService.GetFeedback(order.Id);
+                    Feedback fb = kaaflyService.GetFeedback(orderDetailId);
                     if (fb == null)
                     {
                         fb = new Feedback
                         {
-                            ID = order.Id,
+                            ID = orderDetailId,
                             Rating = rating,
                             Comment = comment,
                         };
                         kaaflyService.AddFeedback(fb);
+                        TempData["success"] = "Thêm đánh giá thành công";
                     }
                     else
                     {
                         fb.Rating = rating;
                         fb.Comment = comment;
                         kaaflyService.UpdateFeedback(fb);
+                        TempData["success"] = "Cập nhật đánh giá thành công";
                     }
-
-
-                    TempData["success"] = "Thêm đánh giá thành công";
+                    
                     return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
                 }
                 else
@@ -470,7 +475,52 @@ namespace Web.Controllers
                 return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
             }
         }
+        [HttpGet("xoa-danh-gia")]
+        public IActionResult RemoveComment(int orderDetailId, string orderCode, string phone, string email)
+        {
+            try
+            {
+                var a = GetMemberData();
+                if (a != null)
+                {
+                    if (a.Email != email && a.Phone != phone)
+                    {
+                        TempData["error"] = "Không thể xóa đánh giá sản phẩm trong đơn của người khác";
+                        return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
+                    }
+                }
+                else
+                {
+                    TempData["error"] = "Chức năng đánh giá sản phẩm chỉ dành cho khách hàng đã có tài khoản";
+                    return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
+                }
 
+                if (!string.IsNullOrEmpty(orderCode))
+                {
+                    Feedback fb = kaaflyService.GetFeedback(orderDetailId);
+                    if (fb == null)
+                    {
+                        TempData["error"] = "Không tồn tại đánh giá";
+                    }
+                    else
+                    {
+                        TempData["success"] = "Đã xóa đánh giá";
+                        kaaflyService.RemoveFeedBack(orderDetailId);
+                    }
+                    return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
+                }
+                else
+                {
+                    TempData["error"] = "Mã đơn hàng không được trống!";
+                    return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+                return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
+            }
+        }
         #region Private Functions
         private Accounts GetMemberData()
         {

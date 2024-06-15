@@ -88,9 +88,7 @@ namespace Entities.DTOs
         [StringLength(50)]
         public string CustomerEmail { get; set; }
         public DateTime? CreatedDate { get; set; }
-        public List<ProductOrder> ListProductOrder { get; set; }
-        public int Rating { get; set; }
-        public string Comment { get; set; }
+        public List<TrackingOrderReceivedDetailModel> TrackingOrderReceivedDetailModels { get; set; }
     }
 
     public class OrderReceivedViewModel

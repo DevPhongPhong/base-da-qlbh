@@ -91,7 +91,7 @@ namespace Entities.DTOs
         [StringLength(50)]
         public string ModifiedBy { get; set; }
         public int? currentCategoryId { get; set; }
-        public List<Feedback> Feedbacks { get;set; }
+        public List<Feedback> Feedbacks { get; set; }
         public ProductCategory ProductCategory { get; set; }
         public List<ProductImages> ProductImages { get; set; }
     }
@@ -153,6 +153,7 @@ namespace Entities.DTOs
         [StringLength(250)]
         public string Description { get; set; }
     }
+
     public class ProductOrder
     {
         public int ProductId { get; set; }
@@ -161,6 +162,18 @@ namespace Entities.DTOs
         public string ProductImage { get; set; }
         public int Quantity { get; set; }
         public decimal? ProductPrice { get; set; }
+    }
+
+    public class TrackingOrderReceivedDetailModel
+    {
+        public int OrderDetailId { get; set; }
+        public int ProductId { get; set; }
+        public string Code { get; set; }
+        public string ProductName { get; set; }
+        public string ProductImage { get; set; }
+        public int Quantity { get; set; }
+        public decimal? ProductPrice { get; set; }
+        public Feedback FeedBack { get; set; }
     }
     public class ProductShowOnHomeModel
     {
@@ -199,6 +212,6 @@ namespace Entities.DTOs
         public int CountProduct { get; set; }
         public int TotalQuantity { get; set; }
         public decimal? TotalPrice { get; set; }
-        public List<ImportProductViewModel> ListImportProductViewModel{ get; set; }
+        public List<ImportProductViewModel> ListImportProductViewModel { get; set; }
     }
 }

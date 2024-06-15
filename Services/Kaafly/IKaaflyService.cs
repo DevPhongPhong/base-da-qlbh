@@ -25,5 +25,6 @@ namespace Services.Kaafly
         bool AddFeedback(Feedback feedback);
         bool UpdateFeedback(Feedback feedback);
         Feedback GetFeedback(int orderId);
+        void RemoveFeedBack(int orderDetailId);
     }
 }
