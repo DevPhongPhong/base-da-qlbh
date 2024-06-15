@@ -278,7 +278,7 @@ namespace Services.Order
         {
             try
             {
-                if (nam < DateTime.Now.Year && context.ProductStatisticals.Any(x => x.Year == nam))
+                if (nam < DateTime.Now.Year)
                 {
                     var data = new DataBanChayBanCham();
 
@@ -298,41 +298,55 @@ namespace Services.Order
                     var data = new DataBanChayBanCham();
 
                     var orders = context.Orders
-                        .Where(x => x.OrderStatusId == 4 &&
-                                    x.CreatedDate.Value.Year == nam)
+                        .Where(x => x.OrderStatusId == 4 && x.CreatedDate.Value.Year == nam)
                         .Select(x => x.Id);
 
                     var orderDetails = context.OrderDetailses
                         .Where(x => orders.Contains(x.OrderId))
                         .ToList();
 
-                    var products = context.Products
-                        .Where(x => orderDetails.Select(od => od.ProductId).Contains(x.Id))
+                    // Gộp các sản phẩm có cùng ProductId và tính tổng số lượng cho từng ProductId trong mỗi đơn hàng
+                    var groupedOrderDetails = orderDetails
+                        .GroupBy(od => new { od.OrderId, od.ProductId })
+                        .Select(g => new
+                        {
+                            g.Key.OrderId,
+                            g.Key.ProductId,
+                            TotalQuantity = g.Sum(od => od.Quantity)
+                        })
                         .ToList();
 
-                    var combinedData = orderDetails
+                    var products = context.Products
+                        .Where(x => groupedOrderDetails.Select(god => god.ProductId).Contains(x.Id))
+                        .ToList();
+
+                    var combinedData = groupedOrderDetails
                         .Join(products,
-                              od => od.ProductId,
+                              god => god.ProductId,
                               p => p.Id,
-                              (od, p) => new { ProductName = p.Name, TotalQuantity = od.Quantity })
+                              (god, p) => new { ProductName = p.Name, TotalQuantity = god.TotalQuantity })
                         .OrderByDescending(x => x.TotalQuantity)
                         .ThenBy(x => x.ProductName)
                         .ToList();
 
                     data.ProductName = combinedData.Select(x => x.ProductName).ToList();
                     data.TotalQuantity = combinedData.Select(x => x.TotalQuantity).ToList();
-                    foreach (var item in combinedData)
+                    if (!context.ProductStatisticals.Any(x => x.Year == nam))
                     {
-                        context.ProductStatisticals.Add(new ProductStatistical
+                        foreach (var item in combinedData)
                         {
-                            Year = nam,
-                            ProductName = item.ProductName,
-                            TotalQuantity = item.TotalQuantity
-                        });
+                            context.ProductStatisticals.Add(new ProductStatistical
+                            {
+                                Year = nam,
+                                ProductName = item.ProductName,
+                                TotalQuantity = item.TotalQuantity
+                            });
+                        }
+
+                        // Save the changes to the database
+                        context.SaveChanges();
                     }
 
-                    // Save the changes to the database
-                    context.SaveChanges();
                     return data;
                 }
 
@@ -342,6 +356,7 @@ namespace Services.Order
                 return null;
             }
         }
+
     }
 }
 

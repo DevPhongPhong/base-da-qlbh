@@ -12,32 +12,48 @@
                 {
                     if (i.ToString() == filter)
                     {
-                        <option value="@i" selected>Năm @i</option>
+                                                                                                                        <option value="@i" selected>Năm @i</option>
                     }
                     else
                     {
-                        <option value="@i">Năm @i</option>
+                                                                                                                        <option value="@i">Năm @i</option>
                     }
                 }
             </select>
         </div>
     </div>
     <hr />
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header border-0">
-                <div class="d-flex justify-content-between">
-                    <h1 class="card-title">Biểu đồ sản phẩm bán chạy bán chậm năm @filter</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header border-0">
+                    <div class="d-flex justify-content-between">
+                        <h1 class="card-title">Biểu đồ bán sản phẩm bán chạy năm @filter</h1>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div style="height: 500px;">
+                        <canvas id="chartDoc"></canvas>
+                    </div>
                 </div>
             </div>
-            <div class="card-body">
-                <canvas id="chartBanChay">
-                </canvas>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header border-0">
+                    <div class="d-flex justify-content-between">
+                        <h3 class="card-title">Biểu đồ sản phẩm bán chậm năm @filter</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div style="height: 500px;">
+                        <canvas id="chartDoanhThu"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<hr />
+    <hr />
 </div>
 
 <script>
@@ -50,29 +66,35 @@
     function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-    function SetCharBieuDoBanChay() {
-        var ctxDoc = document.getElementById('chartBanChay').getContext('2d');
-        var arrDataSanPhamDaBan = [];
-        var arrDataLabels = [];
+    function SetChartBieuDoDoc() {
+        var ctxDoc = document.getElementById('chartDoc').getContext('2d');
+        var arrLabel = [];
+        var arrData = [];
         $.ajax({
             type: "GET",
             url: '@Url.Action("GetDataThongKeBanChayBanCham", "Report")?nam=@filter',
             dataType: 'json',
             success: function (res) {
-                arrDataSanPhamDaBan = res.TotalQuantity;
-                arrDataLabels = res.ProductName;
-                console.log(res);
+                // Lấy tối đa 5 phần tử từ mảng trả về
+                var maxItems = 5;
+                arrLabel = res.ProductName.slice(0, maxItems);
+                arrData = res.TotalQuantity.slice(0, maxItems);
+
+                // Log kết quả sau khi lấy tối đa 5 phần tử
+                console.log({
+                    ProductName: arrLabel,
+                    TotalQuantity: arrData
+                });
             }
         }).done(function () {
             var myChart = new Chart(ctxDoc, {
                 type: 'bar',
                 data: {
-                    labels: arrDataLabels,
-
+                    labels: arrLabel,
                     datasets: [
                         {
-                            label: 'Số lượng sản phẩm đã bán',
-                            data: arrDataSanPhamDaBan,
+                            label: 'Sản phẩm bán chạy',
+                            data: arrData,
                             backgroundColor: [
                                 '#28a745',
                                 '#28a745',
@@ -117,7 +139,81 @@
             });
         });
     }
+    function SetChartDoanhThu() {
+        var ctxDoc = document.getElementById('chartDoanhThu').getContext('2d');
+        var arrLabel = [];
+        var arrData = [];
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetDataThongKeBanChayBanCham", "Report")?nam=@filter',
+            dataType: 'json',
+            success: function (res) {
+                // Lấy tối đa 5 phần tử từ mảng trả về
+                var maxItems = 5;
+                arrLabel = res.ProductName.slice(-maxItems).reverse();
+                arrData = res.TotalQuantity.slice(-maxItems).reverse();
+
+                // Log kết quả sau khi lấy tối đa 5 phần tử
+                console.log({
+                    ProductName: arrLabel,
+                    TotalQuantity: arrData
+                });
+            }
+        }).done(function () {
+            var myChart = new Chart(ctxDoc, {
+                type: 'bar',
+                data: {
+                    labels: arrLabel,
+                    datasets: [
+                        {
+                            label: 'Sản phẩm bán chậm',
+                            data: arrData,
+                            backgroundColor: [
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107'
+                            ],
+                            borderColor: [
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107',
+                                '#ffc107'
+                            ],
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+    }
 </script>
 <script>
-    SetCharBieuDoBanChay();
+    SetChartBieuDoDoc();
+    SetChartDoanhThu();
 </script>
