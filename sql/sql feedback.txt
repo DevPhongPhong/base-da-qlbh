@@ -1,9 +1,0 @@
--- qlbh.feedback definition
-
-CREATE TABLE `feedback` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `Rating` int NOT NULL,
-  `Comment` text,
-  PRIMARY KEY (`ID`),
-  CONSTRAINT `feedback_orderaccount_FK` FOREIGN KEY (`ID`) REFERENCES `orderaccount` (`OrderId`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
