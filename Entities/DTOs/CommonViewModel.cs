@@ -199,6 +199,7 @@ namespace Entities.DTOs
     }
     public class OrderRequestViewModel
     {
+        public Guid AccountId { get; set; }
         public string CustomerAddress { get; set; }
         public string CustomerPhone { get; set; }
         public string CustomerFullName { get; set; }

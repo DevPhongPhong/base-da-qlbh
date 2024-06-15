@@ -8,6 +8,7 @@
 @{
 
     var emailAccount = TempData["email"];
+    var phoneAccount = TempData["phoneNumber"];
 }
 <hr />
 @if (Model == null)
@@ -117,7 +118,7 @@ else
                                             </td>
                                             <td>@i.CreatedDate.ToString()</td>
                                             <td>@i.TotalPrice.GetValueOrDefault(0).ToString("N0")</td>
-                                            <td>@Html.ActionLink("Xem đơn hàng", "TrackingOrderReceived", "Cart", new { orderCode = i.OrderCode, email = emailAccount })
+                                            <td>@Html.ActionLink("Xem đơn hàng", "TrackingOrderReceived", "Cart", new { orderCode = i.OrderCode, email = emailAccount, phone = phoneAccount })
                                         </tr>
                                     }
                                 </tbody>

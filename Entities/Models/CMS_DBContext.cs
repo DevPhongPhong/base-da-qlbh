@@ -25,6 +25,7 @@ namespace Entities.Models
         public DbSet<ImportDetail> ImportDetails { get; set; }
         public DbSet<ProductStatistical> ProductStatisticals { get; set; }
         public DbSet<StaticData> StaticDatas { get; set; }
+        public DbSet<OrderAccount> OrderAccounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -46,6 +47,7 @@ namespace Entities.Models
             modelBuilder.Entity<SubscribeEmail>().ToTable("SubscribeEmail");
             modelBuilder.Entity<ProductStatistical>().ToTable("productstatistical");
             modelBuilder.Entity<StaticData>().ToTable("staticdatas");
+            modelBuilder.Entity<OrderAccount>().ToTable("orderaccount").HasKey(x=>x.OrderId);
         }
 
     }

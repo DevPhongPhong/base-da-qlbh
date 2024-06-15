@@ -3,8 +3,9 @@ using Entities.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Services.Common;
-using Services.FromCustomer;
 using Services.Kaafly;
 using Services.News;
 using Services.Product;
@@ -12,6 +13,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading;
 using Web.Models;
 
 namespace Web.Controllers
@@ -23,26 +27,55 @@ namespace Web.Controllers
         private IProductService productService;
         private INewsService newsService;
         private ICommonService commonService;
-        private IFromCustomerService fromCustomerService;
 
-        public HomeController(ILogger<HomeController> logger, IKaaflyService kaaflyService, IProductService productService, INewsService newsService, ICommonService commonService, IFromCustomerService _fromCustomerService)
+        public HomeController(ILogger<HomeController> logger, IKaaflyService kaaflyService, IProductService productService, INewsService newsService, ICommonService commonService)
         {
             _logger = logger;
             this.kaaflyService = kaaflyService;
             this.productService = productService;
             this.newsService = newsService;
             this.commonService = commonService;
-            this.fromCustomerService = _fromCustomerService;
         }
-
+        private Accounts GetMemberData()
+        {
+            var member = HttpContext.Session.GetString("member");
+            var data = member != null ? JsonConvert.DeserializeObject<Accounts>(member) : null;
+            return data;
+        }
         public IActionResult Index()
         {
-            //GetDataMenu();
-            //ViewBag.ListHomeHot = kaaflyService.GetListProductByHomeHot(true, true, 10);
-            //ViewBag.ListHome = kaaflyService.GetListProductByHomeHot(true, false, 10);
-            //ViewBag.NewsHomeHot = newsService.GetRandomHotNewses(3);
-            //ViewBag.HotCategoryProduct = productService.GetListProductCategoryByHomeHot(true, true, 10);
-            //ViewBag.ProductCategoryShowOnHome = productService.GetAllProductCategoryShowOnHome(true, true, 5);
+            var hothome = kaaflyService.GetListProductByHomeHot(true, true, 5);
+            var hotNotHome = kaaflyService.GetListProductByHomeHot(false, true, 5);
+            var nothothome = kaaflyService.GetListProductByHomeHot(true, false, 5);
+
+            nothothome.AddRange(hothome);
+            hothome.AddRange(hotNotHome);
+
+            ViewBag.ListHot = hothome;
+            ViewBag.ListHome = nothothome;
+            var a = GetMemberData();
+            int[] rcmId;
+            var rcmList = new List<ProductViewModel>();
+            if (a != null)
+            {
+                rcmId = CallApiGet(a.Id.ToString());
+            }
+            else
+            {
+                rcmId = CallApiGet();
+            }
+            if (rcmId != null)
+            {
+                foreach (int idProd in rcmId)
+                {
+                    var item = kaaflyService.GetProductViewModelById(idProd);
+                    if (item == null) continue;
+                    rcmList.Add(item);
+                }
+            }
+
+            ViewBag.Rcm = rcmList;
+
             GetDataMenu();
             return View();
         }
@@ -113,18 +146,37 @@ namespace Web.Controllers
         public IActionResult ProductDetails(int id)
         {
             GetDataMenu();
+            var a = GetMemberData();
 
+            if (a != null)
+            {
+                CallApiPost(id, a.Id.ToString());
+            }
+            else
+            {
+                CallApiPost(id);
+            }
             var data = kaaflyService.GetProductViewModelById(id);
             if (data == null)
             {
                 return RedirectToAction("Index", "Home");
             }
-            ViewBag.ProductDetail = kaaflyService.GetProductViewModelById(id);
+            ViewBag.ProductDetail = data;
             return View(data);
         }
         [Route("product/getquickview")]
         public JsonResult GetQuickView(int id)
         {
+            var a = GetMemberData();
+
+            if (a != null)
+            {
+                CallApiPost(id, a.Id.ToString());
+            }
+            else
+            {
+                CallApiPost(id);
+            }
             var data = kaaflyService.GetProductById(id);
             if (data == null)
                 return Json(new { success = false, message = "Không tồn tại sản phẩm!" });
@@ -175,7 +227,6 @@ namespace Web.Controllers
             ViewBag.ListRandomCategoryNews = commonService.GetRandomCategoryNews(4);
             ViewBag.ListHotNewses = newsService.GetRandomHotNewses(4);
             ViewBag.ListRecentNews = newsService.GetRecentNewses(3);
-            ViewBag.ListFeedback = fromCustomerService.GetNewsComments().Where(x => x.NewsID == id && x.Status == true && x.ShowOnHome == true).OrderByDescending(x => x.CreateDate).Take(3).ToList();
             GetDataMenu();
 
             var data = newsService.GetNews(id);
@@ -228,59 +279,85 @@ namespace Web.Controllers
             GetDataMenu();
             return View();
         }
-        [Route("lien-he")]
-        [HttpPost]
-        public IActionResult Contact(SendContactModel model)
-        {
-            var feedback = new Feedback
-            {
-                Email = model.email,
-                Name = model.name,
-                Message = model.description,
-                PhoneNumber = model.phone,
-                Subject = model.subject
-            };
-            feedback.Type = model.type;
-            feedback.ProductID = model.objID;
-            feedback.NewsID = model.objID;
-            feedback.CreateDate = DateTime.Now;
-            feedback.Status = true;
-            feedback.ShowOnHome = true;
-            feedback.Avatar = "/Upload/user-avatar.png";
-            var status = fromCustomerService.AddFeedback(feedback);
-            if (status)
-            {
-                TempData["sentContact"] = "success";
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                TempData["sentContact"] = "error";
-                return Redirect(model.url);
-            }
-        }
         public IActionResult _MainMenu()
         {
             return PartialView();
         }
 
-        [HttpPost]
-        public IActionResult Subscribe(string email)
-        {
-            try
-            {
-                var sub = new SubscribeEmail { Email = email, CreateDate = DateTime.Now };
-                return Json(new { status = fromCustomerService.AddSubscribeEmail(sub) });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { status = false, message = ex.Message });
-            }
-        }
         private void GetDataMenu()
         {
             TempData["productmenu"] = commonService.GetListProductCategory().OrderBy(x => x.CategoryOrder).ToList();
             TempData["newsmenu"] = commonService.GetListCategoryNews().OrderBy(x => x.CategoryOrder).ToList();
+        }
+
+        public void CallApiPost(int productId, string accountId = "11111111-1111-1111-1111-111111111111")
+        {
+            try
+            {
+                Thread t1 = new Thread(() =>
+                {
+                    try
+                    {
+                        var httpClient = new HttpClient();
+                        // Tạo đối tượng JSON để gửi đi
+                        var requestData = new
+                        {
+                            user_id = accountId,
+                            product_id = productId
+                        };
+
+                        // Chuyển đổi requestData thành chuỗi JSON
+                        var jsonRequest = Newtonsoft.Json.JsonConvert.SerializeObject(requestData);
+
+                        // Định nghĩa nội dung của yêu cầu POST
+                        var httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+
+                        // Gửi yêu cầu POST đến API
+                        var response = httpClient.PostAsync("http://203.162.88.102:12001/user_recommendations", httpContent).Result;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine($"Lỗi gửi yêu cầu: {e.Message}");
+                    }
+                });
+                t1.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi gửi yêu cầu: {ex.Message}");
+            }
+        }
+        public int[] CallApiGet(string accountId = "11111111-1111-1111-1111-111111111111")
+        {
+            try
+            {
+                var httpClient = new HttpClient();
+
+                // Gửi yêu cầu GET đến API và nhận phản hồi
+                var response = httpClient.GetAsync($"http://203.162.88.102:12001/top_products/{accountId}").Result;
+
+                // Đảm bảo yêu cầu thành công trước khi xử lý phản hồi
+                if (response.IsSuccessStatusCode)
+                {
+                    // Đọc nội dung phản hồi dưới dạng chuỗi JSON
+                    var jsonString = response.Content.ReadAsStringAsync().Result;
+
+                    // Deserializing JSON thành mảng số nguyên
+                    var result = JObject.Parse(jsonString);
+
+                    return result[accountId].ToObject<int[]>();
+                }
+                else
+                {
+                    Console.WriteLine($"Lỗi: {response.StatusCode}");
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Lỗi gửi yêu cầu: {e.Message}");
+                return null;
+            }
         }
     }
 }
