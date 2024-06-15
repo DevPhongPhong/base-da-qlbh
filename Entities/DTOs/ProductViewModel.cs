@@ -18,7 +18,6 @@ namespace Entities.DTOs
 
         public int? Tags { get; set; }
         [Required]
-        [StringLength(10)]
         public string Code { get; set; }
         [Required]
         [StringLength(250)]
@@ -194,7 +193,6 @@ namespace Entities.DTOs
     {
         public int ImportID { get; set; }
         public int ProductID { get; set; }
-        [StringLength(10)]
         public string Code { get; set; }
         [StringLength(250)]
         public string Name { get; set; }
