@@ -1,0 +1,10 @@
+-- qlbh.orderaccount definition
+
+CREATE TABLE `orderaccount` (
+  `OrderId` int NOT NULL,
+  `AccountId` char(36) NOT NULL,
+  PRIMARY KEY (`OrderId`),
+  KEY `NewTable_FK` (`AccountId`),
+  CONSTRAINT `NewTable_FK` FOREIGN KEY (`AccountId`) REFERENCES `accounts` (`Id`),
+  CONSTRAINT `NewTable_FK_1` FOREIGN KEY (`OrderId`) REFERENCES `order` (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

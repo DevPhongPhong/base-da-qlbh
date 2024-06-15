@@ -82,6 +82,12 @@ namespace Web.Controllers
                 }
                 model.ProductsOrder = new List<ProductOrder>();
                 model.TotalPrice = 0;
+                var obj = GetMemberData();
+                if (obj != null)
+                {
+                    model.AccountId = obj.Id;
+                }
+
                 foreach (var item in list)
                 {
                     if (!productService.CheckQuantityProductOrder(item.Product.Id, item.Quantity))
@@ -89,6 +95,7 @@ namespace Web.Controllers
                         TempData["StrErr"] = "Có lỗi xảy ra: " + "Sản phẩm " + item.Product.Name + " không có đủ hàng trong kho" + "!";
                         return RedirectToAction("Index", "Cart");
                     };
+
                     var productOrder = new ProductOrder();
                     productOrder.ProductId = item.Product.Id;
                     productOrder.ProductName = item.Product.Name;
@@ -359,7 +366,7 @@ namespace Web.Controllers
                 if (obj != null)
                 {
                     GetDataMenu();
-                    var list = kaaflyService.ListOrderReceivedOfMemberByEmail(obj.Email);
+                    var list = kaaflyService.ListOrderReceivedOfMemberByAccountId(obj.Id);
                     TempData["phoneNumber"] = obj.Phone;
                     TempData["email"] = obj.Email;
                     return View(list);
@@ -375,15 +382,27 @@ namespace Web.Controllers
         }
         [HttpGet]
         [Route("don-hang")]
-        public IActionResult TrackingOrderReceived(string orderCode, string email)
+        public IActionResult TrackingOrderReceived(string orderCode, string email, string phone)
         {
             try
             {
                 var a = GetMemberData();
-                if (a != null) TempData["onSession"] = "true";
+                if (a != null)
+                {
+                    TempData["onSession"] = "true";
+                    if (a.Email == email || a.Phone == phone)
+                    {
+                        TempData["Account"] = a;
+                    }
+                }
+                if (string.IsNullOrEmpty(phone) && string.IsNullOrEmpty(email))
+                {
+                    TempData["error"] = "Phải nhập số điện thoại hoặc email!";
+                    return RedirectToAction("SearchOrderReceived", "Cart");
+                }
                 if (!string.IsNullOrEmpty(orderCode))
                 {
-                    var order = kaaflyService.GetOrderReceivedByOrderCodeAndEmail(orderCode, email);
+                    var order = kaaflyService.GetOrderReceivedByOrderCodeAndEmailOrPhone(orderCode, email, phone);
                     GetDataMenu();
                     return View(order);
                 }
@@ -397,6 +416,109 @@ namespace Web.Controllers
             {
                 TempData["error"] = e.Message;
                 return RedirectToAction("SearchOrderReceived", "Cart");
+            }
+        }
+
+        [HttpPost("danh-gia")]
+        public IActionResult Comment(string orderCode, int rating, string comment, string phone, string email, int orderDetailId)
+        {
+            try
+            {
+                var a = GetMemberData();
+                if (a != null)
+                {
+                    if (a.Email != email && a.Phone != phone)
+                    {
+                        TempData["error"] = "Không thể đánh giá sản phẩm trong đơn của người khác";
+                        return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
+                    }
+                }
+                else
+                {
+                    TempData["error"] = "Chức năng đánh giá sản phẩm chỉ dành cho khách hàng đã có tài khoản";
+                    return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
+                }
+
+                if (!string.IsNullOrEmpty(orderCode))
+                {
+                    Feedback fb = kaaflyService.GetFeedback(orderDetailId);
+                    if (fb == null)
+                    {
+                        fb = new Feedback
+                        {
+                            ID = orderDetailId,
+                            Rating = rating,
+                            Comment = comment,
+                        };
+                        kaaflyService.AddFeedback(fb);
+                        TempData["success"] = "Thêm đánh giá thành công";
+                    }
+                    else
+                    {
+                        fb.Rating = rating;
+                        fb.Comment = comment;
+                        kaaflyService.UpdateFeedback(fb);
+                        TempData["success"] = "Cập nhật đánh giá thành công";
+                    }
+                    
+                    return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
+                }
+                else
+                {
+                    TempData["error"] = "Mã đơn hàng không được trống!";
+                    return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+                return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
+            }
+        }
+        [HttpGet("xoa-danh-gia")]
+        public IActionResult RemoveComment(int orderDetailId, string orderCode, string phone, string email)
+        {
+            try
+            {
+                var a = GetMemberData();
+                if (a != null)
+                {
+                    if (a.Email != email && a.Phone != phone)
+                    {
+                        TempData["error"] = "Không thể xóa đánh giá sản phẩm trong đơn của người khác";
+                        return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
+                    }
+                }
+                else
+                {
+                    TempData["error"] = "Chức năng đánh giá sản phẩm chỉ dành cho khách hàng đã có tài khoản";
+                    return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
+                }
+
+                if (!string.IsNullOrEmpty(orderCode))
+                {
+                    Feedback fb = kaaflyService.GetFeedback(orderDetailId);
+                    if (fb == null)
+                    {
+                        TempData["error"] = "Không tồn tại đánh giá";
+                    }
+                    else
+                    {
+                        TempData["success"] = "Đã xóa đánh giá";
+                        kaaflyService.RemoveFeedBack(orderDetailId);
+                    }
+                    return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
+                }
+                else
+                {
+                    TempData["error"] = "Mã đơn hàng không được trống!";
+                    return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+                return RedirectToAction("TrackingOrderReceived", "Cart", new { orderCode, email, phone });
             }
         }
         #region Private Functions

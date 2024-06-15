@@ -8,7 +8,6 @@
     var listHotNewses = (List<Entities.DTOs.NewsViewModel>)ViewBag.ListHotNewses;
     var listRecentNews = (List<Entities.DTOs.NewsViewModel>)ViewBag.ListRecentNews;
     var listNewsCate = (List<Entities.DTOs.CategoryNewsViewModel>)TempData["newsmenu"];
-    var listFeedback = (List<Entities.Models.Feedback>)ViewBag.ListFeedback;
     var message = (string)TempData["sentContact"];
 }
 <!-- Start Blog Detail Section -->
@@ -29,36 +28,7 @@
                 </div>
 
                 <hr />
-                @if (listFeedback != null && listFeedback?.Count > 0)
-                {
-                    <div class="title text-left">
-                        <h4>Bình luận</h4>
-                    </div>
-                    <div class="col-md-12">
-                        <ul>
-                            @foreach (var item in listFeedback)
-                            {
-                                <li>
-                                    <div class="row" style="border: 2px solid red; padding: 10px; border-radius: 15px;">
-                                        <div class="col-2"><img src="@item.Avatar" style="width:100px" /></div>
-                                        <div class="col-10">
-                                            <span>@item.Name | </span>
-                                            <span style="color:red">@item.CreateDate.ToString("dd/MM/yyyy : HH:mm")</span>
-                                            <br />
-                                            <p>@item.Message</p>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                }
-                <hr />
                 <div class="leave-reply">
-                    <div class="tab-title">
-                        <h6>Bình luận về tin tức</h6>
-                    </div>
                     <div class="social_icon mb-3">
                         <span>Kết nối với chúng tôi: </span>
                         <ul>

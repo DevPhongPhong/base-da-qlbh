@@ -4,11 +4,9 @@
     var listProducts = (Entities.Common.PaginationModel<List<Entities.DTOs.ProductViewModel>>)ViewBag.ListProductByCategory;
 }
 @{
-    // var listHomeHot = (List<Entities.DTOs.ProductViewModel>)ViewBag.ListHomeHot;
-    // var listHome = (List<Entities.DTOs.ProductViewModel>)ViewBag.ListHome;
-    // var listNewsHomeHot = (List<Entities.DTOs.NewsViewModel>)ViewBag.NewsHomeHot;
-    // var listHomeHotProductCate = (List<Entities.DTOs.ProductCategoryViewModel>)ViewBag.HotCategoryProduct;
-    // var listProductCategoryShowOnHome = (List<Entities.DTOs.ProductCategoryShowOnHome>)ViewBag.ProductCategoryShowOnHome;
+    var listHot = (List<Entities.DTOs.ProductViewModel>)ViewBag.ListHot;
+    var listHome = (List<Entities.DTOs.ProductViewModel>)ViewBag.ListHome;
+    var listRcm = (List<Entities.DTOs.ProductViewModel>)ViewBag.Rcm;
 }
 <section class="awe-section-1 clearfix">
     <div class="home-slider">
@@ -19,44 +17,9 @@
                     <source media="(min-width: 481px) and (max-width: 600px)" srcset="assets/images/slider_1_2.jpg">
                     <source media="(min-width: 601px) and (max-width: 1023px)" srcset="assets/images/slider_1_3.jpg">
                     <source media="(min-width: 1024px) and (max-width: 1199px)" srcset="assets/images/slider_1_4.jpg">
-                    <source media="(min-width: 1200px)" srcset="assets/images/slider_1_4.jpg"> <img class="lazyload"
-                        src="assets/images/slider_1.jpg" alt="Slider 1">
-                </picture>
-            </a>
-        </div>
-        <div class="items">
-            <a href="#" class="clearfix">
-                <picture>
-                    <source media="(max-width: 480px)" srcset="assets/images/slider_2_2.jpg">
-                    <source media="(min-width: 481px) and (max-width: 600px)" srcset="assets/images/slider_2_1.jpg">
-                    <source media="(min-width: 601px) and (max-width: 1023px)" srcset="assets/images/slider_2_3.jpg">
-                    <source media="(min-width: 1024px) and (max-width: 1199px)" srcset="assets/images/slider_2_4.jpg">
-                    <source media="(min-width: 1200px)" srcset="assets/images/slider_2_4.jpg"> <img class="lazyload"
-                        src="assets/images/slider_2.jpg" alt="Slider 2">
-                </picture>
-            </a>
-        </div>
-        <div class="items">
-            <a href="" class="clearfix">
-                <picture>
-                    <source media="(max-width: 480px)" srcset="assets/images/slider_3_1.jpg">
-                    <source media="(min-width: 481px) and (max-width: 600px)" srcset="assets/images/slider_3_2.jpg">
-                    <source media="(min-width: 601px) and (max-width: 1023px)" srcset="assets/images/slider_3_3.jpg">
-                    <source media="(min-width: 1024px) and (max-width: 1199px)" srcset="assets/images/slider_3_4.jpg">
-                    <source media="(min-width: 1200px)" srcset="assets/images/slider_3_4.jpg"> <img class="lazyload"
-                        src="assets/images/slider_3.jpg" alt="Slider 3">
-                </picture>
-            </a>
-        </div>
-        <div class="items">
-            <a href="#" class="clearfix">
-                <picture>
-                    <source media="(max-width: 480px)" srcset="assets/images/slider_4_1.jpg">
-                    <source media="(min-width: 481px) and (max-width: 600px)" srcset="assets/images/slider_4_2.jpg">
-                    <source media="(min-width: 601px) and (max-width: 1023px)" srcset="assets/images/slider_4_3.jpg">
-                    <source media="(min-width: 1024px) and (max-width: 1199px)" srcset="assets/images/slider_4_4.jpg">
-                    <source media="(min-width: 1200px)" srcset="assets/images/slider_4_4.jpg"> <img class="lazyload"
-                        src="assets/images/slider_4.jpg" alt="Slider 4">
+                    <source media="(min-width: 1200px)" srcset="assets/images/slider_1_4.jpg">
+                    <img class="lazyload"
+                         src="assets/images/slider_1.jpg" alt="Slider 1">
                 </picture>
             </a>
         </div>
@@ -75,15 +38,15 @@
                                         <picture>
                                             <source media="(max-width: 480px)" srcset="assets/images/banner_1_1.jpg">
                                             <source media="(min-width: 481px) and (max-width: 600px)"
-                                                srcset="assets/images/banner_1_1.jpg">
+                                                    srcset="assets/images/banner_1_1.jpg">
                                             <source media="(min-width: 601px) and (max-width: 1023px)"
-                                                srcset="assets/images/banner_1.jpg">
+                                                    srcset="assets/images/banner_1.jpg">
                                             <source media="(min-width: 1024px) and (max-width: 1199px)"
-                                                srcset="assets/images/banner_1.jpg">
+                                                    srcset="assets/images/banner_1.jpg">
                                             <source media="(min-width: 1200px)" srcset="assets/images/banner_1.jpg">
                                             <img class="img-responsive lazyload"
-                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
-                                                data-src="/assets/css/banner_1.jpg" alt="Banner 1">
+                                                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                                 data-src="/assets/css/banner_1.jpg" alt="Banner 1">
                                         </picture>
                                     </a>
                                 </figure>
@@ -100,15 +63,15 @@
                                         <picture>
                                             <source media="(max-width: 480px)" srcset="assets/images/banner_2.jpg">
                                             <source media="(min-width: 481px) and (max-width: 600px)"
-                                                srcset="assets/images/banner_2.jpg">
+                                                    srcset="assets/images/banner_2.jpg">
                                             <source media="(min-width: 601px) and (max-width: 1023px)"
-                                                srcset="assets/images/banner_2_1.jpg">
+                                                    srcset="assets/images/banner_2_1.jpg">
                                             <source media="(min-width: 1024px) and (max-width: 1199px)"
-                                                srcset="assets/images/banner_2_1.jpg">
+                                                    srcset="assets/images/banner_2_1.jpg">
                                             <source media="(min-width: 1200px)" srcset="assets/images/banner_2_1.jpg">
                                             <img class="img-responsive lazyload"
-                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
-                                                data-src="/assets/css/banner_2.jpg" alt="Banner 2">
+                                                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                                 data-src="/assets/css/banner_2.jpg" alt="Banner 2">
                                         </picture>
                                     </a>
                                 </figure>
@@ -121,15 +84,15 @@
                                         <picture>
                                             <source media="(max-width: 480px)" srcset="assets/images/banner_3.jpg">
                                             <source media="(min-width: 481px) and (max-width: 600px)"
-                                                srcset="assets/images/banner_3.jpg">
+                                                    srcset="assets/images/banner_3.jpg">
                                             <source media="(min-width: 601px) and (max-width: 1023px)"
-                                                srcset="assets/images/banner_3_1.jpg">
+                                                    srcset="assets/images/banner_3_1.jpg">
                                             <source media="(min-width: 1024px) and (max-width: 1199px)"
-                                                srcset="assets/images/banner_3_1.jpg">
+                                                    srcset="assets/images/banner_3_1.jpg">
                                             <source media="(min-width: 1200px)" srcset="assets/images/banner_3_1.jpg">
                                             <img class="img-responsive lazyload"
-                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
-                                                data-src="/assets/css/banner_3.jpg" alt="ad">
+                                                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                                 data-src="/assets/css/banner_3.jpg" alt="ad">
                                         </picture>
                                     </a>
                                 </figure>
@@ -157,8 +120,8 @@
                                 <div class="owl_product_comback ">
                                     <div class="product_comeback_wrap">
                                         <div class="owl_product_item_content owl-carousel not-dot2 not-nav3 " data-dot="false"
-                                            data-nav="false" data-lg-items="5" data-md-items="4" data-sm-items="3"
-                                            data-xs-items="2" data-margin="0">
+                                             data-nav="false" data-lg-items="5" data-md-items="4" data-sm-items="3"
+                                             data-xs-items="2" data-margin="0">
                                             <div class="item saler_item col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
                                                 <div class="owl_item_product product-col">
                                                     <div class="product-box-h">
@@ -168,18 +131,17 @@
                                                                 <div class="col-sm-12 col-md-12 col-lg-12">
                                                                     <div class="product-thumbnail">
                                                                         <a class="image_link display_flex"
-                                                                            href="/may-hut-chan-khong-goodfor-dzq-380y"
-                                                                            title="@product.Name">
+                                                                           href="/may-hut-chan-khong-goodfor-dzq-380y"
+                                                                           title="@product.Name">
                                                                             <img class="lazyload"
-                                                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
-                                                                                data-src="//bizweb.dktcdn.net/thumb/large/100/415/549/products/may-hut-chan-khong-goodfor-dzq-360-1627893775.jpg?v=1660094219247"
-                                                                                alt="Máy hút chân không Goodfor DZQ 380Y">
+                                                                                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                                                                 data-src="//bizweb.dktcdn.net/thumb/large/100/415/549/products/may-hut-chan-khong-goodfor-dzq-360-1627893775.jpg?v=1660094219247"
+                                                                                 alt="Máy hút chân không Goodfor DZQ 380Y">
                                                                         </a>
-                                                                        <div class="sale-flash sale">Giảm giá</div> <a
-                                                                            title="Xem nhanh"
-                                                                            href="/may-hut-chan-khong-goodfor-dzq-380y"
-                                                                            data-handle="may-hut-chan-khong-goodfor-dzq-380y"
-                                                                            class="xem_nhanh button_wh_40 btn_view right-to quick-view hidden-xs hidden-sm hidden-md">
+                                                                        <div class="sale-flash sale">Giảm giá</div> <a title="Xem nhanh"
+                                                                                                                       href="/may-hut-chan-khong-goodfor-dzq-380y"
+                                                                                                                       data-handle="may-hut-chan-khong-goodfor-dzq-380y"
+                                                                                                                       class="xem_nhanh button_wh_40 btn_view right-to quick-view hidden-xs hidden-sm hidden-md">
                                                                             Xem nhanh
                                                                         </a>
                                                                     </div>
@@ -188,8 +150,8 @@
                                                                     <div class="product-info a-left">
                                                                         <h3 class="product-name">
                                                                             <a class="height_name"
-                                                                                href="/may-hut-chan-khong-goodfor-dzq-380y"
-                                                                                title="Máy hút chân không Goodfor DZQ 380Y">
+                                                                               href="/may-hut-chan-khong-goodfor-dzq-380y"
+                                                                               title="Máy hút chân không Goodfor DZQ 380Y">
                                                                                 @product.Name
                                                                             </a>
                                                                         </h3>
@@ -199,8 +161,7 @@
                                                                             <div class="product-hide">
                                                                                 <div class="price-box clearfix">
                                                                                     <div class="special-price">
-                                                                                        <span
-                                                                                            class="price product-price">@product.PromotionPrice</span>
+                                                                                        <span class="price product-price">@product.PromotionPrice</span>
                                                                                     </div>
                                                                                     <div class="old-price">
                                                                                         <span class="price product-price-old">
@@ -212,14 +173,13 @@
                                                                         </div>
                                                                         <div class="product-action clearfix hidden-xs">
                                                                             <form action="/cart/add" method="post"
-                                                                                class="variants form-nut-grid"
-                                                                                data-id="product-actions-27267601"
-                                                                                enctype="multipart/form-data">
+                                                                                  class="variants form-nut-grid"
+                                                                                  data-id="product-actions-27267601"
+                                                                                  enctype="multipart/form-data">
                                                                                 <div>
                                                                                     <input type="hidden" name="variantId"
-                                                                                        value="69787895"> <button
-                                                                                        class="btn-buy btn-cart btn btn-circle left-to add_to_cart "
-                                                                                        title="Thêm vào giỏ hàng">
+                                                                                           value="69787895"> <button class="btn-buy btn-cart btn btn-circle left-to add_to_cart "
+                                                                                                                     title="Thêm vào giỏ hàng">
                                                                                         Đặt mua ngay
                                                                                     </button>
                                                                                 </div>
@@ -244,23 +204,310 @@
         </div>
     </section>
 </section>
+<br />
+<section class="section_buy_many">
+    <div class="container">
+        <div class="row row-noGutter-2">
+            <div class="content_hihi" style="margin-left:-1px">
+                <div class="heading">
+                    <h2 class="title-head">
+                        <a href="may-giai-khat">Sản phẩm nội bật</a>
+                    </h2>
+                </div>
 
+                <div class="border_wrap">
+                    <div class="owl_product_comback ">
+                        <div class="product_comeback_wrap">
+                            <div class="owl_product_item_content owl-carousel not-dot2 not-nav3 owl-loaded owl-drag" data-dot="false" data-nav="false" data-lg-items="5" data-md-items="4" data-sm-items="3" data-xs-items="2" data-margin="0">
+                                <div class="owl-stage-outer owl-height" style="height: 375px;">
+                                    <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 1824px;">
+                                        @foreach (var item in listHome)
+                                        {
+                                            <div class="owl-item active" style="width: 228px;">
+                                                <div class="item saler_item col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+                                                    <div class="owl_item_product product-col">
+                                                        <div class="product-box-h">
+                                                            <div class="row">
+                                                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                                                    <div class="product-thumbnail">
+                                                                        <a class="image_link display_flex" href="@Url.Action("ProductDetails","Home", new { id = item.Id})" title="@item.Name">
+                                                                            <img class="lazyload loaded" src="@item.MainImageThumb" alt="@item.Name" data-was-processed="true">
+                                                                        </a>
+                                                                        @if (item.IsPromote)
+                                                                        {
+                                                                            <div class="sale-flash sale">Giảm giá</div>
+                                                                        }
+                                                                        <a title="Xem nhanh" href="javascript:void()"
+                                                                           onclick="showQuickView(@item.Id)"
+                                                                           class="xem_nhanh button_wh_40 btn_view right-to quick-view hidden-xs hidden-sm hidden-md">
+                                                                            Xem nhanh
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                                                    <div class="product-info a-left">
+                                                                        <h3 class="product-name">
+                                                                            <a class="height_name" href="@Url.Action("ProductDetails","Home", new { id = item.Id})">@item.Name</a>
+                                                                        </h3>
+                                                                        <div class="sapo-product-reviews-badge" data-id="27341628"><div class="sapo-product-reviews-star" data-score="0" data-number="5" style="color: #ffbe00" title="Not rated yet!"><i data-alt="1" class="star-off-png" title="Not rated yet!"></i>&nbsp;<i data-alt="2" class="star-off-png" title="Not rated yet!"></i>&nbsp;<i data-alt="3" class="star-off-png" title="Not rated yet!"></i>&nbsp;<i data-alt="4" class="star-off-png" title="Not rated yet!"></i>&nbsp;<i data-alt="5" class="star-off-png" title="Not rated yet!"></i><input name="score" type="hidden" readonly=""></div></div>
+                                                                        <div class="product-hides">
+                                                                            <div class="product-hide">
+                                                                                <div class="price-box clearfix">
+                                                                                    <div class="special-price">
+                                                                                        <span class="price product-price">@(item.PromotionPrice.HasValue?item.PromotionPrice.Value.ToString("N0"): item.Price.Value.ToString("N0")) ₫</span>
+                                                                                    </div>
+                                                                                    @if (item.PromotionPrice.HasValue)
+                                                                                    {
+                                                                                        <div class="old-price">
+                                                                                            <span class="price product-price-old">
+                                                                                                @item.Price.Value.ToString("N0") ₫
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="product-action clearfix hidden-xs">
+                                                                            <form action="" method="post" class="variants form-nut-grid" data-id="product-actions-27341628" enctype="multipart/form-data">
+                                                                                <div>
+
+                                                                                    <input type="hidden" name="variantId" value="70138425">
+                                                                                    <button class="btn-buy btn-cart btn btn-circle left-to add_to_cart " type="button" title="Thêm vào giỏ hàng" onclick="addtocart(@item.Id, 1)">
+                                                                                        Đặt mua ngay
+                                                                                    </button>
+
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br />
+<section class="section_buy_many">
+    <div class="container">
+        <div class="row row-noGutter-2">
+            <div class="content_hihi" style="margin-left:-1px">
+                <div class="heading">
+                    <h2 class="title-head">
+                        <a href="may-giai-khat">Sản phẩm gợi ý</a>
+                    </h2>
+                </div>
+
+                <div class="border_wrap">
+                    <div class="owl_product_comback ">
+                        <div class="product_comeback_wrap">
+                            <div class="owl_product_item_content owl-carousel not-dot2 not-nav3 owl-loaded owl-drag" data-dot="false" data-nav="false" data-lg-items="5" data-md-items="4" data-sm-items="3" data-xs-items="2" data-margin="0">
+                                <div class="owl-stage-outer owl-height" style="height: 375px;">
+                                    <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 1824px;">
+                                        @foreach (var item in listHot)
+                                        {
+                                            <div class="owl-item active" style="width: 228px;">
+                                                <div class="item saler_item col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+                                                    <div class="owl_item_product product-col">
+                                                        <div class="product-box-h">
+                                                            <div class="row">
+                                                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                                                    <div class="product-thumbnail">
+                                                                        <a class="image_link display_flex" href="@Url.Action("ProductDetails","Home", new { id = item.Id})" title="@item.Name">
+                                                                            <img class="lazyload loaded" src="@item.MainImageThumb" alt="@item.Name" data-was-processed="true">
+                                                                        </a>
+                                                                        @if (item.IsPromote)
+                                                                        {
+                                                                            <div class="sale-flash sale">Giảm giá</div>
+                                                                        }
+                                                                        <a title="Xem nhanh" href="javascript:void()"
+                                                                           onclick="showQuickView(@item.Id)"
+                                                                           class="xem_nhanh button_wh_40 btn_view right-to quick-view hidden-xs hidden-sm hidden-md">
+                                                                            Xem nhanh
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                                                    <div class="product-info a-left">
+                                                                        <h3 class="product-name">
+                                                                            <a class="height_name" href="@Url.Action("ProductDetails","Home", new { id = item.Id})">@item.Name</a>
+                                                                        </h3>
+                                                                        <div class="sapo-product-reviews-badge" data-id="27341628"><div class="sapo-product-reviews-star" data-score="0" data-number="5" style="color: #ffbe00" title="Not rated yet!"><i data-alt="1" class="star-off-png" title="Not rated yet!"></i>&nbsp;<i data-alt="2" class="star-off-png" title="Not rated yet!"></i>&nbsp;<i data-alt="3" class="star-off-png" title="Not rated yet!"></i>&nbsp;<i data-alt="4" class="star-off-png" title="Not rated yet!"></i>&nbsp;<i data-alt="5" class="star-off-png" title="Not rated yet!"></i><input name="score" type="hidden" readonly=""></div></div>
+                                                                        <div class="product-hides">
+                                                                            <div class="product-hide">
+                                                                                <div class="price-box clearfix">
+                                                                                    <div class="special-price">
+                                                                                        <span class="price product-price">@(item.PromotionPrice.HasValue?item.PromotionPrice.Value.ToString("N0"): item.Price.Value.ToString("N0")) ₫</span>
+                                                                                    </div>
+                                                                                    @if (item.PromotionPrice.HasValue)
+                                                                                    {
+                                                                                        <div class="old-price">
+                                                                                            <span class="price product-price-old">
+                                                                                                @item.Price.Value.ToString("N0") ₫
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="product-action clearfix hidden-xs">
+                                                                            <form action="" method="post" class="variants form-nut-grid" data-id="product-actions-27341628" enctype="multipart/form-data">
+                                                                                <div>
+
+                                                                                    <input type="hidden" name="variantId" value="70138425">
+                                                                                    <button class="btn-buy btn-cart btn btn-circle left-to add_to_cart " type="button" title="Thêm vào giỏ hàng" onclick="addtocart(@item.Id, 1)">
+                                                                                        Đặt mua ngay
+                                                                                    </button>
+
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br />
+<section class="section_buy_many">
+    <div class="container">
+        <div class="row row-noGutter-2">
+            <div class="content_hihi" style="margin-left:-1px">
+                <div class="heading">
+                    <h2 class="title-head">
+                        <a href="may-giai-khat">Sản phẩm khuyến mãi</a>
+                    </h2>
+                </div>
+
+                <div class="border_wrap">
+                    <div class="owl_product_comback ">
+                        <div class="product_comeback_wrap">
+                            <div class="owl_product_item_content owl-carousel not-dot2 not-nav3 owl-loaded owl-drag" data-dot="false" data-nav="false" data-lg-items="5" data-md-items="4" data-sm-items="3" data-xs-items="2" data-margin="0">
+                                <div class="owl-stage-outer owl-height" style="height: 375px;">
+                                    <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 1824px;">
+                                        @foreach (var item in listRcm)
+                                        {
+                                            <div class="owl-item active" style="width: 228px;">
+                                                <div class="item saler_item col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+                                                    <div class="owl_item_product product-col">
+                                                        <div class="product-box-h">
+                                                            <div class="row">
+                                                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                                                    <div class="product-thumbnail">
+                                                                        <a class="image_link display_flex" href="@Url.Action("ProductDetails","Home", new { id = item.Id})" title="@item.Name">
+                                                                            <img class="lazyload loaded" src="@item.MainImageThumb" alt="@item.Name" data-was-processed="true">
+                                                                        </a>
+                                                                        @if (item.IsPromote)
+                                                                        {
+                                                                            <div class="sale-flash sale">Giảm giá</div>
+                                                                        }
+                                                                        <a title="Xem nhanh" href="javascript:void()"
+                                                                           onclick="showQuickView(@item.Id)"
+                                                                           class="xem_nhanh button_wh_40 btn_view right-to quick-view hidden-xs hidden-sm hidden-md">
+                                                                            Xem nhanh
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                                                    <div class="product-info a-left">
+                                                                        <h3 class="product-name">
+                                                                            <a class="height_name" href="@Url.Action("ProductDetails","Home", new { id = item.Id})">@item.Name</a>
+                                                                        </h3>
+                                                                        <div class="sapo-product-reviews-badge" data-id="27341628"><div class="sapo-product-reviews-star" data-score="0" data-number="5" style="color: #ffbe00" title="Not rated yet!"><i data-alt="1" class="star-off-png" title="Not rated yet!"></i>&nbsp;<i data-alt="2" class="star-off-png" title="Not rated yet!"></i>&nbsp;<i data-alt="3" class="star-off-png" title="Not rated yet!"></i>&nbsp;<i data-alt="4" class="star-off-png" title="Not rated yet!"></i>&nbsp;<i data-alt="5" class="star-off-png" title="Not rated yet!"></i><input name="score" type="hidden" readonly=""></div></div>
+                                                                        <div class="product-hides">
+                                                                            <div class="product-hide">
+                                                                                <div class="price-box clearfix">
+                                                                                    <div class="special-price">
+                                                                                        <span class="price product-price">@(item.PromotionPrice.HasValue?item.PromotionPrice.Value.ToString("N0"): item.Price.Value.ToString("N0")) ₫</span>
+                                                                                    </div>
+                                                                                    @if (item.PromotionPrice.HasValue)
+                                                                                    {
+                                                                                        <div class="old-price">
+                                                                                            <span class="price product-price-old">
+                                                                                                @item.Price.Value.ToString("N0") ₫
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="product-action clearfix hidden-xs">
+                                                                            <form action="" method="post" class="variants form-nut-grid" data-id="product-actions-27341628" enctype="multipart/form-data">
+                                                                                <div>
+
+                                                                                    <input type="hidden" name="variantId" value="70138425">
+                                                                                    <button class="btn-buy btn-cart btn btn-circle left-to add_to_cart " type="button" title="Thêm vào giỏ hàng" onclick="addtocart(@item.Id, 1)">
+                                                                                        Đặt mua ngay
+                                                                                    </button>
+
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br />
 <section class="awe-section-10 clearfix">
     <section class="section_service_end">
         <div class="container">
             <div class="row row-noGutter-2">
                 <div class="wrap_item_srv owl-carousel owl-theme service_content" data-nav="false" data-dot="true"
-                    data-lg-items="4" data-md-items="3" data-xs-items="1" data-sm-items="2" data-margin="15">
+                     data-lg-items="4" data-md-items="3" data-xs-items="1" data-sm-items="2" data-margin="15">
                     <div class="col-item-srv">
                         <div class="service_item_ed">
                             <span class="iconx">
                                 <img alt="Giao hàng miễn phí" class="lazyload"
-                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
-                                    data-src="assets/images/srv_1.png">
+                                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                     data-src="assets/images/srv_1.png">
                             </span>
                             <div class="content_srv">
-                                <span class="title_service">Giao hàng miễn phí</span> <span class="content_service">Tùy
-                                    từng sản phẩm và giá trị hàng</span>
+                                <span class="title_service">Giao hàng miễn phí</span> <span class="content_service">
+                                    Tùy
+                                    từng sản phẩm và giá trị hàng
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -268,12 +515,14 @@
                         <div class="service_item_ed">
                             <span class="iconx">
                                 <img alt="Điện Máy Tiến Đạt : Tổng kho điện máy uy tín." class="lazyload"
-                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
-                                    data-src="assets/images/srv_2.png">
+                                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                     data-src="assets/images/srv_2.png">
                             </span>
                             <div class="content_srv">
-                                <span class="title_service">Sản phẩm chất lượng</span> <span class="content_service">Cam
-                                    kết 100% hàng nhập khẩu chính hãng</span>
+                                <span class="title_service">Sản phẩm chất lượng</span> <span class="content_service">
+                                    Cam
+                                    kết 100% hàng nhập khẩu chính hãng
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -281,12 +530,14 @@
                         <div class="service_item_ed">
                             <span class="iconx">
                                 <img alt="Mua hàng giá ưu đãi" class="lazyload"
-                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
-                                    data-src="assets/images/srv_3.png">
+                                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                     data-src="assets/images/srv_3.png">
                             </span>
                             <div class="content_srv">
-                                <span class="title_service">Mua hàng giá ưu đãi</span> <span class="content_service">Cơ
-                                    hội nhận khuyến mãi &amp; giá sốc cuối tuần</span>
+                                <span class="title_service">Mua hàng giá ưu đãi</span> <span class="content_service">
+                                    Cơ
+                                    hội nhận khuyến mãi &amp; giá sốc cuối tuần
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -294,8 +545,8 @@
                         <div class="service_item_ed">
                             <span class="iconx">
                                 <img alt="Mua hàng tiết kiệm" class="lazyload"
-                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
-                                    data-src="assets/images/srv_4.png">
+                                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                                     data-src="assets/images/srv_4.png">
                             </span>
                             <div class="content_srv">
                                 <span class="title_service">Mua hàng tiết kiệm</span> <span class="content_service">
