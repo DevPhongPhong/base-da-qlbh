@@ -10,6 +10,7 @@ using System.Linq;
 using Services.Kaafly;
 using Services.Product;
 using Ultilities;
+using System.Text.RegularExpressions;
 
 namespace Web.Controllers
 {
@@ -200,6 +201,14 @@ namespace Web.Controllers
             }
         }
 
+        private bool ValidatePasswordComplexity(string password)
+        {
+            const int minLength = 8;
+            string pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{" + minLength + ",}$";
+            Regex regex = new(pattern);
+            return regex.IsMatch(password);
+        }
+
         [HttpPost]
         [Route("dang-nhap")]
         [ValidateAntiForgeryToken]
@@ -207,6 +216,13 @@ namespace Web.Controllers
         {
             try
             {
+                if (!ValidatePasswordComplexity(member.password))
+                {
+                    ViewData["Error"] = "Mật khẩu phải có ít nhất 8 ký tự, chứa chữ cái thường, chữ hoa, số và ký tự đặc biệt!";
+                    GetDataMenu();
+                    return View(member);
+                }
+
                 member.password = EncryptExtensions.Hash(member.password, null);
 
                 var check = commonService.AccountLogin(member);

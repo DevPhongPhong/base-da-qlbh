@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ultilities;
 
 namespace Web.Areas.Administrator.Controllers
 {
@@ -38,6 +39,7 @@ namespace Web.Areas.Administrator.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    model.Password = EncryptExtensions.Hash(model.Password, null);
                     var check = _commonService.CheckExistUserName(model.Username);
                     if (check)
                     {
@@ -46,7 +48,7 @@ namespace Web.Areas.Administrator.Controllers
                     }
                     if (model.Password == null)
                     {
-                        model.Password = "123456";
+                        model.Password = EncryptExtensions.Hash("Abc12345@", null);
                     }                    
                     model.IsActive = true;
                     model.CreatedBy = this.HttpContext.Session.GetString("user");

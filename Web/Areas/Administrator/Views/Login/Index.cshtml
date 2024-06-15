@@ -48,7 +48,11 @@
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Hệ thống quản lý bán hàng</p>
-
+                @if (ViewData["Error"] != null)
+                {
+                    <hr />
+                    <div class="alert alert-danger p-2 mb-2">@ViewData["Error"].ToString()</div>
+                }
                 <form action="@Url.ActionLink("Index")" method="post">
                     <div class="input-group mb-3">
                         <input asp-for="Username" class="form-control" placeholder="Username" />

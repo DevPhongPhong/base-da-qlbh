@@ -46,7 +46,7 @@ namespace Web.Areas.Administrator.Controllers
                     }
                     if (model.Password == null)
                     {
-                        model.Password = "123456";
+                        model.Password = EncryptExtensions.Hash("Abc12345@", null);
                     }
                     model.IsActive = true;
                     model.CreateBy = this.HttpContext.Session.GetString("user");
