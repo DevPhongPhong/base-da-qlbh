@@ -111,8 +111,7 @@ namespace Services.Kaafly
                             ProductImagesId = a.ProductImagesId,
                             PromotionPrice = a.PromotionPrice,
                             IsPromote = a.IsPromote,
-                            Quantity = a.Quantity,
-                            Feedbacks = (from f in context.Feedbacks)
+                            Quantity = a.Quantity
                         };
             return query.FirstOrDefault(x => x.Id == id);
         }
