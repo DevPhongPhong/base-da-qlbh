@@ -45,12 +45,13 @@
 </script>
 <script>
     function moneyFormat(price, sign = ' đ') {
-        const pieces = parseFloat(price).toFixed(1).split('')
-        let ii = pieces.length - 3
-        while ((ii -= 3) > 0) {
-            pieces.splice(ii, 0, ',')
+        const pieces = Math.round(price).toString().split('');
+        let ii = pieces.length - 3;
+        while (ii > 0) {
+            pieces.splice(ii, 0, ',');
+            ii -= 3;
         }
-        return pieces.join('') + sign
+        return pieces.join('') + sign;
     }
     function SetChartNgay() {
         var DonHangMoi = 0;
